@@ -6,7 +6,6 @@ const port = 8765;
 
 app.set("view engine", "ejs");
 
-
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')))
 
@@ -16,19 +15,10 @@ const db = mysql.createConnection({
   password: "root",
   database: "exam_system",
 });
-
-// Connect to the database
-db.connect((err) => {
-  if (err) {
-    throw err;
-  }
-  console.log("Connected to database");
-});
+db.connect();
 
 app.get('/', (req, res) => {
-  
-    res.render("dashboard")
-  });
-  
+  res.render("dashboard")
+});
 
-  app.listen(port, () => console.log(`  port connected to ${port}!`))
+app.listen(port, () => console.log(`  port connected to ${port}!`))
