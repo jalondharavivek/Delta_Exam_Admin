@@ -16,8 +16,16 @@ const db = mysql.createPool({
   database: "exam_system",
 });
 
+app.get('/category',async (req, res) => {
+  let sql = "SELECT category_name,category_status,FORMAT(Date(created_date),'yyyy/mm/dd') AS Created_Date FROM category";
+  
+  let [query] = await db.query(sql);
+  console.log(query);
+  res.render('category',{data : query});
+})
 
 app.get('/', (req, res) => {
+
   res.render("dashboard")
 });
 
