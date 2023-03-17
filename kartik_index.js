@@ -25,10 +25,21 @@ db.connect((err) => {
   console.log("Connected to database");
 });
 
-app.get('/', (req, res) => {
+app.get('/dashboard', (req, res) => {
   
     res.render("dashboard")
   });
+
+  app.get('/category', (req, res) => {
   
+    res.render("category")
+  });
+
+  app.get('/user', (req, res) => {
+  
+    res.render("user")
+  });
+
+
 
   app.listen(port, () => console.log(`  port connected to ${port}!`))
