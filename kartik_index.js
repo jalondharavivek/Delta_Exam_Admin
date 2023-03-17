@@ -21,6 +21,13 @@
    res.render('category',{data : query});
  })
 
+ //Question 
+ app.get('/question',async (req, res) => {
+   res.render('question');
+ })
+
+
+
   app.get('/', (req, res) => {
     res.render("dashboard")
  });
