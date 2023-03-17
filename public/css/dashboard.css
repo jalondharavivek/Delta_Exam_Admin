@@ -61,7 +61,8 @@ cursor: pointer;
 .logosec {
 display: flex;
 align-items: center;
-justify-content: center;
+justify-content: right;
+margin-bottom : 15px;
 }
 
 .searchbar2 {
@@ -147,6 +148,11 @@ width: 5px;
 background-color: #9e9e9eb2;
 }
 
+a
+{
+    text-decoration: none;
+}
+
 .box-container {
 display: flex;
 justify-content: space-evenly;
@@ -199,7 +205,7 @@ height: 60px;
 display: flex;
 align-items: center;
 padding: 0 30px 0 20px;
-gap: 20px;
+gap: 10px;
 transition: all 0.1s ease-in-out;
 }
 .nav-option:hover {
