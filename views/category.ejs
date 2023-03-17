@@ -1,106 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Category</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
 </head>
-
-<link rel="stylesheet" href="/css/dashboard.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
- <body>
-
-    <!-- for header part -->
-    <header>
-
-        <div class="logosec">
-            <div class="logo">admin panel</div>
-            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
-                class="icn menuicn" id="menuicn" alt="menu-icon">
-
-
-        </div>
-
-
-        <div class="message">
-            <div class="circle"></div>
-
-
-            <div class="dp">
-                <a href="#" class="display-picture"><img src="https://i.pravatar.cc/85" alt=""></a><!--Profile Image-->
-                </ul>
-                <div class="card hidden"><!--ADD TOGGLE HIDDEN CLASS ATTRIBUTE HERE-->
-                    <ul><!--MENU-->
-                        <li><a href="#">Profile</li></a>
-                        <li><a href="#">Account</li></a>
-                        <li><a href="#">Settings</li></a>
-                        <li><a href="#">Log Out</li></a>
-                    </ul>
-                </div>
-
-
-
-            </div>
-        </div>
-        </div>
-
-    </header>
-
+<script src="/js/dashboard.js"></script>
+<body>
+    <%- include('header'); -%>
     <div class="main-container">
-        <div class="navcontainer">
-            <nav class="nav">
-                <ul>
-                    <div class="nav-upper-options">
-                        <li class="nav-option option1">
-                            <i class="fa-solid fa-house"></i>
-                            <a href="#" class="btn active">
-                                <h3> Dashboard</h3>
-                            </a>
-                        </li>
-
-                        <li class="option2 nav-option">
-                            <i class="fa-solid fa-bars"></i>
-                            <a href="/category" class="btn">
-                                <h3> category</h3>
-                            </a>
-                        </li>
-                        <li class="option2 nav-option">
-                            <i class="fa-sharp fa-regular fa-circle-question"></i>
-                            <a href="#" class="btn">
-                                <h3> question</h3>
-                            </a>
-                        </li>
-                        <li class="option2 nav-option">
-                            <i class="fa-regular fa-user"></i>
-                            <a href="#" class="btn">
-                                <h3>user</h3>
-                            </a>
-                        </li>
-                        <li class="nav-option option">
-                            <i class="fa-solid fa-clipboard"></i>
-                            <a href="#" class="btn">
-                                <h3>create exam</h3>
-                            </a>
-                        </li>
-                        <li class="nav-option option">
-                            <i class="fa-sharp fa-solid fa-square-poll-vertical"></i>
-                            <a href="#" class="btn">
-                                <h3> result</h3>
-                            </a>
-                        </li>
-
-
-                    </div>
-
-                </ul>
-
-            </nav>
+        <%- include('nav'); -%>
+        <div class="main">
+            <h1>Category</h1>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Category Name</th>
+                    <th>Status</th>
+                    <th>Created Date</th>
+                </tr>
+                <% let id=1; %>
+                <% data.forEach(c => { %>
+                    <tr>
+                        <td><%= id++ %></td>
+                        <td><%= c.category_name %></td>
+                        <td><a href="" class="">Enable</a></td>
+                        <td><%= c.created_date %></td>
+                    </tr>
+                    <% }); %>
+            </table>
         </div>
     </div>
-        </body>
-        <script src="/js/dashboard.js"></script>
+</body>
 
 </html>

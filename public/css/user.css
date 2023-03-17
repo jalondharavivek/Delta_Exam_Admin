@@ -1,0 +1,12 @@
+
+    tr,
+    th,
+    td {
+        padding: 5px;
+        border: 2px solid black;
+    }
+    .btnn{
+        padding: 4px;
+        border-radius: 10px;
+    }
+

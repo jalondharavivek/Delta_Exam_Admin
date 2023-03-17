@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+</head>
+
+
+<body>
+    <%- include('header'); -%>
+        <div class="main-container">
+            <%- include('nav'); -%>
+                <div class="main">
+
+                    <form action="/edit" method="post">
+                        <table id="row" align="center">
+                            <tbody id="tbody">
+
+                                <tr>
+                                    <th>student_id</th>
+                                    <th>name</th>
+                                    <th>email</th>
+                                    <th>contact</th>
+                                    <th>gender</th>
+                                    <th>address</th>
+                                    <th>status</th>
+                                    <th>city</th>
+                                    <th>college_id</th>
+                                    <th>created_date</th>
+                                    <th>action</th>
+
+                                </tr>
+
+                                <%for(let i=0; i<student.length; i++) {%>
+                                    <tr>
+                                        <td>
+                                            <%=student[i].student_id%>
+                                        </td>
+                                        <td>
+                                            <%=student[i].name%>
+                                        </td>
+                                        <td>
+                                            <%=student[i].email%>
+                                        </td>
+                                        <td>
+                                            <%=student[i].contact%>
+                                        </td>
+                                        <td>
+                                            <%=student[i].gender%>
+                                        </td>
+                                        <td>
+                                            <%=student[i].address%>
+                                        </td>
+
+                                        <td>
+                                            <a href="" class="btnn" id="status"><%=student[i].student_status%></a>
+                                        </td>
+                                        <td>
+                                            <%=student[i].city%>
+                                        </td>
+                                        <td>
+                                            <%=student[i].college_id%>
+                                        </td>
+                                        <td>
+                                            <%= (new Date(student[i].created_date).toLocaleDateString()) %>
+
+                                        </td>
+                                        <td>
+                                            <a href="/edit/:id=<%=student[i].student_id%>">edit detail</a>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+
+
+                            </tbody>
+                        </table>
+
+                        <div>
+                            <!-- <input align="center" type="submit" name="submit" id="submit"> -->
+                            <!-- <span align="center" id="add" onclick="addRow()">+</span><br> -->
+                        </div>
+
+
+                    </form><br>
+                </div>
+
+        </div>
+        </div>
+</body>
+
+<!-- <script>
+   
+
+    sts = document.querySelectorAll('#status');
+    console.log(sts);
+    sts.forEach(e => {
+        console.log(e);
+        console.log(e.innerHTML);
+
+        if (e.innerHTML == '0') {
+            console.log("if")
+            e.innerHTML = 'DISABLE';
+            e.style.color = 'white';
+            e.style.backgroundColor = 'red';
+        }
+        else if (e.innerHTML == '1') {
+            console.log("else if")
+            e.innerHTML = 'ENABLE';
+            e.style.color = 'white';
+            e.style.backgroundColor = 'blue';
+
+        }
+    })
+
+
+    
+</script> -->
+
+<script src="/js/user.js"></script>
+<script src="/js/dashboard.js"></script>
+</html>

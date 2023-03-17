@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,
 				initial-scale=1.0">
-    <title>admin panel</title>
+    <title>online exam system</title>
 
 </head>
 
@@ -20,99 +20,20 @@
 <body>
 
     <!-- for header part -->
-    <header>
-
-        <div class="logosec">
-            <div class="logo">admin panel</div>
-            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
-                class="icn menuicn" id="menuicn" alt="menu-icon">
-
-
-        </div>
-
-
-        <div class="message">
-            <div class="circle"></div>
-
-
-            <div class="dp">
-               <img class="display-picture" src="https://i.pravatar.cc/85" alt=""></a><!--Profile Image-->
-            </ul>
-            <div class="card hidden">
-              <ul class="card hidden"><!--MENU-->
-                <li><a href="#">Profile</li></a>
-                <li><a href="#">Log0ut</li></a>
-              </ul>
-            </div>
-
-
-
-            </div>
-        </div>
-        </div>
-
-    </header>
+    <%- include('header'); -%>
 
     <div class="main-container">
-        <div class="navcontainer">
-            <nav class="nav">
-                <ul>
-                    <div class="nav-upper-options">
-                        <li class="nav-option option1">
-                            <i class="fa-solid fa-house"></i>
-                            <a href="#" class="btn active">
-                                <h3> Dashboard</h3>
-                            </a>
-                        </li>
-
-                        <li class="option2 nav-option">
-                            <i class="fa-solid fa-bars"></i>
-                            <a href="/category" class="btn">
-                                <h3> category</h3>
-                            </a>
-                        </li>
-                        <li class="option2 nav-option">
-                            <i class="fa-sharp fa-regular fa-circle-question"></i>
-                            <a href="#" class="btn">
-                                <h3> question</h3>
-                            </a>
-                        </li>
-                        <li class="option2 nav-option">
-                            <i class="fa-regular fa-user"></i>
-                            <a href="#" class="btn">
-                                <h3>user</h3>
-                            </a>
-                        </li>
-                        <li class="nav-option option">
-                            <i class="fa-solid fa-clipboard"></i>
-                            <a href="#" class="btn">
-                                <h3>create exam</h3>
-                            </a>
-                        </li>
-                        <li class="nav-option option">
-                            <i class="fa-sharp fa-solid fa-square-poll-vertical"></i>
-                            <a href="#" class="btn">
-                                <h3> result</h3>
-                            </a>
-                        </li>
-
-
-                    </div>
-
-                </ul>
-
-            </nav>
-        </div>
+        <%- include('nav'); -%>
         <div class="main">
 
-            <div class="searchbar2">
+            
+            <div class="searchbar">
                 <input type="text" name="" id="" placeholder="Search">
                 <div class="searchbtn">
                     <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
                         class="icn srchicn" alt="search-button">
                 </div>
             </div>
-
             <div class="box-container">
 
                 <div class="box box1">
@@ -165,5 +86,4 @@
 
 </body>
 <script src="/js/dashboard.js"></script>
-
 </html>
