@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+
+	<link rel="stylesheet" type="text/css" href="./css/forgot.css">
+</head>
+<body>
+	<div class="wrapper login">
+        <div class="container">
+			<div class="col-left">
+            </div>
+            <div class="col-right">
+         	 <div class="login-form">
+					<form >
+						<h1>Forgot Password</h1>
+						<p>Please enter your email address to reset your password:</p>
+						<label for="email">Email:</label>
+						<input type="email" id="email" name="email" onfocus="compare()" onblur="compare();"><br>
+						<span id="not_regi">admin are not registred</span>
+						<a href="/link_generate" value="Reset Password" id="btn" class="submit" >Genrate Link</a>
+						
+					</form>
+			</div>
+		</div>
+	</div>
+	<script src="./js/forgot.js"></script>
+</body>
+
+</html>
+
