@@ -6,35 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category</title>
     <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/category.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
 </head>
-<script src="/js/dashboard.js"></script>
 <body>
     <%- include('header'); -%>
     <div class="main-container">
         <%- include('nav'); -%>
         <div class="main">
-            <h1>Category</h1>
+            <div class="add-link">
+                <div class="searchbar">
+                    <input type="text" name="" id="" placeholder="Search">
+                    <div class="searchbtn">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png" class="icn srchicn" alt="search-button">
+                    </div>
+                </div>
+                <a class="add" onclick="addCategory()">ADD</a>
+            </div>
             <table>
                 <tr>
                     <th>ID</th>
                     <th>Category Name</th>
-                    <th>Status</th>
                     <th>Created Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
                 <% let id=1; %>
                 <% data.forEach(c => { %>
                     <tr>
                         <td><%= id++ %></td>
                         <td><%= c.category_name %></td>
-                        <td><a href="" class="">Enable</a></td>
-                        <td><%= c.created_date %></td>
+                        <td><%= (new Date(c.created_date).toLocaleDateString()) %></td>
+                        <td><a class="btnn" id="status" onclick="check(`<%= c.category_id %>`,`<%= c.category_status %>`);"><%= c.category_status %></a></td>
+                        <td><a class="edit-btn fas fa-edit" onclick="editCategory(`<%= c.category_id %>`)"> EDIT</a></td>
                     </tr>
                     <% }); %>
             </table>
+            <div class="dialogue">
+                <form action="/editcategory" method="post">
+                    <p>Enter Category Name</p>
+                    <input class="text" id="id" type="hidden" name="category_id" value="">
+                    <input class="text" id="text" type="text" name="category_name" value="" required>
+                    <input type="submit" class="yes input" value="Update">
+                    <botton class="no input">Cancel</botton>
+                </form>
+            </div>
+            <div class="dialogues">
+                <form action="/addcategory" method="post">
+                    <p>Enter Category Name</p>
+                    <input class="text" id="text" type="text" name="category_name" required>
+                    <input type="submit" class="yes input" value="Update">
+                    <botton class="no input">Cancel</botton>
+                </form>
+            </div>
         </div>
     </div>
 </body>
 
+<script src="/js/dashboard.js"></script>
+<script src="/js/category.js"></script>
 </html>
