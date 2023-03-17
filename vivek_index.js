@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const app = express();
 const mysql = require("mysql2/promise");
-const port = 8765;
+// const port = 8765;
 
 app.set("view engine", "ejs");
 
@@ -18,5 +18,9 @@ const db = mysql.createPool({
 app.get('/question', (req, res) => {
     res.render("question")
   });
+  app.get('/addquestion',(req,res)=>{
+    res.render("addquestion")
+  });
   
-  app.listen(port, () => console.log(`  port connected to ${port}!`))
+  // app.listen(port, () => console.log(`  port connected to ${port}!`))
+  module.exports = app; 

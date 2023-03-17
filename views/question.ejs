@@ -7,268 +7,144 @@
     <meta name="viewport" content="width=device-width,
 				initial-scale=1.0">
     <title>online exam system</title>
+    
 
 </head>
-<style>
-.content-main{
-    margin-top: 30px;
-    padding-left: 100px;
-    padding-right: 100px;
-    
-}
-.question-table{
-    margin-top: 30px;
-}
-table {
-    /* width: 100%; */
-    /* max-width: 800px; */
-    margin: 0 auto;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-thead {
-    background-color: #1b034b;
-    color: #fff;
-}
-
-thead th {
-    font-weight: bold;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f5f5f5;
-}
-
-tbody tr:hover {
-    background-color: #ddd;
-    cursor: pointer;
-}
 
 
-    .add-button {
-     /* position: fixed; 
-     top: 20px;
-    right: 20px;  */
-    background-color: rgb(194, 195, 196);
-    color: white;
-    border: none;
-    border-radius: 30%;
-    width: 30px;
-    height: 30px;
-    font-size: 24px;
-    cursor: pointer;
 
-}
-.button-card{
-    display: flex;
-justify-content: space-between;
-align-items: center;
-}
-.exam-button-row{
-    margin-left: 100px;
-}
-</style>
-
-
-<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/question.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'> 
 
 
 <body>
 
     <!-- for header part -->
-    <header>
-
-        <div class="logosec">
-            <div class="logo">online exam system</div>
-            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
-                class="icn menuicn" id="menuicn" alt="menu-icon">
-        </div>
+    <%- include('header'); -%>
 
 
-        <div class="message">
-            <div class="circle"></div>
+        <div class="main-container">
+            <!--nav bar add-->
+
+            <%- include('nav'); -%>
+                <div class="main">
 
 
-            <div class="dp">
-                <a href="#" id="myLink"><img src="/assets/image/profile.png" class="dpicon" alt="dp"></a>
-                <div id="myMenu" style="display: none;">
-                    <!-- Pop-up menu or dropdown list items go here -->
 
-                    logout
+                    <div class="content-main">
+                        <div class="content-heading">Question list</div>
+
+                        <div class="button-card">
+                            <div class="exam-button-row">
+                                <h3>Exam list</h3>
+                            </div>
+                            <div class="exam-button-row">
+                                <a href="/addquestion">add que</a>
+                                </div>
+                        </div>
+                        <div><input type="text" placeholder="search"></div>
+                        <div>
+
+                            <table class="question-table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Exam Name</th>
+                                        <th>Total Question</th>
+                                        <th>Exam time</th>
+                                        <th>Exam Access Code </th>
+                                        <th>Exam Status</th>
+                                        <th>Created Date</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Data 1</td>
+                                        <td>Data 2</td>
+                                        <td>Data fb ertbghdfb ergdefb efrbgefrb erfbgfrb 3</td>
+                                        <td>Datafgjhjhrtjhurtyhr 1</td>
+                                        <td>Data 2</td>
+                                        <td>Data rtyherthertherthert3</td>
+                                        <td>Data 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data 4</td>
+                                        <td>Data 5</td>
+                                        <td>Databrtgrbertbrtb 6</td>
+                                        <td>Data ertbgrg rtbfg rtgrt 1</td>
+                                        <td>Data ertherthrtherthert eryer2</td>
+                                        <td>Data 3</td>
+                                        <td>Data 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data 7</td>
+                                        <td>Datafbfrbrtegrtbert gdfge frgfghefr efrgfrgh 8</td>
+                                        <td>Data rb tgertgrttb9</td>
+                                        <td>Data 1</td>
+                                        <td>Data ertyhertyy2er4grtg54gt</td>
+                                        <td>Data 3</td>
+                                        <td>Data 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data 5r4g5tg5g547</td>
+                                        <td>Datyhertyertyertyertya 8</td>
+                                        <td>Data rtghrtgertbghet59</td>
+                                        <td>Data 1</td>
+                                        <td>Data 2</td>
+                                        <td>Data ertbghert 3</td>
+                                        <td>Data 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data rythytnhrtyhrythrthghghrh7</td>
+                                        <td>Dattbngthnyt a 8</td>
+                                        <td>Data 9</td>
+                                        <td>Data 1</td>
+                                        <td>Datartyrtyertyer 2</td>
+                                        <td>Data 3</td>
+                                        <td>Data rtyhrtyrty erty3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data 7</td>
+                                        <td>Data 8</td>
+                                        <td>Data 9</td>
+                                        <td>Data 1</td>
+                                        <td>Data 2</td>
+                                        <td>Data 3</td>
+                                        <td>Data 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data 7</td>
+                                        <td>Dataerhrthrthrtyhrt 8</td>
+                                        <td>Dathertherthy tyhertya 9</td>
+                                        <td>Data 354y54y34 5 yu54y 1</td>
+                                        <td>Data 354y54 4 2</td>
+                                        <td>Data m rtyhertyertyertyerty3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Datayertyer rtyertyertyert eryweryhy 7</td>
+                                        <td>Data ertyertyertyerty erghe t 8</td>
+                                        <td>Data e ryertyeryh yery 9</td>
+                                        <td>Data yeryeywery 1</td>
+                                        <td>Dataer yrt yrty rtyt 2</td>
+                                        <td>Data yheryeryyeryey 3</td>
+                                        <td>Data erth ertrtyh 5 3</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+
+
+
+                    </div>
                 </div>
-            </div>
         </div>
-
-    </header>
-
-    <div class="main-container">
-        <div class="navcontainer">
-            <nav class="nav">
-                <div class="nav-upper-options">
-                    <div class="nav-option option1">
-                        <i class="fa-solid fa-house"></i>
-                        <a href="/" class="btn active">
-                            <h3> Dashboard</h3>
-                        </a>
-                    </div>
-
-                    <div class="option2 nav-option">
-                        <i class="fa-solid fa-bars"></i>
-                        <a href="" class="btn">
-                            <h3> category</h3>
-                        </a>
-                    </div>
-                    <div class="option2 nav-option">
-                        <i class="fa-sharp fa-regular fa-circle-question"></i>
-                        <a href="/question" class="btn">
-                            <h3> question</h3>
-                        </a>
-                    </div>
-                    <div class="option2 nav-option">
-                        <i class="fa-regular fa-user"></i>
-                        <a href="" class="btn">
-                            <h3>user</h3>
-                        </a>
-                    </div>
-                    <div class="nav-option option">
-                        <i class="fa-solid fa-clipboard"></i>
-                        <a href="" class="btn">
-                            <h3>create exam</h3>
-                        </a>
-                    </div>
-                    <div class="nav-option option">
-                        <i class="fa-sharp fa-solid fa-square-poll-vertical"></i>
-                        <a href="" class="btn">
-                            <h3> result</h3>
-                        </a>
-                    </div>
-
-
-                </div>
-            </nav>
-        </div>
-        <div class="main">
-        <div class="content-main">
-            <div class="content-heading">Question list</div>
-
-            <div class="button-card">
-                <div  class="exam-button-row">
-                    <h3>Exam list</h3>
-                </div>
-                <div  class="exam-button-row">
-                    <button class="add-button">+</button>
-                </div>
-            </div>
-               <div><input type="text" placeholder="search"></div>
-          <div>
-
-            <table class="question-table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Exam Name</th>
-                        <th>Total Question</th>
-                        <th>Exam time</th>
-                        <th>Exam Access Code  </th>
-                        <th>Exam Status</th>
-                        <th>Created Date</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Data 1</td>
-                        <td>Data 2</td>
-                        <td>Data fb ertbghdfb ergdefb efrbgefrb erfbgfrb 3</td>
-                        <td>Datafgjhjhrtjhurtyhr 1</td>
-                        <td>Data 2</td>
-                        <td>Data rtyherthertherthert3</td>
-                        <td>Data 3</td>
-                    </tr>
-                    <tr>
-                        <td>Data 4</td>
-                        <td>Data 5</td>
-                        <td>Databrtgrbertbrtb 6</td>
-                        <td>Data  ertbgrg rtbfg rtgrt 1</td>
-                        <td>Data ertherthrtherthert eryer2</td>
-                        <td>Data 3</td>
-                        <td>Data 3</td>
-                    </tr>
-                    <tr>
-                        <td>Data 7</td>
-                        <td>Datafbfrbrtegrtbert gdfge frgfghefr efrgfrgh 8</td>
-                        <td>Data rb tgertgrttb9</td>
-                        <td>Data 1</td>
-                        <td>Data ertyhertyy2er4grtg54gt</td>
-                        <td>Data 3</td>
-                        <td>Data 3</td>
-                    </tr>
-                    <tr>
-                        <td>Data 5r4g5tg5g547</td>
-                        <td>Datyhertyertyertyertya 8</td>
-                        <td>Data  rtghrtgertbghet59</td>
-                        <td>Data 1</td>
-                        <td>Data 2</td>
-                        <td>Data ertbghert 3</td>
-                        <td>Data 3</td>
-                    </tr>
-                    <tr>
-                        <td>Data rythytnhrtyhrythrthghghrh7</td>
-                        <td>Dattbngthnyt a 8</td>
-                        <td>Data 9</td>
-                        <td>Data 1</td>
-                        <td>Datartyrtyertyer 2</td>
-                        <td>Data 3</td>
-                        <td>Data rtyhrtyrty erty3</td>
-                    </tr>
-                    <tr>
-                        <td>Data 7</td>
-                        <td>Data 8</td>
-                        <td>Data 9</td>
-                        <td>Data 1</td>
-                        <td>Data 2</td>
-                        <td>Data 3</td>
-                        <td>Data 3</td>
-                    </tr>
-                    <tr>
-                        <td>Data 7</td>
-                        <td>Dataerhrthrthrtyhrt 8</td>
-                        <td>Dathertherthy tyhertya 9</td>
-                        <td>Data  354y54y34 5 yu54y 1</td>
-                        <td>Data  354y54 4 2</td>
-                        <td>Data m rtyhertyertyertyerty3</td>
-                    </tr>
-                    <tr>
-                        <td>Datayertyer rtyertyertyert eryweryhy  7</td>
-                        <td>Data  ertyertyertyerty erghe t 8</td>
-                        <td>Data e ryertyeryh  yery  9</td>
-                        <td>Data yeryeywery 1</td>
-                        <td>Dataer yrt yrty rtyt  2</td>
-                        <td>Data yheryeryyeryey 3</td>
-                        <td>Data erth ertrtyh 5 3</td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-
-
-          </div>
-
-
-
-
-        </div>
-
-        </div>
-    </div>
 </body>
 
 <script src="/js/dashboard.js"></script>

@@ -4,9 +4,20 @@
  const mysql = require("mysql2/promise");
  const port = 8765;
  app.set("view engine", "ejs");
-
+ 
  app.use(express.static('public'));
  app.use(express.static(path.join(__dirname, '/public')))
+
+const vivek_indexfile = require('./vivek_index')
+app.use("/",vivek_indexfile)
+
+
+
+
+
+
+
+
  const db = mysql.createPool({
  host: "localhost",
  user: "root",
@@ -24,8 +35,5 @@
   app.get('/', (req, res) => {
     res.render("dashboard")
  });
-app.get('/question', (req, res) => {
-  res.render("question")
-});
 
   app.listen(port, () => console.log(`  port connected to ${port}!`))
