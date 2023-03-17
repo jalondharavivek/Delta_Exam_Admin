@@ -61,7 +61,8 @@ cursor: pointer;
 .logosec {
 display: flex;
 align-items: center;
-justify-content: center;
+justify-content: right;
+margin-bottom : 15px;
 }
 
 .searchbar2 {
@@ -134,6 +135,7 @@ width: 100%;
 overflow-y: scroll;
 overflow-x: hidden;
 padding: 40px 30px 30px 30px;
+border: 1px solid red;
 }
 
 .main::-webkit-scrollbar-thumb {
@@ -145,6 +147,11 @@ width: 5px;
 }
 .main::-webkit-scrollbar-track {
 background-color: #9e9e9eb2;
+}
+
+a
+{
+    text-decoration: none;
 }
 
 .box-container {
@@ -185,7 +192,7 @@ width: 80px;
 
 .option1 {
  
-    background-color:#ccf3c0af;
+    background-color:#28441faf;
     color: white;
     cursor: pointer;
   }
@@ -199,7 +206,7 @@ height: 60px;
 display: flex;
 align-items: center;
 padding: 0 30px 0 20px;
-gap: 20px;
+gap: 10px;
 transition: all 0.1s ease-in-out;
 }
 .nav-option:hover {

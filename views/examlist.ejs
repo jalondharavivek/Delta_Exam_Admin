@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exam</title>
+    <link rel="stylesheet" href="/css/exam.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+
+</head>
+<!-- <script src="/js/exam.js"></script> -->
+
+<body>
+    <%- include('header'); -%>
+        <div class="main-container">
+            <%- include('nav'); -%>
+                <div class="main">
+
+                    <div class="header">
+                        <h1>Online Student Examination System Project</h1>
+                    </div>
+
+
+                    <div class="header2">
+                        <h2>exam management</h2>
+
+                    </div>
+
+
+
+                    <!-- <div class="exam_main">
+                        <div class="combine">
+                            <div class="one">
+                                <label for="">ADD EXAM</label>
+                            </div>
+                            <form action="/exam" method="post">
+                                <div class="two">
+                                    <div class="input_taker">
+                                        <label for="exam_name" class="labelofInput"> exam name: </label>
+                                        <input type="text" name="exam_name" id="" placeholder="enter exam name"
+                                            class="input_tag" required>
+
+                                    </div>
+                                    <div class="input_taker">
+                                        <label for="" class="labelofInput"> category :</label>
+                                        <select name="category" id="category_select" selected checked read-only> -->
+                    <!-- <option value="">APPTITUDE</option>
+                                    <option value="">VERBAL</option>
+                                    <option value="">LOGICAL</option>
+                                    <option value="">OOPS</option>s
+                                    <option value="">DSA</option>-->
+                    <!-- </select>
+
+
+                                    </div>
+
+                                    <div class="input_taker">
+                                        <label for="question" class="labelofInput">no of questions: </label>
+                                        <input type="text" name="question" id="" placeholder="enter no of questions"
+                                            class="input_tag" required>
+
+                                    </div>
+                                    <div class="input_taker">
+                                        <label for="time" class="labelofInput"> time limit: </label>
+
+                                        <input type="text" name="time" id="" placeholder="enter time limit"
+                                            class="input_tag" required>
+                                        <label for="" class="extra_label">(adding time limit in minutes)</label>
+
+                                    </div> -->
+
+                    <!-- <div class="input_taker">
+                                <label for="passing_mark" class="labelofInput"> passing marks: </label>
+                                <input type="text" name="passing_mark" id="" placeholder="enter passing marks" class="input_tag"
+                                    required>
+        
+                            </div> -->
+                    <!-- <div class="input_taker">
+                                        <label for="start_date" class="labelofInput"> start date: </label>
+                                        <input type="date" name="start_date" id="" placeholder="enter start date"
+                                            class="input_tag" required>
+
+                                    </div> -->
+                    <!-- <div class="input_taker">
+                                <label for="exam_date" class="labelofInput"> end date: </label>
+                                <input type="date" name="end_date" id="" placeholder="enter end date" class="input_tag"
+                                    required>
+        
+                            </div> -->
+
+                    <!-- </div>
+                                <div class="save_div">
+
+                                    <input type="submit" id="save_btn" value="SAVE">
+
+
+                                </div>
+                            </form>
+
+
+                        </div> -->
+                    <div id="heading">
+                        <div class="heading1">
+                            <label for="">Exam List</label>
+
+                        </div>
+                        <div class="heading2">
+                            <input type="text" name="search" id="search" placeholder="serch">
+                            <a href="/exam"><i class="fa-solid fa-circle-plus" id="i"></i></a>
+                        </div>
+                    </div>
+                    <div class="exam_listing">
+                        <table>
+
+                            <tr>
+                                <th>Sr .No</th>
+                                <th>exam_name</th>
+                                <th>category</th>
+                                <th>total_questions</th>
+                                <th>time_limit</th>
+                                <th>start date</th>
+                                <th>exam statuss</th>
+                                <th>edit</th>
+                                <!-- <th>delete</th> -->
+
+                            </tr>
+                            <% for(let i=0;i<data1.length;i++){ %>
+                                <input type="text" value="<%=data1[i].exam_id%>" hidden>
+                                <tr>
+                                    <td>
+                                        <div class="td">
+                                        <%=(i+1)%>
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td">
+                                        <%=data1[i].exam_name%>
+
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div class="td">
+                                        <%=data1[i].category_id%>
+
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div class="td">
+                                        <%=data1[i].total_questions%>
+
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div class="td">
+                                        <%=data1[i].exam_time%>
+
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div class="td">
+                                        <%=data1[i].exam_date%>
+
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                       
+
+                                        <div id="toggle">
+                                            <a href="/exam/status?status=<%=data1[i].exam_status%>&id=<%=data1[i].exam_id%>" class="btnn" id="status"><%=data1[i].exam_status%></a>
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        
+
+                                        <div class="edit">
+                                                <a href="/edit?exam_id=<%=data1[i].exam_id%>">edit</a>
+
+                                        </div>
+                                    </td>
+                                    <!-- <td>
+                                        <a href="/delete?exam_id=<%=data1[i].exam_id%>">delete</a>
+                                    </td> -->
+                                </tr>
+                                <% }%>
+                        </table>
+                        <% if(curpage==1){ %>
+                            <a href="#">prev</a>
+                            <%}else{%>
+                            <a href="/examlist?num=<%=curpage-1%>">prev</a>
+                            <% } %>
+                        
+                            <% for(let i=1;i<=count ;i++){ %>
+                            <% if(curpage==i){ %>
+                            <a href="#"><b><%=i%></b></a>
+                            <%}else{%>
+                            <a href="/examlist?num=<%=i%>"><%=i%></a>
+                            <%}%>
+                            <%}%>
+                        
+                        
+                            <%if(curpage==count){ %>
+                            <a href="#">next</a>
+                            <%}else{%>
+                            <a href="/examlist?num=<%=curpage+1%>">next</a>
+                            <%}%>
+                    </div>
+                   
+                </div>
+        </div>
+        </div>
+
+      
+</body>
+<script>
+
+    let category_select = document.getElementById('category_select');
+
+
+    categortFetch();
+    function categortFetch() {
+        fetch('/categories').then(res => res.json()).then(data => {
+            // console.log("data", data)
+            // console.log(data.arr.length);
+            // console.log(data.arr2.length);
+
+            for (let i = 0; i < data.arr.length; i++) {
+                // console.log(data.arr[i])
+                // console.log(data.arr2[i])
+                category_select.innerHTML += ` <option value="${data.arr2[i]}">${data.arr[i]}</option>`;
+
+            }
+
+        }).catch(err => console.log(err));
+    }
+
+    // const btn = document.getElementById("toggle-btn");
+
+    // let isToggled = false;
+
+    // btn.addEventListener("click", () => {
+    //     if (isToggled) {
+    //         console.log("if triggred")
+    //         btn.classList.remove("active");
+    //         isToggled = false;
+    //     } else {
+    //         console.log("else triggred")
+    //         btn.classList.add("active");
+    //         isToggled = true;
+    //     }
+    // });
+
+
+    sts = document.querySelectorAll('#status');
+    
+    sts.forEach(e => {
+        
+
+        if (e.innerHTML == '0') {
+           
+            e.innerHTML = 'DISABLE';
+            e.style.color = 'white';
+            e.style.backgroundColor = 'red';
+        }
+        else if (e.innerHTML == '1') {
+            
+            e.innerHTML = 'ENABLE';
+            e.style.color = 'white';
+            e.style.backgroundColor = 'blue';
+
+        }
+    })
+
+
+</script>
+
+</html>
