@@ -51,88 +51,37 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Exam Name</th>
-                                        <th>Total Question</th>
-                                        <th>Exam time</th>
-                                        <th>Exam Access Code </th>
-                                        <th>Exam Status</th>
-                                        <th>Created Date</th>
+                                        <th>Category</th>
+                                        <th>Question</th>
+                                        <th>Option A</th>
+                                        <th>Option B</th>
+                                        <th>Option c</th>
+                                        <th>Option D</th>
+                                        <th>Answer</th>
+                                        <th>Action</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%= console.log(data,"question table data in ejs log") %>; 
+                                    <% let id=1; %>
+                                    <% for(var i=0 ; i<data.length ; i++) { %>
                                     <tr>
-                                        <td>Data 1</td>
-                                        <td>Data 2</td>
-                                        <td>Data fb ertbghdfb ergdefb efrbgefrb erfbgfrb 3</td>
-                                        <td>Datafgjhjhrtjhurtyhr 1</td>
-                                        <td>Data 2</td>
-                                        <td>Data rtyherthertherthert3</td>
-                                        <td>Data 3</td>
+                                        <td><%= id++ %></td>
+                                        <td> ad </td>
+                                        <td><%=data[i].question_text%></td>
+                                        <td><%=data[i].option_a%></td>
+                                        <td><%=data[i].option_b%></td>
+                                        <td><%=data[i].option_c%></td>
+                                        <td><%=data[i].option_d%></td>
+                                        <td class="answercolor"><%=data[i].answer%></td>
+                                        <td>
+                                            <a href="editquestion?question_id=<%= data[i].question_id %>" class="edit-btn">Edit</a>
+                                            <a href="/exam/status?status=<%=data[i].exam_status%>&id=<%=data[i].exam_id%>" onclick="deletquestion(`<%= data[i].question_id %>`)" class="delete-btn">Delete</a>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>Data 4</td>
-                                        <td>Data 5</td>
-                                        <td>Databrtgrbertbrtb 6</td>
-                                        <td>Data ertbgrg rtbfg rtgrt 1</td>
-                                        <td>Data ertherthrtherthert eryer2</td>
-                                        <td>Data 3</td>
-                                        <td>Data 3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Data 7</td>
-                                        <td>Datafbfrbrtegrtbert gdfge frgfghefr efrgfrgh 8</td>
-                                        <td>Data rb tgertgrttb9</td>
-                                        <td>Data 1</td>
-                                        <td>Data ertyhertyy2er4grtg54gt</td>
-                                        <td>Data 3</td>
-                                        <td>Data 3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Data 5r4g5tg5g547</td>
-                                        <td>Datyhertyertyertyertya 8</td>
-                                        <td>Data rtghrtgertbghet59</td>
-                                        <td>Data 1</td>
-                                        <td>Data 2</td>
-                                        <td>Data ertbghert 3</td>
-                                        <td>Data 3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Data rythytnhrtyhrythrthghghrh7</td>
-                                        <td>Dattbngthnyt a 8</td>
-                                        <td>Data 9</td>
-                                        <td>Data 1</td>
-                                        <td>Datartyrtyertyer 2</td>
-                                        <td>Data 3</td>
-                                        <td>Data rtyhrtyrty erty3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Data 7</td>
-                                        <td>Data 8</td>
-                                        <td>Data 9</td>
-                                        <td>Data 1</td>
-                                        <td>Data 2</td>
-                                        <td>Data 3</td>
-                                        <td>Data 3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Data 7</td>
-                                        <td>Dataerhrthrthrtyhrt 8</td>
-                                        <td>Dathertherthy tyhertya 9</td>
-                                        <td>Data 354y54y34 5 yu54y 1</td>
-                                        <td>Data 354y54 4 2</td>
-                                        <td>Data m rtyhertyertyertyerty3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Datayertyer rtyertyertyert eryweryhy 7</td>
-                                        <td>Data ertyertyertyerty erghe t 8</td>
-                                        <td>Data e ryertyeryh yery 9</td>
-                                        <td>Data yeryeywery 1</td>
-                                        <td>Dataer yrt yrty rtyt 2</td>
-                                        <td>Data yheryeryyeryey 3</td>
-                                        <td>Data erth ertrtyh 5 3</td>
-                                    </tr>
-
+            <% } %>
+            
                                 </tbody>
                             </table>
 
@@ -148,5 +97,7 @@
 </body>
 
 <script src="/js/dashboard.js"></script>
+
+<script src="/js/question.js"></script>
 
 </html>

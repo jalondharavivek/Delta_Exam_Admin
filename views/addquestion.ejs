@@ -26,55 +26,60 @@
                     <div class="content-main">
 
 
-
                         <div class="form-container">
                             <h2>Add Question</h2>
-                            <form class="add-question-form">
-                                <label for="quiz">cateories:</label>
-                                <select id="quiz" name="quiz" required>
-                                    <option value="">select Categories/option>
-                                        <!-- Add quiz options here -->
-                                </select>
+                            <form class="add-question-form" method="post" action="/addquestion">
+                                <div class="form-container"> 
+                                <%= console.log(data); %>
+                                    <%= console.log("category data in ejs"); %>
 
-                                <label for="question">Question:</label>
-                                <textarea id="question" name="question" rows="3" required></textarea>
+                                        <input type="hidden">
+                                        <label for="category">cateories:</label>
 
-                                <label for="option_a">Option A:</label>
-                                <input type="text" id="option_a" name="option_a" required>
-
-                                <label for="option_b">Option B:</label>
-                                <input type="text" id="option_b" name="option_b" required>
-
-                                <label for="option_c">Option C:</label>
-                                <input type="text" id="option_c" name="option_c" required>
-
-                                <label for="option_d">Option D:</label>
-                                <input type="text" id="option_d" name="option_d" required>
-
-                                <label for="correct_option">Correct Option:</label>
-                                <select id="correct_option" name="correct_option" required>
-                                    <option value="">Select Correct Option</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
-                                    <option value="C">C</option>
-                                    <option value="D">D</option>
-                                </select>
-
-
-                         <input type="submit" value="submit">
+                                        <select id="category" name="category">
+                                            <option value="">select Categories </option>
+                                            <%for(i=0 ; i< data.length ; i++){%>
+                                                <option value="<%=data[i].category_id%>">
+                                                    <%= data[i].category_name%>
+                                                </option>
+                                                <%}%>
+                                        </select>
+                                        <label for="question">Question:</label>
+                                        <textarea id="question" name="question_text" rows="3" required></textarea>
+                                
+                                        <label for="option_a">Option A:</label>
+                                        <input type="text" id="option_a" name="option_a" required>
+                                
+                                        <label for="option_b">Option B:</label>
+                                        <input type="text" id="option_b" name="option_b" required>
+                                
+                                        <label for="option_c">Option C:</label>
+                                        <input type="text" id="option_c" name="option_c" required>
+                                
+                                        <label for="option_d">Option D:</label>
+                                        <input type="text" id="option_d" name="option_d" required>
+                                
+                                        <label for="correct_option">Correct Option:</label>
+                                        <select id="correct_option" name="answer" required>
+                                            <option value="">Select Correct Option</option>
+                                         </select>
+                                    </div>
+                                        <input type='submit' value ='submit' name='submit'>        
+                                        <a href="/question" class="button"> Cancle </a> 
+                                         
+                                        <!-- <label for="question">No of Question</label>
+                                        <input type="text" name="total_question" id="total_question"> -->
+                                        
+                                        <!-- <button type="button" onclick="addQuestions()">Add Questions</button> -->
+                                        <!-- <div id="questions"></div> -->
+                                       
+                                        <!-- <input type="submit" id="add_que" name="add_que" value="add que"> -->
                             </form>
                         </div>
-
-
-
-
-
-
-
                     </div>
-
                 </div>
         </div>
 </body>
+<script src="/js/addquestion.js"></script>
 
 </html>
