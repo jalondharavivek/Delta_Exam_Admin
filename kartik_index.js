@@ -116,8 +116,8 @@ app.get('/search',async (req, res) => {
 
   let srch = `select * from category where category_name like '%${name}%' limit ${startindex},${endindex}`;
   let [query1] = await db.query(srch);
-
-  res.json({query, });
+  res.json({search : query1,data : query, page: page, total: result1[0].total, limit: limit, pages : pages1 });
+  // res.json({query});
 
 })  
 

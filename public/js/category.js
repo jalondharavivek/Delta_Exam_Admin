@@ -131,24 +131,25 @@ async function search(name)
     let result = await fetch(`http://localhost:8765/search?name=${name}`);
     let data = await result.json();
     let table = document.getElementById("myTable");
-    table.innerHTML = `<tr>
+    let html = `<tr>
                         <th>ID</th>
                         <th>Category Name</th>
                         <th>Created Date</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>`;
-    console.log(Object.keys(data).length);
+    console.log(Object.keys(data.search).length);
     if(Object.keys(data).length == 0)
     {
-        table.innerHTML +=`<tr><td colspan=5>No record found</td></tr>`;
+        html +=`<tr><td colspan=5>No record found</td></tr>`;
     }
     else
     {
-        data.forEach(d => {
-            table.innerHTML += `<tr><td>${ d.category_id }</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
+        data.search.forEach(d => {
+            html += `<tr><td>${ d.category_id }</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
         })
     }
+    table.innerHTML = html;
     cat_status();
 }
 
