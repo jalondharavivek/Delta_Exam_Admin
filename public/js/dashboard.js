@@ -7,13 +7,9 @@ menuicn.addEventListener("click",()=>
 })
 
 
-var myLink = document.getElementById("myLink");
-var myMenu = document.getElementById("myMenu");
+let card = document.querySelector(".card"); //declearing profile card element
+let displayPicture = document.querySelector(".display-picture"); //declearing profile picture
 
-myLink.onclick = function () {
-    if (myMenu.style.display === "none") {
-        myMenu.style.display = "block";
-    } else {
-        myMenu.style.display = "none";
-    }
-};
+displayPicture.addEventListener("click", function () { //on click on profile picture toggle hidden class from css
+    card.classList.toggle("hidden")
+})
