@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<link rel="stylesheet" href="/css/dashboard.css">
 <link rel="stylesheet" href="/css/edit.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
@@ -16,7 +17,7 @@
 <body>
 
 
-  <!-- for header part -->
+
   <%- include('header'); -%>
 
     <div class="main-container">
@@ -26,27 +27,32 @@
         <form action="/update" method="post">
 
           <div class="inputtag">
-            <label for="name">id:</label>
-            <input type="hidden" id="student_id" name="student_id" value=<%=student3[0].student_id%>><br><br>
+
+
+            <input type="hidden" name="student_id" id="student_id" value="<%=student2[0].student_id%>">
           </div>
+
+
+
+
           <div class="inputtag">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value=" <%=student3[0].name%>"><br><br>
+            <input type="text" id="name" name="name" value=" <%=student2[0].name%>"><br><br>
           </div>
           <div class="inputtag">
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value=" <%=student3[0].email%>"><br><br>
+            <input type="email" id="email" name="email" value=" <%=student2[0].email%>"><br><br>
           </div>
 
           <div class="inputtag">
             <label for="contact">Contact:</label>
-            <input type="text" id="contact" name="contact" value=" <%=student3[0].contact%>"><br><br>
+            <input type="text" id="contact" name="contact" value=" <%=student2[0].contact%>"><br><br>
           </div>
 
           <div class="inputtag">
 
-            <% if(student3[0].gender=='male' ){%>
+            <% if(student2[0].gender=='male' ){%>
               <label for="gender">Gender:</label>
               <input type="radio" id="male" name="gender" value="male" checked />
               <label for="male">Male</label>
@@ -54,7 +60,7 @@
               <label for="female">Female</label>
 
               <%}%>
-                <% if(student3[0].gender=='female' ){%>
+                <% if(student2[0].gender=='female' ){%>
                   <label for="gender">Gender:</label>
                   <input type="radio" id="male" name="gender" value="male" />
                   <label for="male">Male</label>
@@ -63,41 +69,46 @@
 
           </div>
 
-          <!-- <input type="text" id="gender" name="gender" value=" <%=student3[0].gender%>"><br><br> -->
           <div class="inputtag">
 
             <label for="address">Address:</label>
-            <input type="text" id="address" name="address" value=" <%=student3[0].address%>"><br><br>
+            <input type="text" id="address" name="address" value=" <%=student2[0].address%>"><br><br>
           </div>
 
           <div class="inputtag">
-            <label for="city">City:</label>
-            <input type="text" id="city" name="city" value=" <%=student3[0].city%>"><br><br>
+            <label for="college">college:</label>
+            <select name="col" id="col">
+            </select>
+
+
           </div>
+          <div class="inputtag">
+            <label for="state">state :</label>
+            <select name="state" id="state">
+
+              <%for(i=0 ;i<state.length ;i++){%>
+                <%if(state[i].state_id==student2[0].state_id){%>
+
+                  <option value="<%=state[i].state_id%>" selected>
+                    <%=state[i].state_name%>
+                  </option>
+                  <%}else{%>
+                    <option value="<%=state[i].state_id%>">
+                      <%=state[i].state_name%>
+                    </option>
+
+                    <%}}%>
+            </select>
+
+          </div>
+
 
           <div class="inputtag">
-            <label for="city">state_id:</label>
-            <input type="text" id="state_id" name="state_id" value=" <%=student3[0].state_id%>"><br><br>
+            <label for="state">city :</label>
+            <select name="city" id="city">
+
+            </select>
           </div>
-
-          <div class="inputtag">
-            <label for="college_id">student_status:</label>
-            <input type="text" id="student_status" name="student_status"
-              value=" <%=student3[0].student_status%>"><br><br>
-          </div>
-
-          <div class="inputtag">
-
-            <label for="college">college </label>
-
-            <select name="college_id" id="college_id">
-              <option value="gec patan">gec patan</option>
-              <option value="gec modasa"> gec modasa</option>
-
-            </select><bR>
-          </div>
-
-
           <div class="inputtag">
             <input type="submit" value="Submit">
           </div>
@@ -109,5 +120,10 @@
 
 
 </body>
+
+<script src="/js/user.js"></script>
+<script src="/js/dashboard.js"></script>
+<script src="/js/edit.js"></script>
+
 
 </html>
