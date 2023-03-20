@@ -5,6 +5,7 @@ const mysql = require("mysql2/promise");
 const port = 8765;
 app.set("view engine", "ejs");
 var bodyParser=require('body-parser');
+const Query = require('mysql2/promise');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
@@ -18,9 +19,39 @@ database: "exam_system",
 });
 
 app.get('/category',async (req, res) => {
-  let sql = "SELECT * FROM category";
-  let [query] = await db.query(sql);
-  res.render('category',{data : query});
+  let sql = `SELECT * FROM category `;
+  // console.log(query);
+  let page = req.query.page || 1;
+  let limit = req.query.limit || 10;
+  
+  if (req.query.page > 1)
+    sql += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
+  else
+    sql += ` LIMIT ${limit} `;
+  let [query] = await db.execute(sql);
+  let sql1 = "select count(*) as total from category";
+  let [result1] = await db.execute(sql1);
+  // console.log("page",page);
+  res.render('category',{ data : query, page : page, total: result1[0].total, limit: limit });
+})
+
+app.get('/categorypage', async (req,res) => {
+
+  let sql = `SELECT * FROM category `;
+
+  let page=parseInt(req.query.page)||1;
+  let limit=parseInt(req.query.limit)||10;
+  let startindex=(page-1)*limit;
+  let endindex=page*limit-startindex;
+
+  let [query] = await db.execute(sql);
+
+  let sql1 = "select count(*) as total from category";
+  let [result1] = await db.execute(sql1);
+
+  let pages = `select * from category limit ${startindex},${endindex}`;
+  let [pages1] = await db.execute(pages);
+  res.json({ data : query, page: page, total: result1[0].total, limit: limit, pages : pages1 });
 })
 
 app.post('/categorystatus',async (req, res) => {
@@ -30,13 +61,13 @@ app.post('/categorystatus',async (req, res) => {
   if(status == 0)
   {
     let sql = `update category set category_status = '1' where category_id = ${id}`;
-    let [query] = await db.query(sql);
+    let [query] = await db.execute(sql);
     res.json(query);
   }
   else if(status == 1)
   {
     let sql = `update category set category_status = '0' where category_id = ${id}`;
-    let [query] = await db.query(sql);
+    let [query] = await db.execute(sql);
     res.json(query);
   }
 })
@@ -44,7 +75,7 @@ app.post('/categorystatus',async (req, res) => {
 app.post('/editcategory',async (req, res) => {
   let b = req.body;
   let sql = `update category set category_name = '${b.category_name}' where category_id = ${b.category_id}`;
-  let [query] = await db.query(sql);
+  let [query] = await db.execute(sql);
   res.redirect('category');
   // console.log(b);
 })
@@ -52,7 +83,7 @@ app.post('/editcategory',async (req, res) => {
 app.get('/editCategory',async (req, res) => {
   let id = req.query.id;
   let sql = `select category_id, category_name from category where category_id = ${id}`;
-  let [ans] = await db.query(sql);
+  let [ans] = await db.execute(sql);
   res.json(ans);
   // console.log(ans);
   // console.log(id);
@@ -60,10 +91,35 @@ app.get('/editCategory',async (req, res) => {
 
 app.post('/addcategory',async (req, res) => {
   let sql = `insert into category (category_name,category_status,created_date) values ('${req.body.category_name}','0',now())`;
-  let [query] = await db.query(sql);
+  let [query] = await db.execute(sql);
   res.redirect('category');
-  console.log(query);
+  // console.log(query);
 })
+
+app.get('/search',async (req, res) => {
+  let sql = `SELECT * FROM category `;
+
+  let page=parseInt(req.query.page)||1;
+  let limit=parseInt(req.query.limit)||10;
+  let startindex=(page-1)*limit;
+  let endindex=page*limit-startindex;
+
+  let [query] = await db.execute(sql);
+
+  let sql1 = "select count(*) as total from category";
+  let [result1] = await db.execute(sql1);
+
+  let pages = `select * from category limit ${startindex},${endindex}`;
+  let [pages1] = await db.execute(pages);
+  let name = req.query.name;
+  // console.log(req.query);
+
+  let srch = `select * from category where category_name like '%${name}%' limit ${startindex},${endindex}`;
+  let [query1] = await db.query(srch);
+
+  res.json({query, });
+
+})  
 
 app.get('/', (req, res) => {
   res.render("dashboard")

@@ -17,14 +17,14 @@
         <div class="main">
             <div class="add-link">
                 <div class="searchbar">
-                    <input type="text" name="" id="" placeholder="Search">
+                    <input type="text" name="search" id="search" placeholder="Search" onkeyup="search(this.value)">
                     <div class="searchbtn">
                         <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png" class="icn srchicn" alt="search-button">
                     </div>
                 </div>
                 <a class="add" onclick="addCategory()">ADD</a>
             </div>
-            <table>
+            <table id="myTable">
                 <tr>
                     <th>ID</th>
                     <th>Category Name</th>
@@ -32,22 +32,22 @@
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
-                <% let id=1; %>
                 <% data.forEach(c => { %>
                     <tr>
-                        <td><%= id++ %></td>
+                        <td><%= c.category_id %></td>
                         <td><%= c.category_name %></td>
                         <td><%= (new Date(c.created_date).toLocaleDateString()) %></td>
                         <td><a class="btnn" id="status" onclick="check(`<%= c.category_id %>`,`<%= c.category_status %>`);"><%= c.category_status %></a></td>
                         <td><a class="edit-btn fas fa-edit" onclick="editCategory(`<%= c.category_id %>`)"> EDIT</a></td>
                     </tr>
-                    <% }); %>
+                <% }); %>
+                <tr id="no-data"></tr>
             </table>
             <div class="dialogue">
                 <form action="/editcategory" method="post">
-                    <p>Enter Category Name</p>
+                    <p>Category Name</p>
                     <input class="text" id="id" type="hidden" name="category_id" value="">
-                    <input class="text" id="text" type="text" name="category_name" value="" required>
+                    <input class="text" id="text" type="text" name="category_name" value="" required><br>
                     <input type="submit" class="yes input" value="Update">
                     <botton class="no input">Cancel</botton>
                 </form>
@@ -55,15 +55,61 @@
             <div class="dialogues">
                 <form action="/addcategory" method="post">
                     <p>Enter Category Name</p>
-                    <input class="text" id="text" type="text" name="category_name" required>
-                    <input type="submit" class="yes input" value="Update">
+                    <input class="text" id="text" type="text" name="category_name" required><br>
+                    <input type="submit" class="yes input" value="Add">
                     <botton class="no input">Cancel</botton>
                 </form>
             </div>
+            <div class="page">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" id="0" onclick="page(this)">Prev</a></li>
+                        <% if(parseInt(page) < 5) { %>
+                            <% for(let i=1;i<=parseInt(page);i++){ %>
+                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        <% }else{ %>
+                        <% for(let i=(parseInt(page)-10);i<=parseInt(page);i++){ %>
+                        <li class="page-item"><a class="page-link 
+                        <% if(parseInt(page)==i){ %> 
+                            active
+                            <% } %>
+                            " onclick="page(this)" id="<%= i %>">
+                                    <%= i %>
+                        </a></li>
+                            <% } %>
+                        <% } %>
+                        <% if(Math.ceil(parseInt(total)/parseInt(limit))-5>= parseInt(page)){ %>
+                        <% for(let i=parseInt(page)+1;i<=parseInt(page)+ 5;i++){ %>
+                        <li class="page-item">
+                            <a class="page-link 
+                                <% if(parseInt(page)==i){ %> 
+                                    active
+                                    <% } %>
+                                " onclick="page(this)" id="<%= i %>">
+                                <%= i %>
+                            </a>
+                        </li>
+                        <% } } else{ %>
+                        <% for(let i=parseInt(page)+1;i<=Math.ceil(parseInt(total)/parseInt(limit));i++){ %>
+                        <li class="page-item">
+                            <a class="page-link 
+                                <% if(parseInt(page)==i){ %> 
+                                    active
+                                    <% } %>
+                                    " onclick="page(this)" id="<%= i %>">
+                                <%= i %>
+                            </a>
+                        </li>
+                        <% }} %>
+                        
+                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= Math.ceil(total/limit) %>">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-    </div>
 </body>
-
 <script src="/js/dashboard.js"></script>
 <script src="/js/category.js"></script>
 </html>
