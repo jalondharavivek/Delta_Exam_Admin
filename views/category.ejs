@@ -62,48 +62,13 @@
             </div>
             <div class="page">
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" id="0" onclick="page(this)">Prev</a></li>
-                        <% if(parseInt(page) < 5) { %>
-                            <% for(let i=1;i<=parseInt(page);i++){ %>
-                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                    <ul class="pagination" id="pagination"> 
+                        <li class="page-item"><a class="page-link" id="0" onclick="page(this)">First</a></li>
+
+                        <% for(let i=page;i<=Math.ceil(total/limit);i++){ %>
+                            <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
                         <% } %>
-                        <% }else{ %>
-                        <% for(let i=(parseInt(page)-10);i<=parseInt(page);i++){ %>
-                        <li class="page-item"><a class="page-link 
-                        <% if(parseInt(page)==i){ %> 
-                            active
-                            <% } %>
-                            " onclick="page(this)" id="<%= i %>">
-                                    <%= i %>
-                        </a></li>
-                            <% } %>
-                        <% } %>
-                        <% if(Math.ceil(parseInt(total)/parseInt(limit))-5>= parseInt(page)){ %>
-                        <% for(let i=parseInt(page)+1;i<=parseInt(page)+ 5;i++){ %>
-                        <li class="page-item">
-                            <a class="page-link 
-                                <% if(parseInt(page)==i){ %> 
-                                    active
-                                    <% } %>
-                                " onclick="page(this)" id="<%= i %>">
-                                <%= i %>
-                            </a>
-                        </li>
-                        <% } } else{ %>
-                        <% for(let i=parseInt(page)+1;i<=Math.ceil(parseInt(total)/parseInt(limit));i++){ %>
-                        <li class="page-item">
-                            <a class="page-link 
-                                <% if(parseInt(page)==i){ %> 
-                                    active
-                                    <% } %>
-                                    " onclick="page(this)" id="<%= i %>">
-                                <%= i %>
-                            </a>
-                        </li>
-                        <% }} %>
-                        
-                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= Math.ceil(total/limit) %>">Next</a>
+                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= Math.ceil(total/limit) %>">Last</a>
                         </li>
                     </ul>
                 </nav>

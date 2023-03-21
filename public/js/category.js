@@ -132,12 +132,12 @@ async function search(name)
     let data = await result.json();
     let table = document.getElementById("myTable");
     let html = `<tr>
-                        <th>ID</th>
-                        <th>Category Name</th>
-                        <th>Created Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>`;
+                    <th>ID</th>
+                    <th>Category Name</th>
+                    <th>Created Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>`;
     console.log(Object.keys(data.search).length);
     if(Object.keys(data).length == 0)
     {
@@ -166,9 +166,9 @@ async function page(pages)
     var results = await fetch(`http://localhost:8765/categorypage?page=${pages.id}`);
     var data = await results.json();
     data.pages.forEach(c => {
-        // console.log(c.category_name);
         html += `<tr><td>${ c.category_id }</td><td>${ c.category_name }</td><td>${ (new Date(c.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ c.category_id },${ c.category_status });">${ c.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ c.category_id })"> EDIT</a></td></tr>`;
     })
     table.innerHTML = html;
+    // pages.innerHTML=page;
     cat_status();
 }

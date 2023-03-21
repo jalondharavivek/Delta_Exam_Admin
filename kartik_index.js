@@ -103,16 +103,16 @@ app.get('/search',async (req, res) => {
   let limit=parseInt(req.query.limit)||10;
   let startindex=(page-1)*limit;
   let endindex=page*limit-startindex;
+  let name = req.query.name;
 
   let [query] = await db.execute(sql);
 
-  let sql1 = "select count(*) as total from category";
+  let sql1 = `select count(*) as total from category where category_name like '%${name}%'`;
   let [result1] = await db.execute(sql1);
 
   let pages = `select * from category limit ${startindex},${endindex}`;
   let [pages1] = await db.execute(pages);
-  let name = req.query.name;
-  // console.log(req.query);
+  console.log(result1);
 
   let srch = `select * from category where category_name like '%${name}%' limit ${startindex},${endindex}`;
   let [query1] = await db.query(srch);
