@@ -140,12 +140,12 @@ app.get('/', (req, res) => {
 });
 
 //delete in exam extra feature delete end-pont
-app.get("/delete", async (req, res) => {
-  // console.log(req.query.exam_id);
-  let sql1 = `update  exam_system.exam set isdelete = '1' where exam_id ='${req.query.exam_id}';`
-  let data1 = await getdata(sql1);
-  res.redirect("/examlist");
-})
+// app.get("/delete", async (req, res) => {
+//   // console.log(req.query.exam_id);
+//   let sql1 = `update  exam_system.exam set isdelete = '1' where exam_id ='${req.query.exam_id}';`
+//   let data1 = await getdata(sql1);
+//   res.redirect("/examlist");
+// })
 //edit exam endpoint page render end-pont
 app.get("/edit", async (req, res) => {
   console.log("enter in exam edit endpoint")
@@ -289,7 +289,7 @@ app.get("/examlist", async (req, res) => {
   if (isNaN(offset)) {
     offset = 0;
   }
-  sql2 = `select count(*) as numrows from exam_system.exam where isdelete = '0';`;
+  sql2 = `select count(*) as numrows from exam_system.exam ;`;
   let data2 = await getdata(sql2);
 
   count = Math.ceil(data2[0].numrows / limit);
@@ -299,20 +299,7 @@ app.get("/examlist", async (req, res) => {
   sql1 = `select * from exam_system.exam limit ${offset},${limit};`;
   let data1 = await getdata(sql1);
   
-  // console.log(data1);
-  // con.query(`select * from insertdata  limit ${offset},${limit};`, function (err, result1) {
-  //     if (err) throw err;
-  //     data[1] = result1;
-  //     res.render('pagination', { id, data: data, count: count, curpage, });
-
-  // })
-
-  // sql3 = `SELECT * FROM exam_system.exam where isdelete = '0';`;
-  // let data3 = await getdata(sql3);
-  // console.log(data1)
-  // console.log(curpage)
-  // console.log(data1)
-  // console.log(count)
+ 
    
 
   
