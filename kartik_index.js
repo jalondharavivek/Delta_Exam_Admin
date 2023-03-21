@@ -24,7 +24,7 @@ app.use("/", vivek_indexfile)
 
 
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "root",
