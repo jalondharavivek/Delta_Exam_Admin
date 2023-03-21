@@ -9,6 +9,14 @@ const Query = require('mysql2/promise');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+
+const vivek_indexfile = require('./routes/vivek_index')
+app.use("/",vivek_indexfile)
+
+
+
+
+
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public/')))
 const db = mysql.createPool({
@@ -18,6 +26,13 @@ password: "root",
 database: "exam_system",
 
 });
+
+
+//require file
+
+
+
+
 
 app.get('/category',async (req, res) => {
   let sql = `SELECT * FROM category `;

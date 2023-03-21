@@ -5,6 +5,14 @@
 
 }
 
+.content-heading{
+    font-size :40px ;
+    font-weight: bolder;
+   color: #1b034b;
+   font-family: fantasy;
+   background-color: rgb(255, 255, 255);
+}
+
 .question-table {
     margin-top: 30px;
 }
@@ -40,7 +48,9 @@ tbody tr:hover {
     background-color: #ddd;
     cursor: pointer;
 }
-
+.exam-button-row{
+   
+}
 
 .add-button {
     /* position: fixed; 
@@ -56,11 +66,23 @@ right: 20px;  */
     cursor: pointer;
 
 }
+.searchbar-que{
+    margin-top: -5px;
+margin-right: 10px;
+}
+::placeholder{
+    text-align: center;
+    color: black;
+    opacity: 2;
+    font-size: 15px;
+}
 
 .button-card {
-    display: flex;
-    justify-content: space-between;
-  
+ display: flex;
+  justify-content: end;
+  margin-top: 25px;
+ 
+    
 }
 .edit-btn,
 .delete-btn {
@@ -82,4 +104,36 @@ right: 20px;  */
 }
 .answercolor{
     color: rgb(45, 124, 49);
+}
+.add-link
+{
+    display: flex;
+    justify-content: end;
+    gap : 20px;
+}
+
+.add-link .add
+{
+    background-color: green;
+    padding: 13px;
+    border-radius: 15px;
+    color: white;
+    margin: 0px 0px 10px;
+    cursor: pointer;
+}
+.button {
+    padding: 10px;
+    background-color: #5498c5;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 80px;
+}   
+
+.searchbar-que{
+    height: 40px;
+    border-radius: 20px;
+    font-size: 15px
+ 
 }

@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>online exam system</title>
-    
+
 
 </head>
 
 <link rel="stylesheet" href="/css/dashboard.css">
 
-<link rel="stylesheet" type="text/css"  href="/css/question.css">
+<link rel="stylesheet" type="text/css" href="/css/question.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'> 
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 
 
 <body>
@@ -33,20 +33,20 @@
 
 
                     <div class="content-main">
-                        <div class="content-heading">Question list</div>
+                        <div class="content-heading">Question Table </div>
 
                         <div class="button-card">
-                            <div class="exam-button-row">
-                                <h3>Exam list</h3>
+                            <div class="searchbar-que">
+                                <input class="searchbar-que" placeholder="search" type="text" onkeyup="searchque(this.value)"  name="search" id="search">
                             </div>
                             <div class="exam-button-row">
-                                <a href="/addquestion">add que</a>
-                                </div>
-                        </div>
-                        <div><input type="text" placeholder="search"></div>
+                                <a class="button" href="/addquestion">add que</a>
+                            </div>
+                         </div>
+
                         <div>
 
-                            <table class="question-table">
+                            <table class="question-table" id="quetable">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -62,25 +62,42 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%= //console.log(data,"question table data in ejs log") %>; 
-                                    <% let id=1; %>
-                                    <% for(var i=0 ; i< data.length ; i++) { %>
-                                    <tr>
-                                        <td><%= id++ %></td>
-                                        <td> ad </td>
-                                        <td><%=data[i].question_text%></td>
-                                        <td><%=data[i].option_a%></td>
-                                        <td><%=data[i].option_b%></td>
-                                        <td><%=data[i].option_c%></td>
-                                        <td><%=data[i].option_d%></td>
-                                        <td class="answercolor"><%=data[i].answer%></td>
-                                        <td>
-                                            <a href="editquestion?question_id=<%= data[i].question_id %>" class="edit-btn">Edit</a>
-                                            <a href="/exam/status?status=<%=data[i].exam_status%>&id=<%=data[i].exam_id%>" onclick="deletquestion(`<%= data[i].question_id %>`)" class="delete-btn">Delete</a>
-                                        </td>
-                                    </tr>
-            <% } %>
-            
+                                    <%= //console.log(data,"question table data in ejs log") %>
+                                        <% let id=1 %>
+                                            <% for(var i=0 ; i < data.length ; i++) { %>
+                                                <tr>
+                                                    <td>
+                                                        <%= id++ %>
+                                                    </td>
+                                                    <td> 0 </td>
+                                                    <td>
+                                                        <%=data[i].question_text%>
+                                                    </td>
+                                                    <td>
+                                                        <%=data[i].option_a%>
+                                                    </td>
+                                                    <td>
+                                                        <%=data[i].option_b%>
+                                                    </td>
+                                                    <td>
+                                                        <%=data[i].option_c%>
+                                                    </td>
+                                                    <td>
+                                                        <%=data[i].option_d%>
+                                                    </td>
+                                                    <td class="answercolor">
+                                                        <%=data[i].answer%>
+                                                    </td>
+                                                    <td>
+                                                        <a href="editquestion?question_id=<%= data[i].question_id %>"
+                                                            class="edit-btn">Edit</a>
+                                                        <a href="/exam/status?status=<%=data[i].exam_status%>&id=<%=data[i].exam_id%>"
+                                                            onclick="deletquestion(`<%= data[i].question_id %>`)"
+                                                            class="delete-btn">Delete</a>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+
                                 </tbody>
                             </table>
 
