@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
-
-	<style>
+	<title>Password Confirmation</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/public/css/confrom_pass.css">
+</head>
+<style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 * {
@@ -35,11 +35,11 @@ body {
 }
 
 .container {
-
+    position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 900px;
     height: auto;
-    /* display: flex; */
+    display: flex;
     background: #ffffff;
     box-shadow: 0 0 5px #999999;
 }
@@ -57,9 +57,9 @@ body {
 }
 
 .login .col-right {
-    padding: 60px 30px;
-    width: 90%;
-   
+	padding: 60px 60px;
+    width: 70%;
+    
 }
 
 @media(max-width: 575px) {
@@ -205,38 +205,64 @@ body {
 	align-items: center;
 	justify-content: center;
 }
-#not_regi
-{
-
-		color: red;
-		font-size: 10px;
-		align-items: center;
-		display: none;
-	
+#msg{
+	display: none;
+	color: red;
+	font-size: 10px;
 }
-	</style>
-</head>
-<body>
+</style>
+	<body>
 	<div class="wrapper login">
-        <div class="container">
-			<div class="col-left">
-            </div>
-            <div class="col-right">
-         	 <div class="login-form">
-					<form>
-						<h1>Forgot Password</h1>
-						<p>Please enter your email address to reset your password:</p>
-						<label for="email">Email:</label>
-						<input type="email" id="email" name="email" onfocus="compare()" onblur="compare();"><br>
-						<span id="not_regi">admin are not registred</span>
-						<a href="/link_generate" value="Reset Password" id="btn" class="submit" >Genrate Link</a>
-						
-					</form>
-			</div>
+	<div class="container">
+		<div class="col-left">
+
+		</div>
+		<div class="col-right">
+			<div class="login-form">
+		<form action="/admin-chnage" method="post">
+			<h1>Change Password</h1>
+		<p><label for="password">Password:</label>
+			<input type="password" id="password" name="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onblur="isSame()"></p>
+			<a href="/updated" value="Reset Password" id="btn" class="submit" >forget password</a>
+		<p><label for="confirm-password">Confirm Password:</label>
+			<input type="password" id="confirm-password" name="confirm-password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  oninput="isSame() " ><br>
+		
+			<!-- <span id="msg" onclick=" update();">Password is Not Match</span></p>	 -->
+			<!-- <span id="msg1">Password is changed</span><br> -->
+			<a href="/" id="back_to_login">Back to darshboard</a>
+			<p><input type="submit" value="Update" id="update" onclick="comformation();"></p>	
+		</form>
+		</div>
 		</div>
 	</div>
-	<script src="/public/js/forgot.js"></script>
+</div>
+<script>
+function isSame(){
+    let str1=document.getElementById('password').value;
+    let str2=document.getElementById('confirm-password').value;
+
+    if(str1 != str2){
+        document.getElementById('msg').style.display='block';
+        document.getElementById('update').style.display='none';
+        
+    }else{
+        document.getElementById('msg').style.display='none';
+        document.getElementById('update').style.display='block';
+    }
+}
+let temp=document.getElementById('password').value;
+console.log(temp);
+function update(){
+    fetch('http://localhost:8000/update', {
+        method: 'post',
+        headers: {
+            "Content-type": 'application/json'
+        },
+        body: JSON.stringify({
+            temp,
+        })
+    })
+}
+</script>
 </body>
-
 </html>
-
