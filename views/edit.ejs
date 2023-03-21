@@ -24,7 +24,7 @@
       <%- include('nav'); -%>
 
 
-        <form action="/update" method="post">
+        <form action="/update" method="post" class="editform">
 
           <div class="inputtag">
 
@@ -65,6 +65,7 @@
                   <input type="radio" id="male" name="gender" value="male" />
                   <label for="male">Male</label>
                   <input type="radio" id="female" name="gender" value="female" checked />
+                  <label for="female">Female</label>
                   <%}%><br>
 
           </div>
@@ -84,7 +85,7 @@
           </div>
           <div class="inputtag">
             <label for="state">state :</label>
-            <select name="state" id="state">
+            <select name="state" id="state" >
 
               <%for(i=0 ;i<state.length ;i++){%>
                 <%if(state[i].state_id==student2[0].state_id){%>
