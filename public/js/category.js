@@ -1,17 +1,23 @@
-let sts = document.querySelectorAll('#status');
-sts.forEach(e => {
-    if (e.innerHTML == '0') {
-        e.innerHTML = 'DISABLE';
-        e.style.color = 'white';
-        e.style.backgroundColor = 'red';
-    }
-    else  if(e.innerHTML == '1')
-    {
-        e.innerHTML = 'ENABLE';
-        e.style.color = 'white';
-        e.style.backgroundColor = 'blue';
-    }
-})
+function cat_status()
+{
+    let sts = document.querySelectorAll('#status');
+    sts.forEach(e => {
+        if (e.innerHTML == '0') {
+            e.innerHTML = 'DISABLE';
+            e.style.color = 'white';
+            e.style.backgroundColor = 'rgb(0,90,190)';
+            e.style.opacity = '0.9';
+        }
+        else  if(e.innerHTML == '1')
+        {
+            e.innerHTML = 'ENABLE';
+            e.style.color = 'white';
+            e.style.backgroundColor = 'rgb(0,140,0)';
+        }
+    })
+}
+
+cat_status();
 
 async function check(id, status) 
 {
@@ -117,4 +123,51 @@ async function editCategory(id)
     {
         console.log(err);
     }    
+}
+
+async function search(name)
+{
+    // console.log(name);
+    let result = await fetch(`http://localhost:8765/search?name=${name}`);
+    let data = await result.json();
+    let table = document.getElementById("myTable");
+    let html = `<tr>
+                    <th>ID</th>
+                    <th>Category Name</th>
+                    <th>Created Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>`;
+    console.log(Object.keys(data.search).length);
+    if(Object.keys(data).length == 0)
+    {
+        html +=`<tr><td colspan=5>No record found</td></tr>`;
+    }
+    else
+    {
+        data.search.forEach(d => {
+            html += `<tr><td>${ d.category_id }</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
+        })
+    }
+    table.innerHTML = html;
+    cat_status();
+}
+
+async function page(pages)
+{
+    let table = document.getElementById('myTable');
+    let html=`<tr>
+                <th>ID</th>
+                <th>Category Name</th>
+                <th>Created Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>`;
+    var results = await fetch(`http://localhost:8765/categorypage?page=${pages.id}`);
+    var data = await results.json();
+    data.pages.forEach(c => {
+        html += `<tr><td>${ c.category_id }</td><td>${ c.category_name }</td><td>${ (new Date(c.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ c.category_id },${ c.category_status });">${ c.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ c.category_id })"> EDIT</a></td></tr>`;
+    })
+    table.innerHTML = html;
+    cat_status();
 }

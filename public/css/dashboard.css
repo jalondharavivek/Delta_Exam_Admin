@@ -171,11 +171,11 @@ gap: 50px;
 }
 .nav {
 min-height: 91vh;
-width: 250px;
+width: 260px;
 background-color: var(--background-color2);
 position: absolute;
 top: 0px;
-left: 00;
+left: -10px;
 box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
 display: flex;
 flex-direction: column;
@@ -195,7 +195,7 @@ transition: all 0.5s ease-in-out;
 display: none;
 }
 .navclose {
-width: 65px;
+width: 55px;
 }
 
 .option1 {

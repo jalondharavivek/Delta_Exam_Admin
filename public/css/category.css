@@ -10,15 +10,7 @@ a
 }
 .edit-btn
 {
-    background-color: blue;
-    padding: 9px 15px;
-    color: white;
-    border-radius: 15px;
-    font-size: 13px;
-}
-.delete-btn
-{
-    background-color: red;
+    background-color: rgb(75, 75, 101);
     padding: 9px 15px;
     color: white;
     border-radius: 15px;
@@ -45,7 +37,7 @@ table
 }
 tbody tr:nth-child(odd) 
 {
-    background: rgb(123, 124, 128);
+    background: rgba(0,0,0,0.2);
 }
 
 .dialogues {
@@ -53,7 +45,7 @@ tbody tr:nth-child(odd)
     top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: 24rem;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -66,7 +58,7 @@ tbody tr:nth-child(odd)
     top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: 24rem;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -81,7 +73,7 @@ tbody tr:nth-child(odd)
     gap : 20px;
 }
 
-.add-link a
+.add-link .add
 {
     background-color: green;
     padding: 13px;
@@ -152,4 +144,33 @@ tbody tr:nth-child(odd)
 .dialogues .input.no {
     background-color: #e74c3c;
     color: #fff;
+}
+
+/* .edit-btn:hover {
+    scale: 105%;
+    transition: all 0.4s;
+} */
+
+ul
+{
+    list-style-type: none;
+}
+
+.pagination a
+{
+    color: rgb(44, 112, 112);
+    background-color: beige;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.page
+{
+    margin-top: 1.5rem;
+}
+
+.pagination
+{
+    display: flex;
+    gap : 10px;
 }
