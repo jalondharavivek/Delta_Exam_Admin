@@ -26,7 +26,7 @@
                         <h2>exam management</h2>
 
                     </div>
-                    <input type="text" name="user_id" value="<%=data1[0].exam_id%>" id="milan" hidden="true">
+                    <input type="text" name="user_id" value="<%=data1[0].exam_id%>" id="exam_id" hidden="true">
 
 
 
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="input_taker">
                                         <label for="" class="labelofInput"> category :</label>
-                                        <select name="category" id="category_select">
+                                        <select name="category" id="category_select" multiple required>
                                             <!-- <option value="">APPTITUDE</option>
                             <option value="">VERBAL</option>
                             <option value="">LOGICAL</option>
@@ -116,7 +116,7 @@
 
                         </tr>
                         <!-- <% for(let i=0;i<data1.length;i++){ %> -->
-                            <!-- <tr>
+                        <!-- <tr>
                                 <td>
                                     <%=(i+1)%>
                                 </td>
@@ -153,29 +153,52 @@
         </div>
 </body>
 <script>
-   
-    let category_select = document.getElementById('category_select');
-    console.log(category_select);
 
+    let category_select = document.getElementById('category_select');
+
+
+    selectedcategory();
+    let category_id = [];
+    let category_name = [];
+    function selectedcategory() {
+        let exam_id = document.getElementById('exam_id').value;
+        console.log(exam_id);
+        fetch(`/selected/category?exam_id=${exam_id}`).then(res => res.json()).then(data => {
+            for (i = 0; i < data.length; i++) {
+
+                category_id.push(data[i][0].category_id);
+
+                category_name.push(data[i][0].category_name);
+            }
+        }
+        ).catch(err => console.log(err));
+
+    }
+   
+    console.log(category_name)
     categortFetch();
     function categortFetch() {
         fetch('/categories').then(res => res.json()).then(data => {
-          
-
+            console.log(data.arr.length)
+            console.log(category_id.length)
+            let checker ;
             for (let i = 0; i < data.arr.length; i++) {
                 
-                category_select.innerHTML += ` <option value="${data.arr2[i]}">${data.arr[i]}</option>`;
+                for (j = 0; j < category_id.length; j++) {
+                   
+                    if (data.arr[i] == category_name[j]) {
+                        console.log("if")
+                        category_select.innerHTML += ` <option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
+                        checker = i ;
+                        console.log("checker",checker)
+                    } 
+                }
+                if(checker!=i){
+                    category_select.innerHTML += ` <option value="${data.arr2[i]}">${data.arr[i]}</option>`;
+
+                }
 
             }
-            // let options = document.querySelectorAll('option');
-           
-            // options.forEach((i) => {
-            //    fetch("/exam/option")
-            //    .then(res=>res.json())
-            //    .then(data=>console.log("jkdbhfjkhejkfh"))
-            //    .catch(err=>console.log(err));
-            //     console.log(i.getAttribute('value'));
-            // })
 
         }).catch(err => console.log(err));
     }

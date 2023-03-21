@@ -34,38 +34,38 @@
                             <div class="one">
                                 <label for="">ADD EXAM</label>
                             </div>
-                            <form action="/exam" method="post">
+                            <form action="/exam" method="post" onsubmit="return validateform()">
                                 <div class="two">
                                     <div class="input_taker">
                                         <label for="exam_name" class="labelofInput"> exam name: </label>
-                                        <input type="text" name="exam_name" id="" placeholder="enter exam name"
-                                            class="input_tag" required>
+                                        <input type="text" name="exam_name" id="exam_name" placeholder="enter exam name"
+                                            class="input_tag" onfocusout="examvalidation()" required>
 
                                     </div>
-                                    <div class="input_taker">
-                                        <label for="" class="labelofInput"> category :</label>
-                                        <select name="category" id="category_select" selected checked read-only> -->
+                                    <div class="input_taker"> 
+                                         <label for="" class="labelofInput"> category :</label> 
+                                        <select name="category" id="category_select" multiple required> 
                                             <!-- <option value="">APPTITUDE</option>
                             <option value="">VERBAL</option>
                             <option value="">LOGICAL</option>
                             <option value="">OOPS</option>s
                             <option value="">DSA</option> -->
-                                        </select>
+                                        </select> 
 
 
                                     </div>
 
                                     <div class="input_taker">
                                         <label for="question" class="labelofInput">no of questions: </label>
-                                        <input type="text" name="question" id="" placeholder="enter no of questions"
-                                            class="input_tag" required>
+                                        <input type="number" name="question" id="question" placeholder="enter no of questions"
+                                            class="input_tag" min="10" max="50" value="10" required>
 
                                     </div>
                                     <div class="input_taker">
                                         <label for="time" class="labelofInput"> time limit: </label>
 
-                                        <input type="text" name="time" id="" placeholder="enter time limit"
-                                            class="input_tag" required>
+                                        <input type="number" name="time" id="time" placeholder="enter time limit"
+                                            class="input_tag" min="10" max="180" value="10" required>
                                         <label for="" class="extra_label">(adding time limit in minutes)</label>
 
                                     </div>
@@ -78,7 +78,7 @@
                                     </div> -->
                                     <div class="input_taker">
                                         <label for="start_date" class="labelofInput"> start date: </label>
-                                        <input type="date" name="start_date" id="" placeholder="enter start date"
+                                        <input type="date" name="start_date" id="start_date" placeholder="enter start date"
                                             class="input_tag" required>
 
                                     </div>
@@ -88,9 +88,11 @@
                                             class="input_tag" required>
 
                                     </div> -->
-
+                                  
                                 </div>
                                 <div class="save_div">
+                                    <p id="0"></p>
+                                    
                                     <input type="submit" id="save_btn" value="SAVE">
                                 </div>
                             </form>
@@ -99,31 +101,56 @@
                         </div>
                     </div>
                 </div>
-                </div>
-            
+        </div>
+
 </body>
 
 <script>
-let category_select = document.getElementById('category_select');
+   function validateform(){
+    let exam_name = document.getElementById('exam_name').value;
+    let symbol = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '<', '>', '?', '/', ',', '.', '"', ':', ';', '+', '-', '`', '~','=','[',']','{','}'];
 
-
-categortFetch();
-function categortFetch() {
-    fetch('/categories').then(res => res.json()).then(data => {
-        // console.log("data", data)
-        // console.log(data.arr.length);
-        // console.log(data.arr2.length);
-
-        for (let i = 0; i < data.arr.length; i++) {
-            // console.log(data.arr[i])
-            // console.log(data.arr2[i])
-            category_select.innerHTML += ` <option value="${data.arr2[i]}">${data.arr[i]}</option>`;
-
+    if(exam_name==''){
+      alert('name cant be empty')
+      return false;
+    }
+     for(i=0;i<symbol.length;i++){
+        if(exam_name.includes(symbol[i])){
+            alert('special character is not allowed')
+            return false;
         }
+     }
+     if(!isNaN(exam_name)){
+        alert('only numbers are not allowed')
+        return false;
+     }
+    
 
-    }).catch(err => console.log(err));
-}
-</script>
+   }
+
+   let exam_name = document.getElementById('exam_name').value;
+    let question =  document.getElementById('question').value;
+    let time = document.getElementById('time').value;
+    let start_date = document.getElementById('start_date').value;
+    let category_select = document.getElementById('category_select');
 
 
+    categortFetch();
+    function categortFetch() {
+        fetch('/categories').then(res => res.json()).then(data => {
+            // console.log("data", data)
+            // console.log(data.arr.length);
+            // console.log(data.arr2.length);
+
+            for (let i = 0; i < data.arr.length; i++) {
+                // console.log(data.arr[i])
+                // console.log(data.arr2[i])
+                category_select.innerHTML += ` <option value="${data.arr2[i]}">${data.arr[i]}</option>`;
+
+            }
+
+        }).catch(err => console.log(err));
+    }
+
+ </script> 
 </html>
