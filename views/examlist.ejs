@@ -179,7 +179,7 @@
 
 
                                         <div id="toggle<%=data1[i].exam_id%>">
-                                            <!-- <a href="/exam/status?status=<%=data1[i].exam_status%>&id=<%=data1[i].exam_id%>" class="btnn" id="status"><%=data1[i].exam_status%></a> -->
+                                          
                                             <p class="btn" id="<%=data1[i].exam_id%>" onclick="toggle(`<%=data1[i].exam_status%>`,`<%=data1[i].exam_id%>`)"><%=data1[i].exam_status%></p>
                                         </div>
                                     </td>
@@ -368,16 +368,12 @@
             e.innerHTML = 'DISABLE';
             e.style.color = 'red';
             e.style.cursor = 'pointer';
-
-           
         }
         else if (e.innerHTML == '1') {
 
             e.innerHTML = 'ENABLE';
             e.style.color = 'blue';
             e.style.cursor = 'pointer';
-
-           
         }
     })
     }

@@ -3,7 +3,7 @@ const path = require('path')
 const app = express();
 const mysql1 = require('mysql2')
 const mysql = require("mysql2/promise");
-const port = 8765;
+const port = 8000;
 app.set("view engine", "ejs");
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -35,6 +35,10 @@ const con = mysql1.createConnection({
   database: 'exam_system'
 });
 
+// db.getConnection(function (err) {
+//   if (err) throw err;
+//   console.log('connected!')
+// })
 con.connect(function (err) {
   if (err) throw err;
   console.log('connected!')
