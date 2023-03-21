@@ -1,0 +1,25 @@
+* {
+    text-transform: capitalize;
+    margin: 0;
+}
+
+.header {
+    /* border: 1px solid black;  */
+     padding: 5px; 
+     background-color: #417690; 
+     text-align: center;
+
+}
+
+.header2 {
+    background-color: #79aec8;
+    margin-bottom: 50px;
+}
+
+.header2 h2 {
+    padding: 10px 10px;
+
+}
+table,td,th{
+    border: 1px solid black;
+}

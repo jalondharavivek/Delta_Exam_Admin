@@ -144,6 +144,7 @@ width: 100%;
 overflow-y: scroll;
 overflow-x: hidden;
 padding: 40px 30px 30px 30px;
+border: 1px solid red;
 }
 
 .main::-webkit-scrollbar-thumb {
@@ -200,7 +201,7 @@ width: 55px;
 
 .option1 {
  
-    background-color:#ccf3c0af;
+    background-color:#28441faf;
     color: white;
     cursor: pointer;
   }

@@ -16,6 +16,10 @@ host: "localhost",
 user: "root",
 password: "root",
 database: "exam_system",
+host: "localhost",
+user: "root",
+password: "root",
+database: "exam_system",
 });
 
 app.get('/category',async (req, res) => {
@@ -121,8 +125,11 @@ app.get('/search',async (req, res) => {
 
 })  
 
-app.get('/', (req, res) => {
-  res.render("dashboard")
+ app.get('/', (req, res) => {
+   res.render("dashboard")
+});
+app.get('/question', (req, res) => {
+ res.render("question")
 });
 
-app.listen(port, () => console.log(`  port connected to ${port}!`))
+ app.listen(port, () => console.log(`port connected to ${port}!`))
