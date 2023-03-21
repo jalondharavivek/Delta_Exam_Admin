@@ -16,10 +16,7 @@ host: "localhost",
 user: "root",
 password: "root",
 database: "exam_system",
-host: "localhost",
-user: "root",
-password: "root",
-database: "exam_system",
+
 });
 
 app.get('/category',async (req, res) => {
