@@ -223,5 +223,13 @@ app.post('/logout',(req,res) => {
     res.redirect('/');
 });
 
+app.get('/result',async (req, res) => {
+    let sql = "SELECT * FROM try.result;";
+    let [query] = await db.query(sql);
+    console.log(query);
+    res.render('result',{data : query});
+   
+  })
 
 app.listen(port, () => console.log(`  port connected to ${port}!`))
+module.exports = app;

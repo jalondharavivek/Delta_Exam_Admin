@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/category.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <%- include('header'); -%>
+    <div class="main-container">
+        <%- include('nav'); -%>
+        <div class="main">
+            <div class="add-link">
+                <div class="searchbar">
+                    <input type="text" name="" id="" placeholder="Search">
+                    <div class="searchbtn">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png" class="icn srchicn" alt="search-button">
+                    </div>
+                </div>
+                <a class="add" onclick="addCategory()">ADD</a>
+            </div>
+            <table>
+               
+                <tr>
+                    <th>Result id</th>
+                    <th>Student name</th>
+                    <th>exam name</th>
+         
+                </tr>
+              
+          
+            <% let id=1; %>
+            <% data.forEach(c => { %>
+                <tr>
+                    <td><%= c.result_id %></td>
+                    <td><%= c.stu_name %></td>
+                    <td><%= c.exam_name %></td>
+                    
+                </tr>
+                <% }); %>
+        </table>
+
+
+        <div id="app" class="pagecontainer">  
+            <ul class="page">
+                <li class="page__btn"><span class="material-icons">Previous</span></li>
+                <li class="page__numbers"> 1</li>
+                <li class="page__numbers active">2</li>
+                <li class="page__numbers">3</li>
+                <li class="page__numbers">4</li>
+                <li class="page__numbers">5</li>
+                <li class="page__numbers">6</li>
+                <li class="page__dots">...</li>
+                <li class="page__numbers"> 10</li>
+                <li class="page__btn"><span class="material-icons">Next  </span></li>
+              </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
