@@ -39,7 +39,8 @@
                                 <input type="text" name="search" id="search" placeholder="serch" oninput="examSearch()"
                                     oninput="togglecolorchnage()">
                                 <a href="#" id="exam_search">Search</a>
-                                <a href="/exam"><i class="fa-solid fa-circle-plus" id="i"></i></a>
+                                <p onclick="addexam()"><i class="fa-solid fa-circle-plus" id="i"></i></p>
+
                             </div>
                         </div>
                         <div class="exam_listing">
@@ -129,28 +130,31 @@
                                 </tbody>
                             </table>
                             <% if(curpage==1){ %>
-                                <a href="#">prev</a>
+                                <p>prev</p>
                                 <%}else{%>
-                                    <a href="/examlist?num=<%=curpage-1%>">prev</a>
+
+                                    <p onclick="page(`<%=curpage-1%>`)">prev</p>
                                     <% } %>
 
                                         <% for(let i=1;i<=count ;i++){ %>
                                             <% if(curpage==i){ %>
-                                                <a href="#"><b>
+                                                <p><b>
                                                         <%=i%>
-                                                    </b></a>
+                                                    </b></p>
                                                 <%}else{%>
-                                                    <a href="/examlist?num=<%=i%>">
+
+                                                    <p onclick="page(`<%=i%>`)">
                                                         <%=i%>
-                                                    </a>
+                                                    </p>
                                                     <%}%>
                                                         <%}%>
 
 
                                                             <%if(curpage==count){ %>
-                                                                <a href="#">next</a>
+                                                                <p>next</p>
                                                                 <%}else{%>
-                                                                    <a href="/examlist?num=<%=curpage+1%>">next</a>
+
+                                                                    <p onclick="page(`<%=curpage+1%>`)">next</p>
                         </div>
                         <%}%>
                     </div>

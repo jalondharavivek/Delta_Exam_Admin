@@ -175,6 +175,8 @@ app.get("/examlist", async (req, res) => {
       res.send(data1);
 
     }
+
+
     var data = [];
     let count;
 
@@ -185,7 +187,7 @@ app.get("/examlist", async (req, res) => {
     let curpage = parseInt(req.query.num);
 
     // declare limit and offset 
-    let limit = 2;
+    let limit = 3;
     let offset = (page - 1) * limit;
 
 
@@ -209,6 +211,35 @@ app.get("/examlist", async (req, res) => {
 
 })
 
+app.get("/examlist/page",async (req,res)=>{
+
+  try{
+
+    let page = req.query.page || 1;
+    let curpage = parseInt(req.query.page);
+    let limit = 3;
+    let offset = (curpage - 1) * limit;
+
+    if (isNaN(offset)) {
+      offset = 0;
+    }
+
+    sql2 = `select count(*) as numrows from exam_system.exam ;`;
+    let [data2] = await db.execute(sql2);
+
+    count = Math.ceil(data2[0].numrows / limit);
+
+    sql1 = `select * from exam_system.exam limit ${offset},${limit};`;
+    let [data1] = await db.execute(sql1);
+
+    res.json({count,data1,curpage});
+
+  }catch(err){
+    console.log(err);
+  }
+    
+
+})
 
 //show exam create page
 app.get("/exam", async (req, res) => {
@@ -237,10 +268,8 @@ app.post("/exam", async (req, res) => {
       strcat += data3[0].category_name;
       strcat += ', ';
     }
+
     let categories = strcat.substring(0, strcat.length - 2);
-
-
-
     let str = "";
     let num = "0123456789";
     let lan = num.length;
