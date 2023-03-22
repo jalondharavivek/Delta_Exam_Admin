@@ -44,14 +44,12 @@
                                                 placeholder="enter exam name" class="input_tag" required>
 
                                         </div>
+
+                                        <!-- selected category is show  -->
                                         <div class="input_taker">
                                             <label for="" class="labelofInput"> category :</label>
                                             <select name="category" id="category_select" multiple required>
-                                                <!-- <option value="">APPTITUDE</option>
-                            <option value="">VERBAL</option>
-                            <option value="">LOGICAL</option>
-                            <option value="">OOPS</option>s
-                            <option value="">DSA</option>-->
+                                                
                                             </select>
 
 
@@ -72,24 +70,14 @@
 
                                         </div>
 
-                                        <!-- <div class="input_taker">
-                        <label for="passing_mark" class="labelofInput"> passing marks: </label>
-                        <input type="text" name="passing_mark" id="" placeholder="enter passing marks" class="input_tag"
-                            required>
-
-                    </div> -->
+                                        
                                         <div class="input_taker">
                                             <label for="start_date" class="labelofInput"> start date: </label>
                                             <input type="date" name="start_date" id="" placeholder="enter start date"
                                                 value="<%=data1[0].exam_date%>" class="input_tag" required>
 
                                         </div>
-                                        <!-- <div class="input_taker">
-                        <label for="exam_date" class="labelofInput"> end date: </label>
-                        <input type="date" name="end_date" id="" placeholder="enter end date" class="input_tag"
-                            required>
-
-                    </div> -->
+                                       
 
                                     </div>
                                     <div class="save_div">
@@ -101,54 +89,7 @@
                                 </form>
 
                             </div>
-                            <!-- <div class="exam_listing">
-                    <table>
-                        <caption>Exam List</caption>
-                        <tr>
-                            <th>Sr .No</th>
-                            <th>exam_name</th>
-                            <th>category</th>
-                            <th>total_questions</th>
-                            <th>time_limit</th>
-                            <th>start date</th>
-                            <th>toggle</th>
-                            <th>edit</th>
-                            <th>delete</th>
-
-                        </tr>
-                        <!-- <% for(let i=0;i<data1.length;i++){ %> -->
-                            <!-- <tr>
-                                <td>
-                                    <%=(i+1)%>
-                                </td>
-                                <td>
-                                    <%=data1[i].exam_name%>
-                                </td>
-                                <td>
-                                    <%=data1[i].category_id%>
-                                </td>
-                                <td>
-                                    <%=data1[i].total_questions%>
-                                </td>
-                                <td>
-                                    <%=data1[i].exam_time%>
-                                </td>
-                                <td>
-                                    <%=data1[i].exam_date%>
-                                </td>
-                                <td>
-                                    <input type="checkbox" name="" id="" checked>
-                                </td>
-                                <td>
-                                    <a href="/edit?exam_id=<%=data1[i].exam_id%>">edit</a>
-                                </td>
-                                <td>
-                                    <a href="/delete?exam_id=<%=data1[i].exam_id%>">delete</a>
-                                </td>
-                            </tr>
-                            <% }%>
-                    </table>
-                </div> -->
+                           
                         </div>
                     </div>
                 </div>

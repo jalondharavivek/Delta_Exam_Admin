@@ -1,9 +1,11 @@
 let category_select = document.getElementById('category_select');
 
 
-selectedcategory();
 let category_id = [];
 let category_name = [];
+
+selectedcategory();
+
 function selectedcategory() {
     let exam_id = document.getElementById('exam_id').value;
     console.log(exam_id);
@@ -32,13 +34,13 @@ function categortFetch() {
 
                 if (data.arr[i] == category_name[j]) {
                     console.log("if")
-                    category_select.innerHTML += ` <option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
+                    category_select.innerHTML += `<option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
                     checker = i;
                     console.log("checker", checker)
                 }
             }
             if (checker != i) {
-                category_select.innerHTML += ` <option value="${data.arr2[i]}">${data.arr[i]}</option>`;
+                category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
 
             }
 
