@@ -52,11 +52,13 @@
                                         <th>Id</th>
                                         <th>Category</th>
                                         <th>Question</th>
-                                        <th>Option A</th>
+                                        
+                                        <!-- <th>Option A</th>
                                         <th>Option B</th>
                                         <th>Option c</th>
-                                        <th>Option D</th>
+                                        <th>Option D</th> -->
                                         <th>Answer</th>
+                                        <th>view </th>
                                         <th>Action</th>
 
                                     </tr>
@@ -71,34 +73,38 @@
                                                     </td>
                                                     <td  class="width-td"> 0 </td>
                                                     <td class="question-width" >
-                                                        <%=data[i].question_text%>
+                                                        <%= data[i].question_text%>
                                                     </td>
-                                                    <td class="width-td">
-                                                        <%=data[i].option_a%>
+                                                   
+                                                    <!-- <td class="width-td">
+                                                       // <%= //data[i].option_a%>
                                                     </td>
                                                     <td  class="width-td">
-                                                        <%=data[i].option_b%>
+                                                        <%= //data[i].option_b%>
                                                     </td>
                                                     <td class="width-td">
-                                                        <%=data[i].option_c%>
+                                                        <%= //data[i].option_c%>
                                                     </td>
                                                     <td class="width-td">
-                                                        <%=data[i].option_d%>
-                                                    </td>
+                                                       <%= //data[i].option_d%>
+                                                    </td> -->
                                                     <td class="answercolor">
                                                         <%=data[i].answer%>
+                                                    </td>
+                                                    <td>
+                                                        <a href="" class="button-view"> view </a>
                                                     </td>
                                                     <td class="button-width">
                                                         <a href="editquestion?question_id=<%= data[i].question_id %>"
                                                             class="edit-btn">Edit</a>
-                                                        <a href="/exam/status?status=<%=data[i].exam_status%>&id=<%=data[i].exam_id%>"
-                                                            onclick="deletquestion(`<%= data[i].question_id %>`)"
-                                                            class="delete-btn">Delete</a>
+                                         <a  href="/deletequestion" onclick="deletques(`<%= data[i].question_id %>`)"
+                                                              class="delete-btn">Delete</a>
                                                     </td>
                                                 </tr>
                                                 <% } %>
 
                                 </tbody>
+
                             </table>
 
 

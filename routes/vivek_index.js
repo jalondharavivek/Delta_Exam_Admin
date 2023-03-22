@@ -102,6 +102,7 @@ app.post('/addquestion', async (req, res) => {
 // edit question get request
 app.get('/editquestion', async (req, res) => {
   let id = req.query.question_id;
+  console.log();
   console.log(id, "edit question id in get request");
   let editquesql = `select * from  questions  where question_id = ${id}`;
   let [editques] = await db.query(editquesql);
@@ -146,7 +147,8 @@ app.post('/editquestion', async (req, res) => {
 // delet question get request
 app.get('/deletequestion', async (req, res) => {
   let id = req.query.question_id;
-  let deletquesql = `select * from questions where `
+  let deletquesql = `select * from questions where question_id = '${id}' `
+  let [quedlt] = await db.execute(deletquesql)
 })
 
 
