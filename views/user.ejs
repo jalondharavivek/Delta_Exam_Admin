@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/edit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+</head>
+
+
+<body>
+    <%- include('header'); -%>
+        <div class="main-container">
+            <%- include('nav'); -%>
+                <div class="main">
+                    <div class="searchbar">
+                        <input type="text" name="search" id="search" placeholder="Search" oninput="search(this.value)">
+                        <div class="searchbtn">
+                            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
+                                class="icn srchicn" alt="search-button">
+                        </div>
+                    </div>
+                    <div class="form">
+                        <form action="/edit" method="post">
+                            <table id="mytable" align="center">
+                                <tbody id="tbody">
+
+                                    <tr>
+                                        <th>s_id</th>
+                                        <th>name</th>
+                                        <th>email</th>
+                                        <th>contact</th>
+                                        <th>gender</th>
+                                        <th>address</th>
+                                        <th>status</th>
+                                        <th>state</th>
+                                        <th>city</th>
+                                        <th>college_id</th>
+                                        <th>created_date</th>
+                                        <th>action</th>
+
+                                    </tr>
+
+                                    <%for(let i=0; i<student.length; i++) {%>
+                                        <tr>
+                                            <td>
+                                                <%=student[i].student_id%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].name%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].email%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].contact%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].gender%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].address%>
+                                            </td>
+
+                                            <td>
+
+                                                <div id="toggle<%=student[i].student_id%>">
+                                                    <p class="btn"  id="<%=student[i].student_id%>"
+                                                        onclick="toggle('<%=student[i].student_status%>','<%=student[i].student_id%>')">
+                                                        <%=student[i].student_status%>
+                                                    </p>
+                                                </div>
+
+
+                                            </td>
+                                            <td>
+                                                <%=student[i].state_name%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].city%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].college_name%>
+                                            </td>
+                                            <td>
+                                                <%= (new Date(student[i].created_date).toLocaleDateString()) %>
+
+                                            </td>
+                                            <td>
+                                                <a id="editbutton" href="/edit/:id=<%=student[i].student_id%>">edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <%}%>
+                                </tbody>
+                            </table>
+                        </form><br>
+                    </div>
+                </div>
+        </div>
+</body>
+<script src="/js/dashboard.js"></script>
+<script src="/js/user.js"></script>
+
+
+</html>
