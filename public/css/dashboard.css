@@ -29,13 +29,22 @@ overflow-x: hidden;
 i{
     padding-right: 20px;
 }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 12060px;
+    box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+    z-index: 1;
+}
 header {
 height: 70px;
 width: 100vw;
 padding: 0 30px;
 background-color: var(--background-color1);
 position: fixed;
-z-index: 100;
+/* z-index: 10; */
 box-shadow: 1px 1px 15px rgba(161, 182, 253, 0.825);
 display: flex;
 justify-content: space-between;
@@ -126,6 +135,7 @@ width: 100%;
 overflow-y: scroll;
 overflow-x: hidden;
 padding: 40px 30px 30px 30px;
+/* border: 1px solid red; */
 }
 
 .main::-webkit-scrollbar-thumb {
@@ -153,11 +163,11 @@ gap: 50px;
 }
 .nav {
 min-height: 91vh;
-width: 250px;
+width: 260px;
 background-color: var(--background-color2);
 position: absolute;
 top: 0px;
-left: 00;
+left: -10px;
 box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
 display: flex;
 flex-direction: column;
@@ -177,11 +187,24 @@ transition: all 0.5s ease-in-out;
 display: none;
 }
 .navclose {
-width: 65px;
+width: 50px;
 }
 
+<<<<<<< HEAD
 
 
+=======
+.option1 {
+ 
+    /* background-color:#ccf3c0af; */
+    /* color: white; */
+    cursor: pointer;
+  }
+  .option1:hover {
+    border-left: 5px solid #010058af;
+    background-color: var(--Border-color);
+  }
+>>>>>>> 2b1e6aee128d4496b0cfd82f15a3f63b9ec4ccdd
 .nav-option {
 width: 250px;
 height: 60px;
@@ -487,6 +510,62 @@ border-radius: 4px;
         width: 180px;
     }
     }
+<<<<<<< HEAD
   
    
   
+=======
+    
+    /* #myMenu {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1;
+    }
+
+    #myMenu a {
+        display: block;
+        padding: 5px 10px;
+        color: #333;
+        text-decoration: none;
+    }
+
+    #myMenu a:hover {
+        background-color: #f5f5f5;
+    } */
+    .display-picture img:hover {
+        border: 2px solid #E78341;
+    }
+    
+    .card {
+        transition: 0.5s ease;
+    }
+    
+    .card ul {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        background: #ffffff;
+        position: absolute;
+        top: 4rem;
+        right: 0rem;
+        border-radius: 10px;
+        padding: 10px 50px 10px 20px;
+    }
+    
+    .card ul li {
+        border-radius: 5px;
+       
+     
+        width: 100%;
+    
+        font-size: 14px;
+    }
+    
+    .hidden {
+        display: none;
+    }
+>>>>>>> 2b1e6aee128d4496b0cfd82f15a3f63b9ec4ccdd
