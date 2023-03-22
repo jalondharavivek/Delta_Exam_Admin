@@ -2,7 +2,7 @@
  const path = require('path')
  const app = express();
  const mysql = require("mysql2/promise");
- const port = 8766;
+ const port = 8765;
  app.set("view engine", "ejs");
 
  app.use(express.static('public'));
