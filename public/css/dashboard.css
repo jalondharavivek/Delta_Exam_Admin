@@ -190,10 +190,6 @@ display: none;
 width: 50px;
 }
 
-<<<<<<< HEAD
-
-
-=======
 .option1 {
  
     /* background-color:#ccf3c0af; */
@@ -204,7 +200,6 @@ width: 50px;
     border-left: 5px solid #010058af;
     background-color: var(--Border-color);
   }
->>>>>>> 2b1e6aee128d4496b0cfd82f15a3f63b9ec4ccdd
 .nav-option {
 width: 250px;
 height: 60px;
@@ -510,11 +505,6 @@ border-radius: 4px;
         width: 180px;
     }
     }
-<<<<<<< HEAD
-  
-   
-  
-=======
     
     /* #myMenu {
         position: absolute;
@@ -568,4 +558,3 @@ border-radius: 4px;
     .hidden {
         display: none;
     }
->>>>>>> 2b1e6aee128d4496b0cfd82f15a3f63b9ec4ccdd
