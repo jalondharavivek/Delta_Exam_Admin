@@ -36,16 +36,6 @@ const db = mysql.createPool({
 
 });
 
-
-
-//require file
-
-
-
-
-
-
-
 app.get('/', (req, res) => {
   res.render("dashboard")
 });
