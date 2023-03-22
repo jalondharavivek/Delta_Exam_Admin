@@ -14,7 +14,6 @@ app.use("/", category)
 
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public/')))
-
 const db = mysql.createPool({
 host: "localhost",
 user: "root",
