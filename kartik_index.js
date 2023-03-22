@@ -11,7 +11,7 @@
 const sejal_indexfile = require('./routes/sejal_index')
 
 app.use('/',sejal_indexfile);
-
+``
 
 
  const db = mysql.createPool({

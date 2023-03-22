@@ -29,11 +29,11 @@
             <table>
                
                 <tr>
-                    <th>Result id</th>
-                    <th>answer_id</th>
-                    <th>student_answer</th>
-                    <th>correct_answer</th>
-                    <th>view</th>
+                    <th>student name</th>
+                    <th>exam_name</th>
+                    <th>time</th>
+                    <th>exam_status</th>
+              
          
                 </tr>
               
@@ -41,11 +41,11 @@
             <% let id=1; %>
             <% data.forEach(c => { %>
                 <tr>
-                    <td><%= c.result_id %></td>
-                    <td><%= c.answer_id %></td>
-                    <td><%= c.student_answer %></td>
-                    <td><%= c.correct_answer %></td>
-                    <td><a href="/viewresult" class="btn btn-dark"><i class="fa-solid fa-circle-info"></i></a></td>
+                    <td><%= c.stu_name %></td>
+                    <td><%= c.exam_name %></td>
+                    <td><%= c.total_time_taken %></td>
+                    <td><%= c.exam_status %></td>
+                 
                     
                 </tr>
                 <% }); %>

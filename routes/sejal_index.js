@@ -6,7 +6,7 @@ var cookie = require('cookie-parser');
 var utils = require('util');
 const { decode } = require('punycode');
 let bodyParser = require('body-parser')
-const mysql = require('mysql2');
+const mysql = require("mysql2/promise");
 const flash = require('connect-flash');
 var nodemailer = require('nodemailer');
 
@@ -35,17 +35,13 @@ app.use(sessions({
     resave: false
 }));
 
-const conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'exam_system'
-});
 
-var exe = utils.promisify(conn.query).bind(conn);
-conn.connect((err) => {
-    if (err) throw err;
-});
+const db = mysql.createPool({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "exam_system",
+    });
 
 //forget password
 app.get("/forget", async(req, res) => {
@@ -60,16 +56,17 @@ app.get("/login", (req, res) => {
 
 })
 
+//login
 app.post('/login', async(req, res) => {
 
     var email = req.body.email;
     var password = req.body.password;
 
     var selectEmail = `SELECT email, password FROM student where email = '${email}' `
-    var emailResult = await exe(selectEmail);
+    var [emailResult] = await db.query(selectEmail);
 
     var selectUser = `SELECT email, password , user_login_status  , role from user_login where email = '${email}'`;
-    var userData = await exe(selectUser);
+    var [userData] = await db.query(selectUser);
 
 
     if (userData.length == 0) {
@@ -91,7 +88,7 @@ app.post('/login', async(req, res) => {
                 req.session.email = email;
                 if(userData[0].role == 1) 
                 {
-                    res.render("home.ejs")
+                    res.render("dashboard.ejs")
                 }
                 else
                 {
@@ -109,6 +106,7 @@ app.post('/setPassword', async(req, res) => {
     res.render("setPassword")
 })
 
+//nodemailer
 app.post('/fetch_api', (req, res) => {
 
     var email = req.body.email;
@@ -161,7 +159,7 @@ app.post("/active/:resultRandom", async(req, res) => {
 
     var updateQuery1 = `update user_login set user_login_status = 1 where email ="${email}"`;
 
-    var resultUpdate1 = await exe(updateQuery1)
+    var [resultUpdate1] = await db.query(updateQuery1)
 
     let d = (Array(resultUpdate1))
 
@@ -187,14 +185,11 @@ app.post("/updatePassword", async(req, res) => {
 
     var updateQuery = `update user_login set password = '${resetPassword}' where email = '${email}'`;
     console.log("update query", updateQuery)
-    var updateResult = await exe(updateQuery)
+    var [updateResult] = await db.query(updateQuery)
     res.redirect("/login");
 })
 
-app.listen(PORT, (err) => {
-    console.log(`http://localhost:${PORT}/login`);
-})
-
+//fucntion for otp 
 function generateOTP() {
 
     var digits = '0123456789';
@@ -204,4 +199,27 @@ function generateOTP() {
     }
     return OTP;
 }
+
+//result 
+
+app.get('/result',async (req, res) => {
+    let sql = "SELECT * FROM exam_system.result;";
+     let [query] = await db.query(sql);
+    // console.log(query);
+     res.render('result',{data : query});
+   })
+ 
+   //viewresult 
+app.get('/viewresult',async (req, res) => {
+    let sql = "SELECT * FROM try.result;";
+     let [query] = await db.query(sql);
+     console.log(query);
+     res.render('viewresult',{data : query});
+   })
+   
 module.exports = app; 
+
+//port
+app.listen(PORT, (err) => {
+    console.log(`http://localhost:${PORT}/login`);
+})
