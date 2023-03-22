@@ -64,7 +64,7 @@ try{
   from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id `;
 
 
-  let page=parseInt(req.body.page)||2;
+  let page=parseInt(req.body.page)||1;
   let limit=parseInt(req.body.limit)||3;
   let startindex=(page-1)*limit;
   let endindex=page*limit-startindex;
