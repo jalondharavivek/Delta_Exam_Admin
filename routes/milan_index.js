@@ -3,21 +3,20 @@ const path = require('path')
 const app = express();
 const mysql1 = require('mysql2')
 const mysql = require("mysql2/promise");
-
-app.set("view engine", "ejs");
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
-
 const body = require('body-parser');
-// const { get } = require('http');
-// const { emit } = require('process');
+const oneDay = 1000 * 60 * 60 * 24;
 
-// let cookieParser = require('cookie-parser');
-// const bcrypt = require("bcryptjs");
-
+app.set("view engine", "ejs");
+app.use(session({
+    secret: "milan",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
+app.use(cookieParser());
 app.use(body.urlencoded({ extended: false }));
-
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -152,7 +151,7 @@ app.get('/', (req, res) => {
 // })
 //edit exam endpoint page render end-pont
 app.get("/edit", async (req, res) => {
-  console.log("enter in exam edit endpoint")
+  console.log("enter in exam /edit endpoint")
   console.log(req.query);
 
   let sql1 = `select * from exam_system.exam where exam_id=${req.query.exam_id};`
@@ -161,7 +160,7 @@ app.get("/edit", async (req, res) => {
   console.log(data1);
 
 
-  res.render("examedit", { data1 });
+  res.send({ data1 });
 })
 
 
@@ -295,7 +294,7 @@ app.get("/examlist", async (req, res) => {
 
   sql1 = `select * from exam_system.exam limit ${offset},${limit};`;
   let data1 = await getdata(sql1);
-  
+  req.session.exam_id = data1
  
    
 
@@ -304,8 +303,7 @@ app.get("/examlist", async (req, res) => {
   res.render("examlist", { data1, count, curpage });
 
 })
-//exam serching
-app.get("")
+
 
 //show exam create page
 app.get("/exam", async (req, res) => {
