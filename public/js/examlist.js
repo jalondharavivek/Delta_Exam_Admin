@@ -431,11 +431,11 @@ async function page(num) {
 
  
     let tbody = document.getElementById('tbody');
-    console.log(tbody)
+    
   
     tbody.innerHTML = "";
     let str = "";
-    console.log(str)
+   
     str += ` <tr>
                     <th>Sr .No</th>
                     <th>exam_name</th>
@@ -519,6 +519,6 @@ async function page(num) {
 
   tbody.innerHTML =  str;
 
-
-    
+ 
+ 
 }

@@ -220,3 +220,17 @@ display: inline-block;
     border-radius: 10px;
     background-color: azure;
 }
+
+#page{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    /* display: inline-block; */
+    width: 300px;
+    /* border: 1px solid black; */
+    
+    justify-content: space-between;
+}
+#page p{
+    cursor: pointer;
+}

@@ -40,7 +40,7 @@
                                     oninput="togglecolorchnage()">
                                 <a href="#" id="exam_search">Search</a>
                                 <p onclick="addexam()"><i class="fa-solid fa-circle-plus" id="i"></i></p>
-
+                                
                             </div>
                         </div>
                         <div class="exam_listing">
@@ -129,32 +129,34 @@
                                         <% }%>
                                 </tbody>
                             </table>
-                            <% if(curpage==1){ %>
-                                <p>prev</p>
-                                <%}else{%>
-
-                                    <p onclick="page(`<%=curpage-1%>`)">prev</p>
-                                    <% } %>
-
-                                        <% for(let i=1;i<=count ;i++){ %>
-                                            <% if(curpage==i){ %>
-                                                <p><b>
-                                                        <%=i%>
-                                                    </b></p>
-                                                <%}else{%>
-
-                                                    <p onclick="page(`<%=i%>`)">
-                                                        <%=i%>
-                                                    </p>
-                                                    <%}%>
+                            <div id="page">
+                                <% if(curpage==1){ %>
+                                    <p class="p">prev</p>
+                                    <%}else{%>
+                                       
+                                        <p onclick="page(`<%=curpage-1%>`)" class="p">prev</p>
+                                        <% } %>
+    
+                                            <% for(let i=1;i<=count ;i++){ %>
+                                                <% if(curpage==i){ %>
+                                                    <p class="p"><b><%=i%>
+                                                        </b></p>
+                                                    <%}else{%>
+                                                        
+                                                        <p onclick="page(`<%=i%>`)" class="p">
+                                                            <%=i%>
+                                                        </p>
                                                         <%}%>
-
-
-                                                            <%if(curpage==count){ %>
-                                                                <p>next</p>
-                                                                <%}else{%>
-
-                                                                    <p onclick="page(`<%=curpage+1%>`)">next</p>
+                                                            <%}%>
+    
+    
+                                                                <%if(curpage==count){ %>
+                                                                    <p class="p">next</p>
+                                                                    <%}else{%>
+                                                                        
+                                                                        <p onclick="page(`<%=curpage+1%>`)" class="p">next</p>
+                            </div>
+                            
                         </div>
                         <%}%>
                     </div>
