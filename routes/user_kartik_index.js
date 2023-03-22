@@ -23,17 +23,9 @@ const db = mysql.createPool({
     password: "root",
     database: "exam_system",
   });
-  app.use(sessions({
-    secret: "huy7uy7u",
-    saveUninitialized: true,
-    resave: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24, 
-    },
-}));
-  app.get('/dashboard',(req,res)=>{
-    res.render('dashboard.ejs');
-})
+// app.get('/dashboard',(req,res)=>{
+//     res.render('dashboard.ejs');
+// })
   
 app.get('/user', async (req, res) => {
  
@@ -69,12 +61,6 @@ app.get('/user', async (req, res) => {
       res.json({student_result})
     }
   });
-  
-
-
-
-
-
   //collage render tghrough ajax
   app.get("/collage", async (req, res) => {
     console.log("/collage is active")

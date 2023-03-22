@@ -45,15 +45,15 @@ app.get('/selected/category', async (req, res) => {
 })
 
 //dashboard endpoints
-app.get('/', (req, res) => {
-  try {
-    res.render("dashboard")
+// app.get('/', (req, res) => {
+//   try {
+//     res.render("dashboard")
 
-  } catch (err) {
-    console.log(err)
-  }
+//   } catch (err) {
+//     console.log(err)
+//   }
 
-});
+// });
 
 //edit exam endpoint page render end-pont
 app.get("/edit", async (req, res) => {
