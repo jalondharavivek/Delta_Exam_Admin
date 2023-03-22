@@ -66,29 +66,29 @@
                                         <% let id=1 %>
                                             <% for(var i=0 ; i < data.length ; i++) { %>
                                                 <tr>
-                                                    <td>
+                                                    <td class="width-td">
                                                         <%= id++ %>
                                                     </td>
-                                                    <td> 0 </td>
-                                                    <td>
+                                                    <td  class="width-td"> 0 </td>
+                                                    <td class="question-width" >
                                                         <%=data[i].question_text%>
                                                     </td>
-                                                    <td>
+                                                    <td class="width-td">
                                                         <%=data[i].option_a%>
                                                     </td>
-                                                    <td>
+                                                    <td  class="width-td">
                                                         <%=data[i].option_b%>
                                                     </td>
-                                                    <td>
+                                                    <td class="width-td">
                                                         <%=data[i].option_c%>
                                                     </td>
-                                                    <td>
+                                                    <td class="width-td">
                                                         <%=data[i].option_d%>
                                                     </td>
                                                     <td class="answercolor">
                                                         <%=data[i].answer%>
                                                     </td>
-                                                    <td>
+                                                    <td class="button-width">
                                                         <a href="editquestion?question_id=<%= data[i].question_id %>"
                                                             class="edit-btn">Edit</a>
                                                         <a href="/exam/status?status=<%=data[i].exam_status%>&id=<%=data[i].exam_id%>"

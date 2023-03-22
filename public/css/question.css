@@ -1,7 +1,7 @@
 .content-main {
-    
+/*     
     padding-left: 100px;
-    padding-right: 100px;
+    padding-right: 100px; */
 
 }
 
@@ -18,7 +18,7 @@
 }
 
 table {
-    /* width: 100%; */
+    width: 100%;
     /* max-width: 800px; */
     margin: 0 auto;
     border-collapse: collapse;
@@ -26,7 +26,7 @@ table {
 
 th,
 td {
-    padding: 10px;
+    padding: 5px;
     text-align: left;
     border-bottom: 1px solid #eee;
 }
@@ -48,9 +48,7 @@ tbody tr:hover {
     background-color: #ddd;
     cursor: pointer;
 }
-.exam-button-row{
-   
-}
+
 
 .add-button {
     /* position: fixed; 
@@ -137,3 +135,21 @@ margin-right: 10px;
     font-size: 15px
  
 }
+
+/* td{
+    width: 200px;
+    overflow-wrap: break-word;
+} */
+/* .question-width{
+width:20%;
+}
+.width-td{
+    width: 10%;
+
+}
+.answercolor{
+    width: 10%;
+}
+.button-width{
+    width :10%
+} */

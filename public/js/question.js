@@ -26,7 +26,7 @@ console.log(name,"question module in search search:::::;")
                              <th>Answer</th>
                              <th>Action</th>
                         </tr>`;
-                        console.log(data.search.question_text,":::question name  ")
+                        console.log(data.search[0].question_text,":::question name  ")
                         console.log(Object.keys(data.search).length == 0 , "::::::::total")
     if(Object.keys(data.search).length == 0)
       {
@@ -35,7 +35,7 @@ console.log(name,"question module in search search:::::;")
  else
     {
       {
-        quetabsearch += `<tr><td>${ data.tsearch.question_id }</td><td>${ data.search.question_text }</td></tr>`
+        quetabsearch += `<tr><td>${ data.search.question_id }</td><td>${ data.search.question_text }</td></tr>`
   }
   }
   tabque.innerHTML = quetabsearch;
