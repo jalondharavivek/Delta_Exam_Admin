@@ -62,15 +62,15 @@ app.use(sessions({
 
 //middleware
 
-// const authMiddleware = (req, res, next) => {
-//     if (!req.session.user) {
-//       return res.redirect("/");
-//     }
-//     next();
-//   };
-//   app.get("/login", authMiddleware, (req, res) => {
-//     res.end('login succesfull')
-//   });
+const authMiddleware = (req, res, next) => {
+    if (!req.session.user) {
+      return res.redirect("/");
+    }
+    next();
+  };
+  // app.get("/login", authMiddleware, (req, res) => {
+  //   res.end('login succesfull')
+  // });
 
 
 // create connectin 
@@ -113,6 +113,14 @@ app.post('/login', async(req, res) => {
         if (!compare) {
             res.send("Password is not match")
         } else {  
+          app.use(sessions({
+            secret: "huy7uy7u",
+            saveUninitialized: true,
+            resave: false,
+            cookie: {
+                maxAge: 1000 * 60 * 60 * 24, 
+            },
+        }));
             res.redirect('/dashboard');
         }
     }
@@ -122,7 +130,7 @@ app.get("/forget", async(req, res) => {
     res.render("validEmail")
 })
 
-app.get('/dashboard',(req,res)=>{
+app.get('/dashboard',authMiddleware, (req,res)=>{
   res.render('dashboard.ejs');
 })
 
