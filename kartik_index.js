@@ -6,7 +6,7 @@ var cookie = require('cookie-parser');
 var utils = require('util');
 const { decode } = require('punycode');
 let bodyParser = require('body-parser')
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 const flash = require('connect-flash');
 var nodemailer = require('nodemailer');
 const path = require('path')
@@ -62,15 +62,15 @@ app.use(sessions({
 
 //middleware
 
-// const authMiddleware = (req, res, next) => {
-//     if (!req.session.user) {
-//       return res.redirect("/");
-//     }
-//     next();
-//   };
-//   app.get("/login", authMiddleware, (req, res) => {
-//     res.end('login succesfull')
-//   });
+const authMiddleware = (req, res, next) => {
+    if (!req.session.user) {
+      return res.redirect("/");
+    }
+    next();
+  };
+  // app.get("/login", authMiddleware, (req, res) => {
+  //   res.end('login succesfull')
+  // });
 
 
 // create connectin 
@@ -91,9 +91,10 @@ app.post('/login', async(req, res) => {
     var email = req.body.email;
     var password = req.body.password;
     var selectEmail = `SELECT email, password FROM student where email = '${email}' `
-    var emailResult = await getdata(selectEmail);
-    var selectUser = `SELECT email, password , user_login_status  , role from user_login where email = '${email}'`;
-    var userData = await getdata(selectUser);
+    var emailResult = await db.query(selectEmail);
+    var selectUser = `SELECT email, password , user_login_status , role from user_login where email = '${email}'`;
+    var [userData] = await db.query(selectUser);
+    console.log(userData.length);
     if (userData.length == 0) {
         res.send("email is not match");
     } else {
@@ -103,7 +104,15 @@ app.post('/login', async(req, res) => {
         if (!compare) {
             res.send("Password is not match")
         } else {  
-            res.redirect('/dashboard');
+          app.use(sessions({
+            secret: "huy7uy7u",
+            saveUninitialized: true,
+            resave: false,
+            cookie: {
+                maxAge: 1000 * 60 * 60 * 24, 
+              },
+            }));
+            res.redirect('dashboard');
         }
     }
 })
@@ -112,7 +121,7 @@ app.get("/forget", async(req, res) => {
     res.render("validEmail")
 })
 
-app.get('/dashboard',(req,res)=>{
+app.get('/dashboard',async (req,res)=>{
   res.render('dashboard.ejs');
 })
 
@@ -186,7 +195,7 @@ app.post("/updatePassword", async(req, res) => {
   var resetPassword = await bcrypt.hash(password, set);
   var updateQuery = `update user_login set password = '${resetPassword}' where email = '${email}'`;
   console.log("update query", updateQuery)
-  var updateResult = await getdata(updateQuery)
+  var updateResult = await db.query(updateQuery)
   req.session.destroy();
   res.redirect("/");
 })
