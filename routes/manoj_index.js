@@ -136,3 +136,6 @@ app.get('/search',async (req, res) => {
     let [query1] = await db.query(srch);
     res.json({search : query1,data : query, page: page, total: result1[0].total, limit: limit, pages : pages1 });
 })  
+
+
+module.exports = app;
