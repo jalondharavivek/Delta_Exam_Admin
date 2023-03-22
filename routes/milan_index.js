@@ -11,6 +11,11 @@ app.use(cookieParser());
 app.use(body.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(session({
+  secret: 'milan',
+  resave: false,
+  saveUninitialized: true
+}));
 
 const db = mysql.createPool({
   host: "localhost",
@@ -18,6 +23,8 @@ const db = mysql.createPool({
   password: "root",
   database: "exam_system",
 });
+
+
 
 //show already selected category in exam edit page keje already save chhe
 app.get('/selected/category', async (req, res) => {
@@ -58,11 +65,15 @@ app.get('/', (req, res) => {
 //edit exam endpoint page render end-pont
 app.get("/edit", async (req, res) => {
   try {
+
+    console.log(req.query)
     let id = req.query.exam_id;
+    console.log(id);
     let sql1 = `select * from exam_system.exam where exam_id=${id};`
     let [data1] = await db.execute(sql1);
-    console.log(data1);
-    res.render("examedit", { data1 });
+    // console.log(data1);
+    res.send( data1 );
+
   } catch (err) {
     console.log(err);
   }
