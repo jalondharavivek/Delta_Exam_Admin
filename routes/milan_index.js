@@ -231,7 +231,7 @@ app.get("/examlist/page",async (req,res)=>{
 
     sql1 = `select * from exam_system.exam limit ${offset},${limit};`;
     let [data1] = await db.execute(sql1);
-
+    console.log(curpage);
     res.json({count,data1,curpage});
 
   }catch(err){

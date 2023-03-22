@@ -426,16 +426,16 @@ async function page(num) {
 
     let result = await fetch(`/examlist/page?page=${num}`);
     let data = await result.json();
-    console.log(data.data1);   
+    console.log(data);
 
 
- 
+
     let tbody = document.getElementById('tbody');
-    
-  
+
+
     tbody.innerHTML = "";
     let str = "";
-   
+
     str += ` <tr>
                     <th>Sr .No</th>
                     <th>exam_name</th>
@@ -517,8 +517,39 @@ async function page(num) {
                    `;
     }
 
-  tbody.innerHTML =  str;
+    tbody.innerHTML = str;
+    let pageid = document.getElementById('page');
+    console.log(pageid)
 
- 
- 
+    let newstr = '';
+    pageid.innerHTML = "";
+
+    if (num == 1) {
+        
+        pageid.innerHTML += `<p onclick="page(1)" class="p">prev</p>`;
+
+    } else{
+        console.log(num , "prev")
+        pageid.innerHTML += `<p onclick="page(${num}-1)" class="p">prev</p>`;
+
+    }
+
+    for (let i = 1; i <= data.count; i++) {
+
+        pageid.innerHTML += `<p onclick="page(${i})" class="p">
+            ${i}
+        </p>`;
+    }
+
+    if (num == 7) {
+        
+        pageid.innerHTML += `<p onclick="page(7)" class="p">next</p>`;
+
+    } else {
+        pageid.innerHTML += `<p onclick="page(${num} + 1)" class="p">next</p>`;
+    }
+
+    let pclass = document.querySelectorAll('.p');
+    console.log(pclass)
+
 }
