@@ -1,19 +1,14 @@
 const express = require('express')
 const path = require('path')
 const app = express();
-
 const mysql = require("mysql2/promise");
-
-app.set("view engine", "ejs");
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
-
 const body = require('body-parser');
 
-
+app.set("view engine", "ejs");
+app.use(cookieParser());
 app.use(body.urlencoded({ extended: false }));
-
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -24,48 +19,47 @@ const db = mysql.createPool({
   database: "exam_system",
 });
 
-
-
-
 //show already selected category in exam edit page keje already save chhe
 app.get('/selected/category', async (req, res) => {
-  let arr = [];
-  console.log(req.query);
-  let exam_id = req.query.exam_id;
-  let sql1 = `select category_id from exam_categoty where exam_id='${exam_id}'`;
-  let [data1] = await db.execute(sql1);
+  try {
+    let arr = [];
 
-  for (i = 0; i < data1.length; i++) {
-    let sql2 = `select * from category where category_id='${data1[i].category_id}' `;
-    let [data2] = await db.execute(sql2);
-    // console.log(data2);
-    arr.push(data2);
+    let exam_id = req.query.exam_id;
+    let sql1 = `select category_id from exam_categoty where exam_id='${exam_id}'`;
+    let [data1] = await db.execute(sql1);
+
+    for (i = 0; i < data1.length; i++) {
+
+      let sql2 = `select * from category where category_id='${data1[i].category_id}' `;
+      let [data2] = await db.execute(sql2);
+
+      arr.push(data2);
+    }
+
+    res.send(arr);
+  } catch (err) {
+    console.log(err);
   }
-  console.log(arr);
-  res.send(arr);
+
 
 })
 
 //dashboard endpoints
 app.get('/', (req, res) => {
-  // req.session.name = "john";
+  try {
+    res.render("dashboard")
 
-  res.render("dashboard")
-
+  } catch (err) {
+    console.log(err)
+  }
 
 });
 
 //edit exam endpoint page render end-pont
 app.get("/edit", async (req, res) => {
-  console.log("enter in exam edit endpoint")
-  console.log(req.query);
 
   let sql1 = `select * from exam_system.exam where exam_id=${req.query.exam_id};`
-
   let [data1] = await db.execute(sql1);
-  console.log(data1);
-
-
   res.render("examedit", { data1 });
 })
 
@@ -73,30 +67,29 @@ app.get("/edit", async (req, res) => {
 //finally edit exam post method end-pont
 app.post("/edit", async (req, res) => {
 
-  console.log("/edit/:id");
-  console.log(req.body);
-
-
   let exam = req.body.exam_name;
   let category = req.body.category;
   let question = req.body.question;
   let time = req.body.time;
   let start_date = req.body.start_date;
   let exam_id = req.body.exam_id;
- 
+
   let strcat = ''; //str for store category in one line
-  for(i=0 ;i<category.length ;i++){
-  sql3 = `select category_name from category where category_id='${category[i]}'`;
-  let [data3] = await db.execute(sql3);
-    console.log(data3[0].category_name);
-    strcat+= data3[0].category_name;
+
+  for (i = 0; i < category.length; i++) {
+
+    sql3 = `select category_name from category where category_id='${category[i]}'`;
+    let [data3] = await db.execute(sql3);
+
+    strcat += data3[0].category_name;
     strcat += ', ';
   }
-   let categories = strcat.substring(0,strcat.length-2);
-   console.log(categories);
+
+  let categories = strcat.substring(0, strcat.length - 2);
 
   let sql1 = `update exam_system.exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category='${categories}' where exam_id='${exam_id}';`;
   let [data1] = await db.execute(sql1);
+
   let appid = data1.insertId;
 
   for (i = 0; i < category.length; i++) {
@@ -107,20 +100,14 @@ app.post("/edit", async (req, res) => {
   }
   res.redirect("/examlist");
 
-
 })
 
 
 //unknown end-point where is this use this database
 app.get("/edit/option", async (req, res) => {
-  console.log("enter in exam edit endpoint")
-  console.log(req.query);
 
   let sql1 = `select * from exam_system.exam where exam_id=${req.query.exam_id};`
-
   let [data1] = await db.execute(sql1);
-  console.log(data1);
-
   res.send(data1);
 
 })
@@ -145,16 +132,15 @@ app.get("/categories", async (req, res) => {
 app.get("/examlist", async (req, res) => {
 
   if (req.query.exam_name == null || req.query.exam_name == "''") {
-    
+
   } else {
 
     let exam_name = req.query.exam_name;
-    console.log(req.query.exam_name)
-    console.log("value aavi gay")
+
     let sql4 = `select * from exam where exam_name like '%${exam_name}%'`;
-    // console.log(sql4);
+
     let [data1] = await db.execute(sql4);
-    console.log(data1,"aerbgegergwerghfg");
+
     res.send(data1);
 
   }
@@ -171,38 +157,18 @@ app.get("/examlist", async (req, res) => {
   let limit = 2;
   let offset = (page - 1) * limit;
 
-  // declare and access curorder and odrtype
-  // let curorder = req.query.curorder;
-  // let odrtype = req.query.odrtype;
-
-  // if (req.query.curorder) {
-  //     curorder = req.query.curorder;
-  //     odrtype = req.query.odrtype;
-
-  // } else { // first time loading the url by default value
-  //     curorder = id;
-  //     curpage = 1;
-  //     odrtype = 'ASC';
-  // }
-
-  // console.log(req.query.num);
-
 
   if (isNaN(offset)) {
     offset = 0;
   }
   sql2 = `select count(*) as numrows from exam_system.exam ;`;
   let [data2] = await db.execute(sql2);
-  console.log(data2)
 
   count = Math.ceil(data2[0].numrows / limit);
 
-  // console.log("count",count);
-
   sql1 = `select * from exam_system.exam limit ${offset},${limit};`;
   let [data1] = await db.execute(sql1);
-  console.log(data1)
-  
+
   res.render("examlist", { data1, count, curpage });
 
 })
@@ -216,44 +182,25 @@ app.get("/exam", async (req, res) => {
 //create exam endpoint on post method
 app.post("/exam", async (req, res) => {
 
-  console.log(req.body)
+
   let exam = req.body.exam_name;
   let question = req.body.question;
   let time = req.body.time;
-  // let total_mark = req.body.total_mark;
-  // let passing_mark = req.body.passing_mark;
+
   let start_date = req.body.start_date;
   let category = req.body.category;
-   let strcat = ''; //str for store category in one line
-  for(i=0 ;i<category.length ;i++){
-  sql3 = `select category_name from category where category_id='${category[i]}'`;
-  let [data3] = await db.execute(sql3);
-    console.log(data3[0].category_name);
-    strcat+= data3[0].category_name;
+  let strcat = ''; //str for store category in one line
+  for (i = 0; i < category.length; i++) {
+    sql3 = `select category_name from category where category_id='${category[i]}'`;
+    let [data3] = await db.execute(sql3);
+
+    strcat += data3[0].category_name;
     strcat += ', ';
   }
-   let categories = strcat.substring(0,strcat.length-2);
-   console.log(categories);
-  
-  // let end_date = req.body.end_date;
+  let categories = strcat.substring(0, strcat.length - 2);
 
-  // random string code 
-  // function generateRandomString(length) {
-  //   const symbols = "!@#$%^&*()_+{}:\"<>?'[]\\;,./";
-  //   const alphanumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-  //   const characters = symbols + alphanumeric;
 
-  //   let result = '';
-  //   for (let i = 0; i < length; i++) {
-  //     const randomIndex = Math.floor(Math.random() * characters.length);
-  //     result += characters[randomIndex];
-  //   }
-  //   return result;
-  // }
 
-  // const random = generateRandomString(10);
-  // console.log(random)
-  //random string end
   let str = "";
   let num = "0123456789";
   let lan = num.length;
@@ -277,7 +224,7 @@ app.post("/exam", async (req, res) => {
 })
 //exam ststus enable or disable button endpoint
 app.get("/exam/status", async (req, res) => {
-  console.log(req.query)
+
   let status = req.query.status;
   let id = req.query.id;
 
@@ -286,17 +233,14 @@ app.get("/exam/status", async (req, res) => {
     sql1 = `update exam_system.exam set exam_status = 0 where exam_id='${id}' `
     let [data1] = await db.execute(sql1);
     res.send(data1)
-
-
   }
   else {
     sql1 = `update exam_system.exam set exam_status = 1 where exam_id='${id}' `
     let [data1] = await db.execute(sql1);
     res.send(data1)
   }
- 
-})
 
+})
 
 // question page module end points by milan
 app.get("/questionmilan", async (req, res) => {
@@ -307,6 +251,7 @@ app.get("/questionmilan", async (req, res) => {
 
 //question created by milan
 app.post("/questionmilan", async (req, res) => {
+
   let question = req.body.question;
   let option = req.body.option;
   let a = req.body.a;
@@ -320,6 +265,5 @@ app.post("/questionmilan", async (req, res) => {
 
   res.redirect("/questionmilan");
 })
-
 
 module.exports = app;
