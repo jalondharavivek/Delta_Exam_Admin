@@ -13,8 +13,10 @@ app.use(bodyParser.json());
 const vivek_indexfile = require('./routes/vivek_index')
 app.use("/",vivek_indexfile)
 
-
-
+const milan_indexfile = require('./routes/milan_index')
+app.use('/',milan_indexfile)
+const sejal_indexfile = require('./routes/sehal_index')
+app.use('/',sejal_indexfile)
 
 
 app.use(express.static('public'));
