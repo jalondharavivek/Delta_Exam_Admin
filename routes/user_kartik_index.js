@@ -34,44 +34,66 @@ const db = mysql.createPool({
 
 app.get('/user',async (req, res) => {
 
-  let sql = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
-  from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
-
-  let page = req.query.page || 1;
-  let limit = req.query.limit || 3;
-  if (req.query.page > 1)
-      sql += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
-  else
-      sql += ` LIMIT ${limit} `;
-  let [student] = await db.execute(sql);
-  let sql1 = "select count(*) as total from student";
-  let [result1] = await db.execute(sql1);
-  res.render('user',{ student , page : page, total: result1[0].total, limit: limit });
+  try{
+    let sql = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
+    from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
+  
+    let page = req.query.page || 1;
+    let limit = req.query.limit || 3;
+    if (req.query.page > 1)
+        sql += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
+    else
+        sql += ` LIMIT ${limit} `;
+    let [student] = await db.execute(sql);
+    let sql1 = "select count(*) as total from student";
+    let [result1] = await db.execute(sql1);
+    res.render('user',{ student , page : page, total: result1[0].total, limit: limit });
+  }
+  catch (err) {
+    console.log(err);
+  }
+ 
 })
 
 app.post('/userpage', async (req,res) => {
 
+try{
+
+  
   let sql = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
   from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id `;
 
-  console.log(req.body.page);
-  let page=parseInt(req.body.page)||1;
+
+  let page=parseInt(req.body.page)||2;
   let limit=parseInt(req.body.limit)||3;
   let startindex=(page-1)*limit;
   let endindex=page*limit-startindex;
+
+
   if (req.body.page > 1)
       sql += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
   else
       sql += ` LIMIT ${limit} `;
   let [student] = await db.execute(sql);
+  console.log(student ,"::::student")
 
   let sql1 = "select count(*) as total from student";
   let [result1] = await db.execute(sql1);
+  console.log(result1 ,"::::student")
 
-  let pages = `select * from student where name limit ${startindex},${endindex}`;
-  console.log(pages );
+
+  let pages = `select * from student where name like '%${req.body.name}%' limit ${startindex},${endindex}`;
+  console.log(pages)
   let [pages1] = await db.execute(pages);
+  console.log(pages1 ,"::::student")
+
+
   res.json({ student, page: page, total: result1[0].total, limit: limit, pages : pages1 });
+}
+catch (err) {
+  console.log(err);
+}
+   
 })
 
 
@@ -79,102 +101,152 @@ app.post('/userpage', async (req,res) => {
 
 
 app.get('/student_status', async (req, res) => {
-  console.log("this is call")
-  console.log(req.query)
-  let student_id = req.query.id;
-  let student_status = req.query.status;
 
-  if (student_status == '0') {
-    let status = `update student set student_status = 1 where student_id = ${student_id}`;
-    let [student_result] = await db.execute(status);
-
-    res.json({ student_result })
+  try{
 
 
+    console.log(req.query)
+    let student_id = req.query.id;
+    let student_status = req.query.status;
+  
+    if (student_status == '0') {
+      let status = `update student set student_status = 1 where student_id = ${student_id}`;
+      let [student_result] = await db.execute(status);
+  
+      res.json({ student_result })
+  
+  
+    }
+    else {
+      let status = `update student set student_status = 0 where student_id = ${student_id}`;
+      let student_result = await db.execute(status);
+      res.json({ student_result })
+  
+  
+  
+  
+    }
   }
-  else {
-    let status = `update student set student_status = 0 where student_id = ${student_id}`;
-    let student_result = await db.execute(status);
-    res.json({ student_result })
-
-
-
-
+  catch (err) {
+    console.log(err);
   }
+     
 
 
 });
 //collage render tghrough ajax
 app.get("/collage", async (req, res) => {
-  console.log("/collage is active")
-  let id = req.query.id;
-  console.log(req.query.id);
 
-  sql1 = `select college_id from student where student_id ='${id}'`;
-  let [data1] = await db.execute(sql1);
+  try{
 
-  res.send(data1);
-}
+    console.log("/collage is active")
+    let id = req.query.id;
+    console.log(req.query.id);
+  
+    sql1 = `select college_id from student where student_id ='${id}'`;
+    let [data1] = await db.execute(sql1);
+  
+    res.send(data1);
+  }
+  catch (err) {
+    console.log(err);
+  }
+  
+})
 
-)
+
 app.get("/allcollage", async (req, res) => {
-  console.log("allcollage")
-  let sql1 = `select * from colleges`;
-  let [data1] = await db.execute(sql1);
-  res.send(data1);
+  try{
+
+    console.log("allcollage")
+    let sql1 = `select * from colleges`;
+    let [data1] = await db.execute(sql1);
+    res.send(data1);
+  }
+  catch (err) {
+    console.log(err);
+  }
 })
 
 app.get("/edit/:id", async (req, res) => {
 
-  console.log();
-  let temp_id = req.params.id;
-  let arr = temp_id.split("=");
+  try{
+    console.log();
+    let temp_id = req.params.id;
+    let arr = temp_id.split("=");
+  
+  
+    let sql3 = `select * from student where student_id='${arr[1]}';`
+    let [student2] = await db.execute(sql3);
+  
+  
+    let sql1 = `select * from state`;
+    let [state] = await db.execute(sql1);
+  
+    res.render("edit.ejs", { student2, state });
 
-
-  let sql3 = `select * from student where student_id='${arr[1]}';`
-  let [student2] = await db.execute(sql3);
-
-
-  let sql1 = `select * from state`;
-  let [state] = await db.execute(sql1);
-
-  res.render("edit.ejs", { student2, state });
+  }
+  catch (err) {
+    console.log(err);
+  }
 })
 
 
 
 app.get(`/student/allcity`, async (req, res) => {
 
-  let sql1 = `select * from city where state_id='${state_id}';`
-  let [allcity] = await db.execute(sql1);
+  try{
+    let sql1 = `select * from city where state_id='${state_id}';`
+    let [allcity] = await db.execute(sql1); 
 
+  }
+  catch (err) {
+    console.log(err);
+  }
+
+  
 })
 app.get("/student/city", async (req, res) => {
 
-  console.log("/studebnt/city")
-  let id = req.query.state_id;
-  let sql1 = `select city_id,city_name from city where state_id='${id}'`;
-  let [data1] = await db.execute(sql1);
- 
-  res.send(data1);
+  try{
 
+    console.log("/studebnt/city")
+    let id = req.query.state_id;
+    let sql1 = `select city_id,city_name from city where state_id='${id}'`;
+    let [data1] = await db.execute(sql1);
+   
+    res.send(data1);
+  
+  }
+  catch (err) {
+    console.log(err);
+  }
+
+ 
 });
 
 
 app.get("/city", async (req, res) => {
-  console.log("/city is active")
-  let id = req.query.id;
- 
 
-  sql1 = `select city from student where student_id ='${id}'`;
-  let [data1] = await db.execute(sql1);
- 
-  res.send(data1);
+  try{
+    console.log("/city is active")
+    let id = req.query.id;
+   
+  
+    sql1 = `select city from student where student_id ='${id}'`;
+    let [data1] = await db.execute(sql1);
+   
+    res.send(data1);
+
+  }
+  catch (err) {
+    console.log(err);
+  }
 })
 
 app.post("/update", async (req, res) => {
 
-
+try{
 
   let student_id = req.body.student_id;
   let name = req.body.name;
@@ -193,6 +265,11 @@ app.post("/update", async (req, res) => {
   let [student3] = await db.execute(sql4);
   res.redirect('/user')
 
+}
+catch (err) {
+  console.log(err);
+}
+  
 
 });
 
