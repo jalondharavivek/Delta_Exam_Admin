@@ -43,9 +43,9 @@ const authMiddleware = (req, res, next) => {
     }
     next();
   };
-  app.get("/login", authMiddleware, (req, res) => {
-    res.end('login succesfull')
-  });
+//   app.get("/login", authMiddleware, (req, res) => {
+//     res.end('login succesfull')
+//   });
 
 const conn = mysql.createConnection({
     host: 'localhost',
