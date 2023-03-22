@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register page</title>
+</head>
+
+<body>
+
+    <h1>register your self</h1>
+    <form action="/mregister" method="post">
+
+        name : <input type="text" name="name" id="name">
+        email : <input type="email" name="email" id="email">
+        password : <input type="password" name="psw">
+        contact : <input type="text" name="phone">
+        male : <input type="radio" name="gender"  value="male">
+        female : <input type="radio" name="gender"  value="female">
+        other : <input type="radio" name="gender" value="other" >
+        address : <input type="text" name="address">
+        state :
+        <select name="state" id="state" onchange="citirender()">
+           <%for(let i=0 ;i<data1.length ;i++){%>
+            <option value="<%=data1[i].state_id%>"><%=data1[i].state_name%></option>
+            <% } %>
+        </select>
+        city :
+        <select name="city" id="city">
+            
+        </select>
+        <select name="collage" id="collage">
+            <%for(let i=0 ;i<data3.length ;i++){%>
+                <option value="<%=data3[i].college_id%>"><%=data3[i].college_name%></option>
+                <% } %>
+        </select>
+
+        <input type="submit" value="submit form">
+    </form>
+</body>
+<script>    
+    citirender();
+    function citirender(){
+       let str ;
+        let city = document.getElementById("city");
+        console.log(city);
+        let state = document.getElementById("state").value;
+        console.log(state)
+         fetch(`/mcity?state=${state}`)
+            .then(res=>res.json())
+            .then(data=>{
+                console.log(data)
+               
+               
+                for(let i=0 ;i<data.length ;i++){
+                    console.log(data[i].city_id);
+                    console.log(data[i].city_name);
+                     str +=  `<option value=${data[i].city_name}>${data[i].city_name}</option>`;
+          
+                }
+                console.log(str);
+                city.innerHTML = str;
+            }).catch(err=>console.log(err));            
+    }
+
+    
+</script>
+</html>

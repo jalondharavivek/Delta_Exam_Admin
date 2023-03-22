@@ -1,5 +1,5 @@
-let menuicn = document.querySelector(".menuicn");
-let nav = document.querySelector(".navcontainer");
+let menuicn = document.getElementById("menuicn");
+let nav = document.getElementById("navcontainer");
 
 menuicn.addEventListener("click",()=>
 {

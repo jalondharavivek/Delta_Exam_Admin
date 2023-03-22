@@ -17,7 +17,22 @@ app.use("/", category)
 
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public/')))
+
+const vivek_indexfile = require('./routes/vivek_index');
+app.use('/',vivek_indexfile);
+const sejal_indexfile = require('./routes/sejal_index')
+app.use('/',sejal_indexfile)
+const milan_indexfile = require('./routes/milan_index')
+app.use('/',milan_indexfile)
+
+
+
+
 const db = mysql.createPool({
+host: "localhost",
+user: "root",
+password: "root",
+database: "exam_system",
 host: "localhost",
 user: "root",
 password: "root",
@@ -25,8 +40,11 @@ database: "exam_system",
 });
 
 
-app.get('/', (req, res) => {
-  res.render("dashboard")
+ app.get('/', (req, res) => {
+   res.render("dashboard")
+});
+app.get('/question', (req, res) => {
+ res.render("question")
 });
 
-app.listen(port, () => console.log(`  port connected to ${port}!`))
+ app.listen(port, () => console.log(`port connected to ${port}!`))

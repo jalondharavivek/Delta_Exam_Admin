@@ -225,3 +225,6 @@ app.post('/logout',(req,res) => {
 
 
 app.listen(port, () => console.log(`  port connected to ${port}!`))
+
+
+module.exports = app;

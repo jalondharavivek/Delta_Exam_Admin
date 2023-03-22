@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <link rel="stylesheet" href="/css/exam.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+</head>
+<script src="/js/dashboard.js"></script>
+
+<body>
+    <%- include('header'); -%>
+        <div class="main-container">
+            <%- include('nav'); -%>
+                <div class="main">
+                    <div class="header">
+                        <h1>Online Student Examination System Project</h1>
+                    </div>
+
+
+                    <div class="header2">
+                        <h2>exam management</h2>
+
+                    </div>
+                    <input type="text" name="user_id" value="<%=data1[0].exam_id%>" id="exam_id" hidden="true">
+
+
+
+                    <div class="exam_main">
+                        <div class="combine">
+                            <div class="one">
+                                <label for="">ADD EXAM</label>
+                            </div>
+                            <form action="/edit/:id=<%=data1[0].exam_id%>" method="post">
+                                <div class="two">
+                                    <div class="input_taker">
+                                        <label for="exam_name" class="labelofInput"> exam name: </label>
+                                        <input type="text" name="exam_name" value="<%=data1[0].exam_name%>"
+                                            placeholder="enter exam name" class="input_tag" required>
+
+                                    </div>
+                                    <div class="input_taker">
+                                        <label for="" class="labelofInput"> category :</label>
+                                        <select name="category" id="category_select" multiple required>
+                                            <!-- <option value="">APPTITUDE</option>
+                            <option value="">VERBAL</option>
+                            <option value="">LOGICAL</option>
+                            <option value="">OOPS</option>s
+                            <option value="">DSA</option>-->
+                                        </select>
+
+
+                                    </div>
+
+                                    <div class="input_taker">
+                                        <label for="question" class="labelofInput">no of questions: </label>
+                                        <input type="text" name="question" id="" placeholder="enter no of questions"
+                                            value="<%=data1[0].total_questions%>" class="input_tag" required>
+
+                                    </div>
+                                    <div class="input_taker">
+                                        <label for="time" class="labelofInput"> time limit: </label>
+
+                                        <input type="text" name="time" id="" placeholder="enter time limit"
+                                            value="<%=data1[0].exam_time%>" class="input_tag" required>
+                                        <label for="" class="extra_label">(adding time limit in minutes)</label>
+
+                                    </div>
+
+                                    <!-- <div class="input_taker">
+                        <label for="passing_mark" class="labelofInput"> passing marks: </label>
+                        <input type="text" name="passing_mark" id="" placeholder="enter passing marks" class="input_tag"
+                            required>
+
+                    </div> -->
+                                    <div class="input_taker">
+                                        <label for="start_date" class="labelofInput"> start date: </label>
+                                        <input type="date" name="start_date" id="" placeholder="enter start date"
+                                            value="<%=data1[0].exam_date%>" class="input_tag" required>
+
+                                    </div>
+                                    <!-- <div class="input_taker">
+                        <label for="exam_date" class="labelofInput"> end date: </label>
+                        <input type="date" name="end_date" id="" placeholder="enter end date" class="input_tag"
+                            required>
+
+                    </div> -->
+
+                                </div>
+                                <div class="save_div">
+
+                                    <input type="submit" id="save_btn" value="UPDATE">
+
+
+                                </div>
+                            </form>
+
+                        </div>
+                        <!-- <div class="exam_listing">
+                    <table>
+                        <caption>Exam List</caption>
+                        <tr>
+                            <th>Sr .No</th>
+                            <th>exam_name</th>
+                            <th>category</th>
+                            <th>total_questions</th>
+                            <th>time_limit</th>
+                            <th>start date</th>
+                            <th>toggle</th>
+                            <th>edit</th>
+                            <th>delete</th>
+
+                        </tr>
+                        <!-- <% for(let i=0;i<data1.length;i++){ %> -->
+                        <!-- <tr>
+                                <td>
+                                    <%=(i+1)%>
+                                </td>
+                                <td>
+                                    <%=data1[i].exam_name%>
+                                </td>
+                                <td>
+                                    <%=data1[i].category_id%>
+                                </td>
+                                <td>
+                                    <%=data1[i].total_questions%>
+                                </td>
+                                <td>
+                                    <%=data1[i].exam_time%>
+                                </td>
+                                <td>
+                                    <%=data1[i].exam_date%>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="" id="" checked>
+                                </td>
+                                <td>
+                                    <a href="/edit?exam_id=<%=data1[i].exam_id%>">edit</a>
+                                </td>
+                                <td>
+                                    <a href="/delete?exam_id=<%=data1[i].exam_id%>">delete</a>
+                                </td>
+                            </tr>
+                            <% }%>
+                    </table>
+                </div> -->
+                    </div>
+                </div>
+        </div>
+</body>
+<script>
+
+    let category_select = document.getElementById('category_select');
+
+
+    selectedcategory();
+    let category_id = [];
+    let category_name = [];
+    function selectedcategory() {
+        let exam_id = document.getElementById('exam_id').value;
+        console.log(exam_id);
+        fetch(`/selected/category?exam_id=${exam_id}`).then(res => res.json()).then(data => {
+            for (i = 0; i < data.length; i++) {
+
+                category_id.push(data[i][0].category_id);
+
+                category_name.push(data[i][0].category_name);
+            }
+        }
+        ).catch(err => console.log(err));
+
+    }
+   
+    console.log(category_name)
+    categortFetch();
+    function categortFetch() {
+        fetch('/categories').then(res => res.json()).then(data => {
+            console.log(data.arr.length)
+            console.log(category_id.length)
+            let checker ;
+            for (let i = 0; i < data.arr.length; i++) {
+                
+                for (j = 0; j < category_id.length; j++) {
+                   
+                    if (data.arr[i] == category_name[j]) {
+                        console.log("if")
+                        category_select.innerHTML += ` <option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
+                        checker = i ;
+                        console.log("checker",checker)
+                    } 
+                }
+                if(checker!=i){
+                    category_select.innerHTML += ` <option value="${data.arr2[i]}">${data.arr[i]}</option>`;
+
+                }
+
+            }
+
+        }).catch(err => console.log(err));
+    }
+
+
+</script>
+
+</html>
