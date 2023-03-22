@@ -2,10 +2,8 @@ const express = require('express')
 const path = require('path')
 const app = express();
 const mysql = require("mysql2/promise");
-const port = 8765;
 app.set("view engine", "ejs");
 var bodyParser=require('body-parser');
-const Query = require('mysql2/promise');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
@@ -29,10 +27,10 @@ app.get('/category',async (req, res) => {
         sql += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
     else
         sql += ` LIMIT ${limit} `;
+    // console.log(sql);
     let [query] = await db.execute(sql);
     let sql1 = "select count(*) as total from category";
     let [result1] = await db.execute(sql1);
-    // console.log("page",page);
     res.render('category',{ data : query, page : page, total: result1[0].total, limit: limit });
 })
 
@@ -40,7 +38,7 @@ app.post('/categorypage', async (req,res) => {
 
     let sql = `SELECT * FROM category `;
 
-    console.log(req.body.page);
+    // console.log(req.body.page);
     let page=parseInt(req.body.page)||1;
     let limit=parseInt(req.body.limit)||10;
     let startindex=(page-1)*limit;
@@ -55,7 +53,7 @@ app.post('/categorypage', async (req,res) => {
     let [result1] = await db.execute(sql1);
 
     let pages = `select * from category where category_name like '%${req.body.name}%' limit ${startindex},${endindex}`;
-    console.log(pages );
+    // console.log(pages );
     let [pages1] = await db.execute(pages);
     res.json({ data : query, page: page, total: result1[0].total, limit: limit, pages : pages1 });
 })

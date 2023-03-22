@@ -200,8 +200,8 @@ width: 50px;
 
 .option1 {
  
-    background-color:#ccf3c0af;
-    color: white;
+    /* background-color:#ccf3c0af; */
+    /* color: white; */
     cursor: pointer;
   }
   .option1:hover {
