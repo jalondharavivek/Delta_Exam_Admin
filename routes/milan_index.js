@@ -450,3 +450,5 @@ async function getdata(sql) {
 
 
 app.listen(port, () => console.log(`port connected to ${port}!`))
+
+module.exports = app;

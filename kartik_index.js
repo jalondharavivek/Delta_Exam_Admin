@@ -11,6 +11,17 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public/')))
+
+const vivek_indexfile = require('./routes/vivek_index');
+app.use('/',vivek_indexfile);
+const sejal_indexfile = require('./routes/sejal_index')
+app.use('/',sejal_indexfile)
+const milan_indexfile = require('./routes/milan_index')
+app.use('/',milan_indexfile)
+
+
+
+
 const db = mysql.createPool({
 host: "localhost",
 user: "root",
