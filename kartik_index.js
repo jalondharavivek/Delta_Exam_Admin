@@ -22,7 +22,12 @@ app.use("/", vivek_indexfile)
 
 
 app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, '/public/')))
+app.use(express.static(path.join(__dirname, '/public')))
+
+const milan_indexfile = require('./routes/milan_index')
+app.use('/',milan_indexfile)
+
+
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
