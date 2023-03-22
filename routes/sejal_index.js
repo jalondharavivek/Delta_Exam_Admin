@@ -1,235 +1,207 @@
-const express = require('express')
-const path = require('path')
+const express = require('express');
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
+const sessions = require('express-session');
+var cookie = require('cookie-parser');
+var utils = require('util');
+const { decode } = require('punycode');
+let bodyParser = require('body-parser')
+const mysql = require('mysql2');
+const flash = require('connect-flash');
+var nodemailer = require('nodemailer');
+
 const app = express();
-const mysql = require("mysql2/promise");
-const port = 8000;
-app.set("view engine", "ejs");
-var bodyParser=require('body-parser');
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
-const session = require('express-session');
 app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, '/public/')))
-const db = mysql.createPool({
-host: "localhost",
-user: "root",
-password: "root",
-database: "exam_system",
+const ejs = require('ejs');
+const { signedCookie } = require('cookie-parser');
+const { Console } = require('console');
+app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/public/assets/image'));
+// app.use(express.static(__dirname + ''));
+const PORT = process.env.PORT || 8765;
+app.set('view engine', 'ejs');
+
+app.use(cookie());
+app.use(flash());
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use(sessions({
+    secret: "huy7uy7u",
+    saveUninitialized: true,
+    resave: false
+}));
+
+const conn = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'exam_system'
 });
 
-console.log("database Connected ");
-//session-set 
-app.use(
-    session({
-        secret: 'your-secret-key', 
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            maxAge: 1000 * 60 * 60 * 24, 
-        },
-    })
-);
-//render login page  
-// app.get('/', (req, res) => {
-//     res.render('adminPanel.ejs');
-// });
-//render  forget-password page
-app.get('/forgot_pass', (req, res) => {
-    res.render('forgot.ejs');
+var exe = utils.promisify(conn.query).bind(conn);
+conn.connect((err) => {
+    if (err) throw err;
+});
+
+//forget password
+app.get("/forget", async(req, res) => {
+
+    res.render("validEmail")
 })
 
-app.get('/updated', (req, res) => {
-    res.render('forgot.ejs');
+//login render
+app.get("/login", (req, res) => {
+
+    res.render('login');
+
 })
-//code activation link page 
-app.post('/link_generate', (req, res) => {
-    temp_email = req.body.email;
-    req.session.email = temp_email;
-    console.log(req.session);
-    if ((req.session)) {
-        res.render('verified');
-    }
-    else {
-        res.redirect('/');
-    }
-})
-//session - validation 
-app.post('/link_click', function (req, res) {
-    if ((req.session)) {
-        res.render('conform_pass.ejs');
-    }
-    if ((!req.session)) {
-        res.redirect('/');
-    }
-});
-//login 
-var flg;
-let flg2 = false;
-const arr = [];
-app.post('/abc', async (req, res) => {
-    let p = req.body.password;
-    let e = req.body.email;
-    if (e.length != 0) {
-        var q = `select * from exam_system.user_login where email='${e}' and role='1';`
-        let [ans] = await con.query(q);
-        if (ans.length != 0) {
-            flg = true;
-            arr.push(flg)
-            arr[1] = ans[0].email;
-            bcrypt.compare(p, ans[0].password, function (err, result) {
-                if (result) {
-                    res.json(true )
+
+app.post('/login', async(req, res) => {
+
+    var email = req.body.email;
+    var password = req.body.password;
+
+    var selectEmail = `SELECT email, password FROM student where email = '${email}' `
+    var emailResult = await exe(selectEmail);
+
+    var selectUser = `SELECT email, password , user_login_status  , role from user_login where email = '${email}'`;
+    var userData = await exe(selectUser);
+
+
+    if (userData.length == 0) {
+        res.send("email is not match");
+    } else {
+
+        var comparePassword = userData[0].password;
+
+        var compare = await bcrypt.compare(password, comparePassword);
+        var resultRandom = Math.random().toString(36).substring(2, 7);
+
+        if (!compare) {
+            res.send("Password is not match")
+        } else {
+
+            if (userData[0].user_login_status == 0) {
+                res.render("activation.ejs", { email: email, resultRandom: resultRandom })
+            } else {
+                req.session.email = email;
+                if(userData[0].role == 1) 
+                {
+                    res.render("home.ejs")
                 }
-                else {
-                    res.json(false )
+                else
+                {
+                    res.render("student.ejs");
                 }
-            });
-        }
-        else {
-            res.json(false )
+            }
         }
     }
 })
-// email validation
-app.post('/xyz', async(req, result) => {
-    let e = req.body.email;
-    const ans1 = [];
-    if (e.length != 0) {
-        var q = `select * from exam_system.user_login where email='${e}' and role='1';`
-        let [ans] = await con.query(q);
-         console.log(ans);
-            
-            if (ans.length != 0) {
-                ans1[0] = true;
-                ans1[1] = ans[0].email;
-                console.log(ans1);
-                result.json({ans1});
-            }
-            else {
-                ans1[0] = false;
-                console.log(ans1);
-                result.json({ans1});
-            }
-    }
-})
-//chnage hash password 
-app.post('/updated', (req, res) => {
-    let email1 = req.session.email;
-    let pass1 = req.body.pass1;
-    var hashedPassword;
-    // Encryption of the string password
-    bcrypt.genSalt(10, function (err, Salt) {
-        // The bcrypt is used for encrypting password.
-        bcrypt.hash(pass1, Salt, function (err, hash) {
-            if (err) {
-                return console.log('Cannot encrypt');
-            }
-            hashedPassword = hash;
-            console.log(hash);
-            var q1 = `UPDATE exam_system.user_login  set password ='${hash}' WHERE email='${email1}' and role=1`;
-            con.query(q1, (err, res) => {
-                if (err) throw err;
-                console.log('update');
-            })
-        })
-    })
-    console.log(hashedPassword);
-    req.session.destroy();
-    res.json({ email1 });
-})
-//Auc-middleware
-const authMiddleware = (req, res, next) => {
-    if (!req.session.user) {
-      return res.redirect("/");
-    }
-    next();
-  };
-  app.get("/login", authMiddleware, (req, res) => {
-    res.render("dashboard")
-  });
 
-//category
-app.get('/category',async (req, res) => {
-  let sql = "SELECT * FROM category";
-  let [query] = await db.query(sql);
-  res.render('category',{data : query});
+app.get('/setPassword', async(req, res) => {
+    res.redirect('/login');
+})
+app.post('/setPassword', async(req, res) => {
+    res.render("setPassword")
 })
 
-app.post('/categorystatus',async (req, res) => {
-  let id = req.body.id;
-  let status = req.body.status
-  // console.log(i);
-  if(status == 0)
-  {
-    let sql = `update category set category_status = '1' where category_id = ${id}`;
-    let [query] = await db.query(sql);
-    res.json(query);
-  }
-  else if(status == 1)
-  {
-    let sql = `update category set category_status = '0' where category_id = ${id}`;
-    let [query] = await db.query(sql);
-    res.json(query);
-  }
-})
+app.post('/fetch_api', (req, res) => {
 
-app.post('/editcategory',async (req, res) => {
-  let b = req.body;
-  let sql = `update category set category_name = '${b.category_name}' where category_id = ${b.category_id}`;
-  let [query] = await db.query(sql);
-  res.redirect('category');
-  // console.log(b);
-})
-
-app.get('/editCategory',async (req, res) => {
-  let id = req.query.id;
-  let sql = `select category_id, category_name from category where category_id = ${id}`;
-  let [ans] = await db.query(sql);
-  res.json(ans);
-  // console.log(ans);
-  // console.log(id);
-})
-
-app.post('/addcategory',async (req, res) => {
-  let sql = `insert into category (category_name,category_status,created_date) values ('${req.body.category_name}','0',now())`;
-  let [query] = await db.query(sql);
-  res.redirect('category');
-  console.log(query);
-})
-
-app.get('/', (req, res) => {
-  res.render("dashboard")
-});
-
-//dashboard - admin-chnage password & logout
-
-//get chnage-password for admin
-app.get('/admin-chnage', (req, res) => {
-    res.render("admin-chnage")
-  });
-
-app.post('/admin-chnage', (req, res) => {
-    if ((req.session)) {
-        res.render('conform_pass.ejs');
-    }
-    if ((!req.session)) {
-        res.redirect('/');
-    }
-  });
-
-  //logout
-app.post('/logout',(req,res) => {
-    req.session.destroy();
-    res.redirect('/');
-});
-
-app.get('/result',async (req, res) => {
-    let sql = "SELECT * FROM try.result;";
-    let [query] = await db.query(sql);
-    console.log(query);
-    res.render('result',{data : query});
+    var email = req.body.email;
+    console.log("Send email in post method", email)
+    let testAccount = nodemailer.createTestAccount();
+    var otp = generateOTP();
+    console.log("otp", otp);
    
-  })
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        
+        auth: {
+            type: 'OAUTH2',
+            user: 'darshil.parmar.23.esparkbiz@gmail.com',
+            clientId: '597640694626-lbhid8to6k077c62vilvcap43spvjlmv.apps.googleusercontent.com',
+            clientSecret: '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',
+            refreshToken: '1//04W0dHxgn1-jjCgYIARAAGAQSNwF-L9Ir_m55RIE4IM87u6xtEX-h1itLMILck2gLC8eTmhbF-umYCxJO9Jo5W4BmDJSNX-aMIg0',
+            accessToken: 'ya29.a0AVvZVsrBfRsp1sK8vyLlLCu_XRKaJBc0kk99E2JeUtrQhhEQOYtPNukeg9gwCq-RUTVR01UM24RgTOGYN8DmNPSNdX-b-mG4Ys4RCIIBmPsg9Wk6BudImI4NN-a79XHbZ1J4vl4KLP01JeQnJUwgSQsGkZ2iQlEaCgYKAToSARMSFQGbdwaIVujzQJMyKZbe0PbdSr0VYQ0166',
+        }
+    });
 
-app.listen(port, () => console.log(`  port connected to ${port}!`))
-module.exports = app;
+    let info = transporter.sendMail({
+        from: 'hello <darshil.parmar.23.esparkbiz@gmail.com>', // sender address
+        to: email, // list of receivers
+        subject: "OTP Validation ✔", // Subject line
+        text: "OTP", // plain text body
+        html: `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+        <div style="margin:50px auto;width:70%;padding:20px 0">
+          <div style="border-bottom:1px solid #eee">
+            <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Your Brand</a>
+          </div>
+          <p style="font-size:1.1em">Hi,</p>
+          <p>Thank you for choosing Your Brand. Use the following OTP to complete your Sign Up procedures. OTP is valid for 5 minutes</p>
+          <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
+          <p style="font-size:0.9em;">Regards,<br />EsparkBiz</p>
+          <hr style="border:none;border-top:1px solid #eee" />
+        </div>
+      </div>`
+    });
+    req.session.email = email;
+    res.json({
+        otp
+    });
+})    
+
+app.post("/active/:resultRandom", async(req, res) => {
+    var email = req.body.email;
+    var resultRandom = req.params.resultRandom;
+
+    var updateQuery1 = `update user_login set user_login_status = 1 where email ="${email}"`;
+
+    var resultUpdate1 = await exe(updateQuery1)
+
+    let d = (Array(resultUpdate1))
+
+    let a = d[0].changedRows;
+    if (a == 1) {
+        res.json({ UpdateStatus: 1 })
+    }
+})
+
+app.get("/updatePassword", (req, res) => {
+    res.redirect("/login");
+})
+
+app.post("/updatePassword", async(req, res) => {
+    var email = req.session.email;
+
+    var password = req.body.password;
+
+
+    var set = await bcrypt.genSalt(10);
+    var resetPassword = await bcrypt.hash(password, set);
+
+
+    var updateQuery = `update user_login set password = '${resetPassword}' where email = '${email}'`;
+    console.log("update query", updateQuery)
+    var updateResult = await exe(updateQuery)
+    res.redirect("/login");
+})
+
+app.listen(PORT, (err) => {
+    console.log(`http://localhost:${PORT}/login`);
+})
+
+function generateOTP() {
+
+    var digits = '0123456789';
+    let OTP = '';
+    for (let i = 0; i < 4; i++) {
+        OTP += digits[Math.floor(Math.random() * 10)];
+    }
+    return OTP;
+}
+module.exports = app; 

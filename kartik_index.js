@@ -2,16 +2,18 @@
  const path = require('path')
  const app = express();
  const mysql = require("mysql2/promise");
- const port = 8765;
+ const port = 8766;
  app.set("view engine", "ejs");
 
  app.use(express.static('public'));
  app.use(express.static(path.join(__dirname, '/public')))
 
 const sejal_indexfile = require('./routes/sejal_index')
-const vivek_indexfile = require('./routes/vivek_index')
+
 app.use('/',sejal_indexfile);
-app.use('/',vivek_indexfile);
+
+
+
  const db = mysql.createPool({
  host: "localhost",
  user: "root",
