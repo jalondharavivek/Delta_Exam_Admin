@@ -26,7 +26,6 @@
                         <h2>exam management</h2>
 
                     </div>
-                    <input type="text" name="user_id" value="<%=data1[0].exam_id%>" id="exam_id" hidden="true">
 
 
 
@@ -35,9 +34,12 @@
                             <div class="one">
                                 <label for="">ADD EXAM</label>
                             </div>
-                            <form action="/edit/:id=<%=data1[0].exam_id%>" method="post">
+                            <form action="/edit" method="post">
+                    <input type="text" name="exam_id" value="<%=data1[0].exam_id%>" id="exam_id" hidden>
+
                                 <div class="two">
                                     <div class="input_taker">
+                                        
                                         <label for="exam_name" class="labelofInput"> exam name: </label>
                                         <input type="text" name="exam_name" value="<%=data1[0].exam_name%>"
                                             placeholder="enter exam name" class="input_tag" required>

@@ -3,7 +3,7 @@ const path = require('path')
 const app = express();
 const mysql1 = require('mysql2')
 const mysql = require("mysql2/promise");
-const port = 8000;
+
 app.set("view engine", "ejs");
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -166,26 +166,19 @@ app.get("/edit", async (req, res) => {
 
 
 //finally edit exam post method end-pont
-app.post("/edit/:id", async (req, res) => {
+app.post("/edit", async (req, res) => {
 
   console.log("/edit/:id");
   console.log(req.body);
-  console.log(req.params)
-  let id = req.params.id;
 
-  let arr = id.split("=");
-  let exam_id = arr[1];
 
   let exam = req.body.exam_name;
   let category = req.body.category;
   let question = req.body.question;
   let time = req.body.time;
   let start_date = req.body.start_date;
-  // console.log(exam)
-  // console.log(category)
-  // console.log(question)
-  // console.log(time)
-  // console.log(start_date)
+  let exam_id = req.body.exam_id;
+ 
   let strcat = ''; //str for store category in one line
   for(i=0 ;i<category.length ;i++){
   sql3 = `select category_name from category where category_id='${category[i]}'`;
@@ -440,4 +433,5 @@ async function getdata(sql) {
 }
 
 
-app.listen(port, () => console.log(`port connected to ${port}!`))
+// app.listen(port, () => console.log(`port connected to ${port}!`))
+module.exports = app;
