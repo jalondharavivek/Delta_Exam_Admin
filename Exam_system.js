@@ -94,7 +94,6 @@ app.post('/login', async(req, res) => {
     var emailResult = await db.query(selectEmail);
     var selectUser = `SELECT email, password , user_login_status , role from user_login where email = '${email}'`;
     var [userData] = await db.query(selectUser);
-    console.log(userData.length);
     if (userData.length == 0) {
         res.send("email is not match");
     } else {
