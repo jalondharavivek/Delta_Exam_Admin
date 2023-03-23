@@ -124,12 +124,30 @@
     outline: none;
 }
 
-table,
-td,
-th {
-    border: 1px solid rgb(209, 201, 201);
-    padding: 6px;
+th
+{
+    border: 1px solid rgb(24, 20, 20);
+    padding: 0.5rem;
+    background-color: rgb(13, 15, 12);
+    color: white;
 }
+td 
+{
+    border: 1px solid #777;
+    padding: 0.5rem;
+    text-align: center;
+
+}
+table 
+{
+    width : 100%;
+    border-collapse: collapse;
+}
+tbody tr:nth-child(odd) 
+{
+    background: rgba(0,0,0,0.2);
+}
+
 #status{
     padding: 4px;
     border-radius: 10px;

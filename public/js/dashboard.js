@@ -1,5 +1,5 @@
-let menuicn = document.getElementById("menuicn");
-let nav = document.getElementById("navcontainer");
+let menuicn = document.querySelector(".menuicn");
+let nav = document.querySelector(".navcontainer");
 
 menuicn.addEventListener("click",()=>
 {
@@ -7,13 +7,4 @@ menuicn.addEventListener("click",()=>
 })
 
 
-var myLink = document.getElementById("myLink");
-var myMenu = document.getElementById("myMenu");
 
-myLink.onclick = function () {
-    if (myMenu.style.display === "none") {
-        myMenu.style.display = "block";
-    } else {
-        myMenu.style.display = "none";
-    }
-};

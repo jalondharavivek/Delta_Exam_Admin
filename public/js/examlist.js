@@ -17,7 +17,7 @@ function categortFetch() {
 
 
 //when page relkoad as database they chnage into enable and disable
-window.addEventListener("DOMContentLoaded", togglecolorchnage);
+
 togglecolorchnage();
 function togglecolorchnage() {
 
@@ -60,7 +60,7 @@ function toggle(status, id) {
 async function examedit(id) {
 
     let change = document.getElementById('change');
-    
+
 
     let result = await fetch(`/edit?exam_id=${id}`)
     let data = await result.json();
@@ -324,17 +324,15 @@ function examSearch() {
     let search = document.getElementById('search').value;
     let exam_search = document.getElementById('exam_search');
 
-    fetch(`/examlist?exam_name=${search}`)
-        .then(res => res.json())
-        .then(data => {
-
-            if (data.length == 0) {
-                tbody.innerHTML = "there is no found data";
-            }
-            let tbody = document.getElementById('tbody');
-            tbody.innerHTML = "";
-            let str = "";
-            str += ` <tr>
+    fetch(`/exam/search?exam_name=${search}`).then(res => res.json()).then(data => {
+        console.log(data)
+        if (data.data1.length == 0) {
+            tbody.innerHTML = "there is no found data";
+        }
+        let tbody = document.getElementById('tbody');
+        tbody.innerHTML = "";
+        let str = "";
+        str += ` <tr>
                             <th>Sr .No</th>
                             <th>exam_name</th>
                             <th>category</th>
@@ -346,8 +344,8 @@ function examSearch() {
                             <!-- <th>delete</th> -->
 
                         </tr>`;
-            for (i = 0; i < data.length; i++) {
-                str += `<tr>
+        for (i = 0; i < data.data1.length; i++) {
+            str += `<tr>
                                 <td>
                                     <div class="td">
                                         ${(i + 1)}
@@ -356,7 +354,7 @@ function examSearch() {
                                 </td>
                                 <td>
                                     <div class="td">
-                                        ${data[i].exam_name}
+                                        ${data.data1[i].exam_name}
 
                                     </div>
 
@@ -364,14 +362,14 @@ function examSearch() {
                                 <td>
                                     <div class="td">
 
-                                        ${data[i].category}
+                                        ${data.data1[i].category}
 
                                     </div>
 
                                 </td>
                                 <td>
                                     <div class="td">
-                                        ${data[i].total_questions}
+                                        ${data.data1[i].total_questions}
                                        
 
                                     </div>
@@ -379,7 +377,7 @@ function examSearch() {
                                 </td>
                                 <td>
                                     <div class="td">
-                                        ${data[i].exam_time}
+                                        ${data.data1[i].exam_time}
                                        
 
                                     </div>
@@ -387,7 +385,7 @@ function examSearch() {
                                 </td>
                                 <td>
                                     <div class="td">
-                                        ${data[i].exam_date}
+                                        ${data.data1[i].exam_date}
                                    
 
                                     </div>
@@ -396,8 +394,8 @@ function examSearch() {
                                 <td>
 
 
-                                    <div id="toggle${data[i].exam_id}">
-                                        <p class="btn" id="${data[i].exam_id}" onclick="toggle('${data[i].exam_status}','${data[i].exam_id}')" style="color: red;cursor:pointer">${data[i].exam_status}</p>
+                                    <div id="toggle${data.data1[i].exam_id}">
+                                        <p class="btn" id="${data.data1[i].exam_id}" onclick="toggle('${data.data1[i].exam_status}','${data.data1[i].exam_id}')" style="color: red;cursor:pointer">${data.data1[i].exam_status}</p>
                                     
                                     </div>
                                 </td>
@@ -405,24 +403,64 @@ function examSearch() {
 
 
                                     <div class="edit">
-                                        <a href="/edit?exam_id=${data[i].exam_id}">edit</a>
+                                    <p onclick="examedit(${data.data1[i].exam_id})" style="cursor: pointer;">edit</p>
 
                                     </div>
                                 </td>
                                
                             </tr>
                            `;
+        }
+        num=1 ;     
+        tbody.innerHTML = str;
+
+        let pageid = document.getElementById('page');
+        console.log(pageid)
+
+        let newstr = '';
+        pageid.innerHTML = "";
+
+        if (num == 1) {
+
+            pageid.innerHTML += `<p onclick="page(1)" class="p">prev</p>`;
+
+        } else {
+
+            pageid.innerHTML += `<p onclick="page(${num}-1)" class="p">prev</p>`;
+
+        }
+
+        for (let i = 1; i <= data.count; i++) {
+            if (i == num) {
+                pageid.innerHTML += `<p onclick="page(${i})" class="p">
+            <b>${i}</b>
+        </p>`;
+            } else {
+                pageid.innerHTML += `<p onclick="page(${i})" class="p">
+            ${i}
+        </p>`;
             }
 
-            tbody.innerHTML = str;
+        }
 
-        })
-        .catch(err => console, log(err));
+        if (num == 7) {
+
+            pageid.innerHTML += `<p onclick="page(7)" class="p">next</p>`;
+
+        } else {
+            pageid.innerHTML += `<p onclick="page(${num} + 1)" class="p">next</p>`;
+        }
+
+        let pclass = document.querySelectorAll('.p');
+        console.log(pclass)
+
+    })
+        .catch(err => console.log(err));
 
 }
 //pagination code is start
 
-async function page(num) {
+async function page(num,count) {
 
     let result = await fetch(`/examlist/page?page=${num}`);
     let data = await result.json();
@@ -508,7 +546,7 @@ async function page(num) {
 
 
                             <div class="edit">
-                                <a href="/edit?exam_id=${data.data1[i].exam_id}">edit</a>
+                            <p onclick="examedit(${data.data1[i].exam_id})" style="cursor: pointer;">edit</p>
 
                             </div>
                         </td>
@@ -525,30 +563,30 @@ async function page(num) {
     pageid.innerHTML = "";
 
     if (num == 1) {
-        
+
         pageid.innerHTML += `<p onclick="page(1)" class="p">prev</p>`;
 
-    } else{
-       
+    } else {
+
         pageid.innerHTML += `<p onclick="page(${num}-1)" class="p">prev</p>`;
 
     }
 
     for (let i = 1; i <= data.count; i++) {
-        if(i==num){
+        if (i == num) {
             pageid.innerHTML += `<p onclick="page(${i})" class="p">
             <b>${i}</b>
         </p>`;
-        }else{
+        } else {
             pageid.innerHTML += `<p onclick="page(${i})" class="p">
             ${i}
         </p>`;
         }
-       
+
     }
 
-    if (num == 7) {
-        
+    if (num == count) {
+
         pageid.innerHTML += `<p onclick="page(7)" class="p">next</p>`;
 
     } else {

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+<link rel="stylesheet" href="/css/addquestion.css">
+<link rel="stylesheet" href="/css/dashboard.css">
+
+<body>
+
+    <!-- for header part -->
+    <%- include('header'); -%>
+
+
+        <div class="main-container">
+            <!--nav bar add-->
+
+            <%- include('nav'); -%>
+                <div class="main">
+
+                    <div class="content-main">
+
+
+                        <div class="form-container">
+                            <h2>Edit Question</h2>
+                            <form class="add-question-form" method="post" action="/editquestion">
+                                <div class="form-container">
+                                    <input type="hidden" name="question_id" value="<%= data[0].question_id %>">
+                                    <%= //console.log(data,"edit question id using data"); %>
+                                        <%= //console.log("edit question  data in ejs"); %>
+                                        <%= //console.log( data[0].question_text,"edit question text  data in ejs"); %>
+                                            <label for="quiz">cateories:</label>
+
+                                            <select id="category" name="category">
+                                                <%= console.log((data1,"category ")) %>
+                                                <%= console.log((data1.category_name,"category ")) %>
+                                                <option value="<%= data1[0].category_name %>" disabled ><%= data1[0].category_name %></option>
+                                                <%for(i=0 ; i< data1.length ; i++){%>
+                                                    <option value="<%= data1[i].category_id %>">
+                                                        <%= data1[i].category_name%>
+                                                    </option>
+                                                    <%}%>
+                                            </select>
+                                            <label for="question">Question:</label>
+                                            <textarea id="question_text" name="question_text"  rows="3" ><%= data[0].question_text %></textarea>
+
+                                            <label for="option_a">Option A:</label>
+                                            <input type="text" id="option_a" value="<%= data[0].option_a %>" name="option_a" required>
+
+                                            <label for="option_b">Option B:</label>
+                                            <input type="text" id="option_b" value="<%= data[0].option_b %>" name="option_b" required>
+
+                                            <label for="option_c">Option C:</label>
+                                            <input type="text" id="option_c" value="<%= data[0].option_c %>" name="option_c" required>
+
+                                            <label for="option_d">Option D:</label>
+                                            <input type="text" id="option_d" value="<%= data[0].option_d %>" name="option_d" required>
+
+                                            <label for="correct_option">Correct Option:</label>
+                                            <select id="correct_option" name="answer" required>
+                                                <option value="<%= data[0].answer %>" selected><%= data[0].answer %></option>
+                                            </select>
+                                </div>
+                                <input type='submit' value='Update' name='submit'>
+                                <a href="/question" class="button"> Cancle </a>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+</body>
+<script src="/js/addquestion.js"></script>
+
+</html>

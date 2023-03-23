@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>exam</title>
     <link rel="stylesheet" href="/css/exam.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
 
@@ -17,7 +18,7 @@
         <div class="main-container">
             <%- include('nav'); -%>
                 <div class="main">
-
+<!-- 
                     <div class="header">
                         <h1>Online Student Examination System Project</h1>
                     </div>
@@ -26,7 +27,7 @@
                     <div class="header2">
                         <h2>exam management</h2>
 
-                    </div>
+                    </div> -->
                     <div id="change">
 
 
@@ -109,9 +110,7 @@
                                                 <div id="toggle<%=data1[i].exam_id%>">
 
                                                     <p class="btn" id="<%=data1[i].exam_id%>"
-                                                        onclick="toggle(`<%=data1[i].exam_status%>`,`<%=data1[i].exam_id%>`)">
-                                                        <%=data1[i].exam_status%>
-                                                    </p>
+                                                        onclick="toggle(`<%=data1[i].exam_status%>`,`<%=data1[i].exam_id%>`)"><%=data1[i].exam_status%></p>
                                                 </div>
                                             </td>
                                             <td>
@@ -132,21 +131,21 @@
                             <div id="page">
 
 
-                                <p onclick="page(``)" class="p">prev</p>
+                                <p onclick="page(`1`,`<%=count%>`)" class="p">prev</p>
                                 <% for(let i=1;i<=count ;i++){ %>
                                     <%if(i==1){%>
-                                    <p onclick="page(`<%=i%>`)" class="p">
+                                    <p onclick="page(`<%=i%>`,`<%=count%>`)" class="p">  
                                         
                                       <b><%=i%></b> 
                                     </p>
                                     <% }else{ %>
-                                        <p onclick="page(`<%=i%>`)" class="p">
+                                        <p onclick="page(`<%=i%>`,`<%=count%>`)" class="p">
                                         
                                             <%=i%> 
                                          </p>
                                 <%}%>
                                 <%}%>
-                                <p onclick="page(``)" class="p">next</p>
+                                <p onclick="page(`2`,`<%=count%>`)" class="p">next</p>
                             </div>
 
                         </div>
