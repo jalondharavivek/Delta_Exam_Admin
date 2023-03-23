@@ -212,31 +212,31 @@ async function page(pages,name = '')
 
         if(name == '')
         {
-        //     let pagi ='' ;
-        //     let totalpages = Math.ceil((data.total)/(data.limit));
-        //     let iterator = (data.page - 5) < 1 ? 1 : data.page - 5;
-        //     let endingLink =(iterator + 9) <= totalpages ? (iterator + 9) : data.page +(totalpages - data.page);
-        //     if (endingLink < (data.page + 4)) {
-        //         iterator -= (data.page + 4) - totalpages; 
-        //     } 
-        //     if(data.page > 1){
-        //         pagi += `<li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>`;
-        //     }
-        //     for(let i = iterator; i <= endingLink; i++) 
-        //     { 
-        //         if(i === data.page) { 
-        //             pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`;
-        //             continue;
-        //         }
-        //         if(i != data.page) {
-        //             pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`;
-        //             continue;
-        //         }
-        //     }
-        //     if(data.page < totalpages) {
-        //         pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/data.limit)}">Last</a></li>`;
-        //     }
-        //     pagination.innerHTML = pagi;
+            let pagi ='' ;
+            pagi += `<li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>`;
+            if(parseInt(data.page) <=5) {
+                for(let i=1;i<=parseInt(data.page);i++) {  
+                    pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
+                }
+            }
+            else {
+                for(let i=(parseInt(data.page)-5);i<=parseInt(data.page);i++){
+                    pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
+                }
+            }
+            if(Math.ceil((data.total)/(data.limit))-5 >= (data.page)) {
+                for(let i=parseInt(data.page)+1;i<=parseInt(data.page)+5;i++){
+                    pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
+                } 
+            } 
+            else {
+                for(let i=parseInt(data.page)+1;i<=Math.ceil(parseInt(data.total)/parseInt(data.limit));i++) {
+                    pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
+                }
+            }
+            pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/data.limit)}">Last</a></li>`
+
+            pagination.innerHTML = pagi;
         }
         table.innerHTML = html;
         cat_status();
