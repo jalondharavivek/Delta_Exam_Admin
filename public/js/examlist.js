@@ -60,7 +60,7 @@ function toggle(status, id) {
 async function examedit(id) {
 
     let change = document.getElementById('change');
-
+    
 
     let result = await fetch(`/edit?exam_id=${id}`)
     let data = await result.json();
@@ -529,16 +529,22 @@ async function page(num) {
         pageid.innerHTML += `<p onclick="page(1)" class="p">prev</p>`;
 
     } else{
-        console.log(num , "prev")
+       
         pageid.innerHTML += `<p onclick="page(${num}-1)" class="p">prev</p>`;
 
     }
 
     for (let i = 1; i <= data.count; i++) {
-
-        pageid.innerHTML += `<p onclick="page(${i})" class="p">
+        if(i==num){
+            pageid.innerHTML += `<p onclick="page(${i})" class="p">
+            <b>${i}</b>
+        </p>`;
+        }else{
+            pageid.innerHTML += `<p onclick="page(${i})" class="p">
             ${i}
         </p>`;
+        }
+       
     }
 
     if (num == 7) {

@@ -72,7 +72,7 @@ app.get("/edit", async (req, res) => {
     let sql1 = `select * from exam_system.exam where exam_id=${id};`
     let [data1] = await db.execute(sql1);
     // console.log(data1);
-    res.send( data1 );
+    res.json(data1);
 
   } catch (err) {
     console.log(err);

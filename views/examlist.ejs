@@ -132,13 +132,21 @@
                             <div id="page">
 
 
-                                <p onclick="page(`<%=curpage-1%>`)" class="p">prev<%=curpage-1%></p>
+                                <p onclick="page(``)" class="p">prev</p>
                                 <% for(let i=1;i<=count ;i++){ %>
+                                    <%if(i==1){%>
                                     <p onclick="page(`<%=i%>`)" class="p">
-                                        <%=i%>
+                                        
+                                      <b><%=i%></b> 
                                     </p>
+                                    <% }else{ %>
+                                        <p onclick="page(`<%=i%>`)" class="p">
+                                        
+                                            <%=i%> 
+                                         </p>
                                 <%}%>
-                                <p onclick="page(`<%=curpage+1%>`)" class="p">next<%=curpage+1%></p>
+                                <%}%>
+                                <p onclick="page(``)" class="p">next</p>
                             </div>
 
                         </div>
