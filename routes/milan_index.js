@@ -13,6 +13,10 @@ route.get('/edit/option',exam.editoption);
 
 route.get('/categories',exam.categories);
 
+route.get('/exam/search',exam.examsearch);
+
+route.get('/examlist/page',exam.examlistpage);
+
 route.get('/examlist',exam.examlist);
 
 route.get('/exam',exam.exam);
