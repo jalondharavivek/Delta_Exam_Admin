@@ -15,9 +15,10 @@
 
 
 //view detail
-async function viewdetail(viewid){
-  const viewfetch = await fetch(`http://localhost:8765/viewdetail?viewid=${viewid}`)
-}
+// async function viewdetail(viewid){
+//   console.log(viewid,":::::::::::jhgjkggjk  view id")
+//   const viewfetch = await fetch(`http://localhost:8765/viewdetail?viewid=${viewid}`)
+// }
 
 
 
@@ -32,46 +33,50 @@ async function viewdetail(viewid){
 
 async function searchque(name) {
 // console.log(name,"question module in search search:::::;")
-    let queresult = await fetch(`http://localhost:8765/search?name=${name}`);
-    let data = await queresult.json();
-    // console.log(data,"search question for data");
+    let queresult = await fetch(`http://localhost:8765/search?nameque=${name}`);
+    let datas = await queresult.json();
+    console.log(datas,"search question for data");
     let tabque = document.getElementById("quetable")
     let quetabsearch = `  <thead> <tr>
                              <th>Id</th>
                              <th>Category</th>
                             <th>Question</th>
                             <th>Answer</th>
-                            <th>view</th>
+                             <th>view</th>
                              <th>Action</th>
-                        </tr> </thead>`;
-                        // console.log(data.search[0].question_text,":::question name  ")
-                        // console.log(Object.keys(data.search).length == 0 , "::::::::total")
-    if(Object.keys(data.search).length == 0)
+                             </tr> 
+                        </thead>`;
+                     console.log(datas.search,"::::::::search in js"); 
+    if(Object.keys(datas.search).length == 0)
       {
-        quetabsearch +=`<tr><td colspan=5>No record found</td></tr>`;
+        quetabsearch +=`<tr><td colspan=5>No record found</td></tr>`
+        
         }
  else
     {
       {
-        for(let i=0; i<data.search.length; i++){
+        for(let i=0; i<datas.search.length; i++){
         quetabsearch += `<tr>
         <td class="width-td">
-            ${data.search[i].question_id}
+            ${datas.search[i].question_id}
         </td>
-        <td  class="width-td"> 0 </td>
+        <td  class="width-td">  0</td>
         <td class="question-width" >
-            ${data.search[i].question_text}
+            ${datas.search[i].question_text}
         </td>
       
         <td class="answercolor">
-            ${data.search[i].answer}
+            ${datas.search[i].answer}
         </td>
         <td>
-        <a href="" class="button-view"  onclick="viewdetail(${ data.search.question_id })" > view </a>
+        
+        <a href="viewdetail?question_id=${datas.search[i].question_id}" class="button-view"> view </a>
+        
         </td>
         <td class="button-width">
-            <a href="editquestion?question_id=${data.search[i].question_id}"  class="edit-btn">Edit</a>
-            <a  href="/deletequestion" class="delete-btn"  onclick="deletque(${ data.search.question_id })">Delete</a>
+
+        <a href="editquestion?question_id=${datas.search[i].question_id}" class="edit-btn">Edit</a>
+        <a href="deletequestion" class="delete-btn"  onclick="deletque(${ datas.search[i].question_id})">Delete</a>
         </td>
     </tr>`
         }

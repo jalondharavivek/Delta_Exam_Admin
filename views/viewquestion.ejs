@@ -10,8 +10,15 @@
 <link rel="stylesheet" href="/css/dashboard.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
-<link rel="stylesheet" href="/css/addquestion.css">
-
+<!-- <link rel="stylesheet" href="/css/addquestion.css"> -->
+<style>
+      ul{
+        list-style-type: none;
+    }
+    li{
+       margin: 30px;
+    }
+</style>
 <body>
 
     <!-- for header part -->
@@ -28,12 +35,48 @@
 
 
                         <div class="form-container">
-                            <h2>View Question</h2>
-
-                            <div class="form-container">
-                               
+                        <div class="form-container">
+                          <label for="questiondetail">Question Detail : <%= data[0].question_id  %></label>
+                           
+                          <div><label for="question">Question</label></div>
+                           <div><b><%= data[0].question_text  %></b></div> 
+                           <p><%= data[0].category_name  %></p> 
+                            <p><%= data[0].option_a  %></p>
+                            <p><%= data[0].option_b  %></p>
+                            <p><%= data[0].option_c  %></p>
+                            <p><%= data[0].option_d  %></p>
+                            <p style="color: darkgreen;"><%= data[0].answer %></p>
+                             <li>
+                                <label for="category">Category</label>
+                                <label for=""></label>
+                            </li>
+                            <li>
+                                <label for="question_text">question_text</label>
+                                <label for=""></label>
+                            </li>
+                            <li>
+                                <label for="option_a">Option A</label>
+                                <label for=""></label>
+                            </li>
+                            <li>
+                                <label for="option_b">Option B</label>
+                                <label for=""></label>
+                            </li>
+                            <li>
+                                <label for="option_c">Option C</label>
+                                <label for=""></label>
+                            </li>
+                            <li>
+                                <label for="option_d">Option D</label>
+                                <label for=""></label>
+                            </li>
+                            <li>
+                                <label for="answer">Answer</label>
+                                <label for=""></label>
+                            </li>
+                            </ul>
+                            
                                 
-
 
                             </div>
                         </div>

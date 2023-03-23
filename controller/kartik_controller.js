@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const app = express();
-var db = require('../mysql');
+var db = require('../connection/mysql');
 
 const bodyParser = require("body-parser");
 const { Console, log } = require('console');

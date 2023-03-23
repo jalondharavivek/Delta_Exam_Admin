@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const app = express();
-var db = require('../mysql');
+var db = require('../connection/mysql');
 app.set("view engine", "ejs");
 var bodyParser=require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
