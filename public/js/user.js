@@ -1,22 +1,30 @@
 
-function togglecolorchnage() {
-    let btn = document.querySelectorAll('.btn');
-    btn.forEach(e => {
-        if (e.innerHTML == '0') {
+function check_status() {
 
-            e.innerHTML = 'DISABLE';
-            e.style.color = 'red';
-            e.style.cursor = 'pointer';
-        }
-        else if (e.innerHTML == '1') {
-
-            e.innerHTML = 'ENABLE';
-            e.style.color = 'blue';
-            e.style.cursor = 'pointer';
-        }
-    })
+    try{
+        let btn = document.querySelectorAll('.btnn');
+        btn.forEach(e => {
+            if (e.innerHTML == '0') {
+    
+                e.innerHTML = 'DISABLE';
+                e.style.color = 'red';
+                e.style.cursor = 'pointer';
+                
+            }
+            else if (e.innerHTML == '1') {
+    
+                e.innerHTML = 'ENABLE';
+                e.style.color = 'blue';
+                e.style.cursor = 'pointer';
+            }
+        })
+    }
+    catch (err)
+    {
+        console.log(err);
+    }
 }
-togglecolorchnage();
+check_status();
 
 function toggle(status, id) {
 
@@ -91,10 +99,7 @@ async function page(pages , name = '') {
         <td>
 
         <div id="toggle${c.student_id}">
-            <p class="btn" id="${c.student_id}"
-                onclick="toggle(' ${c.student_status}','${c.student_id}')">
-                ${c.student_status}
-            </p>
+            <p class="btnn" id="status" id="${c.student_id}" onclick="toggle(' ${c.student_status}','${c.student_id}')">${c.student_status}</p>
         </div>
 
 
@@ -150,7 +155,8 @@ async function page(pages , name = '') {
         pagination.innerHTML = pagi;
     }
     table.innerHTML = str;
-    togglecolorchnage();
+    check_status() ;
+   
 }
 
 async function search(name)
@@ -182,7 +188,7 @@ async function search(name)
     </tr>`;
         if(Object.keys(data.search).length != 0)
         {
-            data.data.forEach(c => {
+            data.search.forEach(c => {
                 html += `<tr>
                 <td>
                     ${c.student_id}
@@ -203,13 +209,9 @@ async function search(name)
                 ${c.address}
                 </td>
                 <td>
-        
                 <div id="toggle${c.student_id}">
-                    <p class="btn" id="${c.student_id}"
-                        onclick="toggle(' ${c.student_status}','${c.student_id}')">
-                        ${c.student_status}
-                    </p>
-                </div>
+                <p class="btnn" id="status" id="${c.student_id}" onclick="toggle(' ${c.student_status}','${c.student_id}')">${c.student_status}</p>
+            </div>
         
         
             </td>
@@ -223,11 +225,12 @@ async function search(name)
             ${c.college_name}
             </td>
             <td>
-            ${(new Date().toLocaleDateString())}
+             ${(new Date().toLocaleDateString())}
         
             </td>
             <td>
-                <a id="editbutton" href="/edit/:id="${c.student_id}">edit</a>
+                <a id="editbutton" href="/edit/:id=${c.student_id}">edit
+                </a>
             </td>
         </tr>`
             })
@@ -246,11 +249,13 @@ async function search(name)
         }
         table.innerHTML = html;
         page.innerHTML=pages;
+        check_status();
+
 
     }
     catch(err)
     {
         console.log(err);
     }
-    togglecolorchnage();
+ 
 }

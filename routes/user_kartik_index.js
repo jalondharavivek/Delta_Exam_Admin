@@ -6,7 +6,7 @@ const app = require('./vivek_index');
 
 route.get('/user',user.user);
 
-route.post('/user',user.userpage);
+route.post('/userpage',user.userpage);
 
 route.get('/student_status',user.student_status);
 

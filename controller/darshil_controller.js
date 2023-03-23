@@ -145,10 +145,10 @@ const fetch_api = async(req,res) => {
 //     },
 // }));
 
-req.session.email = email;
-  res.json({
-      otp
-  });
+// req.session.email = email;
+//   res.json({
+//       otp
+//   });
 }
 
 const updatePassword = async (req, res) => {
