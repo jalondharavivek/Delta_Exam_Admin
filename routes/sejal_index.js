@@ -200,23 +200,34 @@ function generateOTP() {
     return OTP;
 }
 
-//result 
+
 
 app.get('/result',async (req, res) => {
-    let sql = "SELECT * FROM exam_system.result;";
+    let sql = `select ee.exam_id , ee.exam_name ,ee.total_questions ,ee.exam_time ,ee.exam_status  from  exam_system.exam ee inner join 
+    exam_system.user_answers uans on ee.exam_id = uans.exam_id;`
      let [query] = await db.query(sql);
-    // console.log(query);
+     console.log(query);
      res.render('result',{data : query});
    })
  
-   //viewresult 
+
 app.get('/viewresult',async (req, res) => {
-    let sql = "SELECT * FROM try.result;";
+    let sql = `SELECT category_name FROM exam_system.exam  a, exam_system.user_answers b 
+    where a.exam_id=b.exam_id`;
      let [query] = await db.query(sql);
      console.log(query);
      res.render('viewresult',{data : query});
-   })
-   
+})
+ 
+ app.get('/viewquestion',async (req, res) => {
+    let sql = `select q.question_text , q.answer ,uans.user_answers ,  uans.marks from exam_system.questions  q inner join 
+    exam_system.user_answers uans on q.question_id=uans.question_id;`;
+     let [query] = await db.query(sql);
+     console.log(query);
+     res.render('viewquestion',{data : query});
+})
+ 
+
 module.exports = app; 
 
 //port

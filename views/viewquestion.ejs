@@ -29,15 +29,21 @@
             <table>
                
                 <tr>
-                    <th>Category name</th>
-                    <th>view question</th>
-                </tr>   
+                    <th>Student name</th>
+                    <th>question name</th>
+                    <th>correct answer</th>
+                      <th>Student answer</th>
+                    <th>Marks</th>
+                </tr>
+
             <% let id=1; %>
             <% data.forEach(c => { %>
                 <tr>
-                      <td><%= c.category_name %></td>
-                     <td><a href="/viewquestion" class="btn btn-dark"><i class="fa-solid fa-circle-info"></i></a></td>
-                        
+                    <td></td>
+                    <td><%= c.question_text %></td>
+                    <td><%= c.answer %></td>
+                     <td><%= c.user_answers %></td>
+                    <td><%= c.marks %></td> 
                 </tr>
                 <% }); %>
         </table>
