@@ -94,6 +94,7 @@ async function getdata(sql) {
 }
 
 app.get('/', (req, res) => {
+  req.session.destroy();
   res.render("login.ejs")
 });
 
@@ -121,7 +122,9 @@ app.post('/login', async(req, res) => {
                 maxAge: 1000 * 60 * 60 * 24, 
             },
         }));
-            res.redirect('/dashboard');
+          req.session.user=email;
+          console.log(req.session.user);
+          res.redirect('/dashboard');
         }
     }
 })
@@ -130,7 +133,7 @@ app.get("/forget", async(req, res) => {
     res.render("validEmail")
 })
 
-app.get('/dashboard',authMiddleware, (req,res)=>{
+app.get('/dashboard',authMiddleware,(req,res)=>{
   res.render('dashboard.ejs');
 })
 
@@ -219,6 +222,4 @@ function generateOTP() {
   }
   return OTP;
 }
-
-
 app.listen(PORT, () => console.log(`port connected to ${PORT}!`))
