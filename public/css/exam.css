@@ -124,6 +124,7 @@
     outline: none;
 }
 
+<<<<<<< HEAD
 th
 {
     border: 1px solid rgb(24, 20, 20);
@@ -148,6 +149,14 @@ tbody tr:nth-child(odd)
     background: rgba(0,0,0,0.2);
 }
 
+=======
+table,
+td,
+th {
+    border: 1px solid rgb(209, 201, 201);
+    padding: 6px;
+}
+>>>>>>> dev-darshil
 #status{
     padding: 4px;
     border-radius: 10px;
@@ -237,6 +246,7 @@ display: inline-block;
     padding: 5px;
     border-radius: 10px;
     background-color: azure;
+<<<<<<< HEAD
 }
 
 #page{
@@ -251,4 +261,6 @@ display: inline-block;
 }
 #page p{
     cursor: pointer;
+=======
+>>>>>>> dev-darshil
 }
