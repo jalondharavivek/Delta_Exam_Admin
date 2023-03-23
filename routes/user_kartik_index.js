@@ -18,18 +18,6 @@ app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')))
 
 const db = mysql.createPool({
-<<<<<<< HEAD
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "exam_system",
-  });
-// app.get('/dashboard',(req,res)=>{
-//     res.render('dashboard.ejs');
-// })
-  
-app.get('/user', async (req, res) => {
-=======
   host: "localhost",
   user: "root",
   password: "root",
@@ -68,7 +56,6 @@ app.get('/user',async (req, res) => {
   catch (err) {
     console.log(err);
   }
->>>>>>> 2bbc6227e06d06ef2179498c8c31a77e84b2093f
  
 })
 
@@ -136,14 +123,6 @@ app.get('/student_status', async (req, res) => {
     }
     else {
       let status = `update student set student_status = 0 where student_id = ${student_id}`;
-<<<<<<< HEAD
-      let student_result = await getdata(status);
-      res.json({student_result})
-    }
-  });
-  //collage render tghrough ajax
-  app.get("/collage", async (req, res) => {
-=======
       let student_result = await db.execute(status);
       res.json({ student_result })
   
@@ -164,7 +143,6 @@ app.get("/collage", async (req, res) => {
 
   try{
 
->>>>>>> 2bbc6227e06d06ef2179498c8c31a77e84b2093f
     console.log("/collage is active")
     let id = req.query.id;
     console.log(req.query.id);
