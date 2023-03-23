@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>online exam system</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/question.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
 
 
 </head>
-
-<link rel="stylesheet" href="/css/dashboard.css">
-
-<link rel="stylesheet" type="text/css" href="/css/question.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 
 
 <body>
@@ -37,12 +37,14 @@
 
                         <div class="button-card">
                             <div class="searchbar-que">
-                                <input class="searchbar-que" placeholder="search" type="text" onkeyup="searchque(this.value)"  name="search" id="search">
+                                <input class="searchbar-que" placeholder="search" type="text"
+                                    onkeyup="searchque(this.value)" name="search" id="search">
                             </div>
+                            
                             <div class="exam-button-row">
                                 <a class="button" href="/addquestion">add que</a>
                             </div>
-                         </div>
+                        </div>
 
                         <div>
 
@@ -55,8 +57,9 @@
                                         <th>Option A</th>
                                         <th>Option B</th>
                                         <th>Option c</th>
-                                        <th>Option D</th>
+                                        <th>Option D</th> -->
                                         <th>Answer</th>
+                                        <th>view </th>
                                         <th>Action</th>
 
                                     </tr>
@@ -69,36 +72,40 @@
                                                     <td class="width-td">
                                                         <%= id++ %>
                                                     </td>
-                                                    <td  class="width-td"> 0 </td>
-                                                    <td class="question-width" >
-                                                        <%=data[i].question_text%>
+                                                    <td class="width-td">0</td>
+                                                    <td class="question-width">
+                                                        <%= data[i].question_text%>
                                                     </td>
-                                                    <td class="width-td">
-                                                        <%=data[i].option_a%>
+
+                                                    <!-- <td class="width-td">
+                                                       // <%= //data[i].option_a%>
                                                     </td>
                                                     <td  class="width-td">
-                                                        <%=data[i].option_b%>
+                                                        <%= //data[i].option_b%>
                                                     </td>
                                                     <td class="width-td">
-                                                        <%=data[i].option_c%>
+                                                        <%= //data[i].option_c%>
                                                     </td>
                                                     <td class="width-td">
-                                                        <%=data[i].option_d%>
-                                                    </td>
+                                                       <%= //data[i].option_d%>
+                                                    </td> -->
                                                     <td class="answercolor">
                                                         <%=data[i].answer%>
+                                                    </td>
+                                                    <td>
+                                                        <a href="viewdetail?question_id=<%= data[i].question_id %>"
+                                                            class="button-view"> view </a>
                                                     </td>
                                                     <td class="button-width">
                                                         <a href="editquestion?question_id=<%= data[i].question_id %>"
                                                             class="edit-btn">Edit</a>
-                                                        <a href="/exam/status?status=<%=data[i].exam_status%>&id=<%=data[i].exam_id%>"
-                                                            onclick="deletquestion(`<%= data[i].question_id %>`)"
-                                                            class="delete-btn">Delete</a>
+                                                        <a href="/deletequestion" class="delete-btn">Delete</a>
                                                     </td>
                                                 </tr>
                                                 <% } %>
 
                                 </tbody>
+
                             </table>
 
 

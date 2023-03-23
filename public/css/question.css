@@ -153,3 +153,15 @@ width:20%;
 .button-width{
     width :10%
 } */
+.button-view{
+   
+        padding: 4px;
+        background-color: #698b48;
+        color: #ffffff;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        width: 30px;
+        /* width: 30px; */
+        
+}
