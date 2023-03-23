@@ -113,6 +113,10 @@ const deletquestionget = async(req,res) =>{
 
 
 const searchget = async(req,res)=>{
+    let page=parseInt(req.query.page)||1;
+    let limit=parseInt(req.query.limit)||10;
+    let startindex=(page-1)*limit;
+    let endindex=page*limit-startindex;
     let sqlque = `select * from questions`
     let name1 = req.query.nameque;
     console.log(name1,"::::name search")
@@ -120,7 +124,8 @@ const searchget = async(req,res)=>{
     let [queryque] = await db.execute(sqlque)
     let sqlque1 = `select * from questions where question_text like '%${name1}%' `
     let [sqlque2] = await db.execute(sqlque1)
-  
+    // let sqlquet = `select count(*) as total from category where category_name like '%${name1}%'`;
+    // let [result1] = await db.query(sqlquet);
     res.json({ datas : queryque, search: sqlque2 });
 }
 
