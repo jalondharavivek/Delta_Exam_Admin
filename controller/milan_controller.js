@@ -196,7 +196,7 @@ const post_exam = async (req, res) => {
       str += num.charAt(Math.floor(Math.random() * 6));
 
     }
-    sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${categories}');`;
+    sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${categories}');`;
     let [data1] = await db.execute(sql1);
     let appid = data1.insertId;
 

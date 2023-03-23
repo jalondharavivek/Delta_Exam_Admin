@@ -69,7 +69,7 @@
                                             <td>
                                                 <div class="td">
 
-                                                    <%=data1[i].category%>
+                                                    <%=data1[i].category_name%>
 
                                                 </div>
 
@@ -90,7 +90,8 @@
                                             </td>
                                             <td>
                                                 <div class="td">
-                                                    <%=data1[i].exam_date%>
+                                                    
+                                                    <%=(new Date(data1[i].exam_date).toLocaleDateString())%>
 
                                                 </div>
 
