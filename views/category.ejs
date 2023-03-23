@@ -76,15 +76,16 @@
                         <li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>
                         <%# for(let i = iterator; i <= endingLink; i++) { %>
                             <%# if(i=== page) { %>
+                                <%# console.log(i); %>
                                 <li class="page-item"><a class="page-link" id='<%#= i %>' onclick='page(this)'><%#= i %></a></li>
-                        <%## console.log(i); %>
+                                <%## console.log(i); %>
 
                                 <%# continue; %>
-                            <%# } else { %>
+                            <%# }%>
+                            <%## console.log("out",i); %>
                             <li class="page-item"><a class="page-link" id='<%#= i %>' onclick='page(this)'><%#= i %></a></li>
                             
-                            <%# } } %>
-                            <%# console.log(i); %>
+                        <%# }%>
                         <li class="page-item"><a class="page-link" onclick='page(this)' id="<%# Math.ceil(data.total/data.limit) %>">Last</a></li> -->
                     </ul>
                 </nav>
