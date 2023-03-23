@@ -6,7 +6,7 @@ var cookie = require('cookie-parser');
 var utils = require('util');
 const { decode } = require('punycode');
 let bodyParser = require('body-parser')
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 const flash = require('connect-flash');
 var nodemailer = require('nodemailer');
 const path = require('path')
@@ -37,8 +37,11 @@ app.use("/", category)
 const vivek_indexfile = require('./routes/vivek_index')
 app.use("/", vivek_indexfile)
 
-// const milan_indexfile = require('./routes/milan_index')
-// app.use('/',milan_indexfile)
+const milan_indexfile = require('./routes/milan_index')
+app.use('/',milan_indexfile)
+const middle = require('./routes/middleware')
+
+
 // const sejal_indexfile = require('./routes/sejal_index')
 // app.use('/',sejal_indexfile)
 
@@ -46,9 +49,7 @@ app.use("/", vivek_indexfile)
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')))
 
-const milan_indexfile = require('./routes/milan_index')
-app.use('/',milan_indexfile)
-
+ 
 // session create
 
 app.use(sessions({
@@ -60,19 +61,6 @@ app.use(sessions({
     },
 }));
 
-//middleware
-
-const authMiddleware = (req, res, next) => {
-    if (!req.session.user) {
-      return res.redirect("/");
-    }
-    next();
-  };
-  // app.get("/login", authMiddleware, (req, res) => {
-  //   res.end('login succesfull')
-  // });
-
-
 // create connectin 
 
 const db = mysql.createPool({
@@ -82,19 +70,8 @@ const db = mysql.createPool({
   database: "exam_system",
 
 });
-// query 
-
-async function getdata(sql) {
-    return new Promise((res, rej) => {
-      db.query(sql, (err, data) => {
-        if (err) throw err;
-        res(data);
-      })
-    })
-}
 
 app.get('/', (req, res) => {
-  req.session.destroy();
   res.render("login.ejs")
 });
 
@@ -102,29 +79,30 @@ app.post('/login', async(req, res) => {
     var email = req.body.email;
     var password = req.body.password;
     var selectEmail = `SELECT email, password FROM student where email = '${email}' `
-    var emailResult = await getdata(selectEmail);
+    var [emailResult] = await db.execute(selectEmail);
     var selectUser = `SELECT email, password , user_login_status  , role from user_login where email = '${email}'`;
-    var userData = await getdata(selectUser);
+    var [userData] = await db.execute(selectUser);
+    console.log(userData);
     if (userData.length == 0) {
         res.send("email is not match");
     } else {
         var comparePassword = userData[0].password;
+        console.log(comparePassword);
         var compare = await bcrypt.compare(password, comparePassword);
         var resultRandom = Math.random().toString(36).substring(2, 7);
         if (!compare) {
             res.send("Password is not match")
-        } else {  
+        }else {  
           app.use(sessions({
-            secret: "huy7uy7u",
-            saveUninitialized: true,
-            resave: false,
-            cookie: {
-                maxAge: 1000 * 60 * 60 * 24, 
-            },
-        }));
-          req.session.user=email;
-          console.log(req.session.user);
-          res.redirect('/dashboard');
+              secret: "huy7uy7u",
+              saveUninitialized: true,
+              resave: false,
+              cookie: {
+                  maxAge: 1000 * 60 * 60 * 24, 
+              },
+            }));
+            req.session.user=email;
+            res.redirect('/dashboard');
         }
     }
 })
@@ -133,7 +111,8 @@ app.get("/forget", async(req, res) => {
     res.render("validEmail")
 })
 
-app.get('/dashboard',authMiddleware,(req,res)=>{
+app.get('/dashboard',middle, (req,res)=>{
+
   res.render('dashboard.ejs');
 })
 
@@ -207,7 +186,7 @@ app.post("/updatePassword", async(req, res) => {
   var resetPassword = await bcrypt.hash(password, set);
   var updateQuery = `update user_login set password = '${resetPassword}' where email = '${email}'`;
   console.log("update query", updateQuery)
-  var updateResult = await getdata(updateQuery)
+  var [updateResult] = await db.execute(updateQuery)
   req.session.destroy();
   res.redirect("/");
 })

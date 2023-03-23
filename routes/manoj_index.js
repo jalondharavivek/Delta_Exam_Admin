@@ -3,12 +3,11 @@ const express = require('express')
 const path = require('path')
 const app = express();
 const mysql = require("mysql2/promise");
+const sessions = require('express-session');
 app.set("view engine", "ejs");
 var bodyParser=require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-
-
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public/')))
 const db = mysql.createPool({
@@ -17,10 +16,16 @@ user: "root",
 password: "root",
 database: "exam_system",
 });
+const authMiddleware = (req, res, next) => {
+    console.log(req.session);
+    if (!req.session) {
+      return res.redirect("/");
+    }
+    next();
+  };
 
-
-app.get('/category',async (req, res) => {
-
+app.get('/category', authMiddleware, async(req, res) => {
+   
     let sql = `SELECT * FROM category `;
     let page = req.query.page || 1;
     let limit = req.query.limit || 10;
@@ -35,7 +40,7 @@ app.get('/category',async (req, res) => {
     res.render('category',{ data : query, page : page, total: result1[0].total, limit: limit });
 })
 
-app.post('/categorypage', async (req,res) => {
+app.post('/categorypage', authMiddleware,async (req,res) => {
 
     let sql = `SELECT * FROM category `;
 
@@ -59,7 +64,7 @@ app.post('/categorypage', async (req,res) => {
     res.json({ data : query, page: page, total: result1[0].total, limit: limit, pages : pages1 });
 })
 
-app.post('/categorystatus',async (req, res) => {
+app.post('/categorystatus',authMiddleware,async (req, res) => {
     let id = req.body.id;
     let status = req.body.status
     // console.log(i);
@@ -90,7 +95,7 @@ app.post('/categorystatus',async (req, res) => {
     }
 })
 
-app.post('/editcategory',async (req, res) => {
+app.post('/editcategory',authMiddleware,async (req, res) => {
     let b = req.body;
     let sql = `update category set category_name = '${b.category_name}' where category_id = ${b.category_id}`;
     let [query] = await db.execute(sql);
@@ -98,7 +103,7 @@ app.post('/editcategory',async (req, res) => {
     // console.log(b);
 })
 
-app.get('/editCategory',async (req, res) => {
+app.get('/editCategory',authMiddleware,async (req, res) => {
     let id = req.query.id;
     let sql = `select category_id, category_name from category where category_id = ${id}`;
     let [ans] = await db.execute(sql);
@@ -107,14 +112,14 @@ app.get('/editCategory',async (req, res) => {
     // console.log(id);
 })
 
-app.post('/addcategory',async (req, res) => {
+app.post('/addcategory',authMiddleware,async (req, res) => {
     let sql = `insert into category (category_name,category_status,created_date) values ('${req.body.category_name}','0',now())`;
     let [query] = await db.execute(sql);
     res.redirect('category');
     // console.log(query);
 })
 
-app.get('/search',async (req, res) => {
+app.get('/search',authMiddleware,async (req, res) => {
     let sql = `SELECT * FROM category `;
     // console.log(req.query);
     let page=parseInt(req.query.page)||1;
