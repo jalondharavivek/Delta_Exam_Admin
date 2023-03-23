@@ -94,7 +94,17 @@ app.post('/addquestion', async (req, res) => {
   res.redirect("/question");
 
 })
+app.get('/viewdetail', async (req,res) =>{
+let viewid =  req.query.viewid
+console.log(viewid,"::::view id ")
+let viewsql = `select * from questions where question_id = ${viewid}`
 
+
+let [viewques] = await db.query(viewsql);
+console.log(viewques,":::view details of questions")
+
+
+})
 
 
 
