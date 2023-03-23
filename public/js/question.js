@@ -13,20 +13,28 @@
 //   let queresult = await fetch(`http://localhost:8765/editquestion?question_id=${editquesid}`);
 // }
 
-///delet question 
-async function deletques(delet){
-  let queresult = await fetch(`http://localhost:8765//deletequestion?question_id=${delet}`);
-  console.log(delet,":::question id for delet")
-  location.reload()
+
+//view detail
+async function viewdetail(viewid){
+  const viewfetch = await fetch(`http://localhost:8765/viewdetail?viewid=${viewid}`)
 }
 
 
 
+///delet question 
+// async function deletques(delet){
+//   let queresult = await fetch(`http://localhost:8765//deletequestion?question_id=${delet}`);
+//   // console.log(delet,":::question id for delet")
+//   location.reload()
+// }
+
+
+
 async function searchque(name) {
-console.log(name,"question module in search search:::::;")
+// console.log(name,"question module in search search:::::;")
     let queresult = await fetch(`http://localhost:8765/search?name=${name}`);
     let data = await queresult.json();
-    console.log(data,"search question for data");
+    // console.log(data,"search question for data");
     let tabque = document.getElementById("quetable")
     let quetabsearch = `  <thead> <tr>
                              <th>Id</th>
@@ -36,8 +44,8 @@ console.log(name,"question module in search search:::::;")
                             <th>view</th>
                              <th>Action</th>
                         </tr> </thead>`;
-                        console.log(data.search[0].question_text,":::question name  ")
-                        console.log(Object.keys(data.search).length == 0 , "::::::::total")
+                        // console.log(data.search[0].question_text,":::question name  ")
+                        // console.log(Object.keys(data.search).length == 0 , "::::::::total")
     if(Object.keys(data.search).length == 0)
       {
         quetabsearch +=`<tr><td colspan=5>No record found</td></tr>`;
@@ -59,11 +67,11 @@ console.log(name,"question module in search search:::::;")
             ${data.search[i].answer}
         </td>
         <td>
-        <a href="" class="button-view"> view </a>
+        <a href="" class="button-view"  onclick="viewdetail(${ data.search.question_id })" > view </a>
         </td>
         <td class="button-width">
-            <a href="editquestion?question_id=${data.search[i].question_id} " class="edit-btn">Edit</a>
-           
+            <a href="editquestion?question_id=${data.search[i].question_id}"  class="edit-btn">Edit</a>
+            <a  href="/deletequestion" class="delete-btn"  onclick="deletque(${ data.search.question_id })">Delete</a>
         </td>
     </tr>`
         }
