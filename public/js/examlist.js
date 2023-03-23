@@ -5,13 +5,10 @@ categortFetch();
 function categortFetch() {
     fetch('/categories').then(res => res.json()).then(data => {
 
-
         for (let i = 0; i < data.arr.length; i++) {
 
             category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
-
         }
-
     }).catch(err => console.log(err));
 }
 
@@ -139,26 +136,20 @@ async function examedit(id) {
 
 async function callback() {
     let category_select = document.getElementById('category_select')
-    console.log(category_select)
+    
     let arat = await selectedcategory();
-    console.log(arat, "arat")
+    console.log(arat)
 
     async function selectedcategory() {
-        // let category_id = [];
+        console.log("selected category is called")
         let category_name = [];
         let exam_id = document.getElementById('exam_id').value;
 
         await fetch(`/selected/category?exam_id=${exam_id}`).then(res => res.json()).then(data => {
-
-
+            console.log(data)
             for (i = 0; i < data.length; i++) {
-
-                // category_id.push(data[i][0].category_id);
-
                 category_name.push(data[i][0].category_name);
             }
-
-
         }
         ).catch(err => console.log(err));
 
@@ -168,21 +159,17 @@ async function callback() {
     categortFetch();
     async function categortFetch() {
 
-
-
-
         fetch('/categories').then(res => res.json()).then(data => {
-
+            console.log("all category fetch is called")
             let checker;
             for (let i = 0; i < data.arr.length; i++) {
-
+                console.log(data.arr.length)
                 for (j = 0; j < arat.length; j++) {
-
+                    console.log(arat.length , "this is arat")
                     if (data.arr[i] == arat[j]) {
 
                         category_select.innerHTML += `<option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
                         checker = i;
-
                     }
                 }
                 if (checker != i) {
@@ -302,13 +289,10 @@ async function addexam() {
     categortFetch();
     function categortFetch() {
         fetch('/categories').then(res => res.json()).then(data => {
-            // console.log("data", data)
-            // console.log(data.arr.length);
-            // console.log(data.arr2.length);
+           
 
             for (let i = 0; i < data.arr.length; i++) {
-                // console.log(data.arr[i])
-                // console.log(data.arr2[i])
+                
                 category_select.innerHTML += ` <option value="${data.arr2[i]}">${data.arr[i]}</option>`;
 
             }
@@ -325,7 +309,7 @@ function examSearch() {
     let exam_search = document.getElementById('exam_search');
 
     fetch(`/exam/search?exam_name=${search}`).then(res => res.json()).then(data => {
-        console.log(data)
+        
         if (data.data1.length == 0) {
             tbody.innerHTML = "there is no found data";
         }
@@ -415,7 +399,7 @@ function examSearch() {
         tbody.innerHTML = str;
 
         let pageid = document.getElementById('page');
-        console.log(pageid)
+       
 
         let newstr = '';
         pageid.innerHTML = "";
@@ -452,7 +436,7 @@ function examSearch() {
         }
 
         let pclass = document.querySelectorAll('.p');
-        console.log(pclass)
+     
 
     })
         .catch(err => console.log(err));
@@ -464,7 +448,7 @@ async function page(num,count) {
 
     let result = await fetch(`/examlist/page?page=${num}`);
     let data = await result.json();
-    console.log(data);
+    
 
 
 
@@ -557,7 +541,7 @@ async function page(num,count) {
 
     tbody.innerHTML = str;
     let pageid = document.getElementById('page');
-    console.log(pageid)
+   
 
     let newstr = '';
     pageid.innerHTML = "";
@@ -594,6 +578,6 @@ async function page(num,count) {
     }
 
     let pclass = document.querySelectorAll('.p');
-    console.log(pclass)
+    
 
 }
