@@ -49,6 +49,9 @@ app.use(express.static(path.join(__dirname, '/public')))
 const milan_indexfile = require('./routes/milan_index')
 app.use('/',milan_indexfile)
 
+const user = require('./routes/user_kartik_index');
+app.use("/", user)
+
 // session create
 
 app.use(sessions({
