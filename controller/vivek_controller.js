@@ -1,10 +1,11 @@
 const express = require('express')
 const path = require('path')
 const app = express();
-var bodyParser = require('body-parser');
+var bodyParser=require('body-parser');
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 var db = require('../connection/mysql');
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set("view engine", "ejs");
 
@@ -113,10 +114,11 @@ const deletquestionget = async(req,res) =>{
 
 const searchget = async(req,res)=>{
     let sqlque = `select * from questions`
-    let name = req.query.name;
-    console.log(name, "search name 9in js ")
+    let name1 = req.query.nameque;
+    console.log(name1,"::::name search")
+    console.log(name1, "search name in js ")
     let [queryque] = await db.execute(sqlque)
-    let sqlque1 = `select * from questions where question_text like '%${name}%' `
+    let sqlque1 = `select * from questions where question_text like '%${name1}%' `
     let [sqlque2] = await db.execute(sqlque1)
   
     res.json({ datas : queryque, search: sqlque2 });

@@ -31,9 +31,10 @@
 
 
 
-async function searchque(name) {
+async function searchque(quesearch) {
+  try{
 // console.log(name,"question module in search search:::::;")
-    let queresult = await fetch(`http://localhost:8765/search?nameque=${name}`);
+    let queresult = await fetch(`/searchque?nameque=${quesearch}`);
     let datas = await queresult.json();
     console.log(datas,"search question for data");
     let tabque = document.getElementById("quetable")
@@ -85,19 +86,25 @@ async function searchque(name) {
       }
   }
   tabque.innerHTML = quetabsearch;
-//    cat_status();
-                    }
+
+
+      }catch(err){
+        console.log(err)
+      }
+
+     }
+
 
 //<td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td>
-{/* <td class="width-td">
-${data.search[0].option_a}
-</td>
-<td  class="width-td">
-${data.search[0].option_b}
-</td>
-<td class="width-td">
-${data.search[0].option_c}
-</td>
-<td class="width-td">
-${data.search[0].option_d}
-</td> */}
+// {/* <td class="width-td">
+// ${data.search[0].option_a}
+// </td>
+// <td  class="width-td">
+// ${data.search[0].option_b}
+// </td>
+// <td class="width-td">
+// ${data.search[0].option_c}
+// </td>
+// <td class="width-td">
+// ${data.search[0].option_d}
+// </td> */}
