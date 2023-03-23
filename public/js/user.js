@@ -38,7 +38,9 @@ function toggle(status, id) {
 
 
 async function page(pages , name = '') {
-    let table = document.getElementById('myTable');
+   
+    let table = document.getElementById('mytable');
+    console.log(table)
     let pagination = document.getElementById('pagination');
     let str = `<tr>
     <th>s_id</th>
@@ -56,6 +58,7 @@ async function page(pages , name = '') {
 
 </tr>`;
     let page = pages.id;
+    console.log(page , "this is [age")
     const results = await fetch(`http://localhost:8765/userpage`, {
         method: "POST",
         headers: {

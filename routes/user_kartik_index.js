@@ -46,7 +46,10 @@ app.get('/user',async (req, res) => {
         sql += ` LIMIT ${limit} `;
     let [student] = await db.execute(sql);
     let sql1 = "select count(*) as total from student";
+ 
+
     let [result1] = await db.execute(sql1);
+    console.log(result1)
     res.render('user',{ student , page : page, total: result1[0].total, limit: limit });
   }
   catch (err) {
@@ -65,7 +68,8 @@ try{
 
 
   let page=parseInt(req.body.page)||1;
-  let limit=parseInt(req.body.limit)||3;
+  // let limit=parseInt(req.body.limit)||3;
+  let limit=3;
   let startindex=(page-1)*limit;
   let endindex=page*limit-startindex;
 
@@ -75,11 +79,11 @@ try{
   else
       sql += ` LIMIT ${limit} `;
   let [student] = await db.execute(sql);
-  console.log(student ,"::::student")
+  console.log(student ,"::::limit student")
 
   let sql1 = "select count(*) as total from student";
   let [result1] = await db.execute(sql1);
-  console.log(result1 ,"::::student")
+  console.log(result1 ,"::::total")
 
 
   let pages = `select * from student where name like '%${req.body.name}%' limit ${startindex},${endindex}`;
@@ -273,7 +277,19 @@ catch (err) {
 
 });
 
-
+app.get('/search',async(req,res)=>{
+  let sqlque = `select * from student`
+  let  name = req.query.name;
+  console.log(name,"search name 9in js ") 
+  let [queryque] = await db.execute(sqlque)
+  let  sqlque1 = `select * from questions where name like '%${name}%' `
+  let [sqlque2] = await db.execute(sqlque1)
+  
+  res.json({data : queryque, search : sqlque2  });
+  
+  
+  })
+  
 
 
 
