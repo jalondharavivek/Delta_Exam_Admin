@@ -51,5 +51,8 @@ app.use('/',milan_indexfile)
 const user = require('./routes/user_kartik_index');
 app.use("/", user)
 
+const sejal_indexfile = require('./routes/sejal_index')
+app.use('/',sejal_indexfile);
+
 
 app.listen(PORT, () => console.log(`port connected to ${PORT}!`))
