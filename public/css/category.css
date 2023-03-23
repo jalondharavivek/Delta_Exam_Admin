@@ -1,0 +1,194 @@
+
+a
+{
+    text-decoration: none;
+    cursor: pointer;
+}
+.btnn
+{
+    padding: 6px 15px;
+    border-radius: 15px;
+}
+.edit-btn
+{
+    background-color: rgb(75, 75, 101);
+    padding: 9px 15px;
+    color: white;
+    border-radius: 15px;
+    font-size: 13px;
+}
+th
+{
+    border: 1px solid rgb(24, 20, 20);
+    padding: 0.5rem;
+    background-color: rgb(13, 15, 12);
+    color: white;
+}
+td 
+{
+    border: 1px solid #777;
+    padding: 0.5rem;
+    text-align: center;
+
+}
+table 
+{
+    width : 100%;
+    border-collapse: collapse;
+}
+tbody tr:nth-child(odd) 
+{
+    background: rgba(0,0,0,0.2);
+}
+
+.dialogues {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24rem;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 30;
+}
+
+.dialogue {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24rem;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 30;
+}
+
+.add-link
+{
+    display: flex;
+    justify-content: end;
+    gap : 20px;
+}
+
+.add-link .add
+{
+    background-color: green;
+    padding: 13px;
+    border-radius: 15px;
+    color: white;
+    margin: 0px 0px 10px;
+    cursor: pointer;
+}
+
+.text
+{
+
+    margin-bottom: 10px;
+}
+
+.dialogue h2 {
+    margin-top: 0;
+}
+
+.dialogue p {
+    margin-bottom: 19px;
+}
+
+
+
+.dialogue .input {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dialogue .input.yes {
+    background-color: #1abc9c;
+    color: #fff;
+}
+
+.dialogue .input.no {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+
+.dialogues h2 {
+    margin-top: 0;
+}
+
+.dialogues p {
+    margin-bottom: 19px;
+}
+
+
+
+.dialogues .input {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dialogues .input.yes {
+    background-color: #1abc9c;
+    color: #fff;
+}
+
+.dialogues .input.no {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+/* .edit-btn:hover {
+    scale: 105%;
+    transition: all 0.4s;
+} */
+
+ul
+{
+    list-style-type: none;
+}
+
+.pagination a
+{
+    color: rgb(44, 112, 112);
+    background-color: beige;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.page
+{
+    margin-top: 1.5rem;
+}
+
+.pagination
+{
+    display: flex;
+    gap : 10px;
+}
+
+#overlay 
+{
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 20;
+    cursor: pointer;
+}
