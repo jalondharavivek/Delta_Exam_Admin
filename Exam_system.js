@@ -13,6 +13,14 @@ var nodemailer = require('nodemailer');
 const path = require('path')
 const app = express();
 app.use(express.static('public'));
+app.use(sessions({
+    secret: "huy7uy7u",
+    saveUninitialized: true,
+    resave: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24, 
+      },
+  }));
 const ejs = require('ejs');
 const { signedCookie } = require('cookie-parser');
 const { Console } = require('console');
@@ -34,7 +42,6 @@ app.use(bodyParser.json())
 
 const category = require('./routes/manoj_index')
 app.use("/", category)
-
 
 const vivek_indexfile = require('./routes/vivek_index')
 app.use("/", vivek_indexfile)

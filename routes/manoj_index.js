@@ -1,18 +1,21 @@
 const express = require('express');
+const auth = require('../middleware/middleware');
 const route = express.Router();
 
 const category = require('../controller/manoj_controller');
-route.get('/category',category.category);
 
-route.post('/categorypage',category.categorypage);
+route.get('/category',auth,category.category);
 
-route.post('/categorystatus',category.categorystatus);
+route.post('/categorypage',auth,category.categorypage);
 
-route.post('/editcategory',category.editcategory);
+route.post('/categorystatus',auth,category.categorystatus);
 
-route.get('/editCategory',category.get_editCategory);
+route.post('/editcategory',auth,category.editcategory);
 
-route.post('/addcategory',category.addcategory);
+route.get('/editCategory',auth,category.get_editCategory);
 
-route.get('/search',category.search);
+route.post('/addcategory',auth,category.addcategory);
+
+route.get('/search',auth,category.search);
+
 module.exports = route;

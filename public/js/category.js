@@ -236,7 +236,7 @@ async function page(pages,name = '')
             }
             pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/data.limit)}">Last</a></li>`
 
-            pagination.innerHTML = pagi;
+            // pagination.innerHTML = pagi;
         }
         table.innerHTML = html;
         cat_status();

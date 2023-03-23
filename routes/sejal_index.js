@@ -1,12 +1,12 @@
 const express = require('express');
 const route = express.Router();
-
+const auth = require('../middleware/middleware');
 const result = require('../controller/sejal_controller');
 
-route.get('/result',result.resultget)
+route.get('/result',auth,result.resultget)
 
-route.get('/result',result.viewresultget);
+route.get('/result',auth,result.viewresultget);
 
-route.get('/result',result.viewquestionget);
+route.get('/result',auth,result.viewquestionget);
 
 module.exports = route; 
