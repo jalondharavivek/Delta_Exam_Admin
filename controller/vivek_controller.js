@@ -41,14 +41,13 @@ const addquestionpost = async(req,res)=>{
     var option_c = req.body.option_c;
     var option_d = req.body.option_d;
     var answer = req.body.answer;
-    console.log(Array.isArray(question_text));
-    console.log("up ");
+  
     var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}')`;
-    console.log("down");
+    
   
     let execute = await db.execute(addquestionquery);
     if (execute.length) {
-      console.log("question  1  insertted")
+      
     }
   
   
@@ -63,35 +62,30 @@ const viewdetail = async(req,res)=>{
     let viewid = req.query.question_id
   console.log(viewid, "::::view id ")
   let viewsql = `select * from questions where question_id = ${viewid}`
-
-
   let [viewques] = await db.query(viewsql);
-  console.log(viewques, ":::view details of questions")
-  res.render("viewquestion", { data0: viewques });
+ 
+  res.render("viewquestion", { data : viewques });
 }
 
 const editquestionget = async(req,res)=>{
     
     let id = req.query.question_id;
-    console.log();
-    console.log(id, "edit question id in get request");
+   
     let editquesql = `select * from  questions  where question_id = ${id}`;
     let [editques] = await db.query(editquesql);
     let [category] = await db.query(`select category_name , category.category_id from category join questions on questions.question_id = category.category_id where category_status = '1'`)
-    console.log(editques, "edit question data log")
+    
     res.render("editquestion", { data: editques, data1: category })
 
 }
 
 const editquestionpost = async(req,res)=>{
     var question_id = req.body.question_id;
-    console.log(question_id, "question id for edit queastion :::::::::");
-    console.log("vvivdvv")
+  
     var category_id = req.body.category;
-    console.log(category_id, "update id for store in db");
+    
     var question_text = req.body.question_text;
-    console.log("request body for update :::::::", req.body);
-    console.log(question_text, "for update");
+ 
     var option_a = req.body.option_a;
     var option_b = req.body.option_b;
     var option_c = req.body.option_c;
@@ -101,7 +95,7 @@ const editquestionpost = async(req,res)=>{
     let updateque = `update questions set question_text = '${question_text}' , option_a = '${option_a}' , option_b = '${option_b}' , option_c = '${option_c}', option_d = '${option_d}' , answer = '${answer}' , category_id = '${category_id}' where question_id = ${question_id} `
     let [editquepost] = await db.query(updateque);
     if (editquepost.length) {
-      console.log("updated question")
+     
     }
   
     res.redirect("/question")
