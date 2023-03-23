@@ -67,7 +67,7 @@ const viewdetail = async(req,res)=>{
 
   let [viewques] = await db.query(viewsql);
   console.log(viewques, ":::view details of questions")
-  res.render("viewquestion", { data0: viewques });
+  res.render("viewquestion", { data : viewques });
 }
 
 const editquestionget = async(req,res)=>{
@@ -129,13 +129,5 @@ const searchget = async(req,res)=>{
 }
 
 
-
-//search module 
-
-
-
-
-// app.listen(port, () => console.log(`  port connected to ${port}!`))
 module.exports = {question,addquestion,addquestionpost,viewdetail,editquestionget,editquestionpost,deletquestionget
-,searchget
-}; 
+,searchget}; 

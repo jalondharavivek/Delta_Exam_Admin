@@ -1,6 +1,6 @@
 
     // async function valid_email(email1) {
-    //     let emailValid = await fetch('http://localhost:8050/valid1', {
+    //     let emailValid = await fetch('/valid1', {
     //         method: 'post',
     //         headers: {
     //             'Content-Type': 'application/json'
@@ -33,7 +33,7 @@
         var userPassword = document.getElementById("password").value;
         console.log(userPassword)
         console.log("userEmail", useremail)
-        let emailValid = await fetch('http://localhost:8050/validPassword', {
+        let emailValid = await fetch('/validPassword', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
