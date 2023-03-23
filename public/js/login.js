@@ -7,7 +7,7 @@
         var userPassword = document.getElementById("password").value;
         console.log(userPassword)
         console.log("userEmail", useremail)
-        let emailValid = await fetch('http://localhost:8765/validPassword', {
+        let emailValid = await fetch('/validPassword', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'

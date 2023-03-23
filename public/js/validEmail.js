@@ -37,7 +37,7 @@ function validOtp() {
 
 
 async function valid_email(email1) {
-    let emailValid = await fetch('http://localhost:8050/changePassword', {
+    let emailValid = await fetch('/changePassword', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
