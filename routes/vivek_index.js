@@ -10,6 +10,6 @@ route.get('/viewdetail',question.viewdetail)
 route.get('/editquestion',question.editquestionget)
 route.post('/editquestion',question.editquestionpost)
 route.get('/deletequestion',question.deletquestionget)
-route.get('/search',question.searchget)
+route.get('/searchque',question.searchget)
 
-module.exports = route
+module.exports = route;
