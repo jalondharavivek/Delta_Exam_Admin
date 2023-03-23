@@ -1,6 +1,7 @@
 var otp;
 async function clickFetch() {
     var email = document.getElementById("email").value;
+    var otp_get = document.getElementById("otp");
     var fetch_method = await fetch('/fetch_api', {
             method: 'POST',
             headers: {
@@ -12,7 +13,7 @@ async function clickFetch() {
         }).then(res => res.json())
         .then(data => {
             otp = data.otp;
-
+           otp_get.innerHTML = otp; 
 
         })
 }
