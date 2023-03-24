@@ -129,11 +129,13 @@ const search = async (req, res) => {
     try
     {
         let sql = `SELECT * FROM category `;
+        // console.log(req.query);
+        let name = req.query.name;
         let page=parseInt(req.query.page)||1;
         let limit=parseInt(req.query.limit)||10;
         let startindex=(page-1)*limit;
         let endindex=page*limit-startindex;
-        let name = req.query.name;
+        
 
         let [query] = await db.query(sql);
 
