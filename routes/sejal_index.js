@@ -63,10 +63,10 @@ app.post('/login', async(req, res) => {
     var password = req.body.password;
 
     var selectEmail = `SELECT email, password FROM student where email = '${email}' `
-    var [emailResult] = await db.query(selectEmail);
+    var [emailResult] = await db.execute(selectEmail);
 
     var selectUser = `SELECT email, password , user_login_status  , role from user_login where email = '${email}'`;
-    var [userData] = await db.query(selectUser);
+    var [userData] = await db.execute(selectUser);
 
 
     if (userData.length == 0) {
@@ -205,7 +205,7 @@ function generateOTP() {
 app.get('/result',async (req, res) => {
     let sql = `select ee.exam_id , ee.exam_name ,ee.total_questions ,ee.exam_time ,ee.exam_status  from  exam_system.exam ee inner join 
     exam_system.user_answers uans on ee.exam_id = uans.exam_id;`
-     let [query] = await db.query(sql);
+     let [query] = await db.execute(sql);
      console.log(query);
      res.render('result',{data : query});
    })
@@ -214,7 +214,7 @@ app.get('/result',async (req, res) => {
 app.get('/viewresult',async (req, res) => {
     let sql = `SELECT category_name FROM exam_system.exam  a, exam_system.user_answers b 
     where a.exam_id=b.exam_id`;
-     let [query] = await db.query(sql);
+     let [query] = await db.execute(sql);
      console.log(query);
      res.render('viewresult',{data : query});
 })
@@ -222,9 +222,17 @@ app.get('/viewresult',async (req, res) => {
  app.get('/viewquestion',async (req, res) => {
     let sql = `select q.question_text , q.answer ,uans.user_answers ,  uans.marks from exam_system.questions  q inner join 
     exam_system.user_answers uans on q.question_id=uans.question_id;`;
-     let [query] = await db.query(sql);
+     let [query] = await db.execute(sql);
      console.log(query);
-     res.render('viewquestion',{data : query});
+
+     //for name
+
+     let sql1 = `select  s.name from exam_system.student s inner join 
+     exam_system.result r on s.student_id=r.student_id`;
+     let [stu_name] = await db.execute(sql1);
+     console.log(stu_name);
+ 
+     res.render('viewquestion',{data : query, stu_name:stu_name});
 })
  
 

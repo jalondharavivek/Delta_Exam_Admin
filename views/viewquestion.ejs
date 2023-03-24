@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category</title>
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/categoty.css">
+     <link rel="stylesheet" href="/css/result.css">
+    <link rel="stylesheet" href="/css/viewquestion.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
@@ -26,6 +26,7 @@
                 </div>
               
             </div>
+            
             <table>
                
                 <tr>
@@ -36,16 +37,18 @@
                     <th>Marks</th>
                 </tr>
 
-            <% let id=1; %>
-            <% data.forEach(c => { %>
-                <tr>
-                    <td></td>
-                    <td><%= c.question_text %></td>
-                    <td><%= c.answer %></td>
-                     <td><%= c.user_answers %></td>
-                    <td><%= c.marks %></td> 
-                </tr>
-                <% }); %>
+       <%for(let i=0;i<data.length;i++){%>
+        <tr>
+            <td><%= stu_name[i].name %></td>
+            <td><%=data[i].question_text %></td>
+            <td><%= data[i].answer %></td>
+            <td><%= data[i].user_answers %></td>
+            <td><%= data[i].marks %></td> 
+        </tr>
+       <%}%>
+         
+                    
+            
         </table>
 
             

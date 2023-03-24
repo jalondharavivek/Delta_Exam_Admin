@@ -18,6 +18,7 @@
   "homepage": "https://github.com/jalondharavivek/Esparkbizproject#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
     "ejs": "^3.1.9",
@@ -28,6 +29,10 @@
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.21",
     "path": "^0.12.7",
+    "promise": "^8.3.0",
+    "punycode": "^2.3.0",
+    "util": "^0.12.5",
+    "view": "^1.1.1",
     "views": "^1.0.2"
   }
 }

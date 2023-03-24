@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category</title>
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/categoty.css">
+    <link rel="stylesheet" href="/css/result.css">
+    <link rel="stylesheet" href="/css/viewquestion.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
@@ -41,7 +41,7 @@
             <% data.forEach(c => { %>
                 <tr>
                     <td><%= c.exam_id %></td>
-                    <td><%= c.exam_name%></td>
+                    <td><%= c.exam_name %></td>
                     <td><%= c.total_questions %></td>
                     <td><%= c.exam_time %></td>
                     <td><a href="/viewresult" class="btn btn-dark"><i class="fa-solid fa-circle-info"></i></a></td>
