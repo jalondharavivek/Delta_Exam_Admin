@@ -1,4 +1,6 @@
+
 let category_select = document.getElementById('category_select');
+
 
 //categoty fetch on ajax 
 categortFetch();
@@ -20,6 +22,7 @@ function togglecolorchnage() {
 
     let btn = document.querySelectorAll('.btn');
     btn.forEach(e => {
+       
 
         if (e.innerHTML == '0') {
 
@@ -117,7 +120,8 @@ async function examedit(id) {
                 </div>
                 <div class="save_div">
     
-                    <input type="submit" id="save_btn" value="UPDATE">
+                    <input type="submit" id="save_btn" value="UPDATE" style="cursor:pointer">
+                    <a href='/examlist'>cancel</a>
     
     
                 </div>
@@ -138,15 +142,15 @@ async function callback() {
     let category_select = document.getElementById('category_select')
     
     let arat = await selectedcategory();
-    console.log(arat)
+    
 
     async function selectedcategory() {
-        console.log("selected category is called")
+      
         let category_name = [];
         let exam_id = document.getElementById('exam_id').value;
 
         await fetch(`/selected/category?exam_id=${exam_id}`).then(res => res.json()).then(data => {
-            console.log(data)
+          
             for (i = 0; i < data.length; i++) {
                 category_name.push(data[i][0].category_name);
             }
@@ -160,12 +164,12 @@ async function callback() {
     async function categortFetch() {
 
         fetch('/categories').then(res => res.json()).then(data => {
-            console.log("all category fetch is called")
+           
             let checker;
             for (let i = 0; i < data.arr.length; i++) {
-                console.log(data.arr.length)
+             
                 for (j = 0; j < arat.length; j++) {
-                    console.log(arat.length , "this is arat")
+                   
                     if (data.arr[i] == arat[j]) {
 
                         category_select.innerHTML += `<option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
@@ -242,7 +246,8 @@ async function addexam() {
                 <div class="save_div">
                     <p id="0"></p>
 
-                    <input type="submit" id="save_btn" value="SAVE">
+                    <input type="submit" id="save_btn" value="SAVE" style="cursor: pointer;">
+                    <a href='/examlist'>cancel</a>
                    
 
                 </div>
@@ -304,16 +309,18 @@ async function addexam() {
 }
 //exam search code
 function examSearch() {
+    let tbody = document.getElementById('tbody');
 
     let search = document.getElementById('search').value;
     let exam_search = document.getElementById('exam_search');
 
     fetch(`/exam/search?exam_name=${search}`).then(res => res.json()).then(data => {
-        
-        if (data.data1.length == 0) {
-            tbody.innerHTML = "there is no found data";
+        console.log(data.data1.length)
+        if (data.data1.length == []) {
+            alert("there is no data found")
+            location.reload();
+           
         }
-        let tbody = document.getElementById('tbody');
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>
@@ -346,7 +353,7 @@ function examSearch() {
                                 <td>
                                     <div class="td">
 
-                                        ${data.data1[i].category}
+                                        ${data.data1[i].category_name}
 
                                     </div>
 
@@ -387,7 +394,9 @@ function examSearch() {
 
 
                                     <div class="edit">
-                                    <p onclick="examedit(${data.data1[i].exam_id})" style="cursor: pointer;">edit</p>
+                    
+                                        <p onclick="examedit(${data.data1[i].exam_id})" style="cursor: pointer;">edit</p>
+                   
 
                                     </div>
                                 </td>
@@ -397,6 +406,7 @@ function examSearch() {
         }
         num=1 ;     
         tbody.innerHTML = str;
+        togglecolorchnage();
 
         let pageid = document.getElementById('page');
        
@@ -489,7 +499,7 @@ async function page(num,count) {
                         <td>
                             <div class="td">
 
-                            ${data.data1[i].category}
+                            ${data.data1[i].category_name}
 
                             </div>
 
@@ -540,6 +550,7 @@ async function page(num,count) {
     }
 
     tbody.innerHTML = str;
+    togglecolorchnage();
     let pageid = document.getElementById('page');
    
 
@@ -548,21 +559,22 @@ async function page(num,count) {
 
     if (num == 1) {
 
-        pageid.innerHTML += `<p onclick="page(1)" class="p">prev</p>`;
+        pageid.innerHTML += `<p onclick="page(1,${count})" class="p">prev</p>`;
 
     } else {
 
-        pageid.innerHTML += `<p onclick="page(${num}-1)" class="p">prev</p>`;
+        pageid.innerHTML += `<p onclick="page(${num}-1,${count})" class="p">prev</p>`;
 
     }
-
+    
     for (let i = 1; i <= data.count; i++) {
+        
         if (i == num) {
-            pageid.innerHTML += `<p onclick="page(${i})" class="p">
+            pageid.innerHTML += `<p onclick="page(${i},${count})" class="p">
             <b>${i}</b>
         </p>`;
         } else {
-            pageid.innerHTML += `<p onclick="page(${i})" class="p">
+            pageid.innerHTML += `<p onclick="page(${i},${count})" class="p">
             ${i}
         </p>`;
         }
@@ -570,11 +582,12 @@ async function page(num,count) {
     }
 
     if (num == count) {
+        
+        pageid.innerHTML += `<p onclick="page(${count} ,${count})" class="p">next</p>`;
 
-        pageid.innerHTML += `<p onclick="page(7)" class="p">next</p>`;
-
-    } else {
-        pageid.innerHTML += `<p onclick="page(${num} + 1)" class="p">next</p>`;
+    } else if(num < count){
+        
+        pageid.innerHTML += `<p onclick="page(eval(${num}+1) ,${count})" class="p">next</p>`;
     }
 
     let pclass = document.querySelectorAll('.p');

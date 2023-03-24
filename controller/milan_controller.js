@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.use(body.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')));
-
+let limit = 4 ;
 const selectedcategory = async function(req,res){
   try {
     let arr = [];
@@ -20,17 +20,17 @@ const selectedcategory = async function(req,res){
     
     let sql1 = `select category_id from exam_category where exam_id='${exam_id}'`;
     let [data1] = await db.execute(sql1);
-    console.log(data1)
+   
     for (i = 0; i < data1.length; i++) {
 
       let sql2 = `select * from category where category_id='${data1[i].category_id}' AND category_status = '1'`;
-      console.log(sql2)
+
       let [data2] = await db.execute(sql2);
       
 
       arr.push(data2);
     }
-    console.log(arr);
+    
     res.send(arr);
   } catch (err) {
     res.send(err);
@@ -55,12 +55,14 @@ const edit = async function(req,res){
 
 const post_edit = async function(req,res){
   try {
+
     let exam = req.body.exam_name;
     let category = req.body.category;
     let question = req.body.question;
     let time = req.body.time;
     let start_date = req.body.start_date;
     let exam_id = req.body.exam_id;
+   
 
     let strcat = ''; //str for store category in one line
 
@@ -75,14 +77,18 @@ const post_edit = async function(req,res){
 
     let categories = strcat.substring(0, strcat.length - 2);
 
-    let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category='${categories}' where exam_id='${exam_id}';`;
+    let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${categories}' where exam_id=${exam_id};`;
+   
     let [data1] = await db.execute(sql1);
-
+   
+   
     let appid = data1.insertId;
+  
+   
 
     for (i = 0; i < category.length; i++) {
 
-      let sql2 = `insert into exam_category (exam_id,category_id) values ('${appid}',${category[i]});`;
+      let sql2 = `update exam_category set category_id=${category[i]} where exam_id = ${exam_id};`;
       let [data2] = await db.execute(sql2);
 
     }
@@ -136,7 +142,7 @@ const examlist = async(req, res) => {
     let curpage = parseInt(req.query.num);
 
     // declare limit and offset 
-    let limit = 3;
+     
     let offset = (page - 1) * limit;
 
 
@@ -171,22 +177,29 @@ const exam = async function(req, res){
 const post_exam = async (req, res) => {
 
   try {
+
+
+  
     let exam = req.body.exam_name;
     let question = req.body.question;
     let time = req.body.time;
 
     let start_date = req.body.start_date;
     let category = req.body.category;
+  
     let strcat = ''; //str for store category in one line
+
     for (i = 0; i < category.length; i++) {
       sql3 = `select category_name from category where category_id='${category[i]}'`;
       let [data3] = await db.execute(sql3);
 
       strcat += data3[0].category_name;
+     
       strcat += ', ';
     }
 
     let categories = strcat.substring(0, strcat.length - 2);
+   
     let str = "";
     let num = "0123456789";
     let lan = num.length;
@@ -196,15 +209,19 @@ const post_exam = async (req, res) => {
       str += num.charAt(Math.floor(Math.random() * 6));
 
     }
-    sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${categories}');`;
+    sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${categories}');`;
+  
     let [data1] = await db.execute(sql1);
-    let appid = data1.insertId;
 
+   
+    let appid = data1.insertId;
+    
     for (i = 0; i < category.length; i++) {
 
       let sql2 = `insert into exam_category (exam_id,category_id) values ('${appid}',${category[i]});`;
+   
       let [data2] = await db.execute(sql2);
-
+     
     }
     res.redirect("/examlist");
   } catch (err) {
@@ -240,7 +257,7 @@ const examsearch = async (req,res) => {
     if (req.query.exam_name == null || req.query.exam_name == "''") {
 
     } else {
-
+      console.log("enter in exam search")
       var data = [];
       let count;
 
@@ -251,7 +268,7 @@ const examsearch = async (req,res) => {
       let curpage = parseInt(req.query.num);
 
       // declare limit and offset 
-      let limit = 3;
+      limit = 4;
       let offset = (page - 1) * limit;
 
 
@@ -266,9 +283,10 @@ const examsearch = async (req,res) => {
       let exam_name = req.query.exam_name;
 
       let sql4 = `select * from exam where exam_name like '%${exam_name}%' limit ${offset},${limit};`;
+        console.log(sql4)
 
       let [data1] = await db.execute(sql4);
-
+      console.log(data1)
       res.json({data1,count,curpage});
 
     }
@@ -282,7 +300,7 @@ const examlistpage = async (req,res) => {
 
     let page = req.query.page || 1;
     let curpage = parseInt(req.query.page);
-    let limit = 4;
+     limit = 4;
     let offset = (curpage - 1) * limit;
 
     if (isNaN(offset)) {
