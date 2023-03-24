@@ -54,8 +54,8 @@ align-items: center;
 .logo {
 font-size: 27px;
 font-weight: 600;
-color: rgb(238, 98, 17);
-font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+color: rgb(38, 134, 12);
+
 }
 
 .icn {
@@ -112,7 +112,8 @@ cursor: pointer;
 .dp a{
 
 padding: 10px;
-background-color: rgb(250, 160, 75);
+
+background-color: rgb(126 214 122);
 border-radius: 5px;
 font-weight: bold;
 margin: 5px;
