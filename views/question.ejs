@@ -83,7 +83,7 @@
                                                     <td class="button-width">
                                                         <a href="editquestion?question_id=<%= data[i].question_id %>"
                                                             class="edit-btn">Edit</a>
-                                                        <a href="/deletequestion" class="delete-btn">Delete</a>
+                                                        <a id="deletquesid" onclick="deletquestion(`<%= data[i].question_id %>`)" class="delete-btn">Delete</a>
                                                     </td>
                                                 </tr>
                                                 <% } %>
@@ -95,7 +95,31 @@
 
                         </div>
                        
-
+                        <div class="page">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination"> 
+                                    <li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>
+                                <% if(parseInt(page) <=5) { %>
+                                    <% for(let i=1;i<=parseInt(page);i++) { %>
+                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                <% } } else { %>
+                                    <% for(let i=(parseInt(page)-5);i<=parseInt(page);i++){ %>
+                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                    <% } %>
+                                <% } %>
+                                <% if(Math.ceil((totalque)/(limit))-5 >= (page)) { %>
+                                    <% for(let i=parseInt(page)+1;i<=parseInt(page)+5;i++){ %>
+                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                    <% } %>
+                                <% } else { %>
+                                    <% for(let i=parseInt(page)+1;i<=Math.ceil(parseInt(totalque)/parseInt(limit));i++) { %>
+                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                    <% } %>
+                                <% } %>
+                                <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= Math.ceil(totalque/limit) %>">Last</a></li>
+                                </ul>
+                            </nav>
+                        </div>
 
 
                     </div>

@@ -10,7 +10,7 @@ route.post('/addquestion',auth,question.addquestionpost)
 route.get('/viewdetail',auth,question.viewdetail)
 route.get('/editquestion',auth,question.editquestionget)
 route.post('/editquestion',auth,question.editquestionpost)
-route.get('/deletequestion',auth,question.deletquestionget)
+route.post('/deletquestion',auth,question.deletquestion)
 route.get('/searchque',auth,question.searchget)
 
 module.exports = route;
