@@ -116,8 +116,9 @@ padding: 10px;
 
 background-color: rgb(126 214 122);
 border-radius: 5px;
-font-weight: bold;
+/* font-weight: bold; */
 margin: 5px;
+color: white;
 
 }
 .dp a:hover {
