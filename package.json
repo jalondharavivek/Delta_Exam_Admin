@@ -8,15 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jalondharavivek/Esparkbizproject.git"
+    "url": "git+https://github.com/jalondharavivek/Delta_Exam_Admin.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jalondharavivek/Esparkbizproject/issues"
+    "url": "https://github.com/jalondharavivek/Delta_Exam_Admin/issues"
   },
-  "homepage": "https://github.com/jalondharavivek/Esparkbizproject#readme",
+  "homepage": "https://github.com/jalondharavivek/Delta_Exam_Admin#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "connect-flash": "^0.1.1",
@@ -29,10 +30,6 @@
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.21",
     "path": "^0.12.7",
-    "promise": "^8.3.0",
-    "punycode": "^2.3.0",
-    "util": "^0.12.5",
-    "view": "^1.1.1",
     "views": "^1.0.2"
   }
 }
