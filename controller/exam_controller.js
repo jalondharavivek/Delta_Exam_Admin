@@ -1,17 +1,5 @@
-// const express = require('express')
-// const path = require('path')
-// const app = express();
 var db = require('../connection/mysql');
 require('../connection/module')
-// const session = require('express-session');
-// const cookieParser = require('cookie-parser');
-// const body = require('body-parser');
-
-// app.set("view engine", "ejs");
-// app.use(cookieParser());
-// app.use(body.urlencoded({ extended: false }));
-// app.use(express.static('public'));
-// app.use(express.static(path.join(__dirname, '/public')));
 
 const selectedcategory = async function(req,res){
   try {
