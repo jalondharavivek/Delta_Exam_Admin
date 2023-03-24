@@ -7,7 +7,6 @@ var cookie = require('cookie-parser');
 var utils = require('util');
 const { decode } = require('punycode');
 let bodyParser = require('body-parser')
-const mysql = require("mysql2/promise");
 const flash = require('connect-flash');
 var nodemailer = require('nodemailer');
 const path = require('path')
