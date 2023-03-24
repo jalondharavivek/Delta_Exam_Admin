@@ -39,7 +39,7 @@ async function check(id, status)
     }
     if (confirm(`Are you sure you want to ${sts}`)) {
         try {
-            const result = await fetch(`http://localhost:8765/categorystatus`, {
+            const result = await fetch(`/categorystatus`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ async function editCategory(id)
     try 
     {
         document.getElementById("overlay").style.display="block";
-        const result= await fetch(`http://localhost:8765/editCategory?id=${id}`);
+        const result= await fetch(`/editCategory?id=${id}`);
         const ans = await result.json();
         if(ans)
         {
@@ -143,7 +143,7 @@ async function search(name)
     // console.log(name);
     try
     {
-        let result = await fetch(`http://localhost:8765/search?name=${name}`);
+        let result = await fetch(`/search?name=${name}`);
         let data = await result.json();
         let page = document.getElementById("pagination");
         let pages = '';
@@ -198,7 +198,7 @@ async function page(pages,name = '')
                     <th>Action</th>
                 </tr>`;
         let page = pages.id;
-        const results = await fetch(`http://localhost:8765/categorypage`, {
+        const results = await fetch(`/categorypage`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -236,7 +236,7 @@ async function page(pages,name = '')
             }
             pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/data.limit)}">Last</a></li>`
 
-            pagination.innerHTML = pagi;
+            // pagination.innerHTML = pagi;
         }
         table.innerHTML = html;
         cat_status();

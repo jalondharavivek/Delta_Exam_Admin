@@ -1,7 +1,7 @@
 // async function editquestion(id)
 // {  try 
 //     {
-//         const  question = await fetch(`http://localhost:8765/editquestion?id=${id}`);
+//         const  question = await fetch(`/editquestion?id=${id}`);
 //     }
 //     catch (err) 
 //     {
@@ -10,21 +10,21 @@
 // }
 //edit question
 // async function editque(editquesid){
-//   let queresult = await fetch(`http://localhost:8765/editquestion?question_id=${editquesid}`);
+//   let queresult = await fetch(`/editquestion?question_id=${editquesid}`);
 // }
 
 
 //view detail
 // async function viewdetail(viewid){
 //   console.log(viewid,":::::::::::jhgjkggjk  view id")
-//   const viewfetch = await fetch(`http://localhost:8765/viewdetail?viewid=${viewid}`)
+//   const viewfetch = await fetch(`/viewdetail?viewid=${viewid}`)
 // }
 
 
 
 ///delet question 
 // async function deletques(delet){
-//   let queresult = await fetch(`http://localhost:8765//deletequestion?question_id=${delet}`);
+//   let queresult = await fetch(`/deletequestion?question_id=${delet}`);
 //   // console.log(delet,":::question id for delet")
 //   location.reload()
 // }

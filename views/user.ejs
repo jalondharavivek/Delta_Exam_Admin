@@ -17,14 +17,15 @@
         <div class="main-container">
             <%- include('nav'); -%>
                 <div class="main">
-                    <div class="searchbar">
-                        <input type="text" name="search" id="search" placeholder="Search" oninput="search(this.value)">
-                        <div class="searchbtn">
-                            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
-                                class="icn srchicn" alt="search-button">
-                        </div>
-                    </div>
+                   
                     <div class="form">
+                        <div class="searchbar">
+                            <input type="text" name="search" id="search" placeholder="Search" onkeyup="search(this.value)">
+                            <div class="searchbtn">
+                                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png" class="icn srchicn" alt="search-button">
+                            </div>
+                        </div>
+                        
                         <form action="/edit" method="post">
                             <table id="mytable" align="center">
                                 <tbody id="tbody">
@@ -86,10 +87,10 @@
                                             <td>
                                                 <%=student[i].college_name%>
                                             </td>
-                                            <td>
-                                                <%= (new Date(student[i].created_date).toLocaleDateString()) %>
+                                            
+                                                <td><%= (new Date().toLocaleDateString()) %></td>
 
-                                            </td>
+                                           
                                             <td>
                                                 <a id="editbutton" href="/edit/:id=<%=student[i].student_id%>">edit
                                                 </a>

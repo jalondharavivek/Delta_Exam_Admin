@@ -38,7 +38,9 @@ function toggle(status, id) {
 
 
 async function page(pages , name = '') {
-    let table = document.getElementById('myTable');
+   
+    let table = document.getElementById('mytable');
+    console.log(table)
     let pagination = document.getElementById('pagination');
     let str = `<tr>
     <th>s_id</th>
@@ -56,7 +58,8 @@ async function page(pages , name = '') {
 
 </tr>`;
     let page = pages.id;
-    const results = await fetch(`http://localhost:8765/userpage`, {
+    console.log(page , "this is [age")
+    const results = await fetch(`/userpage`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -87,8 +90,8 @@ async function page(pages , name = '') {
         </td>
         <td>
 
-        <div id="toggle ${c.student_id}">
-            <p class="btn" id=" ${c.student_id}"
+        <div id="toggle${c.student_id}">
+            <p class="btn" id="${c.student_id}"
                 onclick="toggle(' ${c.student_status}','${c.student_id}')">
                 ${c.student_status}
             </p>
@@ -106,11 +109,11 @@ async function page(pages , name = '') {
     ${c.college_name}
     </td>
     <td>
-        <%= (new Date(${c.created_date}).toLocaleDateString()) %>
+     ${(new Date().toLocaleDateString())}
 
     </td>
     <td>
-        <a id="editbutton" href="/edit/:id=${c.student_status}">edit
+        <a id="editbutton" href="/edit/:id=${c.student_id}">edit
         </a>
     </td>
 </tr>
@@ -147,5 +150,107 @@ async function page(pages , name = '') {
         pagination.innerHTML = pagi;
     }
     table.innerHTML = str;
+    togglecolorchnage();
 }
 
+async function search(name)
+{
+   
+    try
+    {
+        let result = await fetch(`/user/search?name=${name}`);
+        
+        let data = await result.json();
+        console.log(data)
+        let page = document.getElementById("pagination");
+        let pages = '';
+        let table = document.getElementById("mytable");
+        let html = `<tr>
+        <th>s_id</th>
+        <th>name</th>
+        <th>email</th>
+        <th>contact</th>
+        <th>gender</th>
+        <th>address</th>
+        <th>status</th>
+        <th>state</th>
+        <th>city</th>
+        <th>college_id</th>
+        <th>created_date</th>
+        <th>action</th>
+    
+    </tr>`;
+        if(Object.keys(data.search).length != 0)
+        {
+            data.data.forEach(c => {
+                html += `<tr>
+                <td>
+                    ${c.student_id}
+                </td>
+                <td>
+                ${c.name}
+                </td>
+                <td>
+                ${c.email}
+                </td>
+                <td>
+                ${c.contact}
+                </td>
+                <td>
+                ${c.gender}
+                </td>
+                <td>
+                ${c.address}
+                </td>
+                <td>
+        
+                <div id="toggle${c.student_id}">
+                    <p class="btn" id="${c.student_id}"
+                        onclick="toggle(' ${c.student_status}','${c.student_id}')">
+                        ${c.student_status}
+                    </p>
+                </div>
+        
+        
+            </td>
+            <td>
+            ${c.state_name}
+            </td>
+            <td>
+            ${c.city}
+            </td>
+            <td>
+            ${c.college_name}
+            </td>
+            <td>
+            ${(new Date().toLocaleDateString())}
+        
+            </td>
+            <td>
+                <a id="editbutton" href="/edit/:id="${c.student_id}">edit</a>
+            </td>
+        </tr>`
+            })
+
+            pages = `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')">First</a></li>`;
+                for(let i=data.page;i<=Math.ceil(data.total/data.limit);i++){
+                    pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${i}">${i}</a></li>`
+                }
+            pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.total/data.limit)}">Last</a></li>`;
+
+        }
+        else if(Object.keys(data.search).length == 0)
+        {
+            html +=`<tr><td colspan=12>No record found</td></tr>`;
+            pages += '';
+        }
+        table.innerHTML = html;
+        page.innerHTML=pages;
+
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+    togglecolorchnage();
+}
