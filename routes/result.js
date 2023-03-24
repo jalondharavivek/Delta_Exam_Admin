@@ -3,10 +3,12 @@ const route = express.Router();
 const auth = require('../middleware/middleware');
 const result = require('../controller/result_controller');
 
-route.get('/result',auth,result.resultget)
-
-route.get('/result',auth,result.viewresultget);
-
-route.get('/result',auth,result.viewquestionget);
-
+route.get('/result',result.resultget)
+route.post('/page',result.page);
+route.get('/viewresult',auth,result.viewresultget);
+route.get('/viewquestionresult',auth,result.viewquestionget);
 module.exports = route; 
+
+
+
+
