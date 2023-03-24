@@ -39,26 +39,26 @@ app.use(bodyParser.json())
 
 
 
-const category = require('./routes/category')
-app.use("/", category)
+const router = require('./routes/route')
+app.use("/",router)
 
-const question = require('./routes/question')
-app.use("/", question)
+// const question = require('./routes/question')
+// app.use("/", question)
 
-const login = require('./routes/login')
-app.use("/", login)
+// const login = require('./routes/login')
+// app.use("/", login)
 
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')))
 
-const exam = require('./routes/exam')
-app.use('/',exam)
+// const exam = require('./routes/exam')
+// app.use('/',exam)
 
-const user = require('./routes/user');
-app.use("/", user)
+// const user = require('./routes/user');
+// app.use("/", user)
 
-const result = require('./routes/result')
-app.use('/',result);
+// const result = require('./routes/result')
+// app.use('/',result);
 
 
 app.listen(PORT, () => console.log(`port connected to ${PORT}!`));

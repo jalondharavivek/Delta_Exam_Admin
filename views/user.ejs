@@ -49,7 +49,7 @@
                                     <%for(let i=0; i<student.length; i++) {%>
                                         <tr>
                                             <td>
-                                                <%=student[i].student_id%>
+                                                <%=(i+1)%>
                                             </td>
                                             <td>
                                                 <%=student[i].name%>
@@ -70,14 +70,13 @@
                                             <td>
 
                                                 <div id="toggle<%=student[i].student_id%>">
-                                                    <p class="btn" id="<%=student[i].student_id%>"
-                                                        onclick="toggle('<%=student[i].student_status%>','<%=student[i].student_id%>')">
-                                                        <%=student[i].student_status%>
-                                                    </p>
+                                                    <p class="btnn" id="status" id="<%=student[i].student_id%>" 
+                                                        onclick="toggle('<%=student[i].student_status%>','<%=student[i].student_id%>')"><%=student[i].student_status%></p>
                                                 </div>
 
 
                                             </td>
+                                            
                                             <td>
                                                 <%=student[i].state_name%>
                                             </td>
@@ -132,6 +131,27 @@
 </body>
 <script src="/js/dashboard.js"></script>
 <script src="/js/user.js"></script>
+
+
+<script>
+
+    let btn = document.querySelectorAll('.btnn');
+    btn.forEach(e => {
+        if (e.innerHTML == '0') {
+
+            e.innerHTML = 'DISABLE';
+            e.style.color = 'red';
+            e.style.cursor = 'pointer';
+        }
+        else if (e.innerHTML == '1') {
+
+            e.innerHTML = 'ENABLE';
+            e.style.color = 'blue';
+            e.style.cursor = 'pointer';
+        }
+    })
+
+</script>
 
 
 
