@@ -144,7 +144,7 @@ const fetch_api = async(req,res) => {
         maxAge: 1000 * 60 * 60 * 24, 
     },
 }));
-req.session.email=email;
+req.session.email = email;
   res.json({
       otp
   });
