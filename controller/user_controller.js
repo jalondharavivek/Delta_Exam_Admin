@@ -22,7 +22,7 @@ require('../connection/module')
 const user = async (req, res) =>{
     
   try {
-    let sql = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
+    let sql = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,a.city,b.state_name,c.college_name 
     from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
 
     let page = req.query.page || 1;
@@ -32,7 +32,7 @@ const user = async (req, res) =>{
     else
       sql += ` LIMIT ${limit} `;
     let [student] = await db.execute(sql);
-
+console.log(student);
 
     let sql1 = "select count(*) as total from student";
 
@@ -112,6 +112,7 @@ const student_status = async (req, res) => {
       let status = `update student set student_status = 1 where student_id = ${student_id}`;
       let [student_result] = await db.execute(status);
       let [student] = await db.execute(sql);
+      
       res.json({ student_result })
 
 
