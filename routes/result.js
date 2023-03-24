@@ -5,8 +5,8 @@ const result = require('../controller/result_controller');
 
 route.get('/result',auth,result.resultget)
 
-route.get('/result',auth,result.viewresultget);
+route.get('/viewresult',auth,result.viewresultget);
 
-route.get('/result',auth,result.viewquestionget);
+route.get('/viewquestionresult',auth,result.viewquestionget);
 
 module.exports = route; 
