@@ -9,4 +9,5 @@ route.get('/viewresult',auth,result.viewresultget);
 
 route.get('/viewquestionresult',auth,result.viewquestionget);
 
+
 module.exports = route; 
