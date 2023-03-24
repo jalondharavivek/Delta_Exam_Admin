@@ -2,8 +2,8 @@ const express = require('express');
 const auth = require('../middleware/middleware');
 const route = express.Router();
 
-const user = require('../controller/kartik_controller');
-const app = require('./vivek_index');
+const user = require('../controller/user_controller');
+const app = require('./question');
 
 route.get('/user',auth,user.user);
 

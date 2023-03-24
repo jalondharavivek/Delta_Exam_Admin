@@ -2,7 +2,7 @@
 const express = require('express');
 const auth = require('../middleware/middleware');
 const route = express.Router();
-const question = require('../controller/vivek_controller');
+const question = require('../controller/question_controller');
 
 route.get('/question',auth,question.question)
 route.get('/addquestion',auth,question.addquestion)

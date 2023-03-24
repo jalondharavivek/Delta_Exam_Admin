@@ -1,7 +1,7 @@
 const express = require('express');
 const route = express.Router();
 
-const login = require('../controller/darshil_controller');
+const login = require('../controller/login_controller');
 const auth = require('../middleware/middleware');
 route.get('/',login.admin_login);
 

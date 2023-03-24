@@ -40,26 +40,26 @@ app.use(bodyParser.json())
 
 
 
-const category = require('./routes/manoj_index')
+const category = require('./routes/category')
 app.use("/", category)
 
-const vivek_indexfile = require('./routes/vivek_index')
-app.use("/", vivek_indexfile)
+const question = require('./routes/question')
+app.use("/", question)
 
-const darshilindex = require('./routes/darshil_index')
-app.use("/", darshilindex)
+const login = require('./routes/login')
+app.use("/", login)
 
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')))
 
-const milan_indexfile = require('./routes/milan_index')
-app.use('/',milan_indexfile)
+const exam = require('./routes/exam')
+app.use('/',exam)
 
-const user = require('./routes/user_kartik_index');
+const user = require('./routes/user');
 app.use("/", user)
 
-const sejal_indexfile = require('./routes/sejal_index')
-app.use('/',sejal_indexfile);
+const result = require('./routes/result')
+app.use('/',result);
 
 
 app.listen(PORT, () => console.log(`port connected to ${PORT}!`))

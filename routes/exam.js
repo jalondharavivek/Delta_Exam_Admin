@@ -1,7 +1,7 @@
 const express = require('express');
 const route = express.Router();
 const auth = require('../middleware/middleware');
-const exam = require('../controller/milan_controller');
+const exam = require('../controller/exam_controller');
 
 route.get('/selected/category',auth,exam.selectedcategory);
 

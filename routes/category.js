@@ -2,7 +2,7 @@ const express = require('express');
 const auth = require('../middleware/middleware');
 const route = express.Router();
 
-const category = require('../controller/manoj_controller');
+const category = require('../controller/category_controller');
 
 route.get('/category',auth,category.category);
 

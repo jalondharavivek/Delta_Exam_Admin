@@ -2,6 +2,7 @@ const express = require('express');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var db = require('../connection/mysql');
+// require('../connection/module')
 const sessions = require('express-session');
 var cookie = require('cookie-parser');
 var utils = require('util');
@@ -29,7 +30,6 @@ app.use(bodyParser.json())
 
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')))
-// session create
 
 
 const admin_login = (req, res) => {
