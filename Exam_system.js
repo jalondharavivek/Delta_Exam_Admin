@@ -13,6 +13,14 @@ var nodemailer = require('nodemailer');
 const path = require('path')
 const app = express();
 app.use(express.static('public'));
+app.use(sessions({
+    secret: "huy7uy7u",
+    saveUninitialized: true,
+    resave: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24, 
+      },
+  }));
 const ejs = require('ejs');
 const { signedCookie } = require('cookie-parser');
 const { Console } = require('console');
@@ -32,24 +40,26 @@ app.use(bodyParser.json())
 
 
 
-const category = require('./routes/manoj_index')
+const category = require('./routes/category')
 app.use("/", category)
 
+const question = require('./routes/question')
+app.use("/", question)
 
-const vivek_indexfile = require('./routes/vivek_index')
-app.use("/", vivek_indexfile)
-
-const darshilindex = require('./routes/darshil_index')
-app.use("/", darshilindex)
+const login = require('./routes/login')
+app.use("/", login)
 
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')))
 
-const milan_indexfile = require('./routes/milan_index')
-app.use('/',milan_indexfile)
+const exam = require('./routes/exam')
+app.use('/',exam)
 
-const user = require('./routes/user_kartik_index');
+const user = require('./routes/user');
 app.use("/", user)
+
+const result = require('./routes/result')
+app.use('/',result);
 
 
 app.listen(PORT, () => console.log(`port connected to ${PORT}!`))

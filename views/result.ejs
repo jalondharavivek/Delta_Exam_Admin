@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/category.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    
+</head>
+<body>
+    <%- include('header'); -%>
+    <div class="main-container">
+        <%- include('nav'); -%>
+        <div class="main">
+            <div class="add-link">
+                <div class="searchbar">
+                    <input type="text" name="" id="" placeholder="Search">
+                    <div class="searchbtn">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png" class="icn srchicn" alt="search-button">
+                    </div>
+                </div>
+              
+            </div>
+            <table>
+               
+                <tr>
+                    <th>Exam id</th>
+                    <th>Exam name</th>
+                    <th>Total question</th>
+                    <th>Exam time</th>
+                    <th>category</th>
+         
+                </tr>
+              
+            <% let id=1; %>
+            <% data.forEach(c => { %>
+                <tr>
+                    <td><%= c.exam_id %></td>
+                    <td><%= c.exam_name%></td>
+                    <td><%= c.total_questions %></td>
+                    <td><%= c.exam_time %></td>
+                    <td><a href="/viewresult" class="btn btn-dark"><i class="fa-solid fa-circle-info"></i></a></td>
+                    
+                </tr>
+                <% }); %>
+        </table>
+
+            
+        </div>
+    </div>
+</body>
+
+</html>

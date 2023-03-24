@@ -25,5 +25,3 @@ route.get('/city',user.getcity);
 route.post('/update',user.update);
 
 route.get('/user/search',user.search)
-
-module.exports = route;

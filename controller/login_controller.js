@@ -2,6 +2,7 @@ const express = require('express');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var db = require('../connection/mysql');
+// require('../connection/module')
 const sessions = require('express-session');
 var cookie = require('cookie-parser');
 var utils = require('util');
@@ -30,25 +31,6 @@ app.use(bodyParser.json())
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')))
 
-// session create
-
-app.use(sessions({
-    secret: "huy7uy7u",
-    saveUninitialized: true,
-    resave: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24, 
-    },
-}));
-
-//middleware
-
-const authMiddleware = (req, res, next) => {
-    if (!req.session.user) {
-      return res.redirect("/");
-    }
-    next();
-  };
 
 const admin_login = (req, res) => {
     res.render("login.ejs")
@@ -65,24 +47,17 @@ const login = async(req, res) => {
         res.send("email is not match");
     } else {
         var comparePassword = userData[0].password;
+        console.log(comparePassword);
         var compare = await bcrypt.compare(password, comparePassword);
         var resultRandom = Math.random().toString(36).substring(2, 7);
         if (!compare) {
             res.send("Password is not match")
-        } else {  
-          app.use(sessions({
-            secret: "huy7uy7u",
-            saveUninitialized: true,
-            resave: false,
-            cookie: {
-                maxAge: 1000 * 60 * 60 * 24, 
-              },
-            }));
+        }else {  
+            req.session.user =email;
             res.redirect('dashboard');
         }
     }
 }
-
 const forget = async(req, res) => {
     res.render("validEmail")
 }
@@ -98,7 +73,10 @@ const setpassword = async(req,res) => {
 const post_setpassword = async(req,res) => {
     res.render("setPassword");
 }
-
+const logout=async(req,res)=>{
+  req.session.destroy();
+  res.redirect('/');
+}
 const fetch_api = async(req,res) => {
     var email = req.body.email;
   console.log("Send email in post method", email)
@@ -145,13 +123,31 @@ const fetch_api = async(req,res) => {
     },
 }));
 
-req.session.email = email;
-  res.json({
-      otp
-  });
+  // let info = transporter.sendMail({
+  //     from: 'hello <darshil.parmar.23.esparkbiz@gmail.com>', // sender address
+  //     to: email, // list of receivers
+  //     subject: "OTP Validation ✔", // Subject line
+  //     text: "OTP", // plain text body
+  //     html: `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+  //     <div style="margin:50px auto;width:70%;padding:20px 0">
+  //       <div style="border-bottom:1px solid #eee">
+  //         <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Your Brand</a>
+  //       </div>
+  //       <p style="font-size:1.1em">Hi,</p>
+  //       <p>Thank you for choosing Your Brand. Use the following OTP to complete your Sign Up procedures. OTP is valid for 5 minutes</p>
+  //       <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
+  //       <p style="font-size:0.9em;">Regards,<br />EsparkBiz</p>
+  //       <hr style="border:none;border-top:1px solid #eee" />
+  //     </div>
+  //   </div>`
+  // });
+// req.session.email=email;
+  res.json({otp});
 }
 
+
 const updatePassword = async (req, res) => {
+  req.session.destroy();
     res.redirect("/");
 }
 
@@ -163,11 +159,9 @@ var email = req.session.email;
   var updateQuery = `update user_login set password = '${resetPassword}' where email = '${email}'`;
   console.log("update query", updateQuery)
   var updateResult = await db.query(updateQuery)
-  req.session.destroy();
   res.redirect("/");
 }
-
-module.exports = {admin_login,login,forget,dashboard,setpassword,post_setpassword,fetch_api,updatePassword,post_updatePassword};
+module.exports = {admin_login,login,forget,dashboard,setpassword,post_setpassword,fetch_api,updatePassword,post_updatePassword,logout};
 
 function generateOTP() {
 
@@ -178,4 +172,3 @@ function generateOTP() {
   }
   return OTP;
 }
-

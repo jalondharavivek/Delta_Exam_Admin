@@ -10,15 +10,8 @@
 <link rel="stylesheet" href="/css/dashboard.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
-<!-- <link rel="stylesheet" href="/css/addquestion.css"> -->
-<style>
-      ul{
-        list-style-type: none;
-    }
-    li{
-       margin: 30px;
-    }
-</style>
+<link rel="stylesheet" href="/css/viewquestion.css">
+
 <body>
 
     <!-- for header part -->
@@ -35,51 +28,48 @@
 
 
                         <div class="form-container">
-                        <div class="form-container">
-                          <label for="questiondetail">Question Detail : <%= data[0].question_id  %></label>
-                           
-                          <div><label for="question">Question</label></div>
-                           <div><b><%= data[0].question_text  %></b></div> 
-                           <p><%= data[0].category_name  %></p> 
-                            <p><%= data[0].option_a  %></p>
-                            <p><%= data[0].option_b  %></p>
-                            <p><%= data[0].option_c  %></p>
-                            <p><%= data[0].option_d  %></p>
-                            <p style="color: darkgreen;"><%= data[0].answer %></p>
-                             <li>
-                                <label for="category">Category</label>
-                                <label for=""></label>
-                            </li>
-                            <li>
-                                <label for="question_text">question_text</label>
-                                <label for=""></label>
-                            </li>
-                            <li>
-                                <label for="option_a">Option A</label>
-                                <label for=""></label>
-                            </li>
-                            <li>
-                                <label for="option_b">Option B</label>
-                                <label for=""></label>
-                            </li>
-                            <li>
-                                <label for="option_c">Option C</label>
-                                <label for=""></label>
-                            </li>
-                            <li>
-                                <label for="option_d">Option D</label>
-                                <label for=""></label>
-                            </li>
-                            <li>
-                                <label for="answer">Answer</label>
-                                <label for=""></label>
-                            </li>
-                            </ul>
-                            
-                                
 
-                            </div>
+                            <label class="questionno" for="questiondetail">Question No : <%= data[0].question_id %>
+                                    </label>
+                            <br>
+                            <br>
+                            <div><label for="question"><strong>Question:</strong>
+                                    <%= data[0].question_text %>
+                                </label></div>
+
+                            <p><strong>Category : </strong>
+                                <%= data[0].category_name %>
+                            </p>
+
+
+                            <p> <strong>Option A :</strong>
+                                <%= data[0].option_a %>
+                            </p>
+
+                            <p><strong>Option B :</strong>
+                                <%= data[0].option_b %>
+                            </p>
+
+                            <p><strong>Option C :</strong>
+                                <%= data[0].option_c %>
+                            </p>
+
+                            <p><strong>Option D :</strong>
+                                <%= data[0].option_d %>
+                            </p>
+
+                            <p style="color: darkgreen;"> <strong>Answer :</strong>
+                                <%= data[0].answer %>
+                            </p>
+
+                         <p class="quesans" ><strong>Description :</strong></p>
+                         <div>
+                         <a href="editquestion?question_id=<%= data[0].question_id %>"
+                            class="edit-btn">Edit</a>
+                            <a href="/question" class="edit-btn"> Cancle </a> 
                         </div>
+                        </div>
+
                     </div>
                 </div>
 </body>

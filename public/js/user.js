@@ -55,6 +55,7 @@ function toggle(status, id) {
 
 async function page(pages , name = '') {
 
+<<<<<<< HEAD
     try{
         let table = document.getElementById('mytable');
         console.log(table)
@@ -112,6 +113,24 @@ async function page(pages , name = '') {
             </div>
     
     
+=======
+</tr>`;
+    let page = pages.id;
+    console.log(page , "this is [age")
+    const results = await fetch(`/userpage`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ page, name })
+    });
+    var student = await results.json();
+    console.log(student)
+    student.pages.forEach(c => {
+        str += `<tr>
+        <td>
+            ${c.student_id}
+>>>>>>> 49936c2387b2e3a79df6f6dfe64de3ce2215199f
         </td>
         <td>
         ${c.state_name}

@@ -40,7 +40,7 @@
                                 <input class="searchbar-que" placeholder="search" type="text"
                                     onkeyup="searchque(this.value)" name="search" id="search">
                             </div>
-                            
+
                             <div class="exam-button-row">
                                 <a class="button" href="/addquestion">add que</a>
                             </div>
@@ -53,12 +53,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Category</th>
-                                        <th>Question</th>
-
-                                        <!-- <th>Option A</th>
-                                        <th>Option B</th>
-                                        <th>Option c</th>
-                                        <th>Option D</th> -->
+                                        <th>Question</th>                                      
                                         <th>Answer</th>
                                         <th>view </th>
                                         <th>Action</th>
@@ -66,7 +61,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%= //console.log(data,"question table data in ejs log") %>
+                                
                                         <% let id=1 %>
                                             <% for(var i=0 ; i < data.length ; i++) { %>
                                                 <tr>
@@ -78,18 +73,6 @@
                                                         <%= data[i].question_text%>
                                                     </td>
 
-                                                    <!-- <td class="width-td">
-                                                       // <%= //data[i].option_a%>
-                                                    </td>
-                                                    <td  class="width-td">
-                                                        <%= //data[i].option_b%>
-                                                    </td>
-                                                    <td class="width-td">
-                                                        <%= //data[i].option_c%>
-                                                    </td>
-                                                    <td class="width-td">
-                                                       <%= //data[i].option_d%>
-                                                    </td> -->
                                                     <td class="answercolor">
                                                         <%=data[i].answer%>
                                                     </td>
