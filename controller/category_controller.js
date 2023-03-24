@@ -41,10 +41,13 @@ const categorypage = async (req, res) => {
         let sql1 = "select count(*) as total from category";
         let [result1] = await db.query(sql1);
 
+        let Totalpages = `select count(*) as total from category where category_name like '%${req.body.name}%'`;
+        let [Totalpagesquery] = await db.query(Totalpages);
+        console.log(Totalpagesquery);
         let pages = `select * from category where category_name like '%${req.body.name}%' limit ${startindex},${endindex}`;
         // console.log(pages );
         let [pages1] = await db.query(pages);
-        res.json({ data : query, page: page, total: result1[0].total, limit: limit, pages : pages1 });
+        res.json({ data : query, page: page, total: result1[0].total, limit: limit, pages : pages1, totalpages : Totalpagesquery });
     }
     catch (err){
         console.log(err);

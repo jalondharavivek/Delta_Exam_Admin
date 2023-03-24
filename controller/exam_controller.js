@@ -1,17 +1,16 @@
-// const express = require('express')
-// const path = require('path')
-// const app = express();
+const express = require('express')
+const path = require('path')
+const app = express();
 var db = require('../connection/mysql');
-require('../connection/module')
-// const session = require('express-session');
-// const cookieParser = require('cookie-parser');
-// const body = require('body-parser');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const body = require('body-parser');
 
-// app.set("view engine", "ejs");
-// app.use(cookieParser());
-// app.use(body.urlencoded({ extended: false }));
-// app.use(express.static('public'));
-// app.use(express.static(path.join(__dirname, '/public')));
+app.set("view engine", "ejs");
+app.use(cookieParser());
+app.use(body.urlencoded({ extended: false }));
+app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '/public')));
 
 const selectedcategory = async function(req,res){
   try {
@@ -76,12 +75,13 @@ const post_edit = async function(req,res){
 
     let categories = strcat.substring(0, strcat.length - 2);
 
-    let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${categories}' where exam_id='${exam_id}';`;
+    let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category='${categories}' where exam_id='${exam_id}';`;
     let [data1] = await db.execute(sql1);
 
     let appid = data1.insertId;
 
     for (i = 0; i < category.length; i++) {
+
       let sql2 = `insert into exam_category (exam_id,category_id) values ('${appid}',${category[i]});`;
       let [data2] = await db.execute(sql2);
 
@@ -196,7 +196,7 @@ const post_exam = async (req, res) => {
       str += num.charAt(Math.floor(Math.random() * 6));
 
     }
-    sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${categories}');`;
+    sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${categories}');`;
     let [data1] = await db.execute(sql1);
     let appid = data1.insertId;
 

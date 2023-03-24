@@ -61,4 +61,4 @@ const result = require('./routes/result')
 app.use('/',result);
 
 
-app.listen(PORT, () => console.log(`port connected to ${PORT}!`))
+app.listen(PORT, () => console.log(`port connected to ${PORT}!`));
