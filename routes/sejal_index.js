@@ -18,7 +18,7 @@ const { Console } = require('console');
 app.use(express.static(__dirname + '/public'));
 // app.use(express.static(__dirname + '/public/assets/image'));
 // app.use(express.static(__dirname + ''));
-const PORT = process.env.PORT || 8765;
+const PORT = process.env.PORT || 8766;
 app.set('view engine', 'ejs');
 
 app.use(cookie());
@@ -224,7 +224,15 @@ app.get('/viewresult',async (req, res) => {
     exam_system.user_answers uans on q.question_id=uans.question_id;`;
      let [query] = await db.query(sql);
      console.log(query);
-     res.render('viewquestion',{data : query});
+
+     //for name
+
+     let sql1 = `select  s.name from exam_system.student s inner join 
+     exam_system.result r on s.student_id=r.student_id`;
+     let [stu_name] = await db.query(sql1);
+     console.log(stu_name);
+ 
+     res.render('viewquestion',{data : query, stu_name:stu_name});
 })
  
 
