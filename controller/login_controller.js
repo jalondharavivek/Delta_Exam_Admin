@@ -46,7 +46,7 @@ const login = async(req, res) => {
         res.send("email is not match");
     } else {
         var comparePassword = userData[0].password;
-        console.log(comparePassword);
+        // console.log(comparePassword);
         var compare = await bcrypt.compare(password, comparePassword);
         var resultRandom = Math.random().toString(36).substring(2, 7);
         if (!compare) {

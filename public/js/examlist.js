@@ -112,7 +112,7 @@ async function examedit(id) {
                     <div class="input_taker">
                         <label for="start_date" class="labelofInput"> start date: </label>
                         <input type="date" name="start_date" id="" placeholder="enter start date"
-                            value="${data[0].exam_date}" class="input_tag" required>
+                            value="${(new Date(data[0].exam_date).toLocaleDateString())}" class="input_tag" required>
     
                     </div>
     
@@ -142,15 +142,16 @@ async function callback() {
     let category_select = document.getElementById('category_select')
     
     let arat = await selectedcategory();
+    console.log(arat, "arat");
     
 
     async function selectedcategory() {
-      
+      console.log("selected category is called")
         let category_name = [];
         let exam_id = document.getElementById('exam_id').value;
 
         await fetch(`/selected/category?exam_id=${exam_id}`).then(res => res.json()).then(data => {
-          
+            console.log(data,  "selected category")
             for (i = 0; i < data.length; i++) {
                 category_name.push(data[i][0].category_name);
             }
@@ -162,22 +163,22 @@ async function callback() {
 
     categortFetch();
     async function categortFetch() {
-
+        console.log("all categorydetch")
         fetch('/categories').then(res => res.json()).then(data => {
-           
+            console.log(data , "categortFetch all data")
             let checker;
             for (let i = 0; i < data.arr.length; i++) {
-             
+                console.log(arat.length , "arr.length")
                 for (j = 0; j < arat.length; j++) {
                    
                     if (data.arr[i] == arat[j]) {
-
+                        console.log("if is called")
                         category_select.innerHTML += `<option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
                         checker = i;
                     }
                 }
                 if (checker != i) {
-
+                    console.log(`${checker} is not equal to ${i}`);
                     category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
 
                 }
@@ -298,7 +299,7 @@ function examSearch() {
     let exam_search = document.getElementById('exam_search');
 
     fetch(`/exam/search?exam_name=${search}`).then(res => res.json()).then(data => {
-        console.log(data.data1.length)
+        // console.log(data.data1.length)
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>
@@ -312,8 +313,7 @@ function examSearch() {
                             <th>edit</th>
                             <!-- <th>delete</th> -->
                         </tr>`;
-        if (data.data1.length != 0) 
-        {
+        if (data.data1.length !=0) {
             for (i = 0; i < data.data1.length; i++) {
                 str += `<tr>
                                     <td>
@@ -345,7 +345,7 @@ function examSearch() {
                                     </td>
                                     <td>
                                         <div class="td">
-                                            ${data.data1[i].exam_date}
+                                            ${(new Date(data.data1[i].exam_date).toLocaleDateString())}
                                        
                                         </div>
                                     </td>
@@ -366,14 +366,14 @@ function examSearch() {
                                 </tr>
                                `;
             }
-            num=1 ;     
-            
-           
         }
         else
         {
-            str += `<tr><td colspan=8>No record found</td></tr>`
+            str += `<tr><td colspan="8">No record found</td></tr>`;
         }
+        
+        
+            
         tbody.innerHTML = str;
         togglecolorchnage();
 
@@ -480,7 +480,7 @@ async function page(num,count) {
                         </td>
                         <td>
                             <div class="td">
-                                ${data.data1[i].exam_date}
+                                ${(new Date(data.data1[i].exam_date).toLocaleDateString())}
                            
                             </div>
                         </td>

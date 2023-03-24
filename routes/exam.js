@@ -3,23 +3,25 @@ const route = express.Router();
 const auth = require('../middleware/middleware');
 const exam = require('../controller/exam_controller');
 
-route.get('/selected/category',auth,exam.selectedcategory);
+route.get('/selected/category',exam.selectedcategory);
 
-route.get('/edit',auth,exam.edit);
+route.get('/edit',exam.edit);
 
-route.post('/edit',auth,exam.post_edit);
+route.post('/edit',exam.post_edit);
 
-route.get('/edit/option',auth,exam.editoption);
+route.get('/edit/option',exam.editoption);
 
-route.get('/categories',auth,exam.categories);
+route.get('/categories',exam.categories);
 
-route.get('/examlist',auth,exam.examlist);
+route.get('/exam/search',exam.examsearch);
 
-route.get('/exam/search',auth,exam.examsearch);
+route.get('/examlist/page',exam.examlistpage);
 
-route.get('/exam',auth,exam.exam);
+route.get('/examlist',exam.examlist);
 
-route.post('/exam',auth,exam.post_exam);
+route.get('/exam',exam.exam);
+
+route.post('/exam',exam.post_exam);
 
 route.get('/exam/status',exam.examstatus);
 

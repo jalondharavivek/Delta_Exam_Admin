@@ -163,7 +163,9 @@ async function search(name)
 
             pages = `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')">First</a></li>`;
                 for(let i=data.page;i<=Math.ceil(data.total/data.limit);i++){
-                    pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${i}">${i}</a></li>`
+                    pages += `<li class="page-item"><a class="page-link `;
+                    if(parseInt(data.page) == i){ pages += `pageactive" `}else { pages += `disabled"`}
+                    pages += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
                 }
             pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.total/data.limit)}">Last</a></li>`;
 
@@ -209,36 +211,57 @@ async function page(pages,name = '')
         data.pages.forEach(c => {
             html += `<tr><td>${ c.category_id }</td><td>${ c.category_name }</td><td>${ (new Date(c.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ c.category_id },${ c.category_status });">${ c.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ c.category_id })"> EDIT</a></td></tr>`;
         })
-
+        let pagi ='' ;
         if(name == '')
         {
-            let pagi ='' ;
             pagi += `<li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>`;
             if(parseInt(data.page) <=5) {
                 for(let i=1;i<=parseInt(data.page);i++) {  
-                    pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
+                    pagi += `<li class="page-item"><a class="page-link `;
+                    if(parseInt(data.page) == i){ pagi += `pageactive"`}else { pagi += `disabled"`}
+                    pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
                 }
             }
             else {
                 for(let i=(parseInt(data.page)-5);i<=parseInt(data.page);i++){
-                    pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
+                    pagi += `<li class="page-item"><a class="page-link `;
+                    if(parseInt(data.page) == i){ pagi += `pageactive"`}else { pagi += `disabled"`}
+                    pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
                 }
             }
-            if(Math.ceil((data.total)/(data.limit))-5 >= (data.page)) {
-                for(let i=parseInt(data.page)+1;i<=parseInt(data.page)+5;i++){
-                    pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
+            if(Math.ceil(parseInt(data.total)/parseInt(data.limit))-5>= parseInt(data.page)) {
+                for(let i=parseInt(data.page)+1;i<=parseInt(data.page)+ 5;i++){
+                    pagi += `<li class="page-item"><a class="page-link `
+                    if(parseInt(data.page) == i){ pagi += `pageactive"`}else { pagi += `disabled"`}
+                    pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
                 } 
             } 
             else {
                 for(let i=parseInt(data.page)+1;i<=Math.ceil(parseInt(data.total)/parseInt(data.limit));i++) {
-                    pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
+                    pagi += `<li class="page-item"><a class="page-link `;
+                    if(parseInt(data.page) == i){ pagi += `pageactive"`}else { pagi += `disabled"`}
+                    pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
                 }
             }
             pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/data.limit)}">Last</a></li>`
+            pagination.innerHTML = pagi;
 
-            // pagination.innerHTML = pagi;
         }
+        if(name != '')
+        {
+            console.log(Math.ceil(data.totalpage/data.limit));
+            pagi = `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')">First</a></li>`;
+                for(let i=data.page;i<=Math.ceil(data.totalpage/data.limit);i++){
+                    pagi += `<li class="page-item"><a class="page-link `;
+                    if(parseInt(data.page) == i){ pagi += `pageactive" `}else { pagi += `disabled"`}
+                    pagi += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
+                }
+            pagi +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.total/data.limit)}">Last</a></li>`;
+            pagination.innerHTML = pagi;
+        }
+
         table.innerHTML = html;
+        
         cat_status();
     }
     catch(err) 
