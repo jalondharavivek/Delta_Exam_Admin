@@ -206,54 +206,37 @@ async function addexam() {
                         <input type="text" name="exam_name" id="exam_name"
                             placeholder="enter exam name" class="input_tag"
                             onfocusout="examvalidation()" required>
-
                     </div>
                     <div class="input_taker">
                         <label for="" class="labelofInput"> category :</label>
                         <select name="category" id="category_select" multiple required>
-
                         </select>
-
-
                     </div>
-
                     <div class="input_taker">
                         <label for="question" class="labelofInput">no of questions: </label>
                         <input type="number" name="question" id="question"
                             placeholder="enter no of questions" class="input_tag" min="10" max="50"
                             value="10" required>
-
                     </div>
                     <div class="input_taker">
                         <label for="time" class="labelofInput"> time limit: </label>
-
                         <input type="number" name="time" id="time" placeholder="enter time limit"
                             class="input_tag" min="10" max="180" value="10" required>
                         <label for="" class="extra_label">(adding time limit in minutes)</label>
-
                     </div>
-
-
                     <div class="input_taker">
                         <label for="start_date" class="labelofInput"> start date: </label>
                         <input type="date" name="start_date" id="start_date"
                             placeholder="enter start date" class="input_tag" required>
-
                     </div>
-
-
                 </div>
                 <div class="save_div">
                     <p id="0"></p>
-
                     <input type="submit" id="save_btn" value="SAVE" style="cursor: pointer;">
                     <a href='/examlist'>cancel</a>
                    
-
                 </div>
             </form>
-
-
         </div>
     </div>`;
         return str;
@@ -316,11 +299,6 @@ function examSearch() {
 
     fetch(`/exam/search?exam_name=${search}`).then(res => res.json()).then(data => {
         console.log(data.data1.length)
-        if (data.data1.length == []) {
-            alert("there is no data found")
-            location.reload();
-           
-        }
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>
@@ -333,78 +311,69 @@ function examSearch() {
                             <th>exam statuss</th>
                             <th>edit</th>
                             <!-- <th>delete</th> -->
-
                         </tr>`;
-        for (i = 0; i < data.data1.length; i++) {
-            str += `<tr>
-                                <td>
-                                    <div class="td">
-                                        ${(i + 1)}
-
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td">
-                                        ${data.data1[i].exam_name}
-
-                                    </div>
-
-                                </td>
-                                <td>
-                                    <div class="td">
-
-                                        ${data.data1[i].category_name}
-
-                                    </div>
-
-                                </td>
-                                <td>
-                                    <div class="td">
-                                        ${data.data1[i].total_questions}
+        if (data.data1.length != 0) 
+        {
+            for (i = 0; i < data.data1.length; i++) {
+                str += `<tr>
+                                    <td>
+                                        <div class="td">
+                                            ${(i + 1)}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td">
+                                            ${data.data1[i].exam_name}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td">
+                                            ${data.data1[i].category_name}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td">
+                                            ${data.data1[i].total_questions}
+                                           
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td">
+                                            ${data.data1[i].exam_time}
+                                           
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td">
+                                            ${data.data1[i].exam_date}
                                        
-
-                                    </div>
-
-                                </td>
-                                <td>
-                                    <div class="td">
-                                        ${data.data1[i].exam_time}
-                                       
-
-                                    </div>
-
-                                </td>
-                                <td>
-                                    <div class="td">
-                                        ${data.data1[i].exam_date}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div id="toggle${data.data1[i].exam_id}">
+                                            <p class="btn" id="${data.data1[i].exam_id}" onclick="toggle('${data.data1[i].exam_status}','${data.data1[i].exam_id}')" style="color: red;cursor:pointer">${data.data1[i].exam_status}</p>
+                                        
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="edit">
+                        
+                                            <p onclick="examedit(${data.data1[i].exam_id})" style="cursor: pointer;">edit</p>
+                       
+                                        </div>
+                                    </td>
                                    
-
-                                    </div>
-
-                                </td>
-                                <td>
-
-
-                                    <div id="toggle${data.data1[i].exam_id}">
-                                        <p class="btn" id="${data.data1[i].exam_id}" onclick="toggle('${data.data1[i].exam_status}','${data.data1[i].exam_id}')" style="color: red;cursor:pointer">${data.data1[i].exam_status}</p>
-                                    
-                                    </div>
-                                </td>
-                                <td>
-
-
-                                    <div class="edit">
-                    
-                                        <p onclick="examedit(${data.data1[i].exam_id})" style="cursor: pointer;">edit</p>
-                   
-
-                                    </div>
-                                </td>
-                               
-                            </tr>
-                           `;
+                                </tr>
+                               `;
+            }
+            num=1 ;     
+            
+           
         }
-        num=1 ;     
+        else
+        {
+            str += `<tr><td colspan=8>No record found</td></tr>`
+        }
         tbody.innerHTML = str;
         togglecolorchnage();
 
@@ -478,7 +447,6 @@ async function page(num,count) {
                     <th>exam statuss</th>
                     <th>edit</th>
                     
-
                 </tr>`;
 
     for (i = 0; i < data.data1.length; i++) {
@@ -486,62 +454,45 @@ async function page(num,count) {
                         <td>
                             <div class="td">
                                 ${(i + 1)}
-
                             </div>
                         </td>
                         <td>
                             <div class="td">
                                 ${data.data1[i].exam_name}
-
                             </div>
-
                         </td>
                         <td>
                             <div class="td">
-
                             ${data.data1[i].category_name}
-
                             </div>
-
                         </td>
                         <td>
                             <div class="td">
                                 ${data.data1[i].total_questions}
                                
-
                             </div>
-
                         </td>
                         <td>
                             <div class="td">
                                 ${data.data1[i].exam_time}
                                
-
                             </div>
-
                         </td>
                         <td>
                             <div class="td">
                                 ${data.data1[i].exam_date}
                            
-
                             </div>
-
                         </td>
                         <td>
-
-
                             <div id="toggle${data.data1[i].exam_id}">
                                 <p class="btn" id="${data.data1[i].exam_id}" onclick="toggle('${data.data1[i].exam_status}','${data.data1[i].exam_id}')" style="color: red;cursor:pointer">${data.data1[i].exam_status}</p>
                             
                             </div>
                         </td>
                         <td>
-
-
                             <div class="edit">
                             <p onclick="examedit(${data.data1[i].exam_id})" style="cursor: pointer;">edit</p>
-
                             </div>
                         </td>
                        

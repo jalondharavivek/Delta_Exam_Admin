@@ -15,6 +15,8 @@ route.get('/categories',auth,exam.categories);
 
 route.get('/examlist',auth,exam.examlist);
 
+route.get('/exam/search',auth,exam.examsearch);
+
 route.get('/exam',auth,exam.exam);
 
 route.post('/exam',auth,exam.post_exam);
