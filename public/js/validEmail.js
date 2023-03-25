@@ -14,7 +14,6 @@ async function clickFetch() {
         .then(data => {
             otp = data.otp;
            otp_get.innerHTML = otp; 
-
         })
 }
 
@@ -51,7 +50,7 @@ async function valid_email(email1) {
     let nameData1 = await emailValid.json();
 
     if (nameData1.status == 404) {
-        document.getElementById("email_valid").innerHTML = "This email id not register ! Pelese enter valid email id for forget password";
+        document.getElementById("email_valid").innerHTML = "This email id not register ! Pelese enter valid email id for forget or change password";
         document.getElementById("email_valid").style.color = "red";
         document.getElementById("sendBtn").disabled = true;
     } else {
