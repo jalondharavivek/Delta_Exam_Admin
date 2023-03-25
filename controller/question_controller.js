@@ -35,7 +35,7 @@ const question = async(req,res)=>{
     else
      que += ` LIMIT ${limit} `;
   let [questiontab] = await db.execute(que);
-  let sql1que = "select count(*) as total from questions where question_status = 1";
+  let sql1que = `select count(*) as total from questions  `;
   let [resultque] = await db.query(sql1que);
   res.render("question", { data: questiontab,page : page, totalque: resultque[0].totalque, limit: limit })
 }
@@ -79,7 +79,7 @@ const addquestionpost = async(req,res)=>{
 
 const viewdetail = async(req,res)=>{
     let viewid = req.query.question_id
- 
+  console.log(viewid, "::::view id ")
   let viewsql = `select * from questions where question_id = ${viewid}`
   let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${viewid}' and question_status='1' `)
   let [viewques] = await db.query(viewsql);
@@ -149,7 +149,8 @@ const searchget = async(req,res)=>{
     let endindex=page*limit-startindex;
     let sqlque = `select * from questions where question_status = '1'`
     let name1 = req.query.nameque;
-  
+    console.log(name1,"::::name search")
+    console.log(name1, "search name in js ")
     let [queryque] = await db.execute(sqlque)
     
     let sqlquet = `select count(*) as total from questions where question_text like '%${name1}%' and question_status = '1'`;
@@ -163,5 +164,30 @@ const searchget = async(req,res)=>{
 }
 
 
+
+
+///retrive question (deleted questiob)
+
+
+const retrivequestions = async(req,res)=>{
+    let sqlretrivequery = `select * from questions where question_status =  '0' `
+    let [sqlretriveexecute] = await db.query(sqlretrivequery)
+
+    res.json({data :sqlretriveexecute })
+}
+
+
+//rertrivequestion post question
+const retrivequestionpost = async(req,res)=>{
+    try{
+    id = req.query.requeid;
+    let sqlretpost = `update questions set question_status = '1' where question_id = ${id}`
+   let [retquext] = db.execute(sqlretpost)
+    res.redirect("/question")
+    }catch(err){
+        err
+    }
+}
+
 module.exports = {question,addquestion,addquestionpost,viewdetail,editquestionget,editquestionpost,deletquestion,
-searchget}; 
+searchget,retrivequestions,retrivequestionpost}; 

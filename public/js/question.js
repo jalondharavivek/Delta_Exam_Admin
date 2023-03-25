@@ -33,6 +33,79 @@ location.reload()
 }
 }
 
+//retrive question
+
+async function retriveque(){
+  try{
+
+let retrivequeresult = await fetch(`/retriveque`)
+let data = await retrivequeresult.json();
+console.log(data.data);
+let tabqueret = document.getElementById("quetable")
+let quetabretrive = `  <thead> <tr>
+                         <th>Id</th>
+                         <th>Category</th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                         <th>view</th>
+                         <th>Action</th>
+                         </tr> 
+                    </thead>`;
+                 
+if(Object.keys(data.data).length == 0)
+  {
+    quetabretrive +=`<tr><td colspan=5>No record found</td></tr>`
+    
+    }
+else
+{
+  
+    for(let i=0; i<data.data.length; i++){
+      quetabretrive += `<tr>
+    <td class="width-td">
+        ${data.data[i].question_id}
+    </td>
+    <td  class="width-td">  0</td>
+    <td class="question-width" >
+        ${data.data[i].question_text}
+    </td>
+  
+    <td class="answercolor">
+        ${data.data[i].answer}
+    </td>
+    <td>
+    
+    <a href="viewdetail?question_id=${data.data[i].question_id}" class="button-view"> view </a>
+    
+    </td>
+    <td class="button-width">
+
+    <a href="editquestion?question_id=${data.data[i].question_id}" class="edit-btn">Edit</a>
+    <a href="" class="delete-btn"  onclick="retquestion(${ data.data[i].question_id})">retrive</a>
+    </td>
+</tr>`
+    }
+
+
+  
+}
+tabqueret.innerHTML = quetabretrive;
+
+  }catch(err){
+    err
+  }
+}
+
+async function retquestion(idretque){
+  try{
+    let reque = await fetch(`/retrivequestion?requeid=${idretque}`,{method:"POST"})
+    console.log(idretque,"ret id")
+    location.reload()
+  }catch(err){
+    err
+  }
+}
+
 
 async function searchque(quesearch) {
   try{

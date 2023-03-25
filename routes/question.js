@@ -12,5 +12,6 @@ route.get('/editquestion',auth,question.editquestionget)
 route.post('/editquestion',auth,question.editquestionpost)
 route.post('/deletquestion',auth,question.deletquestion)
 route.get('/searchque',auth,question.searchget)
-
+route.get('/retriveque',auth,question.retrivequestions)
+route.post('/retrivequestion',auth,question.retrivequestionpost)
 module.exports = route;
