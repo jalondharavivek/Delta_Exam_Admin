@@ -565,4 +565,9 @@ border-radius: 4px;
         display: none;
     }
 
-    
+    .active
+    {
+        pointer-events: none;
+        cursor: default;
+        background-color:#ccf3c0af;
+    }
