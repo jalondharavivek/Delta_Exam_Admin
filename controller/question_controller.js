@@ -37,7 +37,7 @@ const addquestionpost = async(req,res)=>{
     var option_d = req.body.option_d;
     var answer = req.body.answer;
   
-    var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}')`;
+    var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id,question_status) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}','1')`;
     
   
     let execute = await db.execute(addquestionquery);
