@@ -4,7 +4,7 @@ require('../connection/module')
 const user = async (req, res) =>{
     
   try {
-    let sql = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
+    let sql = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,a.city,b.state_name,c.college_name 
     from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
 
     let page = req.query.page || 1;
@@ -14,13 +14,13 @@ const user = async (req, res) =>{
     else
       sql += ` LIMIT ${limit} `;
     let [student] = await db.execute(sql);
+console.log(student);
 
-    console.log(student+"kae");
     let sql1 = "select count(*) as total from student";
 
 
     let [result1] = await db.execute(sql1);
-    // console.log(result1)
+
     res.render('user', { student, page: page, total: result1[0].total, limit: limit });
   }
   catch (err) {
@@ -49,19 +49,20 @@ const userpage = async (req, res) =>{
     else
       sql += ` LIMIT ${limit} `;
     let [student] = await db.execute(sql);
-    console.log(student, "::::limit student")
+
 
     let sql1 = "select count(*) as total from student";
     let [result1] = await db.execute(sql1);
-    console.log(result1, "::::total")
+
 
 
 
       let pages =`select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
-      from student a, state b, colleges c where( a.state_id=b.state_id AND a.college_id=c.college_id) and name like '%${req.body.name}%' limit ${startindex},${endindex}`;
-    console.log(pages)
+      from student a, state b, colleges c where( a.state_id=b.state_id AND a.college_id=c.college_id) and name
+       like '%${req.body.name}%' limit ${startindex},${endindex}`;
+
     let [pages1] = await db.execute(pages);
-    console.log(pages1, "::::student")
+
 
 
     res.json({ student, page: page, total: result1[0].total, limit: limit, pages: pages1 });
@@ -85,7 +86,7 @@ const student_status = async (req, res) => {
       sql += ` LIMIT ${limit} `;
 
 
-    console.log(req.query)
+
     let student_id = req.query.id;
     let student_status = req.query.status;
 
@@ -93,6 +94,7 @@ const student_status = async (req, res) => {
       let status = `update student set student_status = 1 where student_id = ${student_id}`;
       let [student_result] = await db.execute(status);
       let [student] = await db.execute(sql);
+      
       res.json({ student_result })
 
 
@@ -116,10 +118,11 @@ const student_status = async (req, res) => {
 const college = async (req, res) => {
 
   try {
+   
 
 
     let id = req.query.id;
-    console.log(req.query.id);
+
 
     sql1 = `select college_id from student where student_id ='${id}'`;
     let [data1] = await db.execute(sql1);
@@ -134,9 +137,11 @@ const college = async (req, res) => {
 const allcollege = async (req, res) => {
   try {
 
-    console.log("allcollage")
+
+
     let sql1 = `select * from colleges`;
     let [data1] = await db.execute(sql1);
+
     res.send(data1);
   }
   catch (err) {
@@ -146,7 +151,7 @@ const allcollege = async (req, res) => {
 
 const editid = async (req, res) => {
   try {
-    console.log();
+
     let temp_id = req.params.id;
     let arr = temp_id.split("=");
 
@@ -169,8 +174,12 @@ const editid = async (req, res) => {
 const allcity = async (req, res) => {
     
   try {
+   
+
+
     let sql1 = `select * from city where state_id='${state_id}';`
     let [allcity] = await db.execute(sql1);
+
     res.send(allcity);
   }
   catch (err) {
@@ -180,11 +189,12 @@ const allcity = async (req, res) => {
 
 const city = async (req,res) => {
   try {
-
-    console.log("/studebnt/city")
+   
+  
     let id = req.query.state_id;
     let sql1 = `select city_id,city_name from city where state_id='${id}'`;
     let [data1] = await db.execute(sql1);
+
 
     res.send(data1);
 
@@ -196,12 +206,13 @@ const city = async (req,res) => {
 
 const getcity = async (req, res) => {
   try {
-    console.log("/city is active")
+   
     let id = req.query.id;
 
 
     sql1 = `select city from student where student_id ='${id}'`;
     let [data1] = await db.execute(sql1);
+
 
     res.send(data1);
 
@@ -228,7 +239,7 @@ const update = async (req, res) => {
 
     let sql4 = `update student set name='${name}',email='${email}',contact='${contact}',gender='${gender}',
      address='${address}',city='${city}', state_id = '${state_id}' ,college_id='${college_id}' where student_id=${student_id};`
-    console.log(sql4)
+  
     let [student3] = await db.execute(sql4);
     res.redirect('/user')
 
@@ -242,7 +253,7 @@ const search =async(req,res)=>{
 
 try{
 
-  console.log("/search is called")
+
   let sql = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
   from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
 
@@ -252,7 +263,7 @@ try{
   let startindex = (page - 1) * limit;
   let endindex = page * limit - startindex;
   let name = req.query.name;
-  console.log(name)
+
 
 
   let [query] = await db.execute(sql);
@@ -260,15 +271,17 @@ try{
   let sql1 = `select count(*) as total from student where name like '%${name}%'`;
   let [result1] = await db.execute(sql1);
 
-  let pages = `select * from student limit ${startindex},${endindex}`;
+  let pages = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
+  from student a, state b, colleges c where( a.state_id=b.state_id AND a.college_id=c.college_id) and name like '%${name}%' limit ${startindex},${endindex}`;
   let [pages1] = await db.execute(pages);
-  // console.log(result1);
 
-  let srch = `select * from student where name like '%${name}%' limit ${startindex},${endindex}`;
-  console.log(srch);
+
+  let srch = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
+  from student a, state b, colleges c where( a.state_id=b.state_id AND a.college_id=c.college_id) and name like '%${name}%' limit ${startindex},${endindex}`;
+
   let [query1] = await db.query(srch);
 
-  console.log(query1)
+
   res.json({search: query1, data: query, page: page, total: result1[0].total, limit: limit, pages: pages1} );
 }
 catch (err) {

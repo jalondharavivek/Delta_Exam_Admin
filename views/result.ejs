@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category</title>
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/category.css">
+    <title>Result</title>
+    <link rel="stylesheet" href="/css/viewquestion.css">
+    <link rel="stylesheet" href="/css/viewquestionresult.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
@@ -19,12 +19,11 @@
         <div class="main">
             <div class="add-link">
                 <div class="searchbar">
-                    <input type="text" name="" id="" placeholder="Search">
+                    <input type="text" name="search" id="search" placeholder="Search" onkeyup="search(this.value)">
                     <div class="searchbtn">
                         <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png" class="icn srchicn" alt="search-button">
                     </div>
                 </div>
-              
             </div>
             <table>
                
@@ -32,7 +31,7 @@
                     <th>Exam id</th>
                     <th>Exam name</th>
                     <th>Total question</th>
-                    <th>Exam time</th>
+                    <th>Exam time[in minutes]</th>
                     <th>category</th>
          
                 </tr>
@@ -54,5 +53,7 @@
         </div>
     </div>
 </body>
+
 <script src="/js/dashboard.js"></script>
+
 </html>

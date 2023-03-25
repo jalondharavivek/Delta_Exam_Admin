@@ -185,16 +185,9 @@ const categories = async (req, res) => {
 const examlist = async (req, res) => {
   try {
 
-    var data = [];
     let count;
-
-    // let id = req.query.id;
     let page = req.query.num || 1;
-
-    // string to int 
     let curpage = parseInt(req.query.num);
-
-    // declare limit and offset 
 
     let offset = (page - 1) * limit;
 

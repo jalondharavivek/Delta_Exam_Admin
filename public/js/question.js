@@ -22,13 +22,16 @@
 
 
 
-///delet question 
-// async function deletques(delet){
-//   let queresult = await fetch(`/deletequestion?question_id=${delet}`);
-//   // console.log(delet,":::question id for delet")
-//   location.reload()
-// }
-
+//delet question 
+async function deletquestion(delet){
+  try{
+  const deletquesti =  await fetch(`/deletquestion?question_id=${delet}`,{method:"POST"});
+  confirm('are you sure for delet this question?')
+location.reload()
+}catch(err){
+  err
+}
+}
 
 
 async function searchque(quesearch) {
@@ -36,7 +39,7 @@ async function searchque(quesearch) {
 // console.log(name,"question module in search search:::::;")
     let queresult = await fetch(`/searchque?nameque=${quesearch}`);
     let datas = await queresult.json();
-    console.log(datas,"search question for data");
+    
     let tabque = document.getElementById("quetable")
     let quetabsearch = `  <thead> <tr>
                              <th>Id</th>
@@ -47,7 +50,7 @@ async function searchque(quesearch) {
                              <th>Action</th>
                              </tr> 
                         </thead>`;
-                     console.log(datas.search,"::::::::search in js"); 
+                     
     if(Object.keys(datas.search).length == 0)
       {
         quetabsearch +=`<tr><td colspan=5>No record found</td></tr>`
@@ -77,7 +80,7 @@ async function searchque(quesearch) {
         <td class="button-width">
 
         <a href="editquestion?question_id=${datas.search[i].question_id}" class="edit-btn">Edit</a>
-        <a href="deletequestion" class="delete-btn"  onclick="deletque(${ datas.search[i].question_id})">Delete</a>
+        <a href="" class="delete-btn"  onclick="deletque(${ datas.search[i].question_id})">Delete</a>
         </td>
     </tr>`
         }
