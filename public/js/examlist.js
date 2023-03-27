@@ -402,8 +402,17 @@ function examSearch(curpage) {
             str += `<tr><td colspan="8">No record found</td></tr>`;
         }
         
-        
-            
+        let count = data.data5.length/data.limit ;
+ 
+          
+        if(count <= 1){
+            count = 1 ;
+        }else{
+           count = Math.ceil(data.data5.length/data.limit);  
+           
+        }
+        console.log(count)
+
         tbody.innerHTML = str;
         togglecolorchnage();
 
@@ -413,36 +422,66 @@ function examSearch(curpage) {
         let newstr = '';
         pageid.innerHTML = "";
 
-        if (data.curpage == 1) {
+        if(search.length == 0){
+            if (data.curpage == 1) {
 
-            pageid.innerHTML += `<p onclick="examSearch(1)" class="p">prev</p>`;
-
-        } else {
-
-            pageid.innerHTML += `<p onclick="examSearch(${data.curpage}-1)" class="p">prev</p>`;
-
-        }
-
-        for (let i = 1; i <= data.count; i++) {
-            if (i == data.curpage) {
-                pageid.innerHTML += `<p onclick="examSearch(${i})" class="p">
-            <b>${i}</b>
-        </p>`;
+                pageid.innerHTML += `<p onclick="examSearch(1)" class="p">prev</p>`;
+    
             } else {
-                pageid.innerHTML += `<p onclick="examSearch(${i})" class="p">
-            ${i}
-        </p>`;
+    
+                pageid.innerHTML += `<p onclick="examSearch(${data.curpage}-1)" class="p">prev</p>`;
+    
             }
+    
+            for (let i = 1; i <= data.count1; i++) {
+                if (i == data.curpage) {
+                    pageid.innerHTML += `<p onclick="examSearch(${i})" class="p">
+                <b>${i}</b>
+            </p>`;
+                } else {
+                    pageid.innerHTML += `<p onclick="examSearch(${i})" class="p">
+                ${i}
+            </p>`;
+                }
+    
+            }
+            if (data.curpage == data.count1) {
+                pageid.innerHTML += `<p onclick="examSearch(${data.count1})" class="p">next</p>`;
+    
+            } else {
+                pageid.innerHTML += `<p onclick="examSearch(${data.curpage} + 1)" class="p">next</p>`;
+            }
+        }else{
+            if (data.curpage == 1) {
 
+                pageid.innerHTML += `<p onclick="examSearch(1)" class="p">prev</p>`;
+    
+            } else {
+    
+                pageid.innerHTML += `<p onclick="examSearch(${data.curpage}-1)" class="p">prev</p>`;
+    
+            }
+    
+            for (let i = 1; i <= count; i++) {
+                if (i == data.curpage) {
+                    pageid.innerHTML += `<p onclick="examSearch(${i})" class="p">
+                <b>${i}</b>
+            </p>`;
+                } else {
+                    pageid.innerHTML += `<p onclick="examSearch(${i})" class="p">
+                ${i}
+            </p>`;
+                }
+    
+            }
+            if (data.curpage == count) {
+                pageid.innerHTML += `<p onclick="examSearch(${count})" class="p">next</p>`;
+    
+            } else {
+                pageid.innerHTML += `<p onclick="examSearch(${data.curpage} + 1)" class="p">next</p>`;
+            }
         }
-        if (data.curpage == data.count) {
-            pageid.innerHTML += `<p onclick="examSearch(${data.count})" class="p">next</p>`;
-
-        } else {
-            pageid.innerHTML += `<p onclick="examSearch(${data.curpage} + 1)" class="p">next</p>`;
-        }
-
-        let pclass = document.querySelectorAll('.p');
+         
      
 
     })
@@ -546,7 +585,7 @@ async function page(num,count) {
 
     }
     
-    for (let i = 1; i <= data.count; i++) {
+    for (let i = 1; i <= data.data1.length; i++) {
         
         if (i == num) {
             pageid.innerHTML += `<p onclick="page(${i},${count})" class="p">

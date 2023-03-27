@@ -324,7 +324,7 @@ const examsearch = async (req, res) => {
     } else {
 
       var data = [];
-      let count;
+      let count1;
 
       // let id = req.query.id;
       let page = req.query.num || 1;
@@ -340,20 +340,21 @@ const examsearch = async (req, res) => {
       if (isNaN(offset)) {
         offset = 0;
       }
-      sql2 = `select count(*) as numrows from exam ;`;
+      sql2 = `select count(*) as numrows from exam;`;
       let [data2] = await db.execute(sql2);
 
-      count = Math.ceil(data2[0].numrows / limit);
+      count1 = Math.ceil(data2[0].numrows / limit);
 
       let exam_name = req.query.exam_name;
 
       let sql4 = `select * from exam where exam_name like '%${exam_name}%' limit ${offset},${limit};`;
       
-
-
       let [data1] = await db.execute(sql4);
 
-      res.json({ data1, count, curpage });
+      let sql5 = `select * from exam where exam_name like '%${exam_name}%';`
+      let [data5] = await db.execute(sql5);
+
+      res.json({ data1, curpage  ,limit ,count1 , data5});
 
     }
   } catch (err) {
