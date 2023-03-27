@@ -32,7 +32,7 @@ const user = async (req, res) => {
     else
       sql += ` LIMIT ${limit} `;
     let [student] = await db.execute(sql);
-    console.log(student);
+   
 
     let sql1 = "select count(*) as total from student";
 
@@ -298,7 +298,7 @@ const search = async (req, res) => {
     from student a, state b, colleges c  where( a.state_id=b.state_id AND a.college_id=c.college_id) and name like '%${name}%' limit ${startindex},${endindex}`;
 
     let [query1] = await db.query(srch);
- console.log(query1)
+
 
     res.json({ search: query1, data: query, page: page, total: result1[0].total, limit: limit, pages: pages1 });
   }
@@ -310,9 +310,5 @@ const search = async (req, res) => {
 
 
 
-
-
-
-
-module.exports = { user, userpage, student_status, college, allcollege, editid, allcity, city, getcity, update, search }
+module.exports = { user, userpage, student_status, college, allcollege, editid, allcity, city, getcity, update, search}
 

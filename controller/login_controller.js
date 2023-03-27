@@ -61,8 +61,36 @@ const forget = async(req, res) => {
 }
 
 const dashboard = async(req,res) =>{
-    res.render('dashboard.ejs');
+
+  try {
+
+
+    let sql1 = `SELECT COUNT(student_id) as c
+    FROM student`; 
+    let [query1] = await db.execute(sql1);
+
+    let sql2 =`SELECT COUNT(exam_id) as c
+    FROM exam_system.exam`;
+    let [query2] = await db.execute(sql2);
+
+    let sql3 = `SELECT COUNT(question_id) as c
+    FROM exam_system.questions`;
+    let [query3] = await db.execute(sql3);
+
+    let sql4 = `SELECT COUNT(category_id) as c
+    FROM exam_system.category`;
+    let [query4] = await db.execute(sql4);
+    
+    res.render('dashboard.ejs', {count1 :  query1 , count2 : query2, count3 : query3, count4 : query4});
+  }
+  catch (err) {
+    console.log(err);
+  }
 }
+
+
+
+
 
 const setpassword = async(req,res) => {
     res.redirect('/login');
