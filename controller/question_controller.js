@@ -15,7 +15,7 @@ const upload = multer({ storage });
 
 const question = async(req,res)=>{
     let que = `select * from questions where question_status = '1'`
-    let quecat = ``
+    let quecat = `select category_name,a.category_id from category a,questions b where a.category_id=b.category_id  and question_status='1'`
     let page = req.query.page || 1;
     let limit = req.query.limit || 10;
     if (req.query.page > 1)
@@ -23,11 +23,28 @@ const question = async(req,res)=>{
     else
      que += ` LIMIT ${limit} `;
   let [questiontab] = await db.execute(que);
+  let [quecatexecute] = await db.execute(quecat);
   let sql1que = `select count(*) as total from questions  `;
   let [resultque] = await db.query(sql1que);
-  res.render("question", { data: questiontab,page : page, totalque: resultque[0].totalque, limit: limit })
+  res.render("question", { data: questiontab,data1 : quecatexecute ,page : page, total: resultque[0].totalque, limit: limit })
 }
-
+const questionpage = async(req,res)=>{
+  let que = `select * from questions where question_status = '1'`
+  let quecat = `select category_name,a.category_id from category a,questions b where a.category_id=b.category_id  and question_status='1'`
+  let page = req.query.page || 1;
+  let limit = req.query.limit || 10;
+  if (req.query.page > 1)
+   que += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
+  else
+   que += ` LIMIT ${limit} `;
+let [questiontab] = await db.execute(que);
+let [quecatexecute] = await db.execute(quecat);
+let sql1que = `select count(*) as total from questions  `;
+let [resultque] = await db.query(sql1que);
+let sqlque1 = `select a.question_text,a.question_id,a.answer,a.category_id,b.category_name from questions as a join category as b on a.category_id = b.category_id where a.question_text like '%${name1}%' AND a.question_status = '1' limit ${startindex},${endindex} ; `
+let [pagesearch] = await db.execute(sqlque1)
+res.json({ data: questiontab, pages :pagesearch ,data1 : quecatexecute ,page : page, total: resultque[0].totalque, limit: limit })
+}
 
 
 const addquestion = async(req,res)=>{
@@ -49,7 +66,7 @@ const addquestionpost = async(req,res)=>{
     var option_d = req.body.option_d;
     var answer = req.body.answer;
     var description = req.body.description
-    const image = req.file.filename;
+    const image = req.file? req.file.filename : null;
 
   
     var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id,question_status,description,question_image) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}','1','${description}','${image}')`;
@@ -70,10 +87,10 @@ const addquestionpost = async(req,res)=>{
 
 const viewdetail = async(req,res)=>{
     let viewid = req.query.question_id
- 
+  let viewq = `select a.question_text,a.question_id,a.option_a,a.option_b,a.option_c,a.option_d,a.description,a.question_image,a.answer,a.category_id,b.category_name from questions as a join category as b on a.category_id = b.category_id where a.question_id = ${viewid} AND a.question_status = '1' `
   let viewsql = `select * from questions where question_id = ${viewid}`
   let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${viewid}' and question_status='1' `)
-  let [viewques] = await db.query(viewsql);
+  let [viewques] = await db.query(viewq);
 
  
   res.render("viewquestion", { data : viewques , data1:category});
@@ -139,17 +156,18 @@ const searchget = async(req,res)=>{
     let limit=parseInt(req.query.limit)||10;
     let startindex=(page-1)*limit;
     let endindex=page*limit-startindex;
-    let sqlque = `select * from questions where question_status = '1'`
+    let sqlque = `select*from questions where question_status = '1'`
+    
     let name1 = req.query.nameque;
-    console.log(name1,"::::name search")
-    console.log(name1, "search name in js ")
+   
     let [queryque] = await db.execute(sqlque)
     
     let sqlquet = `select count(*) as total from questions where question_text like '%${name1}%' and question_status = '1'`;
     let [resultque] = await db.query(sqlquet);
-    let pagesq = `select * from questions where question_status = '1' AND question_status = '1' limit ${startindex},${endindex}`;
+    let pagesq = `select * from questions where question_status = '1' AND question_status = '1' limit ${startindex},${endindex}`;   
+    let sqlque1 = `select a.question_text,a.question_id,a.answer,a.category_id,b.category_name from questions as a join category as b on a.category_id = b.category_id where a.question_text like '%${name1}%' AND a.question_status = '1' limit ${startindex},${endindex} ; `
+
     let [pagesques] = await db.query(pagesq);
-    let sqlque1 = `select * from questions where question_text like '%${name1}%' AND question_status = '1' limit ${startindex},${endindex}; `
     let [sqlque2] = await db.execute(sqlque1)
 
     res.json({ datas : queryque, search: sqlque2, page: page, totalque: resultque[0].totalque, limit: limit, pages : pagesques});
@@ -182,4 +200,4 @@ const retrivequestionpost = async(req,res)=>{
 }
 
 module.exports = {question,addquestion,addquestionpost,viewdetail,editquestionget,editquestionpost,deletquestion,
-searchget,retrivequestions,retrivequestionpost,storage,upload} 
+searchget,retrivequestions,retrivequestionpost,storage,upload,questionpage} 
