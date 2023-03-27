@@ -362,13 +362,7 @@ const examsearch = async (req, res) => {
   }
 }
 
-const checkexam = async (req,res) => {
-    try{
-        console.log(req.query);
-    }catch(err){
-      res.send(err);
-    }
-}
+
 
 const examlistpage = async (req, res) => {
   try {

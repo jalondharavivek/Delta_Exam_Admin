@@ -284,8 +284,7 @@ function validateform() {
     let time = document.getElementById('time').value;
     let symbol = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '<', '>', '?', '/', ',', '.', '"', ':', ';', '+', '-', '`', '~', '=', '[', ']', '{', '}','1','2','3','4','5','6','7','8','9','0'];
     
-    console.log(typeof(question))
-    console.log(typeof(time))
+    
     if (exam_name == '' || question == '' || start_date == '' || time == '') {
         alert(`field can't be empty`);
         return false;
@@ -329,7 +328,7 @@ function examSearch(curpage) {
     let exam_search = document.getElementById('exam_search');
 
     fetch(`/exam/search?exam_name=${search}&&num=${curpage}`).then(res => res.json()).then(data => {
-        console.log(data)
+       
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>
@@ -411,7 +410,7 @@ function examSearch(curpage) {
            count = Math.ceil(data.data5.length/data.limit);  
            
         }
-        console.log(count)
+       
 
         tbody.innerHTML = str;
         togglecolorchnage();
@@ -585,7 +584,7 @@ async function page(num,count) {
 
     }
     
-    for (let i = 1; i <= data.data1.length; i++) {
+    for (let i = 1; i <= data.count; i++) {
         
         if (i == num) {
             pageid.innerHTML += `<p onclick="page(${i},${count})" class="p">
