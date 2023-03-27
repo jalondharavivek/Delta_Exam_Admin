@@ -330,7 +330,7 @@ const examsearch = async (req, res) => {
       let page = req.query.num || 1;
 
       // string to int 
-      let curpage = parseInt(req.query.num);
+      let curpage = parseInt(req.query.num) || 1;
 
       // declare limit and offset 
 

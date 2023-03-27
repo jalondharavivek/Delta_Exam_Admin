@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname, '/public')))
 
 
 const admin_login = (req, res) => {
+  req.session.destroy();
     res.render("login.ejs")
   }; 
   
@@ -46,13 +47,13 @@ const login = async(req, res) => {
         res.send("email is not match");
     } else {
         var comparePassword = userData[0].password;
-        // console.log(comparePassword);
         var compare = await bcrypt.compare(password, comparePassword);
         var resultRandom = Math.random().toString(36).substring(2, 7);
         if (!compare) {
             res.send("Password is not match")
         }else {  
-            req.session.user =email;
+            req.session.email =email;
+            console.log(req.session.email)
             res.redirect('dashboard');
         }
     }
@@ -78,7 +79,7 @@ const logout=async(req,res)=>{
 }
 const fetch_api = async(req,res) => {
     var email = req.body.email;
-  console.log("Send email in post method", email)
+  //console.log("Send email in post method", email)
   let testAccount = nodemailer.createTestAccount();
   var otp = generateOTP();
   console.log("otp", otp);
@@ -143,20 +144,19 @@ const fetch_api = async(req,res) => {
 // req.session.email=email;
   res.json({otp});
 }
-
-
 const updatePassword = async (req, res) => {
-  req.session.destroy();
     res.redirect("/");
 }
 
 const post_updatePassword = async (req, res) => {
-var email = req.session.email;
+  var email = req.session.email;
+
   var password = req.body.password;
   var set = await bcrypt.genSalt(10);
   var resetPassword = await bcrypt.hash(password, set);
-  var updateQuery = `update user_login set password = '${resetPassword}' where email = '${email}'`;
-  console.log("update query", updateQuery)
+ 
+  var updateQuery = `update user_login set password = '${resetPassword}' where email = '${req.session.email}'`;
+ 
   var updateResult = await db.query(updateQuery)
   res.redirect("/");
 }

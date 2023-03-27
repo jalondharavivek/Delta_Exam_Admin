@@ -322,14 +322,14 @@ function validateform() {
 
 }
 //exam search code
-function examSearch() {
+function examSearch(curpage) {
     let tbody = document.getElementById('tbody');
 
     let search = document.getElementById('search').value;
     let exam_search = document.getElementById('exam_search');
 
-    fetch(`/exam/search?exam_name=${search}`).then(res => res.json()).then(data => {
-        
+    fetch(`/exam/search?exam_name=${search}&&num=${curpage}`).then(res => res.json()).then(data => {
+        console.log(data)
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>
@@ -413,35 +413,33 @@ function examSearch() {
         let newstr = '';
         pageid.innerHTML = "";
 
-        if (num == 1) {
+        if (data.curpage == 1) {
 
-            pageid.innerHTML += `<p onclick="page(1)" class="p">prev</p>`;
+            pageid.innerHTML += `<p onclick="examSearch(1)" class="p">prev</p>`;
 
         } else {
 
-            pageid.innerHTML += `<p onclick="page(${num}-1)" class="p">prev</p>`;
+            pageid.innerHTML += `<p onclick="examSearch(${data.curpage}-1)" class="p">prev</p>`;
 
         }
 
         for (let i = 1; i <= data.count; i++) {
-            if (i == num) {
-                pageid.innerHTML += `<p onclick="page(${i})" class="p">
+            if (i == data.curpage) {
+                pageid.innerHTML += `<p onclick="examSearch(${i})" class="p">
             <b>${i}</b>
         </p>`;
             } else {
-                pageid.innerHTML += `<p onclick="page(${i})" class="p">
+                pageid.innerHTML += `<p onclick="examSearch(${i})" class="p">
             ${i}
         </p>`;
             }
 
         }
-
-        if (num == 7) {
-
-            pageid.innerHTML += `<p onclick="page(7)" class="p">next</p>`;
+        if (data.curpage == data.count) {
+            pageid.innerHTML += `<p onclick="examSearch(${data.count})" class="p">next</p>`;
 
         } else {
-            pageid.innerHTML += `<p onclick="page(${num} + 1)" class="p">next</p>`;
+            pageid.innerHTML += `<p onclick="examSearch(${data.curpage} + 1)" class="p">next</p>`;
         }
 
         let pclass = document.querySelectorAll('.p');
