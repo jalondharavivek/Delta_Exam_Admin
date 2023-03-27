@@ -15,28 +15,21 @@ app.use(express.static(path.join(__dirname, '/public/')))
 
 
 const resultget = async(req,res) =>{
-let sql = `select ee.exam_id , ee.exam_name ,ee.total_questions ,ee.exam_time ,ee.exam_status from exam_system.exam ee inner join
-exam_system.user_answers uans on ee.exam_id = uans.exam_id;`
+let sql = `select category_name from exam_category a,category b where a.category_id=b.category_id and exam_id=3`
 let [query] = await db.query(sql);
 res.render('result',{data : query});
 }
 const page=async(req,res)=>{
     var i2=req.body.i2;
     var i1=i2-10;
-    console.log(i1);
-    console.log(i2);
     var text=req.body.text;
-
-    var sql=`select * from user_answers a, exam b where a.exam_id=b.exam_id and  exam_name like      '%${text}%'  limit ${i1},${i2};`
-
+    var sql=`select * from user_answers a, exam b where a.exam_id=b.exam_id and  exam_name like '%${text}%'  limit ${i1},${i2};`
     let [query] = await db.query(sql);
-    console.log("mysql",query);
     res.json({query});
 }
 
 const viewresultget = async(req,res) =>{
-let sql = `SELECT category_name FROM exam_system.exam a, exam_system.user_answers b
-where a.exam_id=b.exam_id `;
+let sql = `select * from user_answers a, questions b where a.question_id=b.question_id and b.category_id=1`;
 let [query] = await db.query(sql);
 res.render('viewresult',{data : query});
 }

@@ -42,13 +42,14 @@
 
                       </tbody>
                     </table>
+                    
                     <% if(data %2==0){%>
-                        <%for(let i=1;i<data.length/10;i++){ %>
-                            <span onclick="pagination('<%= i %>')"><%=i%></span>
+                        <%for(let i=1;i<=2;i++){ %>
+                            <span onclick="pagination('<%= i %>')" id="<%= i %>"><%=i%></span>
                         <%}%>
                     <%}else{%>
-                        <%for(let i=1;i<data.length/10+1;i++){ %>
-                            <span onclick="pagination('<%= i %>')"><%=i%></span>
+                        <%for(let i=1;i<=2;i++){ %>
+                            <span onclick="pagination('<%= i %>')" id="<%= i %>"><%=i%></span>
                         <%}%>
                     <%}%>
                     
