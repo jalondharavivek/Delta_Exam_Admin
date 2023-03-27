@@ -5,6 +5,8 @@ require('../connection/module')
 const resultget = async(req,res) =>{
     let sql = `select ee.exam_id , ee.exam_name ,ee.total_questions ,ee.exam_time ,ee.exam_status  from  exam ee inner join 
     user_answers uans on ee.exam_id = uans.exam_id;`
+
+    console.log(sql);
      let [query] = await db.query(sql);
      console.log(query);
      res.render('result',{data : query});

@@ -58,7 +58,7 @@ const post_edit = async function (req, res) {
 
     if (typeof (category) == "string") {
         sql3 = `select category_name from category where category_id='${category}'`;
-        console.log(sql3)
+        
         let [data3] = await db.execute(sql3);
 
         let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${data3[0].category_name}' where exam_id=${exam_id};`;
@@ -143,6 +143,7 @@ const post_edit = async function (req, res) {
       }
   
     }
+  
 
     
     res.redirect("/examlist");
@@ -347,6 +348,7 @@ const examsearch = async (req, res) => {
       let exam_name = req.query.exam_name;
 
       let sql4 = `select * from exam where exam_name like '%${exam_name}%' limit ${offset},${limit};`;
+      
 
 
       let [data1] = await db.execute(sql4);
@@ -357,6 +359,14 @@ const examsearch = async (req, res) => {
   } catch (err) {
     res.send(err)
   }
+}
+
+const checkexam = async (req,res) => {
+    try{
+        console.log(req.query);
+    }catch(err){
+      res.send(err);
+    }
 }
 
 const examlistpage = async (req, res) => {
