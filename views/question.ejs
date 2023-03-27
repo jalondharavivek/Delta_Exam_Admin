@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>online exam system</title>
+    <title>Question</title>
     <link rel="stylesheet" href="/css/dashboard.css">
 
     <link rel="stylesheet" type="text/css" href="/css/question.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
@@ -34,13 +35,14 @@
 
                     <div class="content-main">
                         <div class="content-heading">Question Table </div>
-
+                         
                         <div class="button-card">
+                            <div class="retrive-que"><a class="button"  onclick="retriveque()">Retrive que</a></div> 
                             <div class="searchbar-que">
                                 <input class="searchbar-que" placeholder="search" type="text"
                                     onkeyup="searchque(this.value)" name="search" id="search">
                             </div>
-
+                           
                             <div class="exam-button-row">
                                 <a class="button" href="/addquestion">add que</a>
                             </div>
@@ -78,12 +80,13 @@
                                                     </td>
                                                     <td>
                                                         <a href="viewdetail?question_id=<%= data[i].question_id %>"
-                                                            class="button-view"> view </a>
+                                                          ><i style="color: rgb(20, 20, 20);" class="fa fa-eye" aria-hidden="true"></i>
+                                                        </a>
                                                     </td>
                                                     <td class="button-width">
                                                         <a href="editquestion?question_id=<%= data[i].question_id %>"
-                                                            class="edit-btn">Edit</a>
-                                                        <a href="/deletequestion" class="delete-btn">Delete</a>
+                                                           ><i class="fas fa-edit"></i></a>
+                                                        <a id="deletquesid" onclick="deletquestion(`<%= data[i].question_id %>`)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                     </td>
                                                 </tr>
                                                 <% } %>
@@ -94,8 +97,32 @@
 
 
                         </div>
-
-
+                       
+                        <div class="page">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination"> 
+                                    <li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>
+                                <% if(parseInt(page) <=5) { %>
+                                    <% for(let i=1;i<=parseInt(page);i++) { %>
+                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                <% } } else { %>
+                                    <% for(let i=(parseInt(page)-5);i<=parseInt(page);i++){ %>
+                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                    <% } %>
+                                <% } %>
+                                <% if(Math.ceil((totalque)/(limit))-5 >= (page)) { %>
+                                    <% for(let i=parseInt(page)+1;i<=parseInt(page)+5;i++){ %>
+                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                    <% } %>
+                                <% } else { %>
+                                    <% for(let i=parseInt(page)+1;i<=Math.ceil(parseInt(totalque)/parseInt(limit));i++) { %>
+                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                    <% } %>
+                                <% } %>
+                                <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= Math.ceil(totalque/limit) %>">Last</a></li>
+                                </ul>
+                            </nav>
+                        </div>
 
 
                     </div>

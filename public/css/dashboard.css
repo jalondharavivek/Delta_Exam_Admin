@@ -45,6 +45,7 @@ padding: 0 30px;
 background-color: var(--background-color1);
 position: fixed;
 /* z-index: 10; */
+/* z-index: 10; */
 box-shadow: 1px 1px 15px rgba(161, 182, 253, 0.825);
 display: flex;
 justify-content: space-between;
@@ -115,8 +116,9 @@ padding: 10px;
 
 background-color: rgb(126 214 122);
 border-radius: 5px;
-font-weight: bold;
+/* font-weight: bold; */
 margin: 5px;
+color: white;
 
 }
 .dp a:hover {
@@ -234,17 +236,17 @@ a{
     color: black;
 }
 .box {
-/* height: 230px; */
 
-width: 25%;
-border-radius: 20px;
-box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-padding: 100px;
-display: flex;
-align-items: center;
-justify-content: space-around;
-cursor: pointer;
-transition: transform 0.3s ease-in-out;
+    height: 240px;
+    width: 25%;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    padding: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 .box:hover {
 transform: scale(1.08);
@@ -561,4 +563,11 @@ border-radius: 4px;
     
     .hidden {
         display: none;
+    }
+
+    .active
+    {
+        pointer-events: none;
+        cursor: default;
+        background-color:#ccf3c0af;
     }

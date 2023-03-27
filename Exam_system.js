@@ -7,7 +7,6 @@ var cookie = require('cookie-parser');
 var utils = require('util');
 const { decode } = require('punycode');
 let bodyParser = require('body-parser')
-const mysql = require("mysql2/promise");
 const flash = require('connect-flash');
 var nodemailer = require('nodemailer');
 const path = require('path')
@@ -38,28 +37,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+const router = require('./routes/route')
+app.use("/",router)
 
 
-const category = require('./routes/manoj_index')
-app.use("/", category)
-
-const vivek_indexfile = require('./routes/vivek_index')
-app.use("/", vivek_indexfile)
-
-const darshilindex = require('./routes/darshil_index')
-app.use("/", darshilindex)
 
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')))
 
-const milan_indexfile = require('./routes/milan_index')
-app.use('/',milan_indexfile)
 
-const user = require('./routes/user_kartik_index');
-app.use("/", user)
+app.listen(PORT, () => console.log(`port connected to ${PORT}!`));
 
-const sejal_indexfile = require('./routes/sejal_index')
-app.use('/',sejal_indexfile);
-
-
-app.listen(PORT, () => console.log(`port connected to ${PORT}!`))
