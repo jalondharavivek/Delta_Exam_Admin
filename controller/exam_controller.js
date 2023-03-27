@@ -1,5 +1,8 @@
 var db = require('../connection/mysql');
 require('../connection/module');
+// Importing moment module
+const moment = require('moment');
+
 
 
 
@@ -295,22 +298,71 @@ const post_exam = async (req, res) => {
 
 }
 
+//enable disable toggle code
 const examstatus = async (req, res) => {
   try {
     let status = req.query.status;
     let id = req.query.id;
+    let date = req.query.date
+    let current_date = moment().format('DD/MM/YYYY'); 
+    let datearr = date.split('/');
+    let current_datearr = current_date.split('/');
+    console.log(date)
+    console.log(current_date)
+    console.log(datearr)
+    console.log(current_datearr)
+    
+    if(parseInt(datearr[2]) <= parseInt(current_datearr[2]) ){
+       if(parseInt(datearr[1]) <= parseInt(current_datearr[1]) ){
+          if(parseInt(datearr[0]) < parseInt(current_datearr[0])){
 
-    if (status == '1') {
+            console.log("date is matched")
+              sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+           
 
-      sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
-      let [data1] = await db.execute(sql1);
-      res.send(data1)
+          }else{
+            if (status == '1') {
+
+              sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+            }
+            else {
+              sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+            }
+          }
+       }else{
+        if (status == '1') {
+
+          sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+          let [data1] = await db.execute(sql1);
+          res.send(data1)
+        }
+        else {
+          sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+          let [data1] = await db.execute(sql1);
+          res.send(data1)
+        }
+       }
+    }else{
+      if (status == '1') {
+
+        sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+        let [data1] = await db.execute(sql1);
+        res.send(data1)
+      }
+      else {
+        sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+        let [data1] = await db.execute(sql1);
+        res.send(data1)
+      }
     }
-    else {
-      sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
-      let [data1] = await db.execute(sql1);
-      res.send(data1)
-    }
+
+   
   } catch (err) {
     res.send(err)
   }
@@ -362,13 +414,7 @@ const examsearch = async (req, res) => {
   }
 }
 
-const checkexam = async (req,res) => {
-    try{
-        console.log(req.query);
-    }catch(err){
-      res.send(err);
-    }
-}
+
 
 const examlistpage = async (req, res) => {
   try {

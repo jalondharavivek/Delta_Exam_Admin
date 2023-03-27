@@ -86,7 +86,7 @@
                                             <td>
                                                 <div id="toggle<%=data1[i].exam_id%>" style="cursor: pointer;">
                                                     <p class="btn" id="<%=data1[i].exam_id%>"
-                                                        onclick="toggle(`<%=data1[i].exam_status%>`,`<%=data1[i].exam_id%>`)"><%=data1[i].exam_status%></p>
+                                                        onclick="toggle(`<%=data1[i].exam_status%>`,`<%=data1[i].exam_id%>`,`<%=(new Date(data1[i].exam_date).toLocaleDateString())%>`)"><%=data1[i].exam_status%></p>
                                                 </div>
                                             </td>
                                             <td>
