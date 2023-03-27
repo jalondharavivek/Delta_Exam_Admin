@@ -116,7 +116,7 @@ async function page(pages, name = '') {
 
     </td>
     <td>
-        <a id="editbutton" href="/edit/:id=${c.student_id}">edit
+        <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">edit
         </a>
     </td>
 </tr>
@@ -226,7 +226,7 @@ async function search(name) {
         
             </td>
             <td>
-                <a id="editbutton" href="/edit/:id=${c.student_id}">edit
+                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">edit
                 </a>
             </td>
         </tr>`

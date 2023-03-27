@@ -1,5 +1,23 @@
+// const express = require('express')
+// const path = require('path')
+// const app = express();
 var db = require('../connection/mysql');
 require('../connection/module')
+
+// const bodyParser = require("body-parser");
+// const { Console, log } = require('console');
+// const { get } = require('http');
+// var bcrypt = require('bcryptjs');
+// var nodemailer = require('nodemailer');
+// const flash = require('connect-flash');
+// const sessions = require('express-session');
+// app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.json())
+// app.set("view engine", "ejs");
+
+// app.use(express.static('public'));
+// app.use(express.static(path.join(__dirname, '/public')))
+
 
 const user = async (req, res) => {
 
@@ -8,7 +26,7 @@ const user = async (req, res) => {
     from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
 
     let page = req.query.page || 1;
-    let limit = req.query.limit || 5;
+    let limit = req.query.limit || 10;
     if (req.query.page > 1)
       sql += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
     else
@@ -39,7 +57,7 @@ const userpage = async (req, res) => {
 
     let page = parseInt(req.body.page) || 1;
     // let limit=parseInt(req.body.limit)||3;
-    let limit = 5;
+    let limit = 10;
     let startindex = (page - 1) * limit;
     let endindex = page * limit - startindex;
 
@@ -79,7 +97,7 @@ const student_status = async (req, res) => {
     from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
 
     let page = req.query.page || 1;
-    let limit = req.query.limit || 5;
+    let limit = req.query.limit || 10;
     if (req.query.page > 1)
       sql += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
     else
@@ -259,7 +277,7 @@ const search = async (req, res) => {
 
     let page = parseInt(req.query.page) || 1;
     // let limit=parseInt(req.query.limit)||3;
-    let limit = 5;
+    let limit = 10;
     let startindex = (page - 1) * limit;
     let endindex = page * limit - startindex;
     let name = req.query.name;

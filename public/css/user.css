@@ -16,14 +16,17 @@
 td 
 {
     border: 1px solid #777;
-    padding: 0.5rem;
+    padding: 0.4rem;
     text-align: center;
 
 }
+
 table 
 {
     width : 100%;
     border-collapse: collapse;
+    margin-right: 1100px;
+    box-sizing: border-box;
 }
 tbody tr:nth-child(odd) 
 {
@@ -55,15 +58,13 @@ ul
     gap : 10px;
 }
 
-.main {
-    height: calc(100vh - 70px);
-    width: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding: 40px 30px 30px 30px;
-    /* border: 1px solid red; */
-}
 
+table {
+    width: 100%;
+  }
+.form{width: 100%;
+
+}
 #overlay 
 {
     position: fixed;
