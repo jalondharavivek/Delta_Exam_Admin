@@ -18,17 +18,17 @@ route.post('/addcategory',auth,category.addcategory);
 route.get('/search',auth,category.search);
 
 
-route.get('/selected/category',exam.selectedcategory);
-route.get('/edit',exam.edit);
-route.post('/edit',exam.post_edit);
-route.get('/edit/option',exam.editoption);
-route.get('/categories',exam.categories);
-route.get('/exam/search',exam.examsearch);
-route.get('/examlist/page',exam.examlistpage);
-route.get('/examlist',exam.examlist);
-route.get('/exam',exam.exam);
-route.post('/exam',exam.post_exam);
-route.get('/exam/status',exam.examstatus);
+route.get('/selected/category',auth,exam.selectedcategory);
+route.get('/edit',auth,exam.edit);
+route.post('/edit',auth,exam.post_edit);
+route.get('/edit/option',auth,exam.editoption);
+route.get('/categories',auth,exam.categories);
+route.get('/exam/search',auth,exam.examsearch);
+route.get('/examlist/page',auth,exam.examlistpage);
+route.get('/examlist',auth,exam.examlist);
+route.get('/exam',auth,exam.exam);
+route.post('/exam',auth,exam.post_exam);
+route.get('/exam/status',auth,exam.examstatus);
 
 route.get('/',login.admin_login);
 route.post('/login',login.login);
