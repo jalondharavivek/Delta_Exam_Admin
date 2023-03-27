@@ -1,23 +1,5 @@
-// const express = require('express')
-// const path = require('path')
-// const app = express();
 var db = require('../connection/mysql');
 require('../connection/module')
-
-// const bodyParser = require("body-parser");
-// const { Console, log } = require('console');
-// const { get } = require('http');
-// var bcrypt = require('bcryptjs');
-// var nodemailer = require('nodemailer');
-// const flash = require('connect-flash');
-// const sessions = require('express-session');
-// app.use(bodyParser.urlencoded({ extended: false }))
-// app.use(bodyParser.json())
-// app.set("view engine", "ejs");
-
-// app.use(express.static('public'));
-// app.use(express.static(path.join(__dirname, '/public')))
-
 
 const user = async (req, res) => {
 
