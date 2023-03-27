@@ -51,6 +51,7 @@ route.post('/deletquestion',auth,question.deletquestion)
 route.get('/searchque',auth,question.searchget)
 
 route.get('/result',auth,result.resultget)
+route.post('/page',auth,result.page);
 route.get('/viewresult',auth,result.viewresultget);
 route.get('/viewquestionresult',auth,result.viewquestionget);
 

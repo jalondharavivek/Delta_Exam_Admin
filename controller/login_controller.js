@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname, '/public')))
 
 
 const admin_login = (req, res) => {
+  req.session.destroy();
     res.render("login.ejs")
   }; 
   
@@ -46,7 +47,6 @@ const login = async(req, res) => {
         res.send("email is not match");
     } else {
         var comparePassword = userData[0].password;
-        // console.log(comparePassword);
         var compare = await bcrypt.compare(password, comparePassword);
         var resultRandom = Math.random().toString(36).substring(2, 7);
         if (!compare) {
@@ -79,7 +79,7 @@ const logout=async(req,res)=>{
 }
 const fetch_api = async(req,res) => {
     var email = req.body.email;
-  console.log("Send email in post method", email)
+  //console.log("Send email in post method", email)
   let testAccount = nodemailer.createTestAccount();
   var otp = generateOTP();
   console.log("otp", otp);
@@ -144,10 +144,7 @@ const fetch_api = async(req,res) => {
 // req.session.email=email;
   res.json({otp});
 }
-
-
 const updatePassword = async (req, res) => {
-  req.session.destroy();
     res.redirect("/");
 }
 
