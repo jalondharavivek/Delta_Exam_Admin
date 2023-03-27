@@ -163,7 +163,8 @@ async function search(name)
 
             pages = `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')">First</a></li>`;
                 for(let i=data.page;i<=Math.ceil(data.total/data.limit);i++){
-                    pages += `<li class="page-item"><a class="page-link" id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
+                    pages += `<li class="page-item"><a class="page-link" id='${i}' onclick="search('${name}')
+                    " onclick="page(this,'${name}')">${i}</a></li>`
                 }
             pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.total/data.limit)}">Last</a></li>`;
 

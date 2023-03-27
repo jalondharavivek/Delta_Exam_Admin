@@ -2,6 +2,9 @@ const express = require('express');
 const auth = require('../middleware/middleware');
 const route = express.Router();
 
+
+
+
 const result = require('../controller/result_controller');
 const exam = require('../controller/exam_controller');
 const category = require('../controller/category_controller');
@@ -18,17 +21,17 @@ route.post('/addcategory',auth,category.addcategory);
 route.get('/search',auth,category.search);
 
 
-route.get('/selected/category',exam.selectedcategory);
-route.get('/edit',exam.edit);
-route.post('/edit',exam.post_edit);
-route.get('/edit/option',exam.editoption);
-route.get('/categories',exam.categories);
-route.get('/exam/search',exam.examsearch);
-route.get('/examlist/page',exam.examlistpage);
-route.get('/examlist',exam.examlist);
-route.get('/exam',exam.exam);
-route.post('/exam',exam.post_exam);
-route.get('/exam/status',exam.examstatus);
+route.get('/selected/category',auth,exam.selectedcategory);
+route.get('/edit',auth,exam.edit);
+route.post('/edit',auth,exam.post_edit);
+route.get('/edit/option',auth,exam.editoption);
+route.get('/categories',auth,exam.categories);
+route.get('/exam/search',auth,exam.examsearch);
+route.get('/examlist/page',auth,exam.examlistpage);
+route.get('/examlist',auth,exam.examlist);
+route.get('/exam',auth,exam.exam);
+route.post('/exam',auth,exam.post_exam);
+route.get('/exam/status',auth,exam.examstatus);
 
 route.get('/',login.admin_login);
 route.post('/login',login.login);
@@ -43,12 +46,14 @@ route.get('/logout',login.logout);
 
 route.get('/question',auth,question.question)
 route.get('/addquestion',auth,question.addquestion)
-route.post('/addquestion',auth,question.addquestionpost)
+route.post('/addquestion',question.upload.single('image'),question.addquestionpost)
 route.get('/viewdetail',auth,question.viewdetail)
 route.get('/editquestion',auth,question.editquestionget)
 route.post('/editquestion',auth,question.editquestionpost)
 route.post('/deletquestion',auth,question.deletquestion)
 route.get('/searchque',auth,question.searchget)
+route.get('/retriveque',auth,question.retrivequestions)
+route.post('/retrivequestion',auth,question.retrivequestionpost)
 
 route.get('/result',auth,result.resultget)
 route.post('/page',auth,result.page);

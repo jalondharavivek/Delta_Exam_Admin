@@ -1,5 +1,17 @@
 var db = require('../connection/mysql');
 require('../connection/module')
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  });
+
+
+const upload = multer({ storage });
 
 const question = async(req,res)=>{
     let que = `select * from questions where question_status = '1'`
@@ -11,7 +23,7 @@ const question = async(req,res)=>{
     else
      que += ` LIMIT ${limit} `;
   let [questiontab] = await db.execute(que);
-  let sql1que = "select count(*) as total from questions where question_status = 1";
+  let sql1que = `select count(*) as total from questions  `;
   let [resultque] = await db.query(sql1que);
   res.render("question", { data: questiontab,page : page, totalque: resultque[0].totalque, limit: limit })
 }
@@ -36,8 +48,11 @@ const addquestionpost = async(req,res)=>{
     var option_c = req.body.option_c;
     var option_d = req.body.option_d;
     var answer = req.body.answer;
+    var description = req.body.description
+    const image = req.file.filename;
+
   
-    var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id,question_status) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}','1')`;
+    var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id,question_status,description,question_image) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}','1','${description}','${image}')`;
     
   
     let execute = await db.execute(addquestionquery);
@@ -90,8 +105,9 @@ const editquestionpost = async(req,res)=>{
     var option_c = req.body.option_c;
     var option_d = req.body.option_d;
     var answer = req.body.answer;
+    var description = req.body.description
   
-    let updateque = `update questions set question_text = '${question_text}' , option_a = '${option_a}' , option_b = '${option_b}' , option_c = '${option_c}', option_d = '${option_d}' , answer = '${answer}' , category_id = '${category_id}' where question_id = ${question_id} `
+    let updateque = `update questions set question_text = '${question_text}' , option_a = '${option_a}' , option_b = '${option_b}' , option_c = '${option_c}', option_d = '${option_d}' , answer = '${answer}' , category_id = '${category_id}', description  = '${description }' where question_id = ${question_id} `
     let [editquepost] = await db.query(updateque);
     if (editquepost.length) {
      
@@ -125,7 +141,8 @@ const searchget = async(req,res)=>{
     let endindex=page*limit-startindex;
     let sqlque = `select * from questions where question_status = '1'`
     let name1 = req.query.nameque;
-  
+    console.log(name1,"::::name search")
+    console.log(name1, "search name in js ")
     let [queryque] = await db.execute(sqlque)
     
     let sqlquet = `select count(*) as total from questions where question_text like '%${name1}%' and question_status = '1'`;
@@ -139,5 +156,30 @@ const searchget = async(req,res)=>{
 }
 
 
+
+
+///retrive question (deleted questiob)
+
+
+const retrivequestions = async(req,res)=>{
+    let sqlretrivequery = `select * from questions where question_status =  '0' `
+    let [sqlretriveexecute] = await db.query(sqlretrivequery)
+
+    res.json({data :sqlretriveexecute })
+}
+
+
+//rertrivequestion post question
+const retrivequestionpost = async(req,res)=>{
+    try{
+    id = req.query.requeid;
+    let sqlretpost = `update questions set question_status = '1' where question_id = ${id}`
+   let [retquext] = db.execute(sqlretpost)
+    res.redirect("/question")
+    }catch(err){
+        err
+    }
+}
+
 module.exports = {question,addquestion,addquestionpost,viewdetail,editquestionget,editquestionpost,deletquestion,
-searchget}; 
+searchget,retrivequestions,retrivequestionpost,storage,upload} 

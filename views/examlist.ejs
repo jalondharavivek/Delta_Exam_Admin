@@ -28,7 +28,7 @@
 
                             </div>
                             <div class="heading2">
-                                <input type="text" name="search" id="search" placeholder="serch" oninput="examSearch()"
+                                <input type="text" name="search" id="search" placeholder="serch" oninput="examSearch(`1`)"
                                     oninput="togglecolorchnage()">
                                 
                                 <p onclick="addexam()" style="cursor: pointer;"><i class="fa-solid fa-circle-plus" id="i"></i></p>
@@ -84,13 +84,13 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div id="toggle<%=data1[i].exam_id%>">
+                                                <div id="toggle<%=data1[i].exam_id%>" style="cursor: pointer;">
                                                     <p class="btn" id="<%=data1[i].exam_id%>"
                                                         onclick="toggle(`<%=data1[i].exam_status%>`,`<%=data1[i].exam_id%>`)"><%=data1[i].exam_status%></p>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="edit">
+                                                <div class="edit" style="cursor: pointer;">
                                                     <!-- <a href="/edit?exam_id=<%=data1[i].exam_id%>">edit</a> -->
                                                     <p onclick="examedit(`<%=data1[i].exam_id%>`)"
                                                         style="cursor: pointer;">edit</p>

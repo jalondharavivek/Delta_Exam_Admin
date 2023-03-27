@@ -3,7 +3,7 @@ require('../connection/module');
 
 
 
-let limit = 10;
+let limit = 2;
 const selectedcategory = async function (req, res) {
   try {
     let arr = [];
@@ -58,7 +58,7 @@ const post_edit = async function (req, res) {
 
     if (typeof (category) == "string") {
         sql3 = `select category_name from category where category_id='${category}'`;
-        console.log(sql3)
+        
         let [data3] = await db.execute(sql3);
 
         let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${data3[0].category_name}' where exam_id=${exam_id};`;
@@ -143,6 +143,7 @@ const post_edit = async function (req, res) {
       }
   
     }
+  
 
     
     res.redirect("/examlist");
@@ -323,13 +324,13 @@ const examsearch = async (req, res) => {
     } else {
 
       var data = [];
-      let count;
+      let count1;
 
       // let id = req.query.id;
       let page = req.query.num || 1;
 
       // string to int 
-      let curpage = parseInt(req.query.num);
+      let curpage = parseInt(req.query.num) || 1;
 
       // declare limit and offset 
 
@@ -339,24 +340,34 @@ const examsearch = async (req, res) => {
       if (isNaN(offset)) {
         offset = 0;
       }
-      sql2 = `select count(*) as numrows from exam ;`;
+      sql2 = `select count(*) as numrows from exam;`;
       let [data2] = await db.execute(sql2);
 
-      count = Math.ceil(data2[0].numrows / limit);
+      count1 = Math.ceil(data2[0].numrows / limit);
 
       let exam_name = req.query.exam_name;
 
       let sql4 = `select * from exam where exam_name like '%${exam_name}%' limit ${offset},${limit};`;
-
-
+      
       let [data1] = await db.execute(sql4);
 
-      res.json({ data1, count, curpage });
+      let sql5 = `select * from exam where exam_name like '%${exam_name}%';`
+      let [data5] = await db.execute(sql5);
+
+      res.json({ data1, curpage  ,limit ,count1 , data5});
 
     }
   } catch (err) {
     res.send(err)
   }
+}
+
+const checkexam = async (req,res) => {
+    try{
+        console.log(req.query);
+    }catch(err){
+      res.send(err);
+    }
 }
 
 const examlistpage = async (req, res) => {
