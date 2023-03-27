@@ -52,7 +52,8 @@ const login = async(req, res) => {
         if (!compare) {
             res.send("Password is not match")
         }else {  
-            req.session.user =email;
+            req.session.email =email;
+            console.log(req.session.email)
             res.redirect('dashboard');
         }
     }
@@ -151,11 +152,12 @@ const updatePassword = async (req, res) => {
 }
 
 const post_updatePassword = async (req, res) => {
-var email = req.session.email;
+  var email = req.session.email;
+  console.log(email);
   var password = req.body.password;
   var set = await bcrypt.genSalt(10);
   var resetPassword = await bcrypt.hash(password, set);
-  var updateQuery = `update user_login set password = '${resetPassword}' where email = '${email}'`;
+  var updateQuery = `update user_login set password = '${resetPassword}' where email = '${req.session.email}'`;
   console.log("update query", updateQuery)
   var updateResult = await db.query(updateQuery)
   res.redirect("/");
