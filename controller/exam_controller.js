@@ -3,7 +3,7 @@ require('../connection/module');
 
 
 
-let limit = 10;
+let limit = 2;
 const selectedcategory = async function (req, res) {
   try {
     let arr = [];
