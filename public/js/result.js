@@ -22,7 +22,7 @@ async function pagination(i){
                 document.getElementById('xyz').innerHTML=tabl;
             }
             if(arr.length%2==0){
-                for(var j=1;j<=arr.length/10;j++){
+                for(var j=1;j<=arr.length/10+1;j++){
                     document.getElementById(j).style.color='black';
                 }
             }else{
