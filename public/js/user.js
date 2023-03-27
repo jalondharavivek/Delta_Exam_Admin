@@ -112,7 +112,7 @@ async function page(pages, name = '') {
     ${c.college_name}
     </td>
     <td>
-     ${(new Date().toLocaleDateString())}
+     ${(new Date(c.created_date).toLocaleDateString())}
 
     </td>
     <td>
@@ -222,7 +222,7 @@ async function search(name) {
             ${c.college_name}
             </td>
             <td>
-             ${(new Date().toLocaleDateString())}
+             ${(new Date(c.created_date).toLocaleDateString())}
         
             </td>
             <td>
