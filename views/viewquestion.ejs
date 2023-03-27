@@ -30,7 +30,7 @@
                         <div class="form-container">
 
                             <label class="questionno" for="questiondetail">Question No : <%= data[0].question_id %>
-                                    </label>
+                            </label>
                             <br>
                             <br>
                             <div><label for="question"><strong>Question:</strong>
@@ -40,8 +40,14 @@
                             <p><strong>Category : </strong>
                                 <%= data[0].category_name %>
                             </p>
+                           
 
+                      <% if (data[0].question_image) { %>
+                        <p><strong>image :</strong>
 
+                        </p>
+                            <img src="/uploads/<%= data[0].question_image %>" alt="question image" width="100%" />
+                            <% } %>
                             <p> <strong>Option A :</strong>
                                 <%= data[0].option_a %>
                             </p>
@@ -61,13 +67,15 @@
                             <p style="color: darkgreen;"> <strong>Answer :</strong>
                                 <%= data[0].answer %>
                             </p>
-
-                         <p class="quesans" ><strong>Description :</strong></p>
-                         <div>
-                         <a href="editquestion?question_id=<%= data[0].question_id %>"
-                            class="edit-btn">Edit</a>
-                            <a href="/question" class="edit-btn"> Cancle </a> 
-                        </div>
+                            <% if (data[0].description) { %>
+                            <p class="quesans"><strong>Description :</strong>
+                                <%= data[0].description %>
+                            </p>
+                            <% } %>
+                            <div>
+                                <a href="editquestion?question_id=<%= data[0].question_id %>" class="edit-btn">Edit</a>
+                                <a href="/question" class="edit-btn"> Cancle </a>
+                            </div>
                         </div>
 
                     </div>
@@ -75,4 +83,5 @@
 </body>
 <!-- <script src="/js/addquestion.js"></script> -->
 <script src="/js/dashboard.js"></script>
+
 </html>

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/dashboard.css">
 
     <link rel="stylesheet" type="text/css" href="/css/question.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
@@ -34,13 +35,14 @@
 
                     <div class="content-main">
                         <div class="content-heading">Question Table </div>
-
+                         
                         <div class="button-card">
+                            <div class="retrive-que"><a class="button"  onclick="retriveque()">Retrive que</a></div> 
                             <div class="searchbar-que">
                                 <input class="searchbar-que" placeholder="search" type="text"
                                     onkeyup="searchque(this.value)" name="search" id="search">
                             </div>
-
+                           
                             <div class="exam-button-row">
                                 <a class="button" href="/addquestion">add que</a>
                             </div>
@@ -78,7 +80,8 @@
                                                     </td>
                                                     <td>
                                                         <a href="viewdetail?question_id=<%= data[i].question_id %>"
-                                                            class="button-view"> view </a>
+                                                          ><i style="color: rgb(20, 20, 20);" class="fa fa-eye" aria-hidden="true"></i>
+                                                        </a>
                                                     </td>
                                                     <td class="button-width">
                                                         <a href="editquestion?question_id=<%= data[i].question_id %>"

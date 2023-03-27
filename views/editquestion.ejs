@@ -63,6 +63,8 @@
                                             <select id="correct_option" name="answer" required>
                                                 <option value="<%= data[0].answer %>" selected><%= data[0].answer %></option>
                                             </select>
+                                            <label for="Description">Description</label>
+                                            <input type="text" id="Description" value="<%= data[0].description %>" name="description" required>
                                 </div>
                                 <input type='submit' value='Update' name='submit'>
                                 <a href="/question" class="button"> Cancle </a>
