@@ -112,11 +112,11 @@ async function page(pages, name = '') {
     ${c.college_name}
     </td>
     <td>
-     ${(new Date().toLocaleDateString())}
+     ${(new Date(c.created_date).toLocaleDateString())}
 
     </td>
     <td>
-        <a id="editbutton" href="/edit/:id=${c.student_id}">edit
+        <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">edit
         </a>
     </td>
 </tr>
@@ -222,11 +222,11 @@ async function search(name) {
             ${c.college_name}
             </td>
             <td>
-             ${(new Date().toLocaleDateString())}
+             ${(new Date(c.created_date).toLocaleDateString())}
         
             </td>
             <td>
-                <a id="editbutton" href="/edit/:id=${c.student_id}">edit
+                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">edit
                 </a>
             </td>
         </tr>`
