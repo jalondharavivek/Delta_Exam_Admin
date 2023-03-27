@@ -163,9 +163,7 @@ async function search(name)
 
             pages = `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')">First</a></li>`;
                 for(let i=data.page;i<=Math.ceil(data.total/data.limit);i++){
-                    pages += `<li class="page-item"><a class="page-link `;
-                    if(parseInt(data.page) == i){ pages += `pageactive" `}else { pages += `disabled"`}
-                    pages += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
+                    pages += `<li class="page-item"><a class="page-link" id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
                 }
             pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.total/data.limit)}">Last</a></li>`;
 
@@ -247,19 +245,6 @@ async function page(pages,name = '')
             pagination.innerHTML = pagi;
 
         }
-        if(name != '')
-        {
-            console.log(Math.ceil(data.totalpage/data.limit));
-            pagi = `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')">First</a></li>`;
-                for(let i=data.page;i<=Math.ceil(data.totalpage/data.limit);i++){
-                    pagi += `<li class="page-item"><a class="page-link `;
-                    if(parseInt(data.page) == i){ pagi += `pageactive" `}else { pagi += `disabled"`}
-                    pagi += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
-                }
-            pagi +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.total/data.limit)}">Last</a></li>`;
-            pagination.innerHTML = pagi;
-        }
-
         table.innerHTML = html;
         
         cat_status();
