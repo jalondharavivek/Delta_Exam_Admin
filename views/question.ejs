@@ -85,8 +85,8 @@
                                                     </td>
                                                     <td class="button-width">
                                                         <a href="editquestion?question_id=<%= data[i].question_id %>"
-                                                            class="edit-btn">Edit</a>
-                                                        <a id="deletquesid" onclick="deletquestion(`<%= data[i].question_id %>`)" class="delete-btn">Delete</a>
+                                                           ><i class="fas fa-edit"></i></a>
+                                                        <a id="deletquesid" onclick="deletquestion(`<%= data[i].question_id %>`)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                     </td>
                                                 </tr>
                                                 <% } %>
