@@ -1,25 +1,19 @@
-// const express = require('express')
-// const path = require('path')
-// const app = express();
-// var bodyParser=require('body-parser');
-// app.use(bodyParser.urlencoded({extended:true}));
-// app.use(bodyParser.json());
-
 var db = require('../connection/mysql');
 require('../connection/module')
-// app.set("view engine", "ejs");
-
-// app.use(express.static('public'));
-// app.use(express.static(path.join(__dirname, '/public')))
-
-
-
 
 const question = async(req,res)=>{
-    let que = `select * from questions`
+    let que = `select * from questions where question_status = '1'`
+    let quecat = ``
+    let page = req.query.page || 1;
+    let limit = req.query.limit || 10;
+    if (req.query.page > 1)
+     que += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
+    else
+     que += ` LIMIT ${limit} `;
   let [questiontab] = await db.execute(que);
-  
-  res.render("question", { data: questiontab })
+  let sql1que = "select count(*) as total from questions where question_status = 1";
+  let [resultque] = await db.query(sql1que);
+  res.render("question", { data: questiontab,page : page, totalque: resultque[0].totalque, limit: limit })
 }
 
 
@@ -43,7 +37,7 @@ const addquestionpost = async(req,res)=>{
     var option_d = req.body.option_d;
     var answer = req.body.answer;
   
-    var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}')`;
+    var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id,question_status) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}','1')`;
     
   
     let execute = await db.execute(addquestionquery);
@@ -61,11 +55,13 @@ const addquestionpost = async(req,res)=>{
 
 const viewdetail = async(req,res)=>{
     let viewid = req.query.question_id
-  console.log(viewid, "::::view id ")
-  let viewsql = `select * from questions where question_id = ${viewid}`
-  let [viewques] = await db.query(viewsql);
  
-  res.render("viewquestion", { data : viewques });
+  let viewsql = `select * from questions where question_id = ${viewid}`
+  let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${viewid}' and question_status='1' `)
+  let [viewques] = await db.query(viewsql);
+
+ 
+  res.render("viewquestion", { data : viewques , data1:category});
 }
 
 const editquestionget = async(req,res)=>{
@@ -74,10 +70,12 @@ const editquestionget = async(req,res)=>{
    
     let editquesql = `select * from  questions  where question_id = ${id}`;
     let [editques] = await db.query(editquesql);
-    let [category] = await db.query(`select category_name , category.category_id from category join questions on questions.question_id = category.category_id where category_status = '1'`)
-    
-    res.render("editquestion", { data: editques, data1: category })
-
+    let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${id}' and question_status='1' `)
+    let catque = `select * from category where category_status = 1`
+    let [catfque1] = await db.execute(catque);
+    // console.log(catfque1,":::::::cat")
+    res.render("editquestion", { data: editques , data1: catfque1 , data2:category})
+// console.log(category,":::::222")
 }
 
 const editquestionpost = async(req,res)=>{
@@ -103,27 +101,43 @@ const editquestionpost = async(req,res)=>{
 }
 
 
-const deletquestionget = async(req,res) =>{
+const deletquestion = async(req,res) =>{
+    try{
     let id = req.query.question_id;
-    let deletquesql = `select * from questions where question_id = '${id}' `
-    let [quedlt] = await db.execute(deletquesql)
+   
+    let deletquesql = `update questions set question_status = '0' where question_id = '${id}'; `
+    let [deletquesql1] = await db.query(deletquesql)
+   
+    res.redirect("/question")
+    }catch(err){
+        err
+    }
+   
 }
 
 
 
 
 const searchget = async(req,res)=>{
-    let sqlque = `select * from questions`
+    let page=parseInt(req.query.page)||1;
+    let limit=parseInt(req.query.limit)||10;
+    let startindex=(page-1)*limit;
+    let endindex=page*limit-startindex;
+    let sqlque = `select * from questions where question_status = '1'`
     let name1 = req.query.nameque;
-    console.log(name1,"::::name search")
-    console.log(name1, "search name in js ")
-    let [queryque] = await db.execute(sqlque)
-    let sqlque1 = `select * from questions where question_text like '%${name1}%' `
-    let [sqlque2] = await db.execute(sqlque1)
   
-    res.json({ datas : queryque, search: sqlque2 });
+    let [queryque] = await db.execute(sqlque)
+    
+    let sqlquet = `select count(*) as total from questions where question_text like '%${name1}%' and question_status = '1'`;
+    let [resultque] = await db.query(sqlquet);
+    let pagesq = `select * from questions where question_status = '1' AND question_status = '1' limit ${startindex},${endindex}`;
+    let [pagesques] = await db.query(pagesq);
+    let sqlque1 = `select * from questions where question_text like '%${name1}%' AND question_status = '1' limit ${startindex},${endindex}; `
+    let [sqlque2] = await db.execute(sqlque1)
+
+    res.json({ datas : queryque, search: sqlque2, page: page, totalque: resultque[0].totalque, limit: limit, pages : pagesques});
 }
 
 
-module.exports = {question,addquestion,addquestionpost,viewdetail,editquestionget,editquestionpost,deletquestionget
-,searchget}; 
+module.exports = {question,addquestion,addquestionpost,viewdetail,editquestionget,editquestionpost,deletquestion,
+searchget}; 

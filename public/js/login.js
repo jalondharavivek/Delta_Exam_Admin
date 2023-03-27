@@ -1,33 +1,5 @@
-
-    // async function valid_email(email1) {
-    //     let emailValid = await fetch('/valid1', {
-    //         method: 'post',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             email1
-    //         })
-    //     })
-
-    //     let nameData1 = await emailValid.json();
-
-    //     if (nameData1.status != 404) {
-    //         document.getElementById("email_valid").innerHTML = "This email id not register."
-    //         document.getElementById("email_valid").style.color = "red";
-    //         document.getElementById("submitAll").disabled = true;
-    //         return false;
-    //     } else {
-    //         document.getElementById("email_valid").innerHTML = ""
-    //         document.getElementById("submitAll").disabled = false;
-    //         return true;
-    //     }
-    // }
-    var status;
-
-    // submitAll.addEventListener('click', validatePassword())
+var status;
     async function validatePassword(e) {
-        // e.preventDefault();
         var frm = document.getElementById('frm');
         var useremail = document.getElementById("email").value;
         var userPassword = document.getElementById("password").value;
@@ -82,27 +54,6 @@
         }
 
     }
-
-
-    // function finalValidation() {
-    //     console.log(status)
-    //     if (status == 404) {
-
-    //         document.getElementById("email_valid").innerHTML = "This email id not register."
-    //         document.getElementById("email_valid").style.color = "red";
-    //         document.getElementById("submitAll").style.pointerEvents = "none";
-    //         console.log('wrong email')
-    //         return false;
-    //     } else if (status == 400) {
-
-    //         document.getElementById("password_lable").innerHTML = "Password is incorrect.";
-    //         document.getElementById("password_lable").style.color = "red";
-    //         document.getElementById("submitAll").style.pointerEvents = "none";
-    //         console.log('wrong email psw')
-    //         return false;
-
-    //     } else if (status == 200) {
-
 
     var status;
     async function validatePassword(e) {
@@ -160,3 +111,25 @@
         }
 
     }
+
+    //login css 
+    const inputs = document.querySelectorAll(".input");
+
+
+function addcl(){
+	let parent = this.parentNode.parentNode;
+	parent.classList.add("focus");
+}
+
+function remcl(){
+	let parent = this.parentNode.parentNode;
+	if(this.value == ""){
+		parent.classList.remove("focus");
+	}
+}
+
+
+inputs.forEach(input => {
+	input.addEventListener("focus", addcl);
+	input.addEventListener("blur", remcl);
+});

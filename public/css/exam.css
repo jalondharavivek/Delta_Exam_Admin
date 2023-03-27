@@ -148,13 +148,6 @@ tbody tr:nth-child(odd)
     background: rgba(0,0,0,0.2);
 }
 
-table,
-td,
-th {
-    border: 1px solid rgb(209, 201, 201);
-    padding: 6px;
-}
-
 #status{
     padding: 4px;
     border-radius: 10px;
@@ -258,5 +251,4 @@ display: inline-block;
 }
 #page p{
     cursor: pointer;
-
 }
