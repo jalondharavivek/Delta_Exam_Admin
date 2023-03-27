@@ -163,7 +163,7 @@ ul
 {
     color: rgb(44, 112, 112);
     background-color: beige;
-    padding: 8px;
+    padding: 10px;
     border-radius: 8px;
 }
 
@@ -175,7 +175,7 @@ ul
 .pagination
 {
     display: flex;
-    gap : 10px;
+    gap : 15px;
 }
 
 #overlay 
