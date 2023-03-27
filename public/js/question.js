@@ -40,7 +40,7 @@ async function retriveque(){
 
 let retrivequeresult = await fetch(`/retriveque`)
 let data = await retrivequeresult.json();
-console.log(data.data);
+
 let tabqueret = document.getElementById("quetable")
 let quetabretrive = `  <thead> <tr>
                          <th>Id</th>
@@ -99,7 +99,7 @@ tabqueret.innerHTML = quetabretrive;
 async function retquestion(idretque){
   try{
     let reque = await fetch(`/retrivequestion?requeid=${idretque}`,{method:"POST"})
-    console.log(idretque,"ret id")
+  
     location.reload()
   }catch(err){
     err

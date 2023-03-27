@@ -1,29 +1,17 @@
-// const express = require('express')
-// const path = require('path')
-// const app = express();
-// var bodyParser=require('body-parser');
-// app.use(bodyParser.urlencoded({extended:true}));
-// app.use(bodyParser.json());
-
 var db = require('../connection/mysql');
 require('../connection/module')
-// app.set("view engine", "ejs");
-
-// app.use(express.static('public'));
-// app.use(express.static(path.join(__dirname, '/public')))
-
-
-
-
-
-
-
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  });
 
 
-
-
-
-
+const upload = multer({ storage });
 
 const question = async(req,res)=>{
     let que = `select * from questions where question_status = '1'`
@@ -60,8 +48,11 @@ const addquestionpost = async(req,res)=>{
     var option_c = req.body.option_c;
     var option_d = req.body.option_d;
     var answer = req.body.answer;
+    var description = req.body.description
+    const image = req.file.filename;
+
   
-    var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}')`;
+    var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id,question_status,description,question_image) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}','1','${description}','${image}')`;
     
   
     let execute = await db.execute(addquestionquery);
@@ -79,7 +70,7 @@ const addquestionpost = async(req,res)=>{
 
 const viewdetail = async(req,res)=>{
     let viewid = req.query.question_id
-  console.log(viewid, "::::view id ")
+ 
   let viewsql = `select * from questions where question_id = ${viewid}`
   let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${viewid}' and question_status='1' `)
   let [viewques] = await db.query(viewsql);
@@ -114,8 +105,9 @@ const editquestionpost = async(req,res)=>{
     var option_c = req.body.option_c;
     var option_d = req.body.option_d;
     var answer = req.body.answer;
+    var description = req.body.description
   
-    let updateque = `update questions set question_text = '${question_text}' , option_a = '${option_a}' , option_b = '${option_b}' , option_c = '${option_c}', option_d = '${option_d}' , answer = '${answer}' , category_id = '${category_id}' where question_id = ${question_id} `
+    let updateque = `update questions set question_text = '${question_text}' , option_a = '${option_a}' , option_b = '${option_b}' , option_c = '${option_c}', option_d = '${option_d}' , answer = '${answer}' , category_id = '${category_id}', description  = '${description }' where question_id = ${question_id} `
     let [editquepost] = await db.query(updateque);
     if (editquepost.length) {
      
@@ -190,4 +182,4 @@ const retrivequestionpost = async(req,res)=>{
 }
 
 module.exports = {question,addquestion,addquestionpost,viewdetail,editquestionget,editquestionpost,deletquestion,
-searchget,retrivequestions,retrivequestionpost}; 
+searchget,retrivequestions,retrivequestionpost,storage,upload} 
