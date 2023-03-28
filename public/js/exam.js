@@ -31,13 +31,7 @@
     categortFetch();
     function categortFetch() {
         fetch('/categories').then(res => res.json()).then(data => {
-            // console.log("data", data)
-            // console.log(data.arr.length);
-            // console.log(data.arr2.length);
-
             for (let i = 0; i < data.arr.length; i++) {
-                // console.log(data.arr[i])
-                // console.log(data.arr2[i])
                 category_select.innerHTML += ` <option value="${data.arr2[i]}">${data.arr[i]}</option>`;
 
             }

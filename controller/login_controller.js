@@ -105,7 +105,6 @@ const logout=async(req,res)=>{
 }
 const fetch_api = async(req,res) => {
     var email = req.body.email;
-  console.log("Send email in post method", email)
   let testAccount = nodemailer.createTestAccount();
   var otp = generateOTP();
   console.log("otp", otp);
@@ -164,7 +163,6 @@ var email = req.session.email;
   var set = await bcrypt.genSalt(10);
   var resetPassword = await bcrypt.hash(password, set);
   var updateQuery = `update user_login set password = '${resetPassword}' where email = '${email}'`;
-  console.log("update query", updateQuery)
   var updateResult = await db.query(updateQuery)
   res.redirect("/");
 }
