@@ -3,9 +3,6 @@ require('../connection/module');
 // Importing moment module
 const moment = require('moment');
 
-
-
-
 let limit = 10;
 const selectedcategory = async function (req, res) {
   try {
@@ -307,16 +304,13 @@ const examstatus = async (req, res) => {
     let current_date = moment().format('DD/MM/YYYY'); 
     let datearr = date.split('/');
     let current_datearr = current_date.split('/');
-    console.log(date)
-    console.log(current_date)
-    console.log(datearr)
-    console.log(current_datearr)
+   
     
     if(parseInt(datearr[2]) <= parseInt(current_datearr[2]) ){
        if(parseInt(datearr[1]) <= parseInt(current_datearr[1]) ){
           if(parseInt(datearr[0]) < parseInt(current_datearr[0])){
 
-            console.log("date is matched")
+           
               sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
               let [data1] = await db.execute(sql1);
               res.send(data1)
@@ -413,8 +407,6 @@ const examsearch = async (req, res) => {
     res.send(err)
   }
 }
-
-
 
 const examlistpage = async (req, res) => {
   try {
