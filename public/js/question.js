@@ -78,7 +78,7 @@ async function retriveque() {
     </td>
     <td class="button-width">
 
-    <a href="editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
+    <a href="/question/editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
     <a href=""   onclick="retquestion(${data.data[i].question_id})"><i class="fas fa-trash-restore"></i></a>
     </td>
 </tr>`
@@ -132,7 +132,7 @@ async function searchque(quesearch) {
         for (let i = 0; i < datas.search.length; i++) {
           quetabsearch += `<tr>
         <td class="width-td">
-            ${datas.search[i].question_id}
+            ${id++}
         </td>
         <td  class="width-td">
         ${datas.search[i].category_name} </td>
@@ -150,7 +150,7 @@ async function searchque(quesearch) {
         </td>
         <td class="button-width">
 
-        <a href="editquestion?question_id=${datas.search[i].question_id}" ><i class="fas fa-edit"></i></a>
+        <a href="/question/editquestion?question_id=${datas.search[i].question_id}" ><i class="fas fa-edit"></i></a>
         <a href=""   onclick="deletque(${datas.search[i].question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
     </tr>`
@@ -174,6 +174,7 @@ async function page(pages, name = '') {
 
     let table = document.getElementById('quetable');
     let pagination = document.getElementById('pagination');
+    let id = 1;
     let html = ` <thead> <tr>
         <th>Id</th>
         <th>Category</th>
@@ -213,7 +214,7 @@ async function page(pages, name = '') {
       </td>
       <td class="button-width">
 
-      <a href="editquestion?question_id=${c.question_id}" ><i class="fas fa-edit"></i></a>
+      <a href="/question/editquestion?question_id=${c.question_id}" ><i class="fas fa-edit"></i></a>
       <a href=""   onclick="deletque(${c.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
       </td>
   </tr>`;
