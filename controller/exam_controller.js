@@ -1,5 +1,8 @@
 var db = require('../connection/mysql');
 require('../connection/module');
+// Importing moment module
+const moment = require('moment');
+
 
 
 
@@ -58,7 +61,7 @@ const post_edit = async function (req, res) {
 
     if (typeof (category) == "string") {
         sql3 = `select category_name from category where category_id='${category}'`;
-        console.log(sql3)
+        
         let [data3] = await db.execute(sql3);
 
         let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${data3[0].category_name}' where exam_id=${exam_id};`;
@@ -143,6 +146,7 @@ const post_edit = async function (req, res) {
       }
   
     }
+  
 
     
     res.redirect("/examlist");
@@ -294,22 +298,71 @@ const post_exam = async (req, res) => {
 
 }
 
+//enable disable toggle code
 const examstatus = async (req, res) => {
   try {
     let status = req.query.status;
     let id = req.query.id;
+    let date = req.query.date
+    let current_date = moment().format('DD/MM/YYYY'); 
+    let datearr = date.split('/');
+    let current_datearr = current_date.split('/');
+    console.log(date)
+    console.log(current_date)
+    console.log(datearr)
+    console.log(current_datearr)
+    
+    if(parseInt(datearr[2]) <= parseInt(current_datearr[2]) ){
+       if(parseInt(datearr[1]) <= parseInt(current_datearr[1]) ){
+          if(parseInt(datearr[0]) < parseInt(current_datearr[0])){
 
-    if (status == '1') {
+            console.log("date is matched")
+              sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+           
 
-      sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
-      let [data1] = await db.execute(sql1);
-      res.send(data1)
+          }else{
+            if (status == '1') {
+
+              sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+            }
+            else {
+              sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+            }
+          }
+       }else{
+        if (status == '1') {
+
+          sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+          let [data1] = await db.execute(sql1);
+          res.send(data1)
+        }
+        else {
+          sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+          let [data1] = await db.execute(sql1);
+          res.send(data1)
+        }
+       }
+    }else{
+      if (status == '1') {
+
+        sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+        let [data1] = await db.execute(sql1);
+        res.send(data1)
+      }
+      else {
+        sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+        let [data1] = await db.execute(sql1);
+        res.send(data1)
+      }
     }
-    else {
-      sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
-      let [data1] = await db.execute(sql1);
-      res.send(data1)
-    }
+
+   
   } catch (err) {
     res.send(err)
   }
@@ -323,13 +376,13 @@ const examsearch = async (req, res) => {
     } else {
 
       var data = [];
-      let count;
+      let count1;
 
       // let id = req.query.id;
       let page = req.query.num || 1;
 
       // string to int 
-      let curpage = parseInt(req.query.num);
+      let curpage = parseInt(req.query.num) || 1;
 
       // declare limit and offset 
 
@@ -339,25 +392,29 @@ const examsearch = async (req, res) => {
       if (isNaN(offset)) {
         offset = 0;
       }
-      sql2 = `select count(*) as numrows from exam ;`;
+      sql2 = `select count(*) as numrows from exam;`;
       let [data2] = await db.execute(sql2);
 
-      count = Math.ceil(data2[0].numrows / limit);
+      count1 = Math.ceil(data2[0].numrows / limit);
 
       let exam_name = req.query.exam_name;
 
       let sql4 = `select * from exam where exam_name like '%${exam_name}%' limit ${offset},${limit};`;
-
-
+      
       let [data1] = await db.execute(sql4);
 
-      res.json({ data1, count, curpage });
+      let sql5 = `select * from exam where exam_name like '%${exam_name}%';`
+      let [data5] = await db.execute(sql5);
+
+      res.json({ data1, curpage  ,limit ,count1 , data5});
 
     }
   } catch (err) {
     res.send(err)
   }
 }
+
+
 
 const examlistpage = async (req, res) => {
   try {

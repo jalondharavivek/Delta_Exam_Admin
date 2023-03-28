@@ -1,20 +1,20 @@
 var db = require('../connection/mysql');
 require('../connection/module')
 
-const user = async (req, res) =>{
-    
+const user = async (req, res) => {
+
   try {
     let sql = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,a.city,b.state_name,c.college_name 
     from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
 
     let page = req.query.page || 1;
-    let limit = req.query.limit || 5;
+    let limit = req.query.limit || 10;
     if (req.query.page > 1)
       sql += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
     else
       sql += ` LIMIT ${limit} `;
     let [student] = await db.execute(sql);
-console.log(student);
+   
 
     let sql1 = "select count(*) as total from student";
 
@@ -28,18 +28,18 @@ console.log(student);
   }
 }
 
-const userpage = async (req, res) =>{
+const userpage = async (req, res) => {
 
   try {
 
 
-    let sql = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
-  from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id `;
+    let sql = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,a.city,b.state_name,c.college_name 
+    from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id `;
 
 
     let page = parseInt(req.body.page) || 1;
     // let limit=parseInt(req.body.limit)||3;
-    let limit = 5;
+    let limit = 10;
     let startindex = (page - 1) * limit;
     let endindex = page * limit - startindex;
 
@@ -57,7 +57,7 @@ const userpage = async (req, res) =>{
 
 
 
-      let pages =`select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
+    let pages = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,a.city,b.state_name,c.college_name 
       from student a, state b, colleges c where( a.state_id=b.state_id AND a.college_id=c.college_id) and name
        like '%${req.body.name}%' limit ${startindex},${endindex}`;
 
@@ -75,11 +75,11 @@ const userpage = async (req, res) =>{
 const student_status = async (req, res) => {
   try {
 
-    let sql = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
+    let sql = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,a.city,b.state_name,c.college_name 
     from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
 
     let page = req.query.page || 1;
-    let limit = req.query.limit || 5;
+    let limit = req.query.limit || 10;
     if (req.query.page > 1)
       sql += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
     else
@@ -94,7 +94,7 @@ const student_status = async (req, res) => {
       let status = `update student set student_status = 1 where student_id = ${student_id}`;
       let [student_result] = await db.execute(status);
       let [student] = await db.execute(sql);
-      
+
       res.json({ student_result })
 
 
@@ -118,7 +118,7 @@ const student_status = async (req, res) => {
 const college = async (req, res) => {
 
   try {
-   
+
 
 
     let id = req.query.id;
@@ -172,9 +172,9 @@ const editid = async (req, res) => {
 }
 
 const allcity = async (req, res) => {
-    
+
   try {
-   
+
 
 
     let sql1 = `select * from city where state_id='${state_id}';`
@@ -187,10 +187,10 @@ const allcity = async (req, res) => {
   }
 }
 
-const city = async (req,res) => {
+const city = async (req, res) => {
   try {
-   
-  
+
+
     let id = req.query.state_id;
     let sql1 = `select city_id,city_name from city where state_id='${id}'`;
     let [data1] = await db.execute(sql1);
@@ -206,7 +206,7 @@ const city = async (req,res) => {
 
 const getcity = async (req, res) => {
   try {
-   
+
     let id = req.query.id;
 
 
@@ -239,7 +239,7 @@ const update = async (req, res) => {
 
     let sql4 = `update student set name='${name}',email='${email}',contact='${contact}',gender='${gender}',
      address='${address}',city='${city}', state_id = '${state_id}' ,college_id='${college_id}' where student_id=${student_id};`
-  
+
     let [student3] = await db.execute(sql4);
     res.redirect('/user')
 
@@ -249,52 +249,48 @@ const update = async (req, res) => {
   }
 }
 
-const search =async(req,res)=>{
+const search = async (req, res) => {
 
-try{
-
-
-  let sql = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
-  from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
-
-  let page = parseInt(req.query.page) || 1;
-  // let limit=parseInt(req.query.limit)||3;
-  let limit = 5;
-  let startindex = (page - 1) * limit;
-  let endindex = page * limit - startindex;
-  let name = req.query.name;
+  try {
 
 
+    let sql = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,a.city,b.state_name,c.college_name 
+    from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id`;
 
-  let [query] = await db.execute(sql);
-
-  let sql1 = `select count(*) as total from student where name like '%${name}%'`;
-  let [result1] = await db.execute(sql1);
-
-  let pages = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
-  from student a, state b, colleges c where( a.state_id=b.state_id AND a.college_id=c.college_id) and name like '%${name}%' limit ${startindex},${endindex}`;
-  let [pages1] = await db.execute(pages);
-
-
-  let srch = `select student_id,name,email,contact,gender,address,student_status,city,state_name,college_name 
-  from student a, state b, colleges c where( a.state_id=b.state_id AND a.college_id=c.college_id) and name like '%${name}%' limit ${startindex},${endindex}`;
-
-  let [query1] = await db.query(srch);
+    let page = parseInt(req.query.page) || 1;
+    // let limit=parseInt(req.query.limit)||3;
+    let limit = 10;
+    let startindex = (page - 1) * limit;
+    let endindex = page * limit - startindex;
+    let name = req.query.name;
 
 
-  res.json({search: query1, data: query, page: page, total: result1[0].total, limit: limit, pages: pages1} );
+
+    let [query] = await db.execute(sql);
+
+    let sql1 = `select count(*) as total from student where name like '%${name}%'`;
+    let [result1] = await db.execute(sql1);
+
+    let pages = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,a.city,b.state_name,c.college_name 
+    from student a, state b, colleges c  where( a.state_id=b.state_id AND a.college_id=c.college_id) and name like '%${name}%' limit ${startindex},${endindex}`;
+    let [pages1] = await db.execute(pages);
+
+
+    let srch = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,a.city,b.state_name,c.college_name 
+    from student a, state b, colleges c  where( a.state_id=b.state_id AND a.college_id=c.college_id) and name like '%${name}%' limit ${startindex},${endindex}`;
+
+    let [query1] = await db.query(srch);
+
+
+    res.json({ search: query1, data: query, page: page, total: result1[0].total, limit: limit, pages: pages1 });
+  }
+  catch (err) {
+    console.log(err);
+  }
 }
-catch (err) {
-  console.log(err);
-}
-}
 
 
 
 
-
-
-
-
-module.exports = {user,userpage,student_status,college,allcollege,editid,allcity,city,getcity,update,search}
+module.exports = { user, userpage, student_status, college, allcollege, editid, allcity, city, getcity, update, search}
 

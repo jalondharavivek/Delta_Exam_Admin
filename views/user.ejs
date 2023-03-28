@@ -87,18 +87,19 @@
                                                 <%=student[i].college_name%>
                                             </td>
                                             
-                                                <td><%= (new Date().toLocaleDateString()) %></td>
+                                                <td><%= (new Date(student[i].created_date).toLocaleDateString()) %></td>
 
                                            
                                             <td>
-                                                <a id="editbutton" href="/edit/:id=<%=student[i].student_id%>">edit
+                                                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=<%=student[i].student_id%>">
                                                 </a>
                                             </td>
                                         </tr>
                                         <%}%>
                                 </tbody>
-                            </table>
+                          
                         </form><br>
+                    </table>
                     </div>
                     <div class="page">
                         <nav aria-label="Page navigation example">
@@ -127,31 +128,15 @@
                     </div>
                    
                 </div>
+                
         </div>
+
+        
 </body>
 <script src="/js/dashboard.js"></script>
 <script src="/js/user.js"></script>
 
 
-<script>
-
-    let btn = document.querySelectorAll('.btnn');
-    btn.forEach(e => {
-        if (e.innerHTML == '0') {
-
-            e.innerHTML = 'DISABLE';
-            e.style.color = 'red';
-            e.style.cursor = 'pointer';
-        }
-        else if (e.innerHTML == '1') {
-
-            e.innerHTML = 'ENABLE';
-            e.style.color = 'blue';
-            e.style.cursor = 'pointer';
-        }
-    })
-
-</script>
 
 
 

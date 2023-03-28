@@ -8,8 +8,7 @@ function check_status() {
 
                 e.innerHTML = 'DISABLE';
                 e.style.color = 'red';
-                e.style.cursor = 'pointer';
-
+                e.style.cursor = 'pointer';                                        
             }
             else if (e.innerHTML == '1') {
 
@@ -30,9 +29,10 @@ function toggle(status, id) {
 
     var togglediv = document.getElementById('toggle' + id);
     var toggle_id = document.getElementById(id);
-
+    confirm(`Are you sure ?`)
 
     fetch(`/student_status?status=${status}&id=${id}`).then(res => res.json()).then(data => {
+
         if (data.info = 'rows matched: 1 changed: 1 Warnings: 0') {
             if (status == '1') {
                 togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}')" style="color: red;cursor:pointer" ;>DISABLE</p>`;
@@ -112,11 +112,11 @@ async function page(pages, name = '') {
     ${c.college_name}
     </td>
     <td>
-     ${(new Date().toLocaleDateString())}
+     ${(new Date(c.created_date).toLocaleDateString())}
 
     </td>
     <td>
-        <a id="editbutton" href="/edit/:id=${c.student_id}">edit
+        <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">
         </a>
     </td>
 </tr>
@@ -222,11 +222,11 @@ async function search(name) {
             ${c.college_name}
             </td>
             <td>
-             ${(new Date().toLocaleDateString())}
+             ${(new Date(c.created_date).toLocaleDateString())}
         
             </td>
             <td>
-                <a id="editbutton" href="/edit/:id=${c.student_id}">edit
+                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">
                 </a>
             </td>
         </tr>`
