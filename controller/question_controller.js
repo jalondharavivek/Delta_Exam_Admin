@@ -43,7 +43,7 @@ const questionpage = async(req,res)=>{
    que += ` LIMIT ${limit} `;
 let [questiontab] = await db.execute(que);
 let [quecatexecute] = await db.execute(quecat);
-let sql1que = `select count(*) as total from questions  `;
+let sql1que = `select count(*) as total from questions where question_status = '1' `;
 let [resultque] = await db.query(sql1que);
 let sqlque1 = `select a.question_text,a.question_id,a.answer,a.category_id,b.category_name from questions as a join category as b on a.category_id = b.category_id where a.question_text like '%${req.body.name}%' AND a.question_status = '1' limit ${startindex},${endindex} ; `
 let [pagesearch] = await db.execute(sqlque1)
@@ -70,7 +70,7 @@ const addquestionpost = async(req,res)=>{
     var option_d = req.body.option_d;
     var answer = req.body.answer;
     var description = req.body.description
-    const image = req.file? req.file.filename : null;
+    const image = req.file? req.file.filename : "";
 
   
     var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id,question_status,description,question_image) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}','1','${description}','${image}')`;
@@ -127,8 +127,8 @@ const editquestionpost = async(req,res)=>{
     var option_d = req.body.option_d;
     var answer = req.body.answer;
     var description = req.body.description
-  
-    let updateque = `update questions set question_text = '${question_text}' , option_a = '${option_a}' , option_b = '${option_b}' , option_c = '${option_c}', option_d = '${option_d}' , answer = '${answer}' , category_id = '${category_id}', description  = '${description }' where question_id = ${question_id} `
+    const image = req.file? req.file.filename : "";
+    let updateque = `update questions set question_text = '${question_text}' , option_a = '${option_a}' , option_b = '${option_b}' , option_c = '${option_c}', option_d = '${option_d}' , answer = '${answer}' , category_id = '${category_id}', description  = '${description }', question_image = '${image}' where question_id = ${question_id} `
     let [editquepost] = await db.query(updateque);
     if (editquepost.length) {
      

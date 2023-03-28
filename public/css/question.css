@@ -132,8 +132,9 @@ margin-right: 10px;
 
 .searchbar-que{
     height: 40px;
-    border-radius: 20px;
-    font-size: 15px
+    border-radius:  30px;
+    font-size: 15px;
+    padding :0px 7px
  
 }
 
@@ -216,4 +217,11 @@ ul
 }
 .retrive-que{
 margin-right: 645px;
+}
+.quesearchbar{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+   
+    
 }

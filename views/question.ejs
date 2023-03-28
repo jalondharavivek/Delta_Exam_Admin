@@ -41,9 +41,11 @@
                             <div ><a class="button"  onclick="retriveque()">Retrive que</a></div> 
                             <div class="searchbarclass">
                                 <!-- class="searchbar-que" -->
-                            <div >
-                                <input class="searchbar-que" placeholder="search" type="text"
+                            <div  class="quesearchbar"><div>
+                                        <input class="searchbar-que" placeholder="search" type="text"
                                     onkeyup="searchque(this.value)" name="search" id="search">
+                                </div>  
+                                  
                             </div>
                             <!-- class="exam-button-row" -->
                             <div >
@@ -88,7 +90,7 @@
                                                         </a>
                                                     </td>
                                                     <td class="button-width">
-                                                        <a href="editquestion?question_id=<%= data[i].question_id %>"
+                                                        <a href="/question/editquestion?question_id=<%= data[i].question_id %>"
                                                            ><i class="fas fa-edit"></i></a>
                                                         <a id="deletquesid" onclick="deletquestion(`<%= data[i].question_id %>`)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                     </td>
