@@ -9,42 +9,21 @@
     <title>Category</title>
 </head>
 <body>
-    <%var count=0 %>
-    <%for(var i=0;i<data.length;i++){%>
-        <% text1=data[i].answer %>
-        <% text2=data[i].user_answers %>
-        <%if(text1.localeCompare(text2) !=0 ){%>
-            <% count++ %>
-            <% } %>
-    <%}%>
-    <p>total Mark:<%=data.length%></p><br>
-    <p>achived Mark:<%=data.length-count%></p>
     <table class="table table-hover">
         <tr>
             <td>No</td>
-            <td>Question </td>
-            <td> answer</td>
-            <td>Student answer</td>
+            <td>company</td>
+            <td> View</td>
         </tr>
-        <%for(var i=1;i<=data.length;i++){%>
+        <%for(var i=0;i<data.length;i++){%>
             <tr>
-            <td><%=i%></td>
-            <td><%=data[i-1].question_text%></td>
-            <td><%=data[i-1].answer%></td>
-            <td><%=data[i-1].user_answers%></td>
+            <td><%=i+1%></td>
+            <td><%=data[i].exam_name%></td>
+            <td><a href="/getexamdetaile?id=<%= data[i].exam_id %>" id="<%= data[i].exam_id %>">View</a></td>
             </tr>
         <%}%>
     </table>
 </body>
  <script src="/js/result.js"></script>
  <script src="/js/dashboard.js"></script>
-</html>
-
-</table>
-
-
-</div>
-</div>
-</body>
-
 </html>
