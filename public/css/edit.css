@@ -17,10 +17,10 @@ input[type=submit]{
 }
 .form{
     margin: 40px;
-    margin-left: 90px;
+    padding-right: 790px;
     border-color: bisque;
     border-width: 4px;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    background-color: white;
 }
 input[type=text],input[type=email]{
     padding: 10px;
@@ -29,10 +29,6 @@ input[type=text],input[type=email]{
 label{
     margin: 5px;
 }
-input[type=text],input[type=email]{
-    padding: 10px;
-    border-radius: 5px;
-}
-label{
-    margin: 5px;
+hr{
+    width: 100%;
 }
