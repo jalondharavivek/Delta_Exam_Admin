@@ -54,7 +54,7 @@ route.post('/deletquestion',auth,question.deletquestion)
 route.get('/searchque',auth,question.searchget)
 route.get('/retriveque',auth,question.retrivequestions)
 route.post('/retrivequestion',auth,question.retrivequestionpost)
-route.post('/questionpage',auth,question.questionpage)
+route.post('/question/questionpage',auth,question.questionpage)
 
 route.get('/result',auth,result.resultget)
 route.post('/page',auth,result.page);

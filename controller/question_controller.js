@@ -28,12 +28,16 @@ const question = async(req,res)=>{
   let [resultque] = await db.query(sql1que);
   res.render("question", { data: questiontab,data1 : quecatexecute ,page : page, total: resultque[0].totalque, limit: limit })
 }
+
+
 const questionpage = async(req,res)=>{
   let que = `select * from questions where question_status = '1'`
   let quecat = `select category_name,a.category_id from category a,questions b where a.category_id=b.category_id  and question_status='1'`
-  let page = req.query.page || 1;
-  let limit = req.query.limit || 10;
-  if (req.query.page > 1)
+  let page=parseInt(req.body.page)||1;
+  let limit=parseInt(req.body.limit)||10;
+  let startindex=(page-1)*limit;
+  let endindex=page*limit-startindex;
+  if (req.body.page > 1)
    que += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
   else
    que += ` LIMIT ${limit} `;
@@ -41,9 +45,9 @@ let [questiontab] = await db.execute(que);
 let [quecatexecute] = await db.execute(quecat);
 let sql1que = `select count(*) as total from questions  `;
 let [resultque] = await db.query(sql1que);
-let sqlque1 = `select a.question_text,a.question_id,a.answer,a.category_id,b.category_name from questions as a join category as b on a.category_id = b.category_id where a.question_text like '%${name1}%' AND a.question_status = '1' limit ${startindex},${endindex} ; `
+let sqlque1 = `select a.question_text,a.question_id,a.answer,a.category_id,b.category_name from questions as a join category as b on a.category_id = b.category_id where a.question_text like '%${req.body.name}%' AND a.question_status = '1' limit ${startindex},${endindex} ; `
 let [pagesearch] = await db.execute(sqlque1)
-res.json({ data: questiontab, pages :pagesearch ,data1 : quecatexecute ,page : page, total: resultque[0].totalque, limit: limit })
+res.json({ data: questiontab, pages :pagesearch ,data1 : quecatexecute ,page : page, total: resultque[0].total, limit: limit })
 }
 
 

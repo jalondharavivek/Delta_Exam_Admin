@@ -110,7 +110,7 @@ async function searchque(quesearch) {
     // console.log(name,"question module in search search:::::;")
     let queresult = await fetch(`/searchque?nameque=${quesearch}`);
     let datas = await queresult.json();
-
+    let id=1
     let tabque = document.getElementById("quetable")
     let quetabsearch = `  <thead> <tr>
                              <th>Id</th>
@@ -249,13 +249,13 @@ async function page(pages, name = '') {
           pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
         }
       }
-      pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total / data.limit)}">Last</a></li>`
+      pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/ data.limit)}">Last</a></li>`
       pagination.innerHTML = pagi;
 
     }
     table.innerHTML = html;
 
-    cat_status();
+   
   }
   catch (err) {
     console.log(err);
