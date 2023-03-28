@@ -57,7 +57,10 @@ route.get('/retriveque',auth,question.retrivequestions)
 route.post('/retrivequestion',auth,question.retrivequestionpost)
 route.post('/question/questionpage',auth,question.questionpage)
 
-route.get('/result',auth,result.resultget)
+route.get('/result',auth,result.studentlist);
+route.get('/companylist',auth,result.companylist);
+route.get('/getexamdetaile',auth,result.getexamdetaile);
+route.get('/viewquestionresult',auth,result.viewquestionget);
 
 route.get('/user',auth,user.user);
 route.post('/userpage',auth,user.userpage);
