@@ -132,7 +132,7 @@ async function searchque(quesearch) {
         for (let i = 0; i < datas.search.length; i++) {
           quetabsearch += `<tr>
         <td class="width-td">
-            ${datas.search[i].question_id}
+            ${id++}
         </td>
         <td  class="width-td">
         ${datas.search[i].category_name} </td>
@@ -174,6 +174,7 @@ async function page(pages, name = '') {
 
     let table = document.getElementById('quetable');
     let pagination = document.getElementById('pagination');
+    let id = 1;
     let html = ` <thead> <tr>
         <th>Id</th>
         <th>Category</th>
