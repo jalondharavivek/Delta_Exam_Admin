@@ -17,9 +17,10 @@ input[type=submit]{
 }
 .form{
     margin: 40px;
-    margin-left: 90px;
+    padding-right: 790px;
     border-color: bisque;
     border-width: 4px;
+    background-color: white;
 }
 input[type=text],input[type=email]{
     padding: 10px;
@@ -27,4 +28,7 @@ input[type=text],input[type=email]{
 }
 label{
     margin: 5px;
+}
+hr{
+    width: 100%;
 }
