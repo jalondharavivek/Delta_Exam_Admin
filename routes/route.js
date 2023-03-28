@@ -56,9 +56,9 @@ route.get('/searchque',auth,question.searchget)
 route.get('/retriveque',auth,question.retrivequestions)
 route.post('/retrivequestion',auth,question.retrivequestionpost)
 
-route.get('/result',auth,result.resultget)
-route.post('/page',auth,result.page);
-route.get('/viewresult',auth,result.viewresultget);
+route.get('/result',auth,result.studentlist);
+route.get('/companylist',auth,result.companylist);
+route.get('/getexamdetaile',auth,result.getexamdetaile);
 route.get('/viewquestionresult',auth,result.viewquestionget);
 
 route.get('/user',auth,user.user);

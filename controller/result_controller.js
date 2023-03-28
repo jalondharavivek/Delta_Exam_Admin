@@ -13,50 +13,29 @@ require('../connection/module');
 // app.use(express.static('public'));
 // app.use(express.static(path.join(__dirname, '/public/')))
 
-
-const resultget = async(req,res) =>{
-let sql = `select ee.exam_id , ee.exam_name ,ee.total_questions ,ee.exam_time ,ee.exam_status from exam ee inner join
-user_answers uans on ee.exam_id = uans.exam_id;`
-let [query] = await db.query(sql);
-res.render('result',{data : query});
-}
-const page=async(req,res)=>{
-    var i2=req.body.i2;
-    var i1=i2-10;
-    console.log(i1);
-    console.log(i2);
-    var text=req.body.text;
-
-    var sql=`select * from user_answers a, exam b where a.exam_id=b.exam_id and  exam_name like '%${text}%'  limit ${i1},${i2};`
-
+const studentlist= async(req,res) =>{
+    var sql=`select exam_id,name,b.user_id from student a, user_answers b, user_login c where b.user_id=c.user_id;`
     let [query] = await db.query(sql);
-    console.log("mysql",query);
-    res.json({query});
+    res.render('result',{data : query});
+}
+const companylist= async(req,res) =>{
+    var id=req.query.id;
+    var sql=`select  a.exam_id,exam_name from user_answers a, exam b where a.exam_id=b.exam_id and a.user_id=${id};`
+    let [query] = await db.query(sql);
+    res.render('companylist',{data : query});
 }
 
-const viewresultget = async(req,res) =>{
-let sql = `SELECT category_name FROM exam a, user_answers b
-where a.exam_id=b.exam_id `;
-let [query] = await db.query(sql);
-res.render('viewresult',{data : query});
+ const getexamdetaile=async(req,res) =>{
+    var id=req.query.id;
+    let sql = `select a.category_id,category_name from exam_category a,category b where a.category_id=b.category_id and exam_id=${id}`;
+    let [query] = await db.query(sql);
+    res.render('getexamdetaile',{data : query});
 }
-
-
-
-
 const viewquestionget = async (req,res) =>{
-let sql = `select q.question_text , q.answer ,uans.user_answers , uans.marks from questions q inner join
-user_answers uans on q.question_id=uans.question_id;`;
-let [query] = await db.query(sql);
-let sql1 = `select s.name from student s inner join
-result r on s.student_id=r.student_id`;
-let [stu_name] = await db.execute(sql1);
-console.log(stu_name);
-
-res.render('viewquestionresult',{data : query, stu_name:stu_name});
+    var id=req.query.id;
+    let sql = `select question_text,answer,user_answers from questions a, user_answers b where a.question_id=b.question_id and category_id=${id}`;
+    let [query] = await db.query(sql);
+    res.render('viewquestionresult',{data : query});
 }
 
-
-
-
-module.exports = { viewquestionget,viewresultget,resultget,page};
+module.exports = { viewquestionget,getexamdetaile,studentlist,companylist};
