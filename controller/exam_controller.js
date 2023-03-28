@@ -1,7 +1,7 @@
 var db = require('../connection/mysql');
 require('../connection/module');
-
-
+// Importing moment module
+const moment = require('moment');
 
 let limit = 10;
 const selectedcategory = async function (req, res) {
@@ -246,7 +246,7 @@ const post_exam = async (req, res) => {
       sql3 = `select category_name from category where category_id='${category}'`;
       let [data3] = await db.execute(sql3);
 
-      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${data3[0].category_name}');`;
+      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '0', '${start_date}',  NOW(),'${data3[0].category_name}');`;
 
       let [data1] = await db.execute(sql1);
   
@@ -271,7 +271,7 @@ const post_exam = async (req, res) => {
   
       let categories = strcat.substring(0, strcat.length - 2);
   
-      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${categories}');`;
+      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '0', '${start_date}',  NOW(),'${categories}');`;
   
       let [data1] = await db.execute(sql1);
   
@@ -299,8 +299,50 @@ const examstatus = async (req, res) => {
   try {
     let status = req.query.status;
     let id = req.query.id;
+    let date = req.query.date
+    let current_date = moment().format('DD/MM/YYYY'); 
+    let datearr = date.split('/');
+    let current_datearr = current_date.split('/');
+   
+    
+    if(parseInt(datearr[2]) <= parseInt(current_datearr[2]) ){
+       if(parseInt(datearr[1]) <= parseInt(current_datearr[1]) ){
+          if(parseInt(datearr[0]) < parseInt(current_datearr[0])){
 
-    if (status == '1') {
+           
+              sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+           
+
+          }else{
+            if (status == '1') {
+
+              sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+            }
+            else {
+              sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+            }
+          }
+       }else{
+        if (status == '1') {
+
+          sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+          let [data1] = await db.execute(sql1);
+          res.send(data1)
+        }
+        else {
+          sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+          let [data1] = await db.execute(sql1);
+          res.send(data1)
+        }
+       }
+    }else{
+      if (status == '1') {
 
       sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
       let [data1] = await db.execute(sql1);
@@ -311,7 +353,7 @@ const examstatus = async (req, res) => {
       let [data1] = await db.execute(sql1);
       res.send(data1)
     }
-  } catch (err) {
+  } } catch (err) {
     res.send(err)
   }
 
@@ -324,7 +366,7 @@ const examsearch = async (req, res) => {
     } else {
 
       var data = [];
-      let count;
+      let count1;
 
       // let id = req.query.id;
       let page = req.query.num || 1;
@@ -340,33 +382,26 @@ const examsearch = async (req, res) => {
       if (isNaN(offset)) {
         offset = 0;
       }
-      sql2 = `select count(*) as numrows from exam ;`;
+      sql2 = `select count(*) as numrows from exam;`;
       let [data2] = await db.execute(sql2);
 
-      count = Math.ceil(data2[0].numrows / limit);
+      count1 = Math.ceil(data2[0].numrows / limit);
 
       let exam_name = req.query.exam_name;
 
       let sql4 = `select * from exam where exam_name like '%${exam_name}%' limit ${offset},${limit};`;
       
-
-
       let [data1] = await db.execute(sql4);
 
-      res.json({ data1, count, curpage });
+      let sql5 = `select * from exam where exam_name like '%${exam_name}%';`
+      let [data5] = await db.execute(sql5);
+
+      res.json({ data1, curpage  ,limit ,count1 , data5});
 
     }
   } catch (err) {
     res.send(err)
   }
-}
-
-const checkexam = async (req,res) => {
-    try{
-        console.log(req.query);
-    }catch(err){
-      res.send(err);
-    }
 }
 
 const examlistpage = async (req, res) => {

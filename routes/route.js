@@ -33,6 +33,7 @@ route.get('/exam',auth,exam.exam);
 route.post('/exam',auth,exam.post_exam);
 route.get('/exam/status',auth,exam.examstatus);
 
+
 route.get('/',login.admin_login);
 route.post('/login',login.login);
 route.get('/forget',login.forget);
@@ -46,7 +47,7 @@ route.get('/logout',login.logout);
 
 route.get('/question',auth,question.question)
 route.get('/addquestion',auth,question.addquestion)
-route.post('/addquestion',question.upload.single('image'),question.addquestionpost)
+route.post('/addquestion',auth,question.upload.single('image'),question.addquestionpost)
 route.get('/viewdetail',auth,question.viewdetail)
 route.get('/editquestion',auth,question.editquestionget)
 route.post('/editquestion',auth,question.editquestionpost)
@@ -54,11 +55,9 @@ route.post('/deletquestion',auth,question.deletquestion)
 route.get('/searchque',auth,question.searchget)
 route.get('/retriveque',auth,question.retrivequestions)
 route.post('/retrivequestion',auth,question.retrivequestionpost)
+route.post('/question/questionpage',auth,question.questionpage)
 
 route.get('/result',auth,result.resultget)
-route.post('/page',auth,result.page);
-route.get('/viewresult',auth,result.viewresultget);
-route.get('/viewquestionresult',auth,result.viewquestionget);
 
 route.get('/user',auth,user.user);
 route.post('/userpage',auth,user.userpage);
@@ -70,6 +69,7 @@ route.get('/student/allcity',auth,user.allcity);
 route.get('/student/city',auth,user.city);
 route.get('/city',auth,user.getcity);
 route.post('/update',auth,user.update);
-route.get('/user/search',auth,user.search)
+route.get('/user/search',auth,user.search);
+
 
 module.exports = route;
