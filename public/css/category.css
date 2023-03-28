@@ -197,3 +197,8 @@ ul
 {
     background-color: cyan !important;
 }
+
+.pagination a:hover:not(.pageactive) 
+{
+    background-color: cornflowerblue !important;
+}

@@ -161,13 +161,44 @@ async function search(name)
                 html += `<tr><td>${ d.category_id }</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
             })
 
-            pages = `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')">First</a></li>`;
-                for(let i=data.page;i<=Math.ceil(data.total/data.limit);i++){
-                    pages += `<li class="page-item"><a class="page-link `;
+            pages += `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')"><<</a></li>`;
+            pages += `<li class="page-item"><a class="page-link" id="${data.page-1}" onclick="page(this,'${name}')"><</a></li>`;
+            if(parseInt(data.page) <=5) {
+                for(let i=1;i<=parseInt(data.page);i++) {  
+                    pages += `<li class="page-item"><a class="page-link `
                     if(parseInt(data.page) == i){ pages += `pageactive"`}else { pages += `disabled"`}
                     pages += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
                 }
-            pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.total/data.limit)}">Last</a></li>`;
+            }
+            else {
+                for(let i=(parseInt(data.page)-5);i<=parseInt(data.page);i++){
+                    pages += `<li class="page-item"><a class="page-link `
+                    if(parseInt(data.page) == i){ pages += `pageactive"`}else { pages += `disabled"`}
+                    pages += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
+                }
+            }
+            if(Math.ceil(parseInt(data.total)/parseInt(data.limit))-5>= parseInt(data.page)) {
+                for(let i=parseInt(data.page)+1;i<=parseInt(data.page)+ 5;i++){
+                    pages += `<li class="page-item"><a class="page-link `
+                    if(parseInt(data.page) == i){ pages += `pageactive"`}else { pages += `disabled"`}
+                    pages += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
+                } 
+            } 
+            else 
+            {
+                for(let i=parseInt(data.page)+1;i<=Math.ceil(parseInt(data.total)/parseInt(data.limit));i++) {
+                    pages += `<li class="page-item"><a class="page-link `
+                    if(parseInt(data.page) == i){ pages += `pageactive"`}else { pages += `disabled"`}
+                    pages += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
+                }
+            }
+            pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="`
+            if(data.page < Math.ceil(data.totalpages/data.limit))
+            {
+                pages+= `${data.page+1}`
+            }
+            pages += `">></a></li>`;
+            pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.totalpages/data.limit)}">>></a></li>`;
 
         }
         else if(Object.keys(data.search).length == 0)
@@ -212,10 +243,10 @@ async function page(pages,name = '')
             html += `<tr><td>${ c.category_id }</td><td>${ c.category_name }</td><td>${ (new Date(c.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ c.category_id },${ c.category_status });">${ c.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ c.category_id })"> EDIT</a></td></tr>`;
         })
         let pagi ='' ;
-        console.log(Math.ceil(data.totalpages/data.limit));
         if(name == '')
         {
-            pagi += `<li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>`;
+            pagi += `<li class="page-item"><a class="page-link" id="0" onclick='page(this)'><<</a></li>`;
+            pagi += `<li class="page-item"><a class="page-link" id="${data.page-1}" onclick='page(this)'><</a></li>`;
             if(parseInt(data.page) <=5) {
                 for(let i=1;i<=parseInt(data.page);i++) {  
                     pagi += `<li class="page-item"><a class="page-link `;
@@ -245,19 +276,33 @@ async function page(pages,name = '')
                     pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
                 }
             }
-            pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/data.limit)}">Last</a></li>`
+            pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="`
+            if(data.page < Math.ceil(data.total/data.limit))
+            {
+                pagi+= `${data.page+1}`
+            }
+            pagi += `">></a></li>`;
+
+            pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/data.limit)}">>></a></li>`
             pagination.innerHTML = pagi;
 
         }
         else
         {
-            pagi = `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')">First</a></li>`;
+            pagi += `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')"><<</a></li>`;
+            pagi += `<li class="page-item"><a class="page-link" id="${data.page-1}" onclick="page(this,'${name}')"><</a></li>`;
                 for(let i=1;i<=Math.ceil(data.totalpages/data.limit);i++){
                     pagi += `<li class="page-item"><a class="page-link `
                     if(parseInt(data.page) == i){ pagi += `pageactive"`}else { pagi += `disabled"`}
                     pagi += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
                 }
-            pagi +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.totalpages/data.limit)}">Last</a></li>`;
+            pagi +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="`
+            if(data.page < Math.ceil(data.totalpages/data.limit))
+            {
+                pagi+= `${data.page+1}`
+            }
+            pagi += `">></a></li>`;
+            pagi +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.totalpages/data.limit)}">>></a></li>`;
             pagination.innerHTML = pagi;
         }
         table.innerHTML = html;
