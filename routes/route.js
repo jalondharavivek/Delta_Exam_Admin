@@ -33,6 +33,7 @@ route.get('/exam',auth,exam.exam);
 route.post('/exam',auth,exam.post_exam);
 route.get('/exam/status',auth,exam.examstatus);
 
+
 route.get('/',login.admin_login);
 route.post('/login',login.login);
 route.get('/forget',login.forget);
@@ -57,9 +58,6 @@ route.post('/retrivequestion',auth,question.retrivequestionpost)
 route.post('/question/questionpage',auth,question.questionpage)
 
 route.get('/result',auth,result.resultget)
-route.post('/page',auth,result.page);
-route.get('/viewresult',auth,result.viewresultget);
-route.get('/viewquestionresult',auth,result.viewquestionget);
 
 route.get('/user',auth,user.user);
 route.post('/userpage',auth,user.userpage);

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Result</title>
-    <link rel="stylesheet" href="/css/viewquestion.css">
+    <title>result</title>
+    <link rel="stylesheet" href="/css/viewresult.css">
     <link rel="stylesheet" href="/css/viewquestionresult.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -29,30 +29,92 @@
                         </div>
 
                     </div>
-                    <table >
-                        <tr>
-                            <th>Exam id</th>
-                            <th>Exam name</th>
-                            <th>Total question</th>
-                            <th>Exam time</th>
-                            <th>category</th>
-
-                        </tr>
-                      <tbody id="xyz">
-
-                      </tbody>
-                    </table>
-                    <% if(data %2==0){%>
-                        <%for(let i=1;i<data.length/10;i++){ %>
-                            <span onclick="pagination('<%= i %>')"><%=i%></span>
-                        <%}%>
-                    <%}else{%>
-                        <%for(let i=1;i<data.length/10+1;i++){ %>
-                            <span onclick="pagination('<%= i %>')"><%=i%></span>
-                        <%}%>
+                </div>
+            </div>
+            <table>
+               
+                <tr>
+                    <th>Exam name</th>
+                 
+                    <th>category_name</th>
+                    <th>category_name</th>
+                    <th>category_name</th>
+                </tr>
+                <tr>
+                    <%for(let i=0;i<data.length;i++){%>
+                    <td><%= data[i].exam_name %></td>
                     <%}%>
                     
-                </div>
+        
+                <%for(let j=0;j<query1.length;j++){%>
+               <td><%= query1[j].category_name %></td> 
+                <%}%>
+          
+              
+            <%for(let k=0;k<exam_q;k++){%>
+                <td> <a href="/result/?exam_id=<%= exam_q[k].exam_id %>"></a></td>
+                  <%}%>
+
+                <%for(let m=0;m<category_q.length;m++){%>
+ 
+                    <td><a href="/result/?category_id=<%= category_q[m].category_id %>"><%= category_q[m].category_name %> </a></td>    
+            
+                  <%}%>
+            </tr>
+
+            </table>
+
+            <br><br>
+            <table>
+                <h2>Student name : <%= student_name_g %> </h2>
+                <tr>
+                    <th>Student id </th>
+                    <th>question name</th>
+                    <th>correct answer</th>
+                      <th>Student answer</th>
+                    <th>Marks</th>
+                </tr>
+                <%for(let i=0;i<query3.length;i++){%>
+                    <tr>
+                        <td><%= query3[i].student_id %></td>
+                        <td><%= query3[i].question_text %></td>
+                        <td><%= query3[i].answer %></td>
+                        <td><%= query3[i].user_answers %></td>
+                        <td><%= (query3[i].answer == query3[i].user_answers) ? '1' : '0' %></td> 
+           
+                    </tr>
+                     <%}%>
+                       <tr>
+                         <td colspan="4"><b>Total marks</b> </td>
+                            <td><% 
+                              
+                                let trueCount = 0;
+                                for (let i = 0; i < query3.length; i++) {
+                                  trueCount += (query3[i].answer == query3[i].user_answers) ? 1 : 0;
+                                }
+                                %>
+                                
+                                <b><%= trueCount %></b>  </td>
+                        </tr>
+                      
+                        </table> 
+                        <br><br>
+                        <fieldset>
+                            <legend><h4>MarkSheet</h4></legend>
+                           <h4>Total no of question : <%=  query3.length %></h4>
+                           <h4>Total no of right question :  <%= trueCount %> </h4>
+                           <h4>Percentage  : 
+                            <%=  trueCount  / query3.length * 100 %>
+                          </h4>
+                          <h4>
+                            <% 
+                            let message = 0;
+                          
+                              message = ((trueCount  / query3.length * 100) > 60 ) ? 'Congratulation you have pass the exam' : 'sorry you have not pass the exam !';
+                              %>
+                            <h2> <%=  message %></h2> 
+                        </h4>
+                    </fieldset>
         </div>
 </body>
 <script src="/js/result.js"></script>

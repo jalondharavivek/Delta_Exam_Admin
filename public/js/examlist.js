@@ -24,6 +24,7 @@ function togglecolorchnage() {
 
     let btn = document.querySelectorAll('.btn');
     btn.forEach(e => {
+       
 
 
         if (e.innerHTML == '0') {
@@ -180,7 +181,6 @@ async function callback() {
         let exam_id = document.getElementById('exam_id').value;
 
         await fetch(`/selected/category?exam_id=${exam_id}`).then(res => res.json()).then(data => {
-
             for (i = 0; i < data.length; i++) {
                 category_name.push(data[i][0].category_name);
             }
@@ -192,7 +192,7 @@ async function callback() {
 
     categortFetch();
     async function categortFetch() {
-
+      
         fetch('/categories').then(res => res.json()).then(data => {
 
             let checker;
@@ -201,13 +201,13 @@ async function callback() {
                 for (j = 0; j < arat.length; j++) {
 
                     if (data.arr[i] == arat[j]) {
-
+                      
                         category_select.innerHTML += `<option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
                         checker = i;
                     }
                 }
                 if (checker != i) {
-
+                    
                     category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
 
                 }
@@ -218,6 +218,8 @@ async function callback() {
     }
 
 }
+
+
 
 //add exam code run on plus icon
 async function addexam() {
@@ -272,7 +274,6 @@ async function addexam() {
     }
 
     change.innerHTML = await htmstring();
-
 
 
 
@@ -352,7 +353,6 @@ function examSearch(curpage) {
     let exam_search = document.getElementById('exam_search');
 
     fetch(`/exam/search?exam_name=${search}&&num=${curpage}`).then(res => res.json()).then(data => {
-
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>
@@ -622,6 +622,8 @@ async function page(num, count) {
     }
 
     if (num == count) {
+        
+        pageid.innerHTML += `<p onclick="page(${count} ,${count})" class="p">next</p>`;
 
         pageid.innerHTML += `<p onclick="page(${count} ,${count})" class="p">next</p>`;
 

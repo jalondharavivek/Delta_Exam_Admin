@@ -3,9 +3,6 @@ require('../connection/module');
 // Importing moment module
 const moment = require('moment');
 
-
-
-
 let limit = 10;
 const selectedcategory = async function (req, res) {
   try {
@@ -249,7 +246,7 @@ const post_exam = async (req, res) => {
       sql3 = `select category_name from category where category_id='${category}'`;
       let [data3] = await db.execute(sql3);
 
-      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${data3[0].category_name}');`;
+      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '0', '${start_date}',  NOW(),'${data3[0].category_name}');`;
 
       let [data1] = await db.execute(sql1);
   
@@ -274,7 +271,7 @@ const post_exam = async (req, res) => {
   
       let categories = strcat.substring(0, strcat.length - 2);
   
-      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${categories}');`;
+      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '0', '${start_date}',  NOW(),'${categories}');`;
   
       let [data1] = await db.execute(sql1);
   
@@ -298,7 +295,6 @@ const post_exam = async (req, res) => {
 
 }
 
-//enable disable toggle code
 const examstatus = async (req, res) => {
   try {
     let status = req.query.status;
@@ -307,16 +303,13 @@ const examstatus = async (req, res) => {
     let current_date = moment().format('DD/MM/YYYY'); 
     let datearr = date.split('/');
     let current_datearr = current_date.split('/');
-    console.log(date)
-    console.log(current_date)
-    console.log(datearr)
-    console.log(current_datearr)
+   
     
     if(parseInt(datearr[2]) <= parseInt(current_datearr[2]) ){
        if(parseInt(datearr[1]) <= parseInt(current_datearr[1]) ){
           if(parseInt(datearr[0]) < parseInt(current_datearr[0])){
 
-            console.log("date is matched")
+           
               sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
               let [data1] = await db.execute(sql1);
               res.send(data1)
@@ -351,19 +344,16 @@ const examstatus = async (req, res) => {
     }else{
       if (status == '1') {
 
-        sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
-        let [data1] = await db.execute(sql1);
-        res.send(data1)
-      }
-      else {
-        sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
-        let [data1] = await db.execute(sql1);
-        res.send(data1)
-      }
+      sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+      let [data1] = await db.execute(sql1);
+      res.send(data1)
     }
-
-   
-  } catch (err) {
+    else {
+      sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+      let [data1] = await db.execute(sql1);
+      res.send(data1)
+    }
+  } } catch (err) {
     res.send(err)
   }
 
@@ -413,8 +403,6 @@ const examsearch = async (req, res) => {
     res.send(err)
   }
 }
-
-
 
 const examlistpage = async (req, res) => {
   try {
