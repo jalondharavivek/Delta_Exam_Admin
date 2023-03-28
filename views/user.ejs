@@ -87,11 +87,11 @@
                                                 <%=student[i].college_name%>
                                             </td>
                                             
-                                                <td><%= (new Date().toLocaleDateString()) %></td>
+                                                <td><%= (new Date(student[i].created_date).toLocaleDateString()) %></td>
 
                                            
                                             <td>
-                                                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=<%=student[i].student_id%>">edit
+                                                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=<%=student[i].student_id%>">
                                                 </a>
                                             </td>
                                         </tr>
@@ -130,6 +130,8 @@
                 </div>
                 
         </div>
+
+        
 </body>
 <script src="/js/dashboard.js"></script>
 <script src="/js/user.js"></script>

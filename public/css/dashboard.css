@@ -80,7 +80,7 @@ display: none;
 }
 
 .logosec {
-gap: 60px;
+gap: 20px;
 }
 
 .searchbar input {
@@ -255,6 +255,8 @@ opacity: 0.8;
 
 .box:nth-child(1) {
 background-color: var(--one-use-color);
+/* background-image: url(/assets/image/isaac-smith-AT77Q0Njnt0-unsplash.jpg); */
+background-size: cover;
 }
 .box:nth-child(2) {
 background-color: var(--two-use-color);
@@ -276,7 +278,7 @@ background-color: var(--two-use-color);
 height: 50px;
 }
 .box .text {
-color: white;
+color: rgb(255, 255, 255);
 }
 .topic {
 font-size: 13px;
@@ -570,4 +572,12 @@ border-radius: 4px;
         pointer-events: none;
         cursor: default;
         background-color:#ccf3c0af;
+    }
+
+    .count{
+        font-size: 40px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        color: #ffffff;
+    font-weight: bold;
+    text-align: center;
     }

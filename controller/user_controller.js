@@ -1,23 +1,5 @@
-// const express = require('express')
-// const path = require('path')
-// const app = express();
 var db = require('../connection/mysql');
 require('../connection/module')
-
-// const bodyParser = require("body-parser");
-// const { Console, log } = require('console');
-// const { get } = require('http');
-// var bcrypt = require('bcryptjs');
-// var nodemailer = require('nodemailer');
-// const flash = require('connect-flash');
-// const sessions = require('express-session');
-// app.use(bodyParser.urlencoded({ extended: false }))
-// app.use(bodyParser.json())
-// app.set("view engine", "ejs");
-
-// app.use(express.static('public'));
-// app.use(express.static(path.join(__dirname, '/public')))
-
 
 const user = async (req, res) => {
 
@@ -32,7 +14,7 @@ const user = async (req, res) => {
     else
       sql += ` LIMIT ${limit} `;
     let [student] = await db.execute(sql);
-    console.log(student);
+   
 
     let sql1 = "select count(*) as total from student";
 
@@ -298,7 +280,7 @@ const search = async (req, res) => {
     from student a, state b, colleges c  where( a.state_id=b.state_id AND a.college_id=c.college_id) and name like '%${name}%' limit ${startindex},${endindex}`;
 
     let [query1] = await db.query(srch);
- console.log(query1)
+
 
     res.json({ search: query1, data: query, page: page, total: result1[0].total, limit: limit, pages: pages1 });
   }
@@ -310,9 +292,5 @@ const search = async (req, res) => {
 
 
 
-
-
-
-
-module.exports = { user, userpage, student_status, college, allcollege, editid, allcity, city, getcity, update, search }
+module.exports = { user, userpage, student_status, college, allcollege, editid, allcity, city, getcity, update, search}
 
