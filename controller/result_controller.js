@@ -15,7 +15,7 @@ app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public/')))
 
 const studentlist= async(req,res) =>{
-    var sql=`select exam_id,name from student a, user_answers b, user_login c where b.user_id=c.user_id;`
+    var sql=`select exam_id,name,b.user_id from student a, user_answers b, user_login c where b.user_id=c.user_id;`
     let [query] = await db.query(sql);
     res.render('result',{data : query});
 }

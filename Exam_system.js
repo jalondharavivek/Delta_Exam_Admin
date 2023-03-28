@@ -27,7 +27,7 @@ const { Console } = require('console');
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public/assets/image'));
 app.use(express.static(__dirname + ''));
-const PORT = process.env.PORT || 8766;
+const PORT = process.env.PORT || 8765;
 app.set('view engine', 'ejs');
 
 app.use(cookie());
