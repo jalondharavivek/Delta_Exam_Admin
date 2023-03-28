@@ -60,6 +60,7 @@
 
             <br><br>
             <table>
+                <h2>Student name : <%= student_name_g %> </h2>
                 <tr>
                     <th>Student id </th>
                     <th>question name</th>
@@ -78,7 +79,7 @@
                     </tr>
                      <%}%>
                        <tr>
-                         <td colspan="4">Total marks </td>
+                         <td colspan="4"><b>Total marks</b> </td>
                             <td><% 
                               
                                 let trueCount = 0;
@@ -87,14 +88,15 @@
                                 }
                                 %>
                                 
-                                 <%= trueCount %> </td>
+                                <b><%= trueCount %></b>  </td>
                         </tr>
                       
                         </table> 
+                        <br><br>
                         <fieldset>
                             <legend><h4>MarkSheet</h4></legend>
-                           <h4>total no of question : <%=  query3.length %></h4>
-                           <h4>total no of right question :  <%= trueCount %> </h4>
+                           <h4>Total no of question : <%=  query3.length %></h4>
+                           <h4>Total no of right question :  <%= trueCount %> </h4>
                            <h4>Percentage  : 
                             <%=  trueCount  / query3.length * 100 %>
                           </h4>
@@ -104,13 +106,9 @@
                           
                               message = ((trueCount  / query3.length * 100) > 60 ) ? 'Congratulation you have pass the exam' : 'sorry you have not pass the exam !';
                               %>
-                              <%=  message %>
+                            <h2> <%=  message %></h2> 
                         </h4>
                     </fieldset>
-                        
-
-
-            
         </div>
     </div>
 </body>

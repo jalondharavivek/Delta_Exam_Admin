@@ -1,4 +1,4 @@
-// const express = require('express')
+// // const express = require('express')
 // const path = require('path')
 // const app = express();
 var db = require('../connection/mysql');
@@ -13,7 +13,8 @@ require('../connection/module');
 // app.use(express.static('public'));
 // app.use(express.static(path.join(__dirname, '/public/')))
 
-
+let student_id_g;
+let student_name_g;
 const resultget = async (req, res) => {
     let sql = `select distinct(exam_name)  from user_answers a, exam b where a.exam_id=b.exam_id`;
     let [query] = await db.query(sql);
@@ -42,12 +43,25 @@ const resultget = async (req, res) => {
             questions b where a.question_id=b.question_id and b.category_id= '${cat_id}'`;
        let [query3] = await db.query(sql3);
       console.log(query3);
-    
-    res.render("result", { data: query , exam_q:exam_q , query1 :query1, query3 :query3, category_q :category_q});
+      
+      for(let j=0;j<query3.length;j++)
+      {
+         student_id_g=query3[j].student_id;
+      }
+       console.log(student_id_g);
+
+
+       let sql4 = `SELECT  name FROM student WHERE student_id = '${student_id_g}'`;  
+       let [student_name] = await db.query(sql4);
+
+       for(let k=0;k<student_name.length;k++)
+       {
+          student_name_g=student_name[k].name;
+       }
+        console.log(student_name_g);
+
+        
+    res.render("result", { data: query , exam_q:exam_q , query1 :query1, query3 :query3, category_q :category_q, student_name_g : student_name_g});
   };
   
-  
-
-
-
 module.exports = { resultget};
