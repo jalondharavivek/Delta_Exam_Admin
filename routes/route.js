@@ -33,6 +33,7 @@ route.get('/exam',auth,exam.exam);
 route.post('/exam',auth,exam.post_exam);
 route.get('/exam/status',auth,exam.examstatus);
 
+
 route.get('/',login.admin_login);
 route.post('/login',login.login);
 route.get('/forget',login.forget);

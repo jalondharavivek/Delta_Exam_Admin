@@ -6,18 +6,9 @@
 // categortFetch();
 // function categortFetch() {
 //     fetch('/categories').then(res => res.json()).then(data => {
-// //categoty fetch on ajax 
-// categortFetch();
-// function categortFetch() {
-//     fetch('/categories').then(res => res.json()).then(data => {
 
 //         for (let i = 0; i < data.arr.length; i++) {
-//         for (let i = 0; i < data.arr.length; i++) {
 
-//             category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
-//         }
-//     }).catch(err => console.log(err));
-// }
 //             category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
 //         }
 //     }).catch(err => console.log(err));
@@ -110,9 +101,7 @@ async function examedit(id) {
         <div class="combine">
             <div class="one">
                 <label for="">UPDATE EXAM</label>
-                <label for="">UPDATE EXAM</label>
             </div>
-            <form action="/edit" method="post" onsubmit="return validateform()">
             <form action="/edit" method="post" onsubmit="return validateform()">
                 <input type="text" name="exam_id" value="${data[0].exam_id}" id="exam_id" hidden>
     
@@ -121,7 +110,6 @@ async function examedit(id) {
     
                         <label for="exam_name" class="labelofInput"> exam name: </label>
                         <input type="text" name="exam_name" value="${data[0].exam_name}"
-                            placeholder="enter exam name" class="input_tag"  required >
                             placeholder="enter exam name" class="input_tag"  required >
     
                     </div>
@@ -156,7 +144,6 @@ async function examedit(id) {
                         <label for="start_date" class="labelofInput"> start date: </label>
                         <input type="date" name="start_date" id="" placeholder="enter start date"
                             value="${(new Date(data[0].exam_date).toLocaleDateString())}" class="input_tag" required>
-                            value="${(new Date(data[0].exam_date).toLocaleDateString())}" class="input_tag" required>
     
                     </div>
     
@@ -164,8 +151,6 @@ async function examedit(id) {
                 </div>
                 <div class="save_div">
     
-                    <input type="submit" id="save_btn" value="UPDATE" style="cursor:pointer">
-                    <a href='/examlist'>cancel</a>
                     <input type="submit" id="save_btn" value="UPDATE" style="cursor:pointer">
                     <a href='/examlist'>cancel</a>
     
@@ -252,7 +237,6 @@ async function addexam() {
                         <label for="exam_name" class="labelofInput"> exam name: </label>
                         <input type="text" name="exam_name" id="exam_name"
                             placeholder="enter exam name" class="input_tag" oninput="checkexam(this.value)"  required>
-                            placeholder="enter exam name" class="input_tag" oninput="checkexam(this.value)"  required>
                     </div>
                     <div class="input_taker">
                         <label for="" class="labelofInput"> category :</label>
@@ -262,13 +246,11 @@ async function addexam() {
                     <div class="input_taker">
                         <label for="question" class="labelofInput">no of questions: </label>
                         <input type="text" name="question" id="question"
-                        <input type="text" name="question" id="question"
                             placeholder="enter no of questions" class="input_tag" min="10" max="50"
                             value="10" required>
                     </div>
                     <div class="input_taker">
                         <label for="time" class="labelofInput"> time limit: </label>
-                        <input type="text" name="time" id="time" placeholder="enter time limit"
                         <input type="text" name="time" id="time" placeholder="enter time limit"
                             class="input_tag" min="10" max="180" value="10" required>
                         <label for="" class="extra_label">(adding time limit in minutes)</label>
@@ -281,8 +263,6 @@ async function addexam() {
                 </div>
                 <div class="save_div">
                     <p id="0"></p>
-                    <input type="submit" id="save_btn" value="SAVE" style="cursor: pointer;">
-                    <a href='/examlist'>cancel</a>
                     <input type="submit" id="save_btn" value="SAVE" style="cursor: pointer;">
                     <a href='/examlist'>cancel</a>
                    
