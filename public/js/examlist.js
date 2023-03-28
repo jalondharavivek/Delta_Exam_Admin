@@ -6,9 +6,18 @@
 // categortFetch();
 // function categortFetch() {
 //     fetch('/categories').then(res => res.json()).then(data => {
+// //categoty fetch on ajax 
+// categortFetch();
+// function categortFetch() {
+//     fetch('/categories').then(res => res.json()).then(data => {
 
 //         for (let i = 0; i < data.arr.length; i++) {
+//         for (let i = 0; i < data.arr.length; i++) {
 
+//             category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
+//         }
+//     }).catch(err => console.log(err));
+// }
 //             category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
 //         }
 //     }).catch(err => console.log(err));
@@ -24,6 +33,7 @@ function togglecolorchnage() {
 
     let btn = document.querySelectorAll('.btn');
     btn.forEach(e => {
+       
 
 
         if (e.innerHTML == '0') {
@@ -100,7 +110,9 @@ async function examedit(id) {
         <div class="combine">
             <div class="one">
                 <label for="">UPDATE EXAM</label>
+                <label for="">UPDATE EXAM</label>
             </div>
+            <form action="/edit" method="post" onsubmit="return validateform()">
             <form action="/edit" method="post" onsubmit="return validateform()">
                 <input type="text" name="exam_id" value="${data[0].exam_id}" id="exam_id" hidden>
     
@@ -109,6 +121,7 @@ async function examedit(id) {
     
                         <label for="exam_name" class="labelofInput"> exam name: </label>
                         <input type="text" name="exam_name" value="${data[0].exam_name}"
+                            placeholder="enter exam name" class="input_tag"  required >
                             placeholder="enter exam name" class="input_tag"  required >
     
                     </div>
@@ -143,6 +156,7 @@ async function examedit(id) {
                         <label for="start_date" class="labelofInput"> start date: </label>
                         <input type="date" name="start_date" id="" placeholder="enter start date"
                             value="${(new Date(data[0].exam_date).toLocaleDateString())}" class="input_tag" required>
+                            value="${(new Date(data[0].exam_date).toLocaleDateString())}" class="input_tag" required>
     
                     </div>
     
@@ -150,6 +164,8 @@ async function examedit(id) {
                 </div>
                 <div class="save_div">
     
+                    <input type="submit" id="save_btn" value="UPDATE" style="cursor:pointer">
+                    <a href='/examlist'>cancel</a>
                     <input type="submit" id="save_btn" value="UPDATE" style="cursor:pointer">
                     <a href='/examlist'>cancel</a>
     
@@ -180,7 +196,6 @@ async function callback() {
         let exam_id = document.getElementById('exam_id').value;
 
         await fetch(`/selected/category?exam_id=${exam_id}`).then(res => res.json()).then(data => {
-
             for (i = 0; i < data.length; i++) {
                 category_name.push(data[i][0].category_name);
             }
@@ -192,7 +207,7 @@ async function callback() {
 
     categortFetch();
     async function categortFetch() {
-
+      
         fetch('/categories').then(res => res.json()).then(data => {
 
             let checker;
@@ -201,13 +216,13 @@ async function callback() {
                 for (j = 0; j < arat.length; j++) {
 
                     if (data.arr[i] == arat[j]) {
-
+                      
                         category_select.innerHTML += `<option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
                         checker = i;
                     }
                 }
                 if (checker != i) {
-
+                    
                     category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
 
                 }
@@ -218,6 +233,8 @@ async function callback() {
     }
 
 }
+
+
 
 //add exam code run on plus icon
 async function addexam() {
@@ -235,6 +252,7 @@ async function addexam() {
                         <label for="exam_name" class="labelofInput"> exam name: </label>
                         <input type="text" name="exam_name" id="exam_name"
                             placeholder="enter exam name" class="input_tag" oninput="checkexam(this.value)"  required>
+                            placeholder="enter exam name" class="input_tag" oninput="checkexam(this.value)"  required>
                     </div>
                     <div class="input_taker">
                         <label for="" class="labelofInput"> category :</label>
@@ -244,11 +262,13 @@ async function addexam() {
                     <div class="input_taker">
                         <label for="question" class="labelofInput">no of questions: </label>
                         <input type="text" name="question" id="question"
+                        <input type="text" name="question" id="question"
                             placeholder="enter no of questions" class="input_tag" min="10" max="50"
                             value="10" required>
                     </div>
                     <div class="input_taker">
                         <label for="time" class="labelofInput"> time limit: </label>
+                        <input type="text" name="time" id="time" placeholder="enter time limit"
                         <input type="text" name="time" id="time" placeholder="enter time limit"
                             class="input_tag" min="10" max="180" value="10" required>
                         <label for="" class="extra_label">(adding time limit in minutes)</label>
@@ -263,6 +283,8 @@ async function addexam() {
                     <p id="0"></p>
                     <input type="submit" id="save_btn" value="SAVE" style="cursor: pointer;">
                     <a href='/examlist'>cancel</a>
+                    <input type="submit" id="save_btn" value="SAVE" style="cursor: pointer;">
+                    <a href='/examlist'>cancel</a>
                    
                 </div>
             </form>
@@ -272,7 +294,6 @@ async function addexam() {
     }
 
     change.innerHTML = await htmstring();
-
 
 
 
@@ -352,7 +373,6 @@ function examSearch(curpage) {
     let exam_search = document.getElementById('exam_search');
 
     fetch(`/exam/search?exam_name=${search}&&num=${curpage}`).then(res => res.json()).then(data => {
-
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>
@@ -622,6 +642,8 @@ async function page(num, count) {
     }
 
     if (num == count) {
+        
+        pageid.innerHTML += `<p onclick="page(${count} ,${count})" class="p">next</p>`;
 
         pageid.innerHTML += `<p onclick="page(${count} ,${count})" class="p">next</p>`;
 

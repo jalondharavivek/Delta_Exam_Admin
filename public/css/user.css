@@ -104,7 +104,7 @@ th {
 
 td {
     border: 1px solid #777;
-    padding: 0.5rem;
+    padding: 0.4rem;
     text-align: center;
     font-size: 13px;
 
@@ -113,6 +113,8 @@ td {
 table {
     width: 100%;
     border-collapse: collapse;
+
+    box-sizing: border-box;
 }
 
 
