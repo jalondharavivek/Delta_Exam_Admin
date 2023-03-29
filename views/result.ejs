@@ -44,20 +44,20 @@
     </table>
 
                 <div id="page">
-                    <p onclick="page(`1`,`<%=count%>`,`<%=data[0].exam_id%>`)">prev</p>
+                    <p onclick="page(`1`,`<%=count%>`)">prev</p>
                     <%for(i=1 ;i<=count ;i++){%>
                         <% if(i==1){ %>
-                        <p onclick="page(`<%=i%>`,`<%=count%>`,`<%=data[0].exam_id%>`)">
+                        <p onclick="page(`<%=i%>`,`<%=count%>`)">
                             <b><%=i%></b>
                         </p>
                         <% }else{ %>
-                        <p onclick="page(`<%=i%>`,`<%=count%>`,`<%=data[0].exam_id%>`)">
+                        <p onclick="page(`<%=i%>`,`<%=count%>`)">
                             <%=i%>
                         </p>
 
                     <% } %>
                     <% } %>
-                    <p onclick="page(`<%=count%>`,`<%=count%>`,`<%=data[0].exam_id%>`)">next</p>
+                    <p onclick="page(`<%=count%>`,`<%=count%>`)">next</p>
                 </div>
             </div>
             </div>
