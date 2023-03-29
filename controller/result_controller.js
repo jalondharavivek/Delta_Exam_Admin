@@ -1,17 +1,5 @@
-// // const express = require('express')
-// const path = require('path')
-// const app = express();
 var db = require('../connection/mysql');
 require('../connection/module');
-// app.set("view engine", "ejs");
-// var bodyParser=require('body-parser');
-// app.use(bodyParser.urlencoded({extended:true}));
-// app.use(bodyParser.json());
-
-
-
-// app.use(express.static('public'));
-// app.use(express.static(path.join(__dirname, '/public/')))
 
 const studentlist= async(req,res) =>{
     var sql=`select exam_id,name,b.user_id from student a, user_answers b, user_login c where b.user_id=c.user_id;`

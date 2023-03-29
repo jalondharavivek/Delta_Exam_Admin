@@ -42,13 +42,14 @@ const login = async(req, res) => {
     var emailResult = await db.query(selectEmail);
     var selectUser = `SELECT email, password , user_login_status , role from user_login where email = '${email}'`;
     var [userData] = await db.query(selectUser);
+    console.log(userData[0].role);
     if (userData.length == 0) {
         res.send("email and password is not match");
     } else {
         var comparePassword = userData[0].password;
         var compare = await bcrypt.compare(password, comparePassword);
-        var resultRandom = Math.random().toString(36).substring(2, 7);
-        if (!compare) {
+        // var resultRandom = Math.random().toString(36).substring(2, 7);
+        if (!compare || userData[0].role == '0') {
             res.send("email and password is not match")
         }else {  
             req.session.user =email;
