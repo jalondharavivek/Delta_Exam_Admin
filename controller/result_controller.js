@@ -67,7 +67,7 @@ const studentlistpage = async (req, res) => {
     let [query1] = await db.query(sql1);
 
     var sql2 = `select distinct a.name,b.user_id from student a, user_answers b, user_login c where b.user_id=c.user_id and c.email = a.email;`;
-    let [query2] = await db.query(sql2);
+    let [query2] = await db.query(sql2); 
 
     let count = Math.ceil(query2.length / limit);
 
