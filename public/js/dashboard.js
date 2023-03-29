@@ -13,3 +13,4 @@ link.forEach(l => {
     if(current_link == l.href)
         l.classList.add("active")
 })
+
