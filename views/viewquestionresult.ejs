@@ -24,16 +24,19 @@
             <% count++ %>
             <% } %>
     <%}%>
-    <p>total Mark:<%=data.length%></p><br>
-    <p>achived Mark:<%=data.length-count%></p>
+    <div id="p">
+        <p class="p">total Mark:<%=data.length%></p><br>
+    <p class="p">achived Mark:<%=data.length-count%></p>
+    </div>
+    
     <table class="table table-hover">
-        <caption>question</caption>
+      
         <thead>
             <tr>
-                <td>No</td>
-                <td>Question </td>
-                <td> answer</td>
-                <td>Student answer</td>
+                <th>No</th>
+                <th>Question </th>
+                <th> answer</th>
+                <th>Student answer</th>
             </tr>
         </thead>
         <tbody id="tbody">
