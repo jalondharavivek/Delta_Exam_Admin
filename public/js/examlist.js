@@ -597,6 +597,7 @@ async function page(num, count) {
 
     if (num == count) {
 
+        pageid.innerHTML += `<p onclick="page(eval(${count}) ,${count})" class="p">next</p>`;
         
 
     } else if (num < count) {
