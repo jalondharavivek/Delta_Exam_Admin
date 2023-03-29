@@ -26,7 +26,9 @@
 async function deletquestion(delet) {
   try {
     const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
+    
     confirm('are you sure for delet this question?')
+    
     location.reload()
   } catch (err) {
     err
