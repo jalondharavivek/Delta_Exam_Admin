@@ -61,7 +61,7 @@ const post_edit = async function (req, res) {
         
         let [data3] = await db.execute(sql3);
 
-        let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${data3[0].category_name}' where exam_id=${exam_id};`;
+        let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${data3[0].category_name}',user_id='${req.session.user_id}' where exam_id=${exam_id};`;
         let [data1] = await db.execute(sql1);
 
         let sql4 = `select count(exam_category_id) as numrows  from exam_category where exam_id = '${exam_id}' `;
@@ -102,7 +102,7 @@ const post_edit = async function (req, res) {
   
       let categories = strcat.substring(0, strcat.length - 2);
   
-      let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${categories}' where exam_id=${exam_id};`;
+      let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${categories}',user_id='${req.session.user_id}' where exam_id=${exam_id};`;
       let [data1] = await db.execute(sql1);
   
       
