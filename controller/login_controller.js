@@ -42,13 +42,14 @@ const login = async(req, res) => {
     var emailResult = await db.query(selectEmail);
     var selectUser = `SELECT email, password , user_login_status , role from user_login where email = '${email}'`;
     var [userData] = await db.query(selectUser);
+    console.log(userData[0].role);
     if (userData.length == 0) {
         res.send("email and password is not match");
     } else {
         var comparePassword = userData[0].password;
         var compare = await bcrypt.compare(password, comparePassword);
-        var resultRandom = Math.random().toString(36).substring(2, 7);
-        if (!compare) {
+        // var resultRandom = Math.random().toString(36).substring(2, 7);
+        if (!compare || userData[0].role == '0') {
             res.send("email and password is not match")
         }else {  
             req.session.user =email;
@@ -105,7 +106,6 @@ const logout=async(req,res)=>{
 }
 const fetch_api = async(req,res) => {
     var email = req.body.email;
-  console.log("Send email in post method", email)
   let testAccount = nodemailer.createTestAccount();
   var otp = generateOTP();
   console.log("otp", otp);
@@ -164,7 +164,6 @@ var email = req.session.email;
   var set = await bcrypt.genSalt(10);
   var resetPassword = await bcrypt.hash(password, set);
   var updateQuery = `update user_login set password = '${resetPassword}' where email = '${email}'`;
-  console.log("update query", updateQuery)
   var updateResult = await db.query(updateQuery)
   res.redirect("/");
 }

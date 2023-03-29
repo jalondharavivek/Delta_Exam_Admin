@@ -59,7 +59,6 @@ async function check(id, status)
                 html += `<tr><td>${ d.category_id }</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
             })
             table.innerHTML = html;
-            console.log(data);
         }
         catch (err) {
             console.log(err);
@@ -84,7 +83,6 @@ async function addCategory()
         let noButton = dialogues.querySelector('.no');
 
         yesButton.addEventListener('click',async function() {
-            console.log("yes");
             dialogues.style.display = 'none';
             document.getElementById("overlay").style.display="none";
         });
@@ -115,13 +113,11 @@ async function editCategory(id)
             let dialogue = document.querySelector('.dialogue');
             let text = document.getElementById('text');
             let id = document.getElementById('id');
-            console.log(text);
             id.value = ans[0].category_id;
             text.value = ans[0].category_name;
             let yesButton = dialogue.querySelector('.yes');
             let noButton = dialogue.querySelector('.no');
             yesButton.addEventListener('click',async function() {
-                console.log("yes");
                 dialogue.style.display = 'none';
                 document.getElementById("overlay").style.display="none";
             });
@@ -140,7 +136,6 @@ async function editCategory(id)
 
 async function search(name)
 {
-    // console.log(name);
     try
     {
         let result = await fetch(`/search?name=${name}`);

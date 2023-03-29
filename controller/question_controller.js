@@ -109,9 +109,7 @@ const editquestionget = async(req,res)=>{
     let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${id}' and question_status='1' `)
     let catque = `select * from category where category_status = 1`
     let [catfque1] = await db.execute(catque);
-    // console.log(catfque1,":::::::cat")
     res.render("editquestion", { data: editques , data1: catfque1 , data2:category})
-// console.log(category,":::::222")
 }
 
 const editquestionpost = async(req,res)=>{

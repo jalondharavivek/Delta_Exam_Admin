@@ -130,7 +130,6 @@ const post_edit = async function (req, res) {
           let sql6 = `update exam_category set category_id=${category[i]} where exam_category_id = ${data5[i].exam_category_id};`;
           let data6 = await db.execute(sql6);
         }
-  
       } else if (oldlen < newlen) {
         for (i = 0; i < oldlen; i++) {
           let sql6 = `update exam_category set category_id =${category[i]} where exam_category_id = ${data5[i].exam_category_id}`;
