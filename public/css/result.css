@@ -45,3 +45,13 @@ tbody tr:nth-child(odd)
     display: flex;
     justify-content: space-evenly;
 }
+.back{
+    outline: none;
+    border: none;
+    padding: 10px 20px;
+    background-color: #777;
+    border-radius: 10px;
+    cursor: pointer;
+
+    
+}
