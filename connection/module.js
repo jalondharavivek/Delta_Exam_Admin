@@ -9,5 +9,5 @@ app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
 
 app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, '/public/')))
+app.use(express.static(path.join(__dirname, '/public/')));
 

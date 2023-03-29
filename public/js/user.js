@@ -8,8 +8,7 @@ function check_status() {
 
                 e.innerHTML = 'DISABLE';
                 e.style.color = 'red';
-                e.style.cursor = 'pointer';
-
+                e.style.cursor = 'pointer';                                        
             }
             else if (e.innerHTML == '1') {
 
@@ -30,9 +29,10 @@ function toggle(status, id) {
 
     var togglediv = document.getElementById('toggle' + id);
     var toggle_id = document.getElementById(id);
-
+    confirm(`Are you sure ?`)
 
     fetch(`/student_status?status=${status}&id=${id}`).then(res => res.json()).then(data => {
+
         if (data.info = 'rows matched: 1 changed: 1 Warnings: 0') {
             if (status == '1') {
                 togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}')" style="color: red;cursor:pointer" ;>DISABLE</p>`;
@@ -48,7 +48,6 @@ function toggle(status, id) {
 async function page(pages, name = '') {
 
     let table = document.getElementById('mytable');
-    console.log(table)
     let pagination = document.getElementById('pagination');
     let str = `<tr>
     <th>s_id</th>
@@ -66,8 +65,8 @@ async function page(pages, name = '') {
 
 </tr>`;
     let page = pages.id;
-    console.log(page, "this is [age")
-    const results = await fetch(`http://localhost:8765/userpage`, {
+ 
+    const results = await fetch(`userpage`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -75,7 +74,6 @@ async function page(pages, name = '') {
         body: JSON.stringify({ page, name })
     });
     var student = await results.json();
-    console.log(student)
     student.pages.forEach(c => {
         str += `<tr>
         <td>
@@ -116,7 +114,7 @@ async function page(pages, name = '') {
 
     </td>
     <td>
-        <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">edit
+        <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">
         </a>
     </td>
 </tr>
@@ -143,7 +141,6 @@ async function page(pages, name = '') {
         }
         else {
             for (let i = parseInt(student.page) + 1; i <= Math.ceil(parseInt(student.total) / parseInt(student.limit)); i++) {
-                console.log("manoijsjdhvasd");
                 pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
             }
         }
@@ -163,7 +160,6 @@ async function search(name) {
         let result = await fetch(`/user/search?name=${name}`);
 
         let data = await result.json();
-        console.log(data)
         let page = document.getElementById("pagination");
         let pages = '';
         let table = document.getElementById("mytable");
@@ -184,7 +180,6 @@ async function search(name) {
     </tr>`;
         if (Object.keys(data.search).length != 0) {
             data.search.forEach(c => {
-                console.log(c.created_date)
                 html += `<tr>
                 <td>
                     ${c.student_id}
@@ -226,7 +221,7 @@ async function search(name) {
         
             </td>
             <td>
-                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">edit
+                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">
                 </a>
             </td>
         </tr>`

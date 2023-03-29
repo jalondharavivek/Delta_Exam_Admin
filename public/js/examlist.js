@@ -1,29 +1,11 @@
-
-
-// let category_select = document.getElementById('category_select');
-
-
-// //categoty fetch on ajax 
-// categortFetch();
-// function categortFetch() {
-//     fetch('/categories').then(res => res.json()).then(data => {
-
-//         for (let i = 0; i < data.arr.length; i++) {
-
-//             category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
-//         }
-//     }).catch(err => console.log(err));
-// }
-
-
-//when page relkoad as database they chnage into enable and disable
-
 togglecolorchnage();
+
 function togglecolorchnage() {
 
     let btn = document.querySelectorAll('.btn');
     btn.forEach(e => {
        
+
 
         if (e.innerHTML == '0') {
 
@@ -41,20 +23,43 @@ function togglecolorchnage() {
     })
 }
 
-//toggle switch with database chnages with no reload
-function toggle(status, id) {
+function toggle(status, id, date) {
     let togglediv = document.getElementById(`toggle${id}`);
     let toggle_id = document.getElementById(`${id}`);
 
-    fetch(`/exam/status?status=${status}&id=${id}`).then(res => res.json()).then(data => {
-        if (data.info = 'rows matched: 1 changed: 1 Warnings: 0') {
-            if (status == '1') {
-                togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}')" style="color: red;cursor:pointer">DISABLE</p>`;
-            } else if (status = '0') {
-                togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('1','${id}')" style="color: blue;cursor:pointer">ENABLE</p>`;
+    let date1 = date;
+    let d = new Date();
+    let today = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+    let datearr = date1.split("/");
+    let current_datearr = today.split("/");
+
+    if (parseInt(datearr[2]) <= parseInt(current_datearr[2])) {
+        if (parseInt(datearr[1]) <= parseInt(current_datearr[1])) {
+            if (parseInt(datearr[0]) < parseInt(current_datearr[0])) {
+                togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: red;cursor:pointer">DISABLE</p>`;
+               
+            }else {
+                toogleftech();
             }
+        }else {
+            toogleftech();
         }
-    }).catch(err => console.log(err));
+
+    } else {
+        toogleftech();
+    }
+
+    function toogleftech(){
+        fetch(`/exam/status?status=${status}&id=${id}&date=${date}`).then(res => res.json()).then(data => {
+            if (data.info = 'rows matched: 1 changed: 1 Warnings: 0') {
+                if (status == '1') {
+                    togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: red;cursor:pointer">DISABLE</p>`;
+                } else if (status = '0') {
+                    togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('1','${id}','${date}'  )" style="color: blue;cursor:pointer">ENABLE</p>`;
+                }
+            }
+        }).catch(err => console.log(err));
+    }
 }
 
 //exam edit script when click on edit button
@@ -113,7 +118,7 @@ async function examedit(id) {
                     <div class="input_taker">
                         <label for="start_date" class="labelofInput"> start date: </label>
                         <input type="date" name="start_date" id="" placeholder="enter start date"
-                            value="${(new Date(data[0].exam_date).toLocaleDateString())}" class="input_tag" required>
+                            value="${data[0].exam_date}" class="input_tag" required>
     
                     </div>
     
@@ -138,23 +143,19 @@ async function examedit(id) {
 
 }
 
-
-
-
 async function callback() {
     let category_select = document.getElementById('category_select')
-    
+
     let arat = await selectedcategory();
-   
-    
+
+
 
     async function selectedcategory() {
-     
+
         let category_name = [];
         let exam_id = document.getElementById('exam_id').value;
 
         await fetch(`/selected/category?exam_id=${exam_id}`).then(res => res.json()).then(data => {
-     
             for (i = 0; i < data.length; i++) {
                 category_name.push(data[i][0].category_name);
             }
@@ -168,12 +169,12 @@ async function callback() {
     async function categortFetch() {
       
         fetch('/categories').then(res => res.json()).then(data => {
-          
+
             let checker;
             for (let i = 0; i < data.arr.length; i++) {
-          
+
                 for (j = 0; j < arat.length; j++) {
-                   
+
                     if (data.arr[i] == arat[j]) {
                       
                         category_select.innerHTML += `<option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
@@ -250,7 +251,6 @@ async function addexam() {
     change.innerHTML = await htmstring();
 
 
-    
 
     let exam_name = document.getElementById('exam_name').value;
     let question = document.getElementById('question').value;
@@ -262,10 +262,10 @@ async function addexam() {
     categortFetch();
     function categortFetch() {
         fetch('/categories').then(res => res.json()).then(data => {
-           
+
 
             for (let i = 0; i < data.arr.length; i++) {
-                
+
                 category_select.innerHTML += ` <option value="${data.arr2[i]}">${data.arr[i]}</option>`;
 
             }
@@ -275,17 +275,15 @@ async function addexam() {
 
 
 }
-// validation for exam add and edit
 function validateform() {
-    
+
     let exam_name = document.getElementById('exam_name').value;
-    let question = document.getElementById('question').value ;
+    let question = document.getElementById('question').value;
     let start_date = document.getElementById('start_date').value
     let time = document.getElementById('time').value;
-    let symbol = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '<', '>', '?', '/', ',', '.', '"', ':', ';', '+', '-', '`', '~', '=', '[', ']', '{', '}','1','2','3','4','5','6','7','8','9','0'];
-    
-    console.log(typeof(question))
-    console.log(typeof(time))
+    let symbol = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '<', '>', '?', '/', ',', '.', '"', ':', ';', '+', '-', '`', '~', '=', '[', ']', '{', '}', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+
     if (exam_name == '' || question == '' || start_date == '' || time == '') {
         alert(`field can't be empty`);
         return false;
@@ -296,26 +294,26 @@ function validateform() {
             return false;
         }
     }
-    if(isNaN(question) || isNaN(time)){
+    if (isNaN(question) || isNaN(time)) {
         alert("only numbers is allowed");
         return false;
-    
+
     }
-    if(parseInt(question) <10 || parseInt(question)>50){
+    if (parseInt(question) < 10 || parseInt(question) > 50) {
         alert('enter 5 to 50 between')
-        return false ;
+        return false;
     }
-    if(parseInt(time)<10 || parseInt(time)>180){
+    if (parseInt(time) < 10 || parseInt(time) > 180) {
         alert('enter 5 to 50 between');
-        return false ;
+        return false;
     }
-    if(question.includes(".")){
+    if (question.includes(".")) {
         alert("point in not allowed in question")
-        return false ;
+        return false;
     }
-    if(time.includes(".")){
+    if (time.includes(".")) {
         alert("point in not allowed in time");
-        return false ;
+        return false;
 
     }
 
@@ -329,7 +327,6 @@ function examSearch(curpage) {
     let exam_search = document.getElementById('exam_search');
 
     fetch(`/exam/search?exam_name=${search}&&num=${curpage}`).then(res => res.json()).then(data => {
-        console.log(data)
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>
@@ -343,7 +340,7 @@ function examSearch(curpage) {
                             <th>edit</th>
                             <!-- <th>delete</th> -->
                         </tr>`;
-        if (data.data1.length !=0) {
+        if (data.data1.length != 0) {
             for (i = 0; i < data.data1.length; i++) {
                 str += `<tr>
                                     <td>
@@ -381,7 +378,7 @@ function examSearch(curpage) {
                                     </td>
                                     <td>
                                         <div id="toggle${data.data1[i].exam_id}">
-                                            <p class="btn" id="${data.data1[i].exam_id}" onclick="toggle('${data.data1[i].exam_status}','${data.data1[i].exam_id}')" style="color: red;cursor:pointer">${data.data1[i].exam_status}</p>
+                                            <p class="btn" id="${data.data1[i].exam_id}" onclick="toggle('${data.data1[i].exam_status}','${data.data1[i].exam_id}','${(new Date(data.data1[i].exam_date).toLocaleDateString())}')" style="color: red;cursor:pointer">${data.data1[i].exam_status}</p>
                                         
                                         </div>
                                     </td>
@@ -397,42 +394,41 @@ function examSearch(curpage) {
                                `;
             }
         }
-        else
-        {
+        else {
             str += `<tr><td colspan="8">No record found</td></tr>`;
         }
-        
-        let count = data.data5.length/data.limit ;
- 
-          
-        if(count <= 1){
-            count = 1 ;
-        }else{
-           count = Math.ceil(data.data5.length/data.limit);  
-           
+
+        let count = data.data5.length / data.limit;
+
+
+        if (count <= 1) {
+            count = 1;
+        } else {
+            count = Math.ceil(data.data5.length / data.limit);
+
         }
-        console.log(count)
+
 
         tbody.innerHTML = str;
         togglecolorchnage();
 
         let pageid = document.getElementById('page');
-       
+
 
         let newstr = '';
         pageid.innerHTML = "";
 
-        if(search.length == 0){
+        if (search.length == 0) {
             if (data.curpage == 1) {
 
                 pageid.innerHTML += `<p onclick="examSearch(1)" class="p">prev</p>`;
-    
+
             } else {
-    
+
                 pageid.innerHTML += `<p onclick="examSearch(${data.curpage}-1)" class="p">prev</p>`;
-    
+
             }
-    
+
             for (let i = 1; i <= data.count1; i++) {
                 if (i == data.curpage) {
                     pageid.innerHTML += `<p onclick="examSearch(${i})" class="p">
@@ -443,25 +439,25 @@ function examSearch(curpage) {
                 ${i}
             </p>`;
                 }
-    
+
             }
             if (data.curpage == data.count1) {
                 pageid.innerHTML += `<p onclick="examSearch(${data.count1})" class="p">next</p>`;
-    
+
             } else {
                 pageid.innerHTML += `<p onclick="examSearch(${data.curpage} + 1)" class="p">next</p>`;
             }
-        }else{
+        } else {
             if (data.curpage == 1) {
 
                 pageid.innerHTML += `<p onclick="examSearch(1)" class="p">prev</p>`;
-    
+
             } else {
-    
+
                 pageid.innerHTML += `<p onclick="examSearch(${data.curpage}-1)" class="p">prev</p>`;
-    
+
             }
-    
+
             for (let i = 1; i <= count; i++) {
                 if (i == data.curpage) {
                     pageid.innerHTML += `<p onclick="examSearch(${i})" class="p">
@@ -472,17 +468,17 @@ function examSearch(curpage) {
                 ${i}
             </p>`;
                 }
-    
+
             }
             if (data.curpage == count) {
                 pageid.innerHTML += `<p onclick="examSearch(${count})" class="p">next</p>`;
-    
+
             } else {
                 pageid.innerHTML += `<p onclick="examSearch(${data.curpage} + 1)" class="p">next</p>`;
             }
         }
-         
-     
+
+
 
     })
         .catch(err => console.log(err));
@@ -490,11 +486,11 @@ function examSearch(curpage) {
 }
 //pagination code is start
 
-async function page(num,count) {
+async function page(num, count) {
 
     let result = await fetch(`/examlist/page?page=${num}`);
     let data = await result.json();
-    
+
 
 
 
@@ -553,7 +549,7 @@ async function page(num,count) {
                         </td>
                         <td>
                             <div id="toggle${data.data1[i].exam_id}">
-                                <p class="btn" id="${data.data1[i].exam_id}" onclick="toggle('${data.data1[i].exam_status}','${data.data1[i].exam_id}')" style="color: red;cursor:pointer">${data.data1[i].exam_status}</p>
+                                <p class="btn" id="${data.data1[i].exam_id}" onclick="toggle('${data.data1[i].exam_status}','${data.data1[i].exam_id}','${(new Date(data.data1[i].exam_date).toLocaleDateString())}')" style="color: red;cursor:pointer">${data.data1[i].exam_status}</p>
                             
                             </div>
                         </td>
@@ -570,7 +566,7 @@ async function page(num,count) {
     tbody.innerHTML = str;
     togglecolorchnage();
     let pageid = document.getElementById('page');
-   
+
 
     let newstr = '';
     pageid.innerHTML = "";
@@ -584,9 +580,9 @@ async function page(num,count) {
         pageid.innerHTML += `<p onclick="page(${num}-1,${count})" class="p">prev</p>`;
 
     }
-    
-    for (let i = 1; i <= data.data1.length; i++) {
-        
+
+    for (let i = 1; i <= data.count; i++) {
+
         if (i == num) {
             pageid.innerHTML += `<p onclick="page(${i},${count})" class="p">
             <b>${i}</b>
@@ -600,15 +596,16 @@ async function page(num,count) {
     }
 
     if (num == count) {
-        
-        pageid.innerHTML += `<p onclick="page(${count} ,${count})" class="p">next</p>`;
 
-    } else if(num < count){
+        pageid.innerHTML += `<p onclick="page(eval(${count}) ,${count})" class="p">next</p>`;
         
+
+    } else if (num < count) {
+
         pageid.innerHTML += `<p onclick="page(eval(${num}+1) ,${count})" class="p">next</p>`;
     }
 
     let pclass = document.querySelectorAll('.p');
-    
+
 
 }

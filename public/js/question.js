@@ -25,9 +25,14 @@
 //delet question 
 async function deletquestion(delet) {
   try {
-    const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
-    confirm('are you sure for delet this question?')
-    location.reload()
+    
+    var confrimdlt =  confirm('are you sure for delet this question?')
+    console.log(confrimdlt,"::::var")
+    if(confrimdlt){
+      const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
+      location.reload()
+    }
+    
   } catch (err) {
     err
   }
@@ -78,7 +83,7 @@ async function retriveque() {
     </td>
     <td class="button-width">
 
-    <a href="editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
+    <a href="/question/editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
     <a href=""   onclick="retquestion(${data.data[i].question_id})"><i class="fas fa-trash-restore"></i></a>
     </td>
 </tr>`
@@ -107,10 +112,9 @@ async function retquestion(idretque) {
 
 async function searchque(quesearch) {
   try {
-    // console.log(name,"question module in search search:::::;")
     let queresult = await fetch(`/searchque?nameque=${quesearch}`);
     let datas = await queresult.json();
-
+    let id=1
     let tabque = document.getElementById("quetable")
     let quetabsearch = `  <thead> <tr>
                              <th>Id</th>
@@ -128,12 +132,14 @@ async function searchque(quesearch) {
     }
     else {
       {
+
         for (let i = 0; i < datas.search.length; i++) {
           quetabsearch += `<tr>
         <td class="width-td">
-            ${datas.search[i].question_id}
+            ${id++}
         </td>
-        <td  class="width-td">  0</td>
+        <td  class="width-td">
+        ${datas.search[i].category_name} </td>
         <td class="question-width" >
             ${datas.search[i].question_text}
         </td>
@@ -148,7 +154,7 @@ async function searchque(quesearch) {
         </td>
         <td class="button-width">
 
-        <a href="editquestion?question_id=${datas.search[i].question_id}" ><i class="fas fa-edit"></i></a>
+        <a href="/question/editquestion?question_id=${datas.search[i].question_id}" ><i class="fas fa-edit"></i></a>
         <a href=""   onclick="deletque(${datas.search[i].question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
     </tr>`
@@ -165,6 +171,102 @@ async function searchque(quesearch) {
   }
 
 }
+
+
+async function page(pages, name = '') {
+  try {
+
+    let table = document.getElementById('quetable');
+    let pagination = document.getElementById('pagination');
+    let id = 1;
+    let html = ` <thead> <tr>
+        <th>Id</th>
+        <th>Category</th>
+       <th>Question</th>
+       <th>Answer</th>
+        <th>view</th>
+        <th>Action</th>
+        </tr> 
+   </thead>`;
+    let page = pages.id;
+    const results = await fetch(`/question/questionpage`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ page, name })
+    });
+    var data = await results.json();
+    data.pages.forEach(q => {
+      html += `<tr>
+      <td class="width-td">
+          ${id++}
+      </td>
+      <td  class="width-td">
+      ${q.category_name} </td>
+      <td class="question-width" >
+          ${q.question_text}
+      </td>
+    
+      <td class="answercolor">
+          ${q.answer}
+      </td>
+      <td>
+      
+      <a href="viewdetail?question_id=${q.question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
+      
+      </td>
+      <td class="button-width">
+
+      <a href="/question/editquestion?question_id=${q.question_id}" ><i class="fas fa-edit"></i></a>
+      <a href=""   onclick="deletque(${q.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      </td>
+  </tr>`;
+    })
+    let pagi = '';
+    if (name == '') {
+      pagi += `<li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>`;
+      if (parseInt(data.page) <= 5) {
+        for (let i = 1; i <= parseInt(data.page); i++) {
+          pagi += `<li class="page-item"><a class="page-link `;
+          if (parseInt(data.page) == i) { pagi += `pageactive"` } else { pagi += `disabled"` }
+          pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
+        }
+      }
+      else {
+        for (let i = (parseInt(data.page) - 5); i <= parseInt(data.page); i++) {
+          pagi += `<li class="page-item"><a class="page-link `;
+          if (parseInt(data.page) == i) { pagi += `pageactive"` } else { pagi += `disabled"` }
+          pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
+        }
+      }
+      if (Math.ceil(parseInt(data.total) / parseInt(data.limit)) - 5 >= parseInt(data.page)) {
+        for (let i = parseInt(data.page) + 1; i <= parseInt(data.page) + 5; i++) {
+          pagi += `<li class="page-item"><a class="page-link `
+          if (parseInt(data.page) == i) { pagi += `pageactive"` } else { pagi += `disabled"` }
+          pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
+        }
+      }
+      else {
+        for (let i = parseInt(data.page) + 1; i <= Math.ceil(parseInt(data.total) / parseInt(data.limit)); i++) {
+          pagi += `<li class="page-item"><a class="page-link `;
+          if (parseInt(data.page) == i) { pagi += `pageactive"` } else { pagi += `disabled"` }
+          pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
+        }
+      }
+      pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/ data.limit)}">Last</a></li>`
+      pagination.innerHTML = pagi;
+
+    }
+    table.innerHTML = html;
+
+   
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
+
 
 
 //<td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td>

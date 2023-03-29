@@ -58,6 +58,9 @@ font-weight: 600;
 color: rgb(38, 134, 12);
 
 }
+.logo:hover{
+    color:#010058af
+}
 
 .icn {
 height: 30px;
@@ -80,7 +83,7 @@ display: none;
 }
 
 .logosec {
-gap: 60px;
+gap: 20px;
 }
 
 .searchbar input {
@@ -114,15 +117,22 @@ cursor: pointer;
 
 padding: 10px;
 
-background-color: rgb(126 214 122);
+/* background-color: rgb(38, 134, 12); */
 border-radius: 5px;
 /* font-weight: bold; */
 margin: 5px;
 color: white;
+}
+.logout{
+    background-color: rgb(136, 28, 28);
 
 }
+.forget{
+    background-color: #010058af;
+}
 .dp a:hover {
-  background-color: #dadada;
+  background-color: #ccf3c0af;
+  color: black;
 }
 .main-container {
 display: flex;
@@ -134,8 +144,13 @@ z-index: 1;
 .dpicon {
 height: 49px;
 }
+/* body{
+    background-image: url(/public/assets/image/wave.png);
+    background-size: cover;
+} */
 
 .main {
+   
 height: calc(100vh - 70px);
 width: 100%;
 overflow-y: scroll;
@@ -241,10 +256,10 @@ a{
     width: 25%;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-    padding: 100px;
+    /* padding: 100px; */
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    /* align-items: center; */
+    /* justify-content: space-around; */
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
 }
@@ -254,29 +269,44 @@ opacity: 0.8;
 }
 
 .box:nth-child(1) {
-background-color: var(--one-use-color);
+/* background-color: var(--one-use-color); */
+background-image: url(/assets/image/pexels-lukas-590041\ \(1\).jpg);
+background-size: cover;
 }
 .box:nth-child(2) {
-background-color: var(--two-use-color);
+/* background-color: var(--two-use-color); */
+/* background-image: url(/public/assets/image/pexels-monstera-6238107.jpg); */
+background-image: url(/assets/image/pexels-ann-poan-5797903.jpg);
+background-size: cover;
 }
 .box:nth-child(3) {
-background-color: var(--three-use-color);
+/* background-color: var(--three-use-color); */
+background-image: url(/assets/image/pexels-jeswin-thomas-3380743.jpg);
+background-size: cover;
 }
 .box:nth-child(4) {
-background-color: var(--two-use-color);
+/* background-color: var(--two-use-color); */
+background-image: url(/assets/image/result.jpg);
+background-size: cover;
 }
 .box:nth-child(5) {
-    background-color: var(--three-use-color);
+    /* background-color: var(--three-use-color); */
+    background-image: url(/assets/image/pexels-ann-h-10981242.jpg);
+    background-size: cover;
     }
-    .box:nth-child(6) {
-        background-color: var(--one-use-color);
-        }
+   
 
-.box img {
-height: 50px;
-}
 .box .text {
-color: white;
+color: rgb(0, 0, 0);
+margin: 5px;
+}
+
+.count{
+    font-size: 40px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #000000;
+font-weight: bold;
+text-align: center;
 }
 .topic {
 font-size: 13px;
@@ -430,6 +460,8 @@ border-radius: 4px;
     }
     .logo {
         font-size: 20px;
+        animation: backwards;
+        animation-direction: normal;
     }
     .menuicn {
         height: 25px;

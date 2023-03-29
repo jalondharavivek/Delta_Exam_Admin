@@ -7,15 +7,14 @@ function cat_status()
         sts.forEach(e => {
             if (e.innerHTML == '0') {
                 e.innerHTML = 'DISABLE';
-                e.style.color = 'white';
-                e.style.backgroundColor = 'rgb(0,90,190)';
-                e.style.opacity = '0.9';
+                e.style.color = 'rgb(0,90,190)';
+                // e.style.backgroundColor = 'rgb(0,90,190)';
             }
             else  if(e.innerHTML == '1')
             {
                 e.innerHTML = 'ENABLE';
-                e.style.color = 'white';
-                e.style.backgroundColor = 'rgb(0,140,0)';
+                e.style.color = 'rgb(0,140,0)';
+                // e.style.backgroundColor = 'rgb(0,140,0)';
             }
         })
     }
@@ -59,7 +58,6 @@ async function check(id, status)
                 html += `<tr><td>${ d.category_id }</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
             })
             table.innerHTML = html;
-            console.log(data);
         }
         catch (err) {
             console.log(err);
@@ -84,7 +82,6 @@ async function addCategory()
         let noButton = dialogues.querySelector('.no');
 
         yesButton.addEventListener('click',async function() {
-            console.log("yes");
             dialogues.style.display = 'none';
             document.getElementById("overlay").style.display="none";
         });
@@ -115,13 +112,11 @@ async function editCategory(id)
             let dialogue = document.querySelector('.dialogue');
             let text = document.getElementById('text');
             let id = document.getElementById('id');
-            console.log(text);
             id.value = ans[0].category_id;
             text.value = ans[0].category_name;
             let yesButton = dialogue.querySelector('.yes');
             let noButton = dialogue.querySelector('.no');
             yesButton.addEventListener('click',async function() {
-                console.log("yes");
                 dialogue.style.display = 'none';
                 document.getElementById("overlay").style.display="none";
             });
@@ -140,7 +135,6 @@ async function editCategory(id)
 
 async function search(name)
 {
-    // console.log(name);
     try
     {
         let result = await fetch(`/search?name=${name}`);
@@ -161,12 +155,44 @@ async function search(name)
                 html += `<tr><td>${ d.category_id }</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
             })
 
-            pages = `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')">First</a></li>`;
-                for(let i=data.page;i<=Math.ceil(data.total/data.limit);i++){
-                    pages += `<li class="page-item"><a class="page-link" id='${i}' onclick="search('${name}')
-                    " onclick="page(this,'${name}')">${i}</a></li>`
+            pages += `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')"><<</a></li>`;
+            pages += `<li class="page-item"><a class="page-link" id="${data.page-1}" onclick="page(this,'${name}')"><</a></li>`;
+            if(parseInt(data.page) <=5) {
+                for(let i=1;i<=parseInt(data.page);i++) {  
+                    pages += `<li class="page-item"><a class="page-link `
+                    if(parseInt(data.page) == i){ pages += `pageactive"`}else { pages += `disabled"`}
+                    pages += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
                 }
-            pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.total/data.limit)}">Last</a></li>`;
+            }
+            else {
+                for(let i=(parseInt(data.page)-5);i<=parseInt(data.page);i++){
+                    pages += `<li class="page-item"><a class="page-link `
+                    if(parseInt(data.page) == i){ pages += `pageactive"`}else { pages += `disabled"`}
+                    pages += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
+                }
+            }
+            if(Math.ceil(parseInt(data.total)/parseInt(data.limit))-5>= parseInt(data.page)) {
+                for(let i=parseInt(data.page)+1;i<=parseInt(data.page)+ 5;i++){
+                    pages += `<li class="page-item"><a class="page-link `
+                    if(parseInt(data.page) == i){ pages += `pageactive"`}else { pages += `disabled"`}
+                    pages += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
+                } 
+            } 
+            else 
+            {
+                for(let i=parseInt(data.page)+1;i<=Math.ceil(parseInt(data.total)/parseInt(data.limit));i++) {
+                    pages += `<li class="page-item"><a class="page-link `
+                    if(parseInt(data.page) == i){ pages += `pageactive"`}else { pages += `disabled"`}
+                    pages += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
+                }
+            }
+            pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="`
+            if(data.page < Math.ceil(data.totalpages/data.limit))
+            {
+                pages+= `${data.page+1}`
+            }
+            pages += `">></a></li>`;
+            pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.totalpages/data.limit)}">>></a></li>`;
 
         }
         else if(Object.keys(data.search).length == 0)
@@ -213,7 +239,8 @@ async function page(pages,name = '')
         let pagi ='' ;
         if(name == '')
         {
-            pagi += `<li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>`;
+            pagi += `<li class="page-item"><a class="page-link" id="0" onclick='page(this)'><<</a></li>`;
+            pagi += `<li class="page-item"><a class="page-link" id="${data.page-1}" onclick='page(this)'><</a></li>`;
             if(parseInt(data.page) <=5) {
                 for(let i=1;i<=parseInt(data.page);i++) {  
                     pagi += `<li class="page-item"><a class="page-link `;
@@ -235,16 +262,42 @@ async function page(pages,name = '')
                     pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
                 } 
             } 
-            else {
+            else 
+            {
                 for(let i=parseInt(data.page)+1;i<=Math.ceil(parseInt(data.total)/parseInt(data.limit));i++) {
                     pagi += `<li class="page-item"><a class="page-link `;
                     if(parseInt(data.page) == i){ pagi += `pageactive"`}else { pagi += `disabled"`}
                     pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
                 }
             }
-            pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/data.limit)}">Last</a></li>`
+            pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="`
+            if(data.page < Math.ceil(data.total/data.limit))
+            {
+                pagi+= `${data.page+1}`
+            }
+            pagi += `">></a></li>`;
+
+            pagi += `<li class="page-item"><a class="page-link" onclick='page(this)' id="${Math.ceil(data.total/data.limit)}">>></a></li>`
             pagination.innerHTML = pagi;
 
+        }
+        else
+        {
+            pagi += `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')"><<</a></li>`;
+            pagi += `<li class="page-item"><a class="page-link" id="${data.page-1}" onclick="page(this,'${name}')"><</a></li>`;
+                for(let i=1;i<=Math.ceil(data.totalpages/data.limit);i++){
+                    pagi += `<li class="page-item"><a class="page-link `
+                    if(parseInt(data.page) == i){ pagi += `pageactive"`}else { pagi += `disabled"`}
+                    pagi += ` id='${i}' onclick="page(this,'${name}')">${i}</a></li>`
+                }
+            pagi +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="`
+            if(data.page < Math.ceil(data.totalpages/data.limit))
+            {
+                pagi+= `${data.page+1}`
+            }
+            pagi += `">></a></li>`;
+            pagi +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.totalpages/data.limit)}">>></a></li>`;
+            pagination.innerHTML = pagi;
         }
         table.innerHTML = html;
         

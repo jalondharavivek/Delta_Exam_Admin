@@ -3,8 +3,6 @@ const auth = require('../middleware/middleware');
 const route = express.Router();
 
 
-
-
 const result = require('../controller/result_controller');
 const exam = require('../controller/exam_controller');
 const category = require('../controller/category_controller');
@@ -33,6 +31,7 @@ route.get('/exam',auth,exam.exam);
 route.post('/exam',auth,exam.post_exam);
 route.get('/exam/status',auth,exam.examstatus);
 
+
 route.get('/',login.admin_login);
 route.post('/login',login.login);
 route.get('/forget',login.forget);
@@ -46,16 +45,29 @@ route.get('/logout',login.logout);
 
 route.get('/question',auth,question.question)
 route.get('/addquestion',auth,question.addquestion)
-route.post('/addquestion',question.upload.single('image'),question.addquestionpost)
+route.post('/addquestion',auth,question.upload.single('image'),question.addquestionpost)
 route.get('/viewdetail',auth,question.viewdetail)
-route.get('/editquestion',auth,question.editquestionget)
-route.post('/editquestion',auth,question.editquestionpost)
+route.get('/question/editquestion',auth,question.editquestionget)
+route.post('/editquestion',auth,question.upload.single('image'),question.editquestionpost)
 route.post('/deletquestion',auth,question.deletquestion)
 route.get('/searchque',auth,question.searchget)
 route.get('/retriveque',auth,question.retrivequestions)
 route.post('/retrivequestion',auth,question.retrivequestionpost)
+route.post('/question/questionpage',auth,question.questionpage)
 
-route.get('/result',auth,result.resultget)
+
+//result routing
+route.get('/result',auth,result.studentlist);
+route.get('/result/page',auth,result.studentlistpage);
+
+route.get('/companylist',auth,result.companylist);
+route.get('/companylist/page',auth,result.companylistpage);
+
+route.get('/getexamdetaile',auth,result.getexamdetaile);
+route.get('/getexamdetaile/page',auth,result.getexamdetailepage);
+
+route.get('/viewquestionresult',auth,result.viewquestionget);
+route.get('/viewquestionresult/page',auth,result.viewquestiongetpage);
 
 route.get('/user',auth,user.user);
 route.post('/userpage',auth,user.userpage);
@@ -67,6 +79,7 @@ route.get('/student/allcity',auth,user.allcity);
 route.get('/student/city',auth,user.city);
 route.get('/city',auth,user.getcity);
 route.post('/update',auth,user.update);
-route.get('/user/search',auth,user.search)
+route.get('/user/search',auth,user.search);
+
 
 module.exports = route;

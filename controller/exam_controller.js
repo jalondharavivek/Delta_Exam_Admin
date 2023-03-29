@@ -1,9 +1,9 @@
 var db = require('../connection/mysql');
 require('../connection/module');
+// Importing moment module
+const moment = require('moment');
 
-
-
-let limit = 2;
+let limit = 10;
 const selectedcategory = async function (req, res) {
   try {
     let arr = [];
@@ -130,7 +130,6 @@ const post_edit = async function (req, res) {
           let sql6 = `update exam_category set category_id=${category[i]} where exam_category_id = ${data5[i].exam_category_id};`;
           let data6 = await db.execute(sql6);
         }
-  
       } else if (oldlen < newlen) {
         for (i = 0; i < oldlen; i++) {
           let sql6 = `update exam_category set category_id =${category[i]} where exam_category_id = ${data5[i].exam_category_id}`;
@@ -225,7 +224,6 @@ const post_exam = async (req, res) => {
 
   try {
 
-
     let exam = req.body.exam_name;
     let question = req.body.question;
     let time = req.body.time;
@@ -246,7 +244,8 @@ const post_exam = async (req, res) => {
       sql3 = `select category_name from category where category_id='${category}'`;
       let [data3] = await db.execute(sql3);
 
-      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${data3[0].category_name}');`;
+
+      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '${req.session.user_id}', '0', '${start_date}',  NOW(),'${data3[0].category_name}');`;
 
       let [data1] = await db.execute(sql1);
   
@@ -270,8 +269,9 @@ const post_exam = async (req, res) => {
       }
   
       let categories = strcat.substring(0, strcat.length - 2);
-  
-      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '1', '${start_date}',  NOW(),'${categories}');`;
+
+      
+      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '${req.session.user_id}', '0', '${start_date}',  NOW(),'${categories}');`;
   
       let [data1] = await db.execute(sql1);
   
@@ -299,8 +299,50 @@ const examstatus = async (req, res) => {
   try {
     let status = req.query.status;
     let id = req.query.id;
+    let date = req.query.date
+    let current_date = moment().format('DD/MM/YYYY'); 
+    let datearr = date.split('/');
+    let current_datearr = current_date.split('/');
+   
+    
+    if(parseInt(datearr[2]) <= parseInt(current_datearr[2]) ){
+       if(parseInt(datearr[1]) <= parseInt(current_datearr[1]) ){
+          if(parseInt(datearr[0]) < parseInt(current_datearr[0])){
 
-    if (status == '1') {
+           
+              sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+           
+
+          }else{
+            if (status == '1') {
+
+              sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+            }
+            else {
+              sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+              let [data1] = await db.execute(sql1);
+              res.send(data1)
+            }
+          }
+       }else{
+        if (status == '1') {
+
+          sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+          let [data1] = await db.execute(sql1);
+          res.send(data1)
+        }
+        else {
+          sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+          let [data1] = await db.execute(sql1);
+          res.send(data1)
+        }
+       }
+    }else{
+      if (status == '1') {
 
       sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
       let [data1] = await db.execute(sql1);
@@ -311,7 +353,7 @@ const examstatus = async (req, res) => {
       let [data1] = await db.execute(sql1);
       res.send(data1)
     }
-  } catch (err) {
+  } } catch (err) {
     res.send(err)
   }
 
@@ -360,14 +402,6 @@ const examsearch = async (req, res) => {
   } catch (err) {
     res.send(err)
   }
-}
-
-const checkexam = async (req,res) => {
-    try{
-        console.log(req.query);
-    }catch(err){
-      res.send(err);
-    }
 }
 
 const examlistpage = async (req, res) => {

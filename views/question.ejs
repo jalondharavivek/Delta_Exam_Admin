@@ -35,16 +35,23 @@
 
                     <div class="content-main">
                         <div class="content-heading">Question Table </div>
-                         
+
                         <div class="button-card">
-                            <div class="retrive-que"><a class="button"  onclick="retriveque()">Retrive que</a></div> 
-                            <div class="searchbar-que">
-                                <input class="searchbar-que" placeholder="search" type="text"
-                                    onkeyup="searchque(this.value)" name="search" id="search">
-                            </div>
-                           
-                            <div class="exam-button-row">
-                                <a class="button" href="/addquestion">add que</a>
+                            <!-- class="retrive-que" -->
+                            <div><a class="button" onclick="retriveque()">Retrive que</a></div>
+                            <div class="searchbarclass">
+                                <!-- class="searchbar-que" -->
+                                <div class="quesearchbar">
+                                    <div>
+                                        <input class="searchbar-que" placeholder="search" type="text"
+                                            onkeyup="searchque(this.value)" name="search" id="search">
+                                    </div>
+
+                                </div>
+                                <!-- class="exam-button-row" -->
+                                <div>
+                                    <a class="button" href="/addquestion">add que</a>
+                                </div>
                             </div>
                         </div>
 
@@ -55,7 +62,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Category</th>
-                                        <th>Question</th>                                      
+                                        <th>Question</th>
                                         <th>Answer</th>
                                         <th>view </th>
                                         <th>Action</th>
@@ -63,33 +70,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                
-                                        <% let id=1 %>
-                                            <% for(var i=0 ; i < data.length ; i++) { %>
-                                                <tr>
-                                                    <td class="width-td">
-                                                        <%= id++ %>
-                                                    </td>
-                                                    <td class="width-td">0</td>
-                                                    <td class="question-width">
-                                                        <%= data[i].question_text%>
-                                                    </td>
 
-                                                    <td class="answercolor">
-                                                        <%=data[i].answer%>
-                                                    </td>
-                                                    <td>
-                                                        <a href="viewdetail?question_id=<%= data[i].question_id %>"
-                                                          ><i style="color: rgb(20, 20, 20);" class="fa fa-eye" aria-hidden="true"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td class="button-width">
-                                                        <a href="editquestion?question_id=<%= data[i].question_id %>"
-                                                           ><i class="fas fa-edit"></i></a>
-                                                        <a id="deletquesid" onclick="deletquestion(`<%= data[i].question_id %>`)"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <% } %>
+                                    <% let id=1 %>
+                                        <% for(var i=0 ; i < data.length ; i++) { %>
+                                            <tr>
+                                                <td class="width-td">
+                                                    <%= id++ %>
+                                                </td>
+                                                <td class="width-td">
+                                                    <%= data1[i].category_name%>
+                                                </td>
+                                                <td class="question-width">
+                                                    <%= data[i].question_text%>
+                                                </td>
+
+                                                <td class="answercolor">
+                                                    <%=data[i].answer%>
+                                                </td>
+                                                <td>
+                                                    <a href="viewdetail?question_id=<%= data[i].question_id %>"><i
+                                                            style="color: rgb(20, 20, 20);" class="fa fa-eye"
+                                                            aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="button-width">
+                                                    <a
+                                                        href="/question/editquestion?question_id=<%= data[i].question_id %>"><i
+                                                            class="fas fa-edit"></i></a>
+                                                    <a id="deletquesid"
+                                                        onclick="deletquestion(`<%= data[i].question_id %>`)"><i
+                                                            class="fa fa-trash" aria-hidden="true"></i></a>
+                                                </td>
+                                            </tr>
+                                            <% } %>
 
                                 </tbody>
 
@@ -97,29 +110,53 @@
 
 
                         </div>
-                       
+
                         <div class="page">
                             <nav aria-label="Page navigation example">
-                                <ul class="pagination" id="pagination"> 
-                                    <li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>
-                                <% if(parseInt(page) <=5) { %>
-                                    <% for(let i=1;i<=parseInt(page);i++) { %>
-                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
-                                <% } } else { %>
-                                    <% for(let i=(parseInt(page)-5);i<=parseInt(page);i++){ %>
-                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
-                                    <% } %>
-                                <% } %>
-                                <% if(Math.ceil((totalque)/(limit))-5 >= (page)) { %>
-                                    <% for(let i=parseInt(page)+1;i<=parseInt(page)+5;i++){ %>
-                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
-                                    <% } %>
-                                <% } else { %>
-                                    <% for(let i=parseInt(page)+1;i<=Math.ceil(parseInt(totalque)/parseInt(limit));i++) { %>
-                                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
-                                    <% } %>
-                                <% } %>
-                                <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= Math.ceil(totalque/limit) %>">Last</a></li>
+                                <ul class="pagination" id="pagination">
+                                    <li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a>
+                                    </li>
+                                    <% if(parseInt(page) <=5) { %>
+                                        <% for(let i=1;i<=parseInt(page);i++){ %>
+                                            <li class="page-item"><a
+                                                    class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>"
+                                                    onclick="page(this)" id="<%= i %>">
+                                                    <%= i %>
+                                                </a></li>
+                                            <% } } else { %>
+                                                <% for(let i=(parseInt(page)-5);i<=parseInt(page);i++){ %>
+                                                    <li class="page-item"><a
+                                                            class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>"
+                                                            onclick="page(this)" id="<%= i %>">
+                                                            <%= i %>
+                                                        </a></li>
+                                                    <% } %>
+                                                        <% } %>
+                                                            <% if(Math.ceil(parseInt(total)/parseInt(limit))-5
+                                                                >=parseInt(page)){ %>
+                                                                <% for(let i=parseInt(page)+1;i<=parseInt(page)+ 5;i++){
+                                                                    %>
+                                                                    <li class="page-item"><a
+                                                                            class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>"
+                                                                            onclick="page(this)" id="<%= i %>">
+                                                                            <%= i %>
+                                                                        </a></li>
+                                                                    <% } %>
+                                                                        <% } else { %>
+                                                                            <% for(let
+                                                                                i=parseInt(page)+1;i<=Math.ceil(parseInt(total)/parseInt(limit));i++){
+                                                                                %>
+                                                                                <li class="page-item"><a
+                                                                                        class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>"
+                                                                                        onclick="page(this)"
+                                                                                        id="<%= i %>">
+                                                                                        <%= i %>
+                                                                                    </a></li>
+                                                                                <% } %>
+                                                                                    <% } %>
+                                 <li class="page-item"><a class="page-link" onclick="page(this)"
+                                                                                                id="<%= Math.ceil(total/limit) %>">Last</a>
+                                  </li>
                                 </ul>
                             </nav>
                         </div>
