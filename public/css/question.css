@@ -180,14 +180,15 @@ ul
 .pagination a
 {
     color: rgb(255, 255, 255);
-    background-color: rgb(37, 13, 68);
-    padding: 10px;
+    background-color: rgb(111, 108, 116);
+    padding: 5px;
     border-radius: 8px;
 }
 
 .page
 {
     margin-top: 1.5rem;
+    float: right;
 }
 
 .pagination

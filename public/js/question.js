@@ -1,8 +1,13 @@
 async function deletquestion(delet) {
   try {
-    const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
-    confirm('are you sure for delet this question?')
-    location.reload()
+    
+    var confrimdlt =  confirm('are you sure for delet this question?')
+    console.log(confrimdlt,"::::var")
+    if(confrimdlt){
+      const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
+      location.reload()
+    }
+    
   } catch (err) {
     err
   }
@@ -167,29 +172,29 @@ async function page(pages, name = '') {
       body: JSON.stringify({ page, name })
     });
     var data = await results.json();
-    data.pages.forEach(c => {
+    data.pages.forEach(q => {
       html += `<tr>
       <td class="width-td">
-          ${c.question_id}
+          ${id++}
       </td>
       <td  class="width-td">
-      ${c.category_name} </td>
+      ${q.category_name} </td>
       <td class="question-width" >
-          ${c.question_text}
+          ${q.question_text}
       </td>
     
       <td class="answercolor">
-          ${c.answer}
+          ${q.answer}
       </td>
       <td>
       
-      <a href="viewdetail?question_id=${c.question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
+      <a href="viewdetail?question_id=${q.question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
       
       </td>
       <td class="button-width">
 
-      <a href="/question/editquestion?question_id=${c.question_id}" ><i class="fas fa-edit"></i></a>
-      <a href=""   onclick="deletque(${c.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      <a href="/question/editquestion?question_id=${q.question_id}" ><i class="fas fa-edit"></i></a>
+      <a href=""   onclick="deletque(${q.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
       </td>
   </tr>`;
     })
