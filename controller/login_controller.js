@@ -60,6 +60,7 @@ const login = async(req, res) => {
     }
 }
 const forget = async(req, res) => {
+   req.session.destroy();
     res.render("validEmail")
 }
 
