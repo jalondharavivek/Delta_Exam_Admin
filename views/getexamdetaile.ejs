@@ -11,6 +11,10 @@
 
 </head>
 <body>
+    <%- include('header'); -%>
+    <div class="main-container">
+        <%- include('nav'); -%>
+            <div class="main">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -46,6 +50,8 @@
         <% } %>
         <p onclick="page(`<%=count%>`,`<%=count%>`,`<%=id%>`)">next</p>
     </div>
+</div>
+</div>
 </body>
  <script src="/js/getexamdetaile.js"></script>
  <script src="/js/dashboard.js"></script>

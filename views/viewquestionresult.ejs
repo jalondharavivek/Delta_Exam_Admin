@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="/css/result.css">
 </head>
 <body>
+    <%- include('header'); -%>
+    <div class="main-container">
+        <%- include('nav'); -%>
+            <div class="main">
 
     <h1>Questions</h1>
     <%var count=0 %>
@@ -59,6 +63,8 @@
         <% } %>
         <p onclick="page(`<%=counter%>`,`<%=counter%>`,`<%=id%>`)">next</p>
     </div>
+</div>
+</div>
 </body>
  <script src="/js/viewquestionresult.js"></script>
  <script src="/js/dashboard.js"></script>
