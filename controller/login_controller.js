@@ -116,7 +116,7 @@ const fetch_api = async(req,res) => {
 //           accessToken: 'ya29.a0AVvZVsrBfRsp1sK8vyLlLCu_XRKaJBc0kk99E2JeUtrQhhEQOYtPNukeg9gwCq-RUTVR01UM24RgTOGYN8DmNPSNdX-b-mG4Ys4RCIIBmPsg9Wk6BudImI4NN-a79XHbZ1J4vl4KLP01JeQnJUwgSQsGkZ2iQlEaCgYKAToSARMSFQGbdwaIVujzQJMyKZbe0PbdSr0VYQ0166',
 //       }
 //   });
-
+60
 //   let info = transporter.sendMail({
 //       from: 'hello <darshil.parmar.23.esparkbiz@gmail.com>', // sender address
 //       to: email, // list of receivers
