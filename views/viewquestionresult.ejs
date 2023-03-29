@@ -5,10 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Result</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <title>Category</title>
+    <link rel="stylesheet" href="/css/result.css">
 </head>
 <body>
+    <%- include('header'); -%>
+    <div class="main-container">
+        <%- include('nav'); -%>
+            <div class="main">
+
+    <h1>Questions</h1>
     <%var count=0 %>
     <%for(var i=0;i<data.length;i++){%>
         <% text1=data[i].answer %>
@@ -17,36 +24,62 @@
             <% count++ %>
             <% } %>
     <%}%>
-    <p>total Mark:<%=data.length%></p><br>
-    <p>achived Mark:<%=data.length-count%></p>
+    <div id="p">
+        <p class="p">total Mark:<%=data.length%></p><br>
+    <p class="p">achived Mark:<%=data.length-count%></p>
+    </div>
+    
     <table class="table table-hover">
-        <tr>
-            <td>No</td>
-            <td>Question </td>
-            <td> answer</td>
-            <td>Student answer</td>
-        </tr>
-        <%for(var i=1;i<=data.length;i++){%>
+      
+        <thead>
             <tr>
-            <td><%=i%></td>
-            <td><%=data[i-1].question_text%></td>
-            <td><%=data[i-1].answer%></td>
-            <td><%=data[i-1].user_answers%></td>
+                <th>No</th>
+                <th>Question </th>
+                <th> answer</th>
+                <th>Student answer</th>
             </tr>
-        <%}%>
+        </thead>
+        <tbody id="tbody">
+            <%for(var i=0;i<data.length;i++){%>
+                <tr>
+                <td><%=i+1%></td>
+                <td><%=data[i].question_text%></td>
+                <td><%=data[i].answer%></td>
+                <td><%=data[i].user_answers%></td>
+                </tr>
+            <%}%>    
+        </tbody>
+        
     </table>
+
+    <div id="page">
+        <p onclick="page(`1`,`<%=counter%>`,`<%=id%>`)">prev</p>
+        <%for(i=1 ;i<=counter ;i++){%>
+            <%if(i==1){%>
+            <p onclick="page(`<%=i%>`,`<%=counter%>`,`<%=id%>`)">
+                <b><%=i%></b>
+            </p>
+            <%}else{%>
+                <p onclick="page(`<%=i%>`,`<%=counter%>`,`<%=id%>`)">
+                    <%=i%>
+                </p>
+            <%}%>
+        <% } %>
+        <p onclick="page(`<%=counter%>`,`<%=counter%>`,`<%=id%>`)">next</p>
+    </div>
+    <a href="/result">back to student</a>
+</div>
+</div>
 </body>
- <script src="/js/result.js"></script>
+ <script src="/js/viewquestionresult.js"></script>
  <script src="/js/dashboard.js"></script>
 </html>
 
 </table>
 
-            
-        </div>
-    </div>
-</body>
 
-<script src="/js/dashboard.js"></script>
+</div>
+</div>
+</body>
 
 </html>

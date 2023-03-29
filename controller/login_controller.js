@@ -103,45 +103,45 @@ const fetch_api = async(req,res) => {
   let testAccount = nodemailer.createTestAccount();
   var otp = generateOTP();
   console.log("otp", otp);
-  const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      host: 'smtp.gmail.com',
-      auth: {
-          type: 'OAUTH2',
-          user: 'darshil.parmar.23.esparkbiz@gmail.com',
-          clientId: '597640694626-lbhid8to6k077c62vilvcap43spvjlmv.apps.googleusercontent.com',
-          clientSecret: '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',
-          refreshToken: '1//04W0dHxgn1-jjCgYIARAAGAQSNwF-L9Ir_m55RIE4IM87u6xtEX-h1itLMILck2gLC8eTmhbF-umYCxJO9Jo5W4BmDJSNX-aMIg0',
-          accessToken: 'ya29.a0AVvZVsrBfRsp1sK8vyLlLCu_XRKaJBc0kk99E2JeUtrQhhEQOYtPNukeg9gwCq-RUTVR01UM24RgTOGYN8DmNPSNdX-b-mG4Ys4RCIIBmPsg9Wk6BudImI4NN-a79XHbZ1J4vl4KLP01JeQnJUwgSQsGkZ2iQlEaCgYKAToSARMSFQGbdwaIVujzQJMyKZbe0PbdSr0VYQ0166',
-      }
-  });
-
-  let info = transporter.sendMail({
-      from: 'hello <darshil.parmar.23.esparkbiz@gmail.com>', // sender address
-      to: email, // list of receivers
-      subject: "OTP Validation ✔", // Subject line
-      text: "OTP", // plain text body
-      html: `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
-      <div style="margin:50px auto;width:70%;padding:20px 0">
-        <div style="border-bottom:1px solid #eee">
-          <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Your Brand</a>
-        </div>
-        <p style="font-size:1.1em">Hi,</p>
-        <p>Thank you for choosing Your Brand. Use the following OTP to complete your Sign Up procedures. OTP is valid for 5 minutes</p>
-        <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
-        <p style="font-size:0.9em;">Regards,<br />EsparkBiz</p>
-        <hr style="border:none;border-top:1px solid #eee" />
-      </div>
-    </div>`
-  });
-  app.use(sessions({
-    secret: "huy7uy7u",
-    saveUninitialized: true,
-    resave: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24, 
-    },
-}));
+//   const transporter = nodemailer.createTransport({
+//       service: 'gmail',
+//       host: 'smtp.gmail.com',
+//       auth: {
+//           type: 'OAUTH2',
+//           user: 'darshil.parmar.23.esparkbiz@gmail.com',
+//           clientId: '597640694626-lbhid8to6k077c62vilvcap43spvjlmv.apps.googleusercontent.com',
+//           clientSecret: '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',
+//           refreshToken: '1//04W0dHxgn1-jjCgYIARAAGAQSNwF-L9Ir_m55RIE4IM87u6xtEX-h1itLMILck2gLC8eTmhbF-umYCxJO9Jo5W4BmDJSNX-aMIg0',
+//           accessToken: 'ya29.a0AVvZVsrBfRsp1sK8vyLlLCu_XRKaJBc0kk99E2JeUtrQhhEQOYtPNukeg9gwCq-RUTVR01UM24RgTOGYN8DmNPSNdX-b-mG4Ys4RCIIBmPsg9Wk6BudImI4NN-a79XHbZ1J4vl4KLP01JeQnJUwgSQsGkZ2iQlEaCgYKAToSARMSFQGbdwaIVujzQJMyKZbe0PbdSr0VYQ0166',
+//       }
+//   });
+60
+//   let info = transporter.sendMail({
+//       from: 'hello <darshil.parmar.23.esparkbiz@gmail.com>', // sender address
+//       to: email, // list of receivers
+//       subject: "OTP Validation ✔", // Subject line
+//       text: "OTP", // plain text body
+//       html: `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+//       <div style="margin:50px auto;width:70%;padding:20px 0">
+//         <div style="border-bottom:1px solid #eee">
+//           <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Your Brand</a>
+//         </div>
+//         <p style="font-size:1.1em">Hi,</p>
+//         <p>Thank you for choosing Your Brand. Use the following OTP to complete your Sign Up procedures. OTP is valid for 5 minutes</p>
+//         <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
+//         <p style="font-size:0.9em;">Regards,<br />EsparkBiz</p>
+//         <hr style="border:none;border-top:1px solid #eee" />
+//       </div>
+//     </div>`
+//   });
+//   app.use(sessions({
+//     secret: "huy7uy7u",
+//     saveUninitialized: true,
+//     resave: false,
+//     cookie: {
+//         maxAge: 1000 * 60 * 60 * 24, 
+//     },
+// }));
   req.session.email=email;
   res.json({otp});
 }

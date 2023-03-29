@@ -21,6 +21,8 @@ input[type=submit]{
     border-color: bisque;
     border-width: 4px;
     background-color: white;
+    background-image: url(/assets/image/wave.png);
+    background-size: cover;
 }
 input[type=text],input[type=email]{
     padding: 10px;
@@ -29,6 +31,12 @@ input[type=text],input[type=email]{
 label{
     margin: 5px;
 }
-hr{
-    width: 100%;
+
+select , option {
+   padding-bottom: 10px;
+    border-radius: 5px;
+    width: 70%;
+}
+.lastinputtag{
+  padding-left: 120px;
 }
