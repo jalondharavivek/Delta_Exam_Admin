@@ -132,8 +132,9 @@ margin-right: 10px;
 
 .searchbar-que{
     height: 40px;
-    border-radius: 20px;
-    font-size: 15px
+    border-radius:  30px;
+    font-size: 15px;
+  text-align: center;
  
 }
 
@@ -179,7 +180,7 @@ ul
 .pagination a
 {
     color: rgb(255, 255, 255);
-    background-color: rgb(37, 13, 68);
+    background-color: rgb(111, 108, 116);
     padding: 10px;
     border-radius: 8px;
 }
@@ -187,6 +188,7 @@ ul
 .page
 {
     margin-top: 1.5rem;
+    float: right;
 }
 
 .pagination
@@ -216,4 +218,11 @@ ul
 }
 .retrive-que{
 margin-right: 645px;
+}
+.quesearchbar{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+   
+    
 }

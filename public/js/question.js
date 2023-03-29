@@ -25,11 +25,14 @@
 //delet question 
 async function deletquestion(delet) {
   try {
-    const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
     
-    confirm('are you sure for delet this question?')
+    var confrimdlt =  confirm('are you sure for delet this question?')
+    console.log(confrimdlt,"::::var")
+    if(confrimdlt){
+      const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
+      location.reload()
+    }
     
-    location.reload()
   } catch (err) {
     err
   }
@@ -80,7 +83,7 @@ async function retriveque() {
     </td>
     <td class="button-width">
 
-    <a href="editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
+    <a href="/question/editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
     <a href=""   onclick="retquestion(${data.data[i].question_id})"><i class="fas fa-trash-restore"></i></a>
     </td>
 </tr>`
@@ -109,7 +112,6 @@ async function retquestion(idretque) {
 
 async function searchque(quesearch) {
   try {
-    // console.log(name,"question module in search search:::::;")
     let queresult = await fetch(`/searchque?nameque=${quesearch}`);
     let datas = await queresult.json();
     let id=1
@@ -134,7 +136,7 @@ async function searchque(quesearch) {
         for (let i = 0; i < datas.search.length; i++) {
           quetabsearch += `<tr>
         <td class="width-td">
-            ${datas.search[i].question_id}
+            ${id++}
         </td>
         <td  class="width-td">
         ${datas.search[i].category_name} </td>
@@ -152,7 +154,7 @@ async function searchque(quesearch) {
         </td>
         <td class="button-width">
 
-        <a href="editquestion?question_id=${datas.search[i].question_id}" ><i class="fas fa-edit"></i></a>
+        <a href="/question/editquestion?question_id=${datas.search[i].question_id}" ><i class="fas fa-edit"></i></a>
         <a href=""   onclick="deletque(${datas.search[i].question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
     </tr>`
@@ -176,6 +178,7 @@ async function page(pages, name = '') {
 
     let table = document.getElementById('quetable');
     let pagination = document.getElementById('pagination');
+    let id = 1;
     let html = ` <thead> <tr>
         <th>Id</th>
         <th>Category</th>
@@ -194,29 +197,29 @@ async function page(pages, name = '') {
       body: JSON.stringify({ page, name })
     });
     var data = await results.json();
-    data.pages.forEach(c => {
+    data.pages.forEach(q => {
       html += `<tr>
       <td class="width-td">
-          ${c.question_id}
+          ${id++}
       </td>
       <td  class="width-td">
-      ${c.category_name} </td>
+      ${q.category_name} </td>
       <td class="question-width" >
-          ${c.question_text}
+          ${q.question_text}
       </td>
     
       <td class="answercolor">
-          ${c.answer}
+          ${q.answer}
       </td>
       <td>
       
-      <a href="viewdetail?question_id=${c.question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
+      <a href="viewdetail?question_id=${q.question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
       
       </td>
       <td class="button-width">
 
-      <a href="editquestion?question_id=${c.question_id}" ><i class="fas fa-edit"></i></a>
-      <a href=""   onclick="deletque(${c.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      <a href="/question/editquestion?question_id=${q.question_id}" ><i class="fas fa-edit"></i></a>
+      <a href=""   onclick="deletque(${q.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
       </td>
   </tr>`;
     })

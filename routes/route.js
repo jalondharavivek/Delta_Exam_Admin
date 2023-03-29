@@ -3,8 +3,6 @@ const auth = require('../middleware/middleware');
 const route = express.Router();
 
 
-
-
 const result = require('../controller/result_controller');
 const exam = require('../controller/exam_controller');
 const category = require('../controller/category_controller');
@@ -49,15 +47,27 @@ route.get('/question',auth,question.question)
 route.get('/addquestion',auth,question.addquestion)
 route.post('/addquestion',auth,question.upload.single('image'),question.addquestionpost)
 route.get('/viewdetail',auth,question.viewdetail)
-route.get('/editquestion',auth,question.editquestionget)
-route.post('/editquestion',auth,question.editquestionpost)
+route.get('/question/editquestion',auth,question.editquestionget)
+route.post('/editquestion',auth,question.upload.single('image'),question.editquestionpost)
 route.post('/deletquestion',auth,question.deletquestion)
 route.get('/searchque',auth,question.searchget)
 route.get('/retriveque',auth,question.retrivequestions)
 route.post('/retrivequestion',auth,question.retrivequestionpost)
 route.post('/question/questionpage',auth,question.questionpage)
 
-route.get('/result',auth,result.resultget)
+
+//result routing
+route.get('/result',auth,result.studentlist);
+route.get('/result/page',auth,result.studentlistpage);
+
+route.get('/companylist',auth,result.companylist);
+route.get('/companylist/page',auth,result.companylistpage);
+
+route.get('/getexamdetaile',auth,result.getexamdetaile);
+route.get('/getexamdetaile/page',auth,result.getexamdetailepage);
+
+route.get('/viewquestionresult',auth,result.viewquestionget);
+route.get('/viewquestionresult/page',auth,result.viewquestiongetpage);
 
 route.get('/user',auth,user.user);
 route.post('/userpage',auth,user.userpage);

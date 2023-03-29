@@ -42,11 +42,13 @@
                             </p>
                            
 
-                      <% if (data[0].question_image) { %>
+                      <% if (data[0].question_image ) { %>
+                        
+                      
                         <p><strong>image :</strong>
 
                         </p>
-                            <img src="/uploads/<%= data[0].question_image %>" alt="question image" width="100%" />
+                            <img src="/uploads/<%= data[0].question_image %>" width="100%" />
                             <% } %>
                             <p> <strong>Option A :</strong>
                                 <%= data[0].option_a %>
@@ -73,7 +75,7 @@
                             </p>
                             <% } %>
                             <div>
-                                <a href="editquestion?question_id=<%= data[0].question_id %>" class="edit-btn">Edit</a>
+                                <a href="/question/editquestion?question_id=<%= data[0].question_id %>" class="edit-btn">Edit</a>
                                 <a href="/question" class="edit-btn"> Cancle </a>
                             </div>
                         </div>

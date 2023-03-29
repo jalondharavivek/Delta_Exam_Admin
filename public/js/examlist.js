@@ -1,25 +1,5 @@
-
-// let category_select = document.getElementById('category_select');
-
-
-// //categoty fetch on ajax 
-// categortFetch();
-// function categortFetch() {
-//     fetch('/categories').then(res => res.json()).then(data => {
-
-//         for (let i = 0; i < data.arr.length; i++) {
-
-//             category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
-//         }
-//     }).catch(err => console.log(err));
-// }
-
-
-//when page relkoad as database they chnage into enable and disable
-
 togglecolorchnage();
 
-//when page reload this function is called for toggle enable or disbale
 function togglecolorchnage() {
 
     let btn = document.querySelectorAll('.btn');
@@ -43,7 +23,6 @@ function togglecolorchnage() {
     })
 }
 
-//toggle switch with database chnages with no reload
 function toggle(status, id, date) {
     let togglediv = document.getElementById(`toggle${id}`);
     let toggle_id = document.getElementById(`${id}`);
@@ -51,12 +30,8 @@ function toggle(status, id, date) {
     let date1 = date;
     let d = new Date();
     let today = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
-    console.log(today)
     let datearr = date1.split("/");
     let current_datearr = today.split("/");
-
-    console.log(datearr)
-    console.log(current_datearr)
 
     if (parseInt(datearr[2]) <= parseInt(current_datearr[2])) {
         if (parseInt(datearr[1]) <= parseInt(current_datearr[1])) {
@@ -143,7 +118,7 @@ async function examedit(id) {
                     <div class="input_taker">
                         <label for="start_date" class="labelofInput"> start date: </label>
                         <input type="date" name="start_date" id="" placeholder="enter start date"
-                            value="${(new Date(data[0].exam_date).toLocaleDateString())}" class="input_tag" required>
+                            value="${data[0].exam_date}" class="input_tag" required>
     
                     </div>
     
@@ -300,7 +275,6 @@ async function addexam() {
 
 
 }
-// validation for exam add and edit
 function validateform() {
 
     let exam_name = document.getElementById('exam_name').value;
@@ -622,10 +596,8 @@ async function page(num, count) {
     }
 
     if (num == count) {
-        
-        pageid.innerHTML += `<p onclick="page(${count} ,${count})" class="p">next</p>`;
 
-        pageid.innerHTML += `<p onclick="page(${count} ,${count})" class="p">next</p>`;
+        
 
     } else if (num < count) {
 

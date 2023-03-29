@@ -18,16 +18,13 @@ async function clickFetch() {
 }
 
 function validOtp() {
-    console.log("valid open")
 
     var enterOtp = document.getElementById("enterOtp").value;
 
     if (otp == enterOtp) {
-        console.log("same in if")
         document.getElementById("password_lable").innerHTML = "";
         document.getElementById("submitAll").disabled = false;
     } else {
-        console.log("not same in else")
         document.getElementById("password_lable").innerHTML = "Otp is not same"
         document.getElementById("password_lable").style.color = "red";
         document.getElementById("submitAll").disabled = true;
