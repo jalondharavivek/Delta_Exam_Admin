@@ -38,7 +38,10 @@ const admin_login = (req, res) => {
 const login = async(req, res) => {
     var email = req.body.email;
     var password = req.body.password;
-    var selectEmail = `SELECT email, password FROM student where email = '${email}' `
+    let sql=`select user_id from user_login where email='${email}'; `
+  let [query] = await db.execute(sql);
+  let user_id = query[0].user_id;
+    var selectEmail = `SELECT email, password FROM student where email = '${email}';`
     var emailResult = await db.query(selectEmail);
     var selectUser = `SELECT email, password , user_login_status , role from user_login where email = '${email}'`;
     var [userData] = await db.query(selectUser);
@@ -49,13 +52,15 @@ const login = async(req, res) => {
         var compare = await bcrypt.compare(password, comparePassword);
         if (!compare || userData[0].role == '0') {
             res.send("email and password is not match")
-        }else {  
-            req.session.user =email;
+        }else {
+            req.session.user = email;
+            req.session.user_id = user_id;
             res.redirect('dashboard');
         }
     }
 }
 const forget = async(req, res) => {
+   req.session.destroy();
     res.render("validEmail")
 }
 
@@ -88,6 +93,7 @@ const dashboard = async(req,res) =>{
 
 
 const setpassword = async(req,res) => {
+
     res.redirect('/login');
 }
 
@@ -142,6 +148,7 @@ const fetch_api = async(req,res) => {
 //         maxAge: 1000 * 60 * 60 * 24, 
 //     },
 // }));
+  
   req.session.email=email;
   res.json({otp});
 }

@@ -224,7 +224,6 @@ const post_exam = async (req, res) => {
 
   try {
 
-
     let exam = req.body.exam_name;
     let question = req.body.question;
     let time = req.body.time;
@@ -245,7 +244,8 @@ const post_exam = async (req, res) => {
       sql3 = `select category_name from category where category_id='${category}'`;
       let [data3] = await db.execute(sql3);
 
-      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '0', '${start_date}',  NOW(),'${data3[0].category_name}');`;
+
+      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '${req.session.user_id}', '0', '${start_date}',  NOW(),'${data3[0].category_name}');`;
 
       let [data1] = await db.execute(sql1);
   
@@ -269,8 +269,9 @@ const post_exam = async (req, res) => {
       }
   
       let categories = strcat.substring(0, strcat.length - 2);
-  
-      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '1', '0', '${start_date}',  NOW(),'${categories}');`;
+
+      
+      sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '${req.session.user_id}', '0', '${start_date}',  NOW(),'${categories}');`;
   
       let [data1] = await db.execute(sql1);
   
