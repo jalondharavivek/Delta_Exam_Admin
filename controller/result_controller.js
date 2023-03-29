@@ -1,6 +1,7 @@
 var db = require('../connection/mysql');
 require('../connection/module');
 
+<<<<<<< HEAD
 let limit = 2;
 const studentlist = async (req, res) => {
   try {
@@ -194,6 +195,10 @@ const getexamdetaile = async (req, res) => {
 
     var id = req.query.id;
     let sql = `select distinct a.category_id,category_name from exam_category a,category b where a.category_id=b.category_id and exam_id=${id} limit ${offset},${limit}`;
+=======
+const studentlist= async(req,res) =>{
+    var sql=`select exam_id,name,b.user_id from student a, user_answers b, user_login c where b.user_id=c.user_id;`
+>>>>>>> origin/dev-manoj
     let [query] = await db.query(sql);
 
     var sql2 = `select distinct a.category_id,category_name from exam_category a,category b where a.category_id=b.category_id and exam_id=${id}`;
@@ -324,4 +329,8 @@ const viewquestiongetpage = async (req, res) => {
 
 }
 
+<<<<<<< HEAD
 module.exports = { viewquestionget, getexamdetaile, studentlist, companylist, studentlistpage, companylistpage, getexamdetailepage, viewquestiongetpage };
+=======
+module.exports = { viewquestionget,getexamdetaile,studentlist,companylist};
+>>>>>>> origin/dev-manoj

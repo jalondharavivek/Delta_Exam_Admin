@@ -1,28 +1,3 @@
-// async function editquestion(id)
-// {  try 
-//     {
-//         const  question = await fetch(`/editquestion?id=${id}`);
-//     }
-//     catch (err) 
-//     {
-//         console.log("error");
-//     }    
-// }
-//edit question
-// async function editque(editquesid){
-//   let queresult = await fetch(`/editquestion?question_id=${editquesid}`);
-// }
-
-
-//view detail
-// async function viewdetail(viewid){
-//   console.log(viewid,":::::::::::jhgjkggjk  view id")
-//   const viewfetch = await fetch(`/viewdetail?viewid=${viewid}`)
-// }
-
-
-
-//delet question 
 async function deletquestion(delet) {
   try {
     const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
@@ -78,7 +53,7 @@ async function retriveque() {
     </td>
     <td class="button-width">
 
-    <a href="editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
+    <a href="/question/editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
     <a href=""   onclick="retquestion(${data.data[i].question_id})"><i class="fas fa-trash-restore"></i></a>
     </td>
 </tr>`
@@ -107,7 +82,6 @@ async function retquestion(idretque) {
 
 async function searchque(quesearch) {
   try {
-    // console.log(name,"question module in search search:::::;")
     let queresult = await fetch(`/searchque?nameque=${quesearch}`);
     let datas = await queresult.json();
     let id=1
@@ -132,7 +106,7 @@ async function searchque(quesearch) {
         for (let i = 0; i < datas.search.length; i++) {
           quetabsearch += `<tr>
         <td class="width-td">
-            ${datas.search[i].question_id}
+            ${id++}
         </td>
         <td  class="width-td">
         ${datas.search[i].category_name} </td>
@@ -150,7 +124,7 @@ async function searchque(quesearch) {
         </td>
         <td class="button-width">
 
-        <a href="editquestion?question_id=${datas.search[i].question_id}" ><i class="fas fa-edit"></i></a>
+        <a href="/question/editquestion?question_id=${datas.search[i].question_id}" ><i class="fas fa-edit"></i></a>
         <a href=""   onclick="deletque(${datas.search[i].question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
     </tr>`
@@ -174,6 +148,7 @@ async function page(pages, name = '') {
 
     let table = document.getElementById('quetable');
     let pagination = document.getElementById('pagination');
+    let id = 1;
     let html = ` <thead> <tr>
         <th>Id</th>
         <th>Category</th>
@@ -213,7 +188,7 @@ async function page(pages, name = '') {
       </td>
       <td class="button-width">
 
-      <a href="editquestion?question_id=${c.question_id}" ><i class="fas fa-edit"></i></a>
+      <a href="/question/editquestion?question_id=${c.question_id}" ><i class="fas fa-edit"></i></a>
       <a href=""   onclick="deletque(${c.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
       </td>
   </tr>`;
@@ -261,19 +236,3 @@ async function page(pages, name = '') {
     console.log(err);
   }
 }
-
-
-
-//<td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td>
-// {/* <td class="width-td">
-// ${data.search[0].option_a}
-// </td>
-// <td  class="width-td">
-// ${data.search[0].option_b}
-// </td>
-// <td class="width-td">
-// ${data.search[0].option_c}
-// </td>
-// <td class="width-td">
-// ${data.search[0].option_d}
-// </td> */}

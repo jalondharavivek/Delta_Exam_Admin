@@ -48,7 +48,6 @@ function toggle(status, id) {
 async function page(pages, name = '') {
 
     let table = document.getElementById('mytable');
-    console.log(table)
     let pagination = document.getElementById('pagination');
     let str = `<tr>
     <th>s_id</th>
@@ -66,7 +65,6 @@ async function page(pages, name = '') {
 
 </tr>`;
     let page = pages.id;
-    console.log(page, "this is [age")
     const results = await fetch(`userpage`, {
         method: "POST",
         headers: {
@@ -75,7 +73,6 @@ async function page(pages, name = '') {
         body: JSON.stringify({ page, name })
     });
     var student = await results.json();
-    console.log(student)
     student.pages.forEach(c => {
         str += `<tr>
         <td>
@@ -143,7 +140,6 @@ async function page(pages, name = '') {
         }
         else {
             for (let i = parseInt(student.page) + 1; i <= Math.ceil(parseInt(student.total) / parseInt(student.limit)); i++) {
-                console.log("manoijsjdhvasd");
                 pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
             }
         }
@@ -163,7 +159,6 @@ async function search(name) {
         let result = await fetch(`/user/search?name=${name}`);
 
         let data = await result.json();
-        console.log(data)
         let page = document.getElementById("pagination");
         let pages = '';
         let table = document.getElementById("mytable");
@@ -184,7 +179,6 @@ async function search(name) {
     </tr>`;
         if (Object.keys(data.search).length != 0) {
             data.search.forEach(c => {
-                console.log(c.created_date)
                 html += `<tr>
                 <td>
                     ${c.student_id}

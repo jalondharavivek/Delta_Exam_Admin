@@ -197,3 +197,15 @@ ul
 {
     background-color: cyan !important;
 }
+
+.pagination a:hover:not(.pageactive) 
+{
+    background-color: cornflowerblue !important;
+}
+
+.category-search input
+{
+    padding: 10px;
+    border-radius: 40px;
+    text-align: center;
+}

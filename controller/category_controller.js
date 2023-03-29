@@ -68,7 +68,6 @@ const categorystatus = async (req, res) =>{
             let sql = `update category set category_status = '1' where category_id = ${id}`;
             await db.query(sql);
             let [result] = await db.query(sql1);
-            // console.log("1");
             res.json(result);
         }
         else if(status == 1)
@@ -128,7 +127,6 @@ const search = async (req, res) => {
     try
     {
         let sql = `SELECT * FROM category `;
-        // console.log(req.query);
         let name = req.query.name;
         let page=parseInt(req.query.page)||1;
         let limit=parseInt(req.query.limit)||10;
