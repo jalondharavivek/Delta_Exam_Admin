@@ -5,9 +5,12 @@
 
 .cancelbutton{
     padding: 5px;
-    background-color: rgb(243, 56, 56);
+    background-color: rgb(136, 28, 28);
     border-radius: 5px;
     
+}
+.cancelbutton:hover{
+    background-color:  rgb(73, 41, 41);;
 }
 
 input[type=submit]{
@@ -29,7 +32,8 @@ input[type=text],input[type=email]{
     border-radius: 5px;
 }
 label{
-    margin: 5px;
+    margin: 15px;
+    font-weight: bold;
 }
 
 select , option {
@@ -39,4 +43,7 @@ select , option {
 }
 .lastinputtag{
   padding-left: 120px;
+}
+td{
+    padding: 20px;
 }
