@@ -116,7 +116,7 @@
                                             <li class="page-item"><a class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
                                         <% } %>
                                     <% } %>
-                                    <% if(Math.ceil(parseInt(total)/parseInt(limit))-5>= parseInt(page)){ %>
+                                    <% if(Math.ceil(parseInt(total)/parseInt(limit))-5 <= parseInt(page)){ %>
                                         <% for(let i=parseInt(page)+1;i<=parseInt(page)+ 5;i++){ %>
                                             <li class="page-item"><a class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
                                         <% } %>
