@@ -1,7 +1,25 @@
+*{
+    text-transform: capitalize;
+}
 #page{
     display: flex;
     flex-direction: row;
 }
 #page p{
     margin: 0px 10px;
+}
+
+td{
+    border: 1px solid black;
+    padding: 5px;
+    
+
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+table caption{
+    border: 1px solid black;
+    border-bottom: none;
 }
