@@ -3,8 +3,6 @@ const auth = require('../middleware/middleware');
 const route = express.Router();
 
 
-
-
 const result = require('../controller/result_controller');
 const exam = require('../controller/exam_controller');
 const category = require('../controller/category_controller');
@@ -57,7 +55,19 @@ route.get('/retriveque',auth,question.retrivequestions)
 route.post('/retrivequestion',auth,question.retrivequestionpost)
 route.post('/question/questionpage',auth,question.questionpage)
 
-route.get('/result',auth,result.resultget)
+
+//result routing
+route.get('/result',auth,result.studentlist);
+route.get('/result/page',auth,result.studentlistpage);
+
+route.get('/companylist',auth,result.companylist);
+route.get('/companylist/page',auth,result.companylistpage);
+
+route.get('/getexamdetaile',auth,result.getexamdetaile);
+route.get('/getexamdetaile/page',auth,result.getexamdetailepage);
+
+route.get('/viewquestionresult',auth,result.viewquestionget);
+route.get('/viewquestionresult/page',auth,result.viewquestiongetpage);
 
 route.get('/user',auth,user.user);
 route.post('/userpage',auth,user.userpage);

@@ -7,13 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Category</title>
+    <link rel="stylesheet" href="/css/result.css">
+
 </head>
 <body>
     <table class="table table-hover">
-        <tr>
-            <td>Category</td>
-            <td> view</td>
-        </tr>
+        <thead>
+            <tr>
+                <td>Category</td>
+                <td> view</td>
+            </tr>
+        </thead>
+       <tbody id="tbody">
         <%for(var i=0;i<data.length;i++){%>
             <tr>
             <td><%=data[i].category_name%></td>
@@ -21,8 +26,27 @@
             </tr>
         <%}%>
         
+       </tbody>
+
+        
     </table>
+
+    <div id="page">
+        <p onclick="page(`1`,`<%=count%>`,`<%=id%>`)">prev</p>
+        <%for(i=1 ;i<=count ;i++){%>
+            <%if(i==1){%>
+            <p onclick="page(`<%=i%>`,`<%=count%>`,`<%=id%>`)">
+                <b><%=i%></b>
+            </p>
+            <%}else{%>
+                <p onclick="page(`<%=i%>`,`<%=count%>`,`<%=id%>`)">
+                    <%=i%>
+                </p>
+            <%}%>
+        <% } %>
+        <p onclick="page(`<%=count%>`,`<%=count%>`,`<%=id%>`)">next</p>
+    </div>
 </body>
- <script src="/js/result.js"></script>
+ <script src="/js/getexamdetaile.js"></script>
  <script src="/js/dashboard.js"></script>
 </html>

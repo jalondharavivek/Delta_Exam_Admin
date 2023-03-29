@@ -1,0 +1,7 @@
+#page{
+    display: flex;
+    flex-direction: row;
+}
+#page p{
+    margin: 0px 10px;
+}
