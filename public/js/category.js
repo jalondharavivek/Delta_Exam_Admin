@@ -9,7 +9,6 @@ function cat_status()
                 e.innerHTML = 'DISABLE';
                 e.style.color = 'white';
                 e.style.backgroundColor = 'rgb(0,90,190)';
-                e.style.opacity = '0.9';
             }
             else  if(e.innerHTML == '1')
             {
