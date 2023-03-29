@@ -8,7 +8,3 @@ route.get('/companylist',auth,result.companylist);
 route.get('/getexamdetaile',auth,result.getexamdetaile);
 route.get('/viewquestionresult',auth,result.viewquestionget);
 module.exports = route; 
-
-
-
-
