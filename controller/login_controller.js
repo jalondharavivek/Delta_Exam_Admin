@@ -52,9 +52,9 @@ const login = async(req, res) => {
         var compare = await bcrypt.compare(password, comparePassword);
         if (!compare || userData[0].role == '0') {
             res.send("email and password is not match")
-        }else {  
-            req.session.user =email;
-            req.session.id = user_id;
+        }else {
+            req.session.user = email;
+            req.session.user_id = user_id;
             res.redirect('dashboard');
         }
     }
