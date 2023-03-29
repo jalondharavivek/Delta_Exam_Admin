@@ -68,18 +68,6 @@ const dashboard = async(req,res) =>{
     FROM student`; 
     let [query1] = await db.execute(sql1);
 
-<<<<<<< HEAD
-    let sql2 =`SELECT COUNT(exam_id) as c
-    FROM exam`;
-    let [query2] = await db.execute(sql2);
-
-    let sql3 = `SELECT COUNT(question_id) as c
-    FROM questions`;
-    let [query3] = await db.execute(sql3);
-
-    let sql4 = `SELECT COUNT(category_id) as c
-    FROM category`;
-=======
     let sql2 =`SELECT COUNT(exam_id) as c FROM exam`;
     let [query2] = await db.execute(sql2);
 
@@ -87,7 +75,6 @@ const dashboard = async(req,res) =>{
     let [query3] = await db.execute(sql3);
 
     let sql4 = `SELECT COUNT(category_id) as c FROM category`;
->>>>>>> origin/dev-manoj
     let [query4] = await db.execute(sql4);
     
     res.render('dashboard.ejs', {count1 :  query1 , count2 : query2, count3 : query3, count4 : query4});
