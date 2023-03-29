@@ -118,7 +118,7 @@ async function examedit(id) {
                     <div class="input_taker">
                         <label for="start_date" class="labelofInput"> start date: </label>
                         <input type="date" name="start_date" id="" placeholder="enter start date"
-                            value="${(new Date(data[0].exam_date).toLocaleDateString())}" class="input_tag" required>
+                            value="${data[0].exam_date}" class="input_tag" required>
     
                     </div>
     
