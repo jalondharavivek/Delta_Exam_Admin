@@ -4,7 +4,7 @@ let con = mysql.createPool({
 host: "localhost",
 user: "root",
 password: "root",
-database: "mexam_system"
+database: "exam_system"
 })
 
 
