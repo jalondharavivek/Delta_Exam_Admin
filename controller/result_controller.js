@@ -204,7 +204,7 @@ const getexamdetaile = async (req, res) => {
 
     res.render('getexamdetaile', { data: query, count, limit, curpage, id });
   } catch (err) {
-    console.log(err)
+    res.send(err);
   }
 
 }
