@@ -1,6 +1,9 @@
 *{
     text-transform: capitalize;
 }
+*{
+    text-transform: capitalize;
+}
 #page{
     display: flex;
     flex-direction: row;
