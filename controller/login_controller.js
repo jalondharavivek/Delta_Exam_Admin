@@ -64,8 +64,7 @@ const dashboard = async(req,res) =>{
   try {
 
 
-    let sql1 = `SELECT COUNT(student_id) as c
-    FROM student`; 
+    let sql1 = `SELECT COUNT(student_id) as c FROM student`; 
     let [query1] = await db.execute(sql1);
 
     let sql2 =`SELECT COUNT(exam_id) as c FROM exam`;

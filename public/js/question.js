@@ -1,8 +1,38 @@
+// async function editquestion(id)
+// {  try 
+//     {
+//         const  question = await fetch(`/editquestion?id=${id}`);
+//     }
+//     catch (err) 
+//     {
+//         console.log("error");
+//     }    
+// }
+//edit question
+// async function editque(editquesid){
+//   let queresult = await fetch(`/editquestion?question_id=${editquesid}`);
+// }
+
+
+//view detail
+// async function viewdetail(viewid){
+//   console.log(viewid,":::::::::::jhgjkggjk  view id")
+//   const viewfetch = await fetch(`/viewdetail?viewid=${viewid}`)
+// }
+
+
+
+//delet question 
 async function deletquestion(delet) {
   try {
-    const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
-    confirm('are you sure for delet this question?')
-    location.reload()
+    
+    var confrimdlt =  confirm('are you sure for delet this question?')
+    console.log(confrimdlt,"::::var")
+    if(confrimdlt){
+      const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
+      location.reload()
+    }
+    
   } catch (err) {
     err
   }
@@ -167,29 +197,29 @@ async function page(pages, name = '') {
       body: JSON.stringify({ page, name })
     });
     var data = await results.json();
-    data.pages.forEach(c => {
+    data.pages.forEach(q => {
       html += `<tr>
       <td class="width-td">
-          ${c.question_id}
+          ${id++}
       </td>
       <td  class="width-td">
-      ${c.category_name} </td>
+      ${q.category_name} </td>
       <td class="question-width" >
-          ${c.question_text}
+          ${q.question_text}
       </td>
     
       <td class="answercolor">
-          ${c.answer}
+          ${q.answer}
       </td>
       <td>
       
-      <a href="viewdetail?question_id=${c.question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
+      <a href="viewdetail?question_id=${q.question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
       
       </td>
       <td class="button-width">
 
-      <a href="/question/editquestion?question_id=${c.question_id}" ><i class="fas fa-edit"></i></a>
-      <a href=""   onclick="deletque(${c.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      <a href="/question/editquestion?question_id=${q.question_id}" ><i class="fas fa-edit"></i></a>
+      <a href=""   onclick="deletque(${q.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
       </td>
   </tr>`;
     })
@@ -236,3 +266,19 @@ async function page(pages, name = '') {
     console.log(err);
   }
 }
+
+
+
+//<td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td>
+// {/* <td class="width-td">
+// ${data.search[0].option_a}
+// </td>
+// <td  class="width-td">
+// ${data.search[0].option_b}
+// </td>
+// <td class="width-td">
+// ${data.search[0].option_c}
+// </td>
+// <td class="width-td">
+// ${data.search[0].option_d}
+// </td> */}
