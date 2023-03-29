@@ -86,7 +86,8 @@
                                 <li class="page-item"><a class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
                             <% } %>
                         <% } %>
-                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= page+1 %>">></a></li>
+                        <li class="page-item"><a class="page-link" onclick="page(this)" id="<% if(page < Math.ceil(page/limit)) %>
+                        <% { page+1 } %>%>">></a></li>
                         <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= Math.ceil(total/limit) %>">>></a></li>
                     </ul>
                 </nav>
