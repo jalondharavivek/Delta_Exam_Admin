@@ -1,30 +1,38 @@
 
-function togglecolorchnage() {
-    let btn = document.querySelectorAll('.btn');
-    btn.forEach(e => {
-        if (e.innerHTML == '0') {
+function check_status() {
 
-            e.innerHTML = 'DISABLE';
-            e.style.color = 'red';
-            e.style.cursor = 'pointer';
-        }
-        else if (e.innerHTML == '1') {
+    try {
+        let btn = document.querySelectorAll('.btnn');
+        btn.forEach(e => {
+            if (e.innerHTML == '0') {
 
-            e.innerHTML = 'ENABLE';
-            e.style.color = 'blue';
-            e.style.cursor = 'pointer';
-        }
-    })
+                e.innerHTML = 'DISABLE';
+                e.style.color = 'red';
+                e.style.cursor = 'pointer';                                        
+            }
+            else if (e.innerHTML == '1') {
+
+
+                e.innerHTML = 'ENABLE';
+                e.style.color = 'blue';
+                e.style.cursor = 'pointer';
+            }
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
-togglecolorchnage();
+check_status();
 
 function toggle(status, id) {
 
     var togglediv = document.getElementById('toggle' + id);
     var toggle_id = document.getElementById(id);
-
+    confirm(`Are you sure ?`)
 
     fetch(`/student_status?status=${status}&id=${id}`).then(res => res.json()).then(data => {
+
         if (data.info = 'rows matched: 1 changed: 1 Warnings: 0') {
             if (status == '1') {
                 togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}')" style="color: red;cursor:pointer" ;>DISABLE</p>`;
@@ -37,10 +45,9 @@ function toggle(status, id) {
 
 
 
-async function page(pages , name = '') {
-   
+async function page(pages, name = '') {
+
     let table = document.getElementById('mytable');
-    console.log(table)
     let pagination = document.getElementById('pagination');
     let str = `<tr>
     <th>s_id</th>
@@ -58,8 +65,7 @@ async function page(pages , name = '') {
 
 </tr>`;
     let page = pages.id;
-    console.log(page , "this is [age")
-    const results = await fetch(`/userpage`, {
+    const results = await fetch(`userpage`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -67,7 +73,6 @@ async function page(pages , name = '') {
         body: JSON.stringify({ page, name })
     });
     var student = await results.json();
-    console.log(student)
     student.pages.forEach(c => {
         str += `<tr>
         <td>
@@ -91,13 +96,8 @@ async function page(pages , name = '') {
         <td>
 
         <div id="toggle${c.student_id}">
-            <p class="btn" id="${c.student_id}"
-                onclick="toggle(' ${c.student_status}','${c.student_id}')">
-                ${c.student_status}
-            </p>
+            <p class="btnn" id="status" id="${c.student_id}" onclick="toggle(' ${c.student_status}','${c.student_id}')">${c.student_status}</p>
         </div>
-
-
     </td>
     <td>
     ${c.state_name}
@@ -109,11 +109,11 @@ async function page(pages , name = '') {
     ${c.college_name}
     </td>
     <td>
-     ${(new Date().toLocaleDateString())}
+     ${(new Date(c.created_date).toLocaleDateString())}
 
     </td>
     <td>
-        <a id="editbutton" href="/edit/:id=${c.student_id}">edit
+        <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">
         </a>
     </td>
 </tr>
@@ -140,7 +140,6 @@ async function page(pages , name = '') {
         }
         else {
             for (let i = parseInt(student.page) + 1; i <= Math.ceil(parseInt(student.total) / parseInt(student.limit)); i++) {
-                console.log("manoijsjdhvasd");
                 pagi += `<li class="page-item"><a class="page-link" id='${i}' onclick='page(this)'>${i}</a></li>`
             }
         }
@@ -150,18 +149,16 @@ async function page(pages , name = '') {
         pagination.innerHTML = pagi;
     }
     table.innerHTML = str;
-    togglecolorchnage();
+    check_status();
+
 }
 
-async function search(name)
-{
-   
-    try
-    {
+async function search(name) {
+
+    try {
         let result = await fetch(`/user/search?name=${name}`);
-        
+
         let data = await result.json();
-        console.log(data)
         let page = document.getElementById("pagination");
         let pages = '';
         let table = document.getElementById("mytable");
@@ -180,9 +177,8 @@ async function search(name)
         <th>action</th>
     
     </tr>`;
-        if(Object.keys(data.search).length != 0)
-        {
-            data.data.forEach(c => {
+        if (Object.keys(data.search).length != 0) {
+            data.search.forEach(c => {
                 html += `<tr>
                 <td>
                     ${c.student_id}
@@ -203,13 +199,10 @@ async function search(name)
                 ${c.address}
                 </td>
                 <td>
-        
+                
                 <div id="toggle${c.student_id}">
-                    <p class="btn" id="${c.student_id}"
-                        onclick="toggle(' ${c.student_status}','${c.student_id}')">
-                        ${c.student_status}
-                    </p>
-                </div>
+                <p class="btnn" id="status" id="${c.student_id}" onclick="toggle('${c.student_status}','${c.student_id}')">${c.student_status}</p>
+                 </div>
         
         
             </td>
@@ -223,34 +216,35 @@ async function search(name)
             ${c.college_name}
             </td>
             <td>
-            ${(new Date().toLocaleDateString())}
+             ${(new Date(c.created_date).toLocaleDateString())}
         
             </td>
             <td>
-                <a id="editbutton" href="/edit/:id="${c.student_id}">edit</a>
+                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=${c.student_id}">
+                </a>
             </td>
         </tr>`
             })
 
             pages = `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')">First</a></li>`;
-                for(let i=data.page;i<=Math.ceil(data.total/data.limit);i++){
-                    pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${i}">${i}</a></li>`
-                }
-            pages +=`<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.total/data.limit)}">Last</a></li>`;
+            for (let i = data.page; i <= Math.ceil(data.total / data.limit); i++) {
+                pages += `<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${i}">${i}</a></li>`
+            }
+            pages += `<li class="page-item"><a class="page-link" onclick="page(this,'${name}')" id="${Math.ceil(data.total / data.limit)}">Last</a></li>`;
 
         }
-        else if(Object.keys(data.search).length == 0)
-        {
-            html +=`<tr><td colspan=12>No record found</td></tr>`;
+        else if (Object.keys(data.search).length == 0) {
+            html += `<tr><td colspan=12>No record found</td></tr>`;
             pages += '';
         }
         table.innerHTML = html;
-        page.innerHTML=pages;
+        page.innerHTML = pages;
+        check_status();
+
 
     }
-    catch(err)
-    {
+    catch (err) {
         console.log(err);
     }
-    togglecolorchnage();
+
 }

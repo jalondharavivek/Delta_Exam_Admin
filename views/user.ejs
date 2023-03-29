@@ -49,7 +49,7 @@
                                     <%for(let i=0; i<student.length; i++) {%>
                                         <tr>
                                             <td>
-                                                <%=student[i].student_id%>
+                                                <%=(i+1)%>
                                             </td>
                                             <td>
                                                 <%=student[i].name%>
@@ -70,14 +70,13 @@
                                             <td>
 
                                                 <div id="toggle<%=student[i].student_id%>">
-                                                    <p class="btn" id="<%=student[i].student_id%>"
-                                                        onclick="toggle('<%=student[i].student_status%>','<%=student[i].student_id%>')">
-                                                        <%=student[i].student_status%>
-                                                    </p>
+                                                    <p class="btnn" id="status" id="<%=student[i].student_id%>" 
+                                                        onclick="toggle('<%=student[i].student_status%>','<%=student[i].student_id%>')"><%=student[i].student_status%></p>
                                                 </div>
 
 
                                             </td>
+                                            
                                             <td>
                                                 <%=student[i].state_name%>
                                             </td>
@@ -88,18 +87,19 @@
                                                 <%=student[i].college_name%>
                                             </td>
                                             
-                                                <td><%= (new Date().toLocaleDateString()) %></td>
+                                                <td><%= (new Date(student[i].created_date).toLocaleDateString()) %></td>
 
                                            
                                             <td>
-                                                <a id="editbutton" href="/edit/:id=<%=student[i].student_id%>">edit
+                                                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=<%=student[i].student_id%>">
                                                 </a>
                                             </td>
                                         </tr>
                                         <%}%>
                                 </tbody>
-                            </table>
+                          
                         </form><br>
+                    </table>
                     </div>
                     <div class="page">
                         <nav aria-label="Page navigation example">
@@ -128,10 +128,15 @@
                     </div>
                    
                 </div>
+                
         </div>
+
+        
 </body>
 <script src="/js/dashboard.js"></script>
 <script src="/js/user.js"></script>
+
+
 
 
 

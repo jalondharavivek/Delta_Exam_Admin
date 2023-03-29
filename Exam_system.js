@@ -7,7 +7,6 @@ var cookie = require('cookie-parser');
 var utils = require('util');
 const { decode } = require('punycode');
 let bodyParser = require('body-parser')
-const mysql = require("mysql2/promise");
 const flash = require('connect-flash');
 var nodemailer = require('nodemailer');
 const path = require('path')
@@ -38,28 +37,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-
-
-const category = require('./routes/category')
-app.use("/", category)
-
-const question = require('./routes/question')
-app.use("/", question)
-
-const login = require('./routes/login')
-app.use("/", login)
+const router = require('./routes/route')
+app.use("/",router)
 
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, '/public')))
 
-const exam = require('./routes/exam')
-app.use('/',exam)
-
-const user = require('./routes/user');
-app.use("/", user)
-
-const result = require('./routes/result')
-app.use('/',result);
-
-
-app.listen(PORT, () => console.log(`port connected to ${PORT}!`))
+app.listen(PORT, () => console.log(`port connected to ${PORT}!`));

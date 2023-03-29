@@ -14,21 +14,17 @@ async function clickFetch() {
         .then(data => {
             otp = data.otp;
            otp_get.innerHTML = otp; 
-
         })
 }
 
 function validOtp() {
-    console.log("valid open")
 
     var enterOtp = document.getElementById("enterOtp").value;
 
     if (otp == enterOtp) {
-        console.log("same in if")
         document.getElementById("password_lable").innerHTML = "";
         document.getElementById("submitAll").disabled = false;
     } else {
-        console.log("not same in else")
         document.getElementById("password_lable").innerHTML = "Otp is not same"
         document.getElementById("password_lable").style.color = "red";
         document.getElementById("submitAll").disabled = true;
@@ -51,7 +47,7 @@ async function valid_email(email1) {
     let nameData1 = await emailValid.json();
 
     if (nameData1.status == 404) {
-        document.getElementById("email_valid").innerHTML = "This email id not register ! Pelese enter valid email id for forget password";
+        document.getElementById("email_valid").innerHTML = "This email id not register ! Pelese enter valid email id for forget or change password";
         document.getElementById("email_valid").style.color = "red";
         document.getElementById("sendBtn").disabled = true;
     } else {

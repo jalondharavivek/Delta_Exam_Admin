@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dashboard</title>
+    <title>Question</title>
 </head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
@@ -29,16 +29,15 @@
 
                         <div class="form-container">
                             <h2>Edit Question</h2>
-                            <form class="add-question-form" method="post" action="/editquestion">
+                            <form class="add-question-form" method="post" enctype="multipart/form-data" action="/editquestion">
                                 <div class="form-container">
                                     <input type="hidden" name="question_id" value="<%= data[0].question_id %>">
                                  
                                             <label for="quiz">cateories:</label>
 
                                             <select id="category" name="category">
-                                                <%= console.log((data1,"category ")) %>
-                                                <%= console.log((data1.category_name,"category ")) %>
-                                                <option value="<%= data1[0].category_name %>" disabled ><%= data1[0].category_name %></option>
+                                                
+                                                <option value="<%= data2[0].category_name %>" disabled ><%= data2[0].category_name %></option>
                                                 <%for(i=0 ; i< data1.length ; i++){%>
                                                     <option value="<%= data1[i].category_id %>">
                                                         <%= data1[i].category_name%>
@@ -47,23 +46,27 @@
                                             </select>
                                             <label for="question">Question:</label>
                                             <textarea id="question_text" name="question_text"  rows="3" ><%= data[0].question_text %></textarea>
-
+                                                
+                                            <label for="Image">Image</label>
+                                            <input type="file" id="image" name="image" > 
                                             <label for="option_a">Option A:</label>
-                                            <input type="text" id="option_a" value="<%= data[0].option_a %>" name="option_a" required>
+                                            <input type="text" id="option_a" value="<%= data[0].option_a %>" name="option_a" >
 
                                             <label for="option_b">Option B:</label>
-                                            <input type="text" id="option_b" value="<%= data[0].option_b %>" name="option_b" required>
+                                            <input type="text" id="option_b" value="<%= data[0].option_b %>" name="option_b" >
 
                                             <label for="option_c">Option C:</label>
-                                            <input type="text" id="option_c" value="<%= data[0].option_c %>" name="option_c" required>
+                                            <input type="text" id="option_c" value="<%= data[0].option_c %>" name="option_c" >
 
                                             <label for="option_d">Option D:</label>
-                                            <input type="text" id="option_d" value="<%= data[0].option_d %>" name="option_d" required>
+                                            <input type="text" id="option_d" value="<%= data[0].option_d %>" name="option_d" >
 
                                             <label for="correct_option">Correct Option:</label>
                                             <select id="correct_option" name="answer" required>
                                                 <option value="<%= data[0].answer %>" selected><%= data[0].answer %></option>
                                             </select>
+                                            <label for="Description">Description</label>
+                                            <input type="text" id="Description" value="<%= data[0].description %>" name="description" >
                                 </div>
                                 <input type='submit' value='Update' name='submit'>
                                 <a href="/question" class="button"> Cancle </a>
@@ -75,5 +78,5 @@
         </div>
 </body>
 <script src="/js/addquestion.js"></script>
-
+<script src="/js/dashboard.js"></script>
 </html>
