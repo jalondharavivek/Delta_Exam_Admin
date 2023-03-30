@@ -47,10 +47,6 @@ const edit = async function (req, res) {
 
 const post_edit = async function (req, res) {
 
-  let conn = await db.getConnection();
-
-  await conn.beginTransaction();
-
   try {
 
     let exam = req.body.exam_name;
@@ -147,14 +143,8 @@ const post_edit = async function (req, res) {
 
     }
 
-    await conn.commit();
-
     res.redirect("/examlist");
   } catch (err) {
-    if(conn){
-     await conn.rollback();  
-    }
-    
     res.send(err);
   }
 }
@@ -230,10 +220,6 @@ const exam = async function (req, res) {
 
 const post_exam = async (req, res) => {
 
-  let conn = await db.getConnection();
-
-  await conn.beginTransaction();
-
   try {
 
     let exam = req.body.exam_name;
@@ -299,12 +285,8 @@ const post_exam = async (req, res) => {
 
       }
     }
-    await db.commit();
     res.redirect("/examlist");
   } catch (err) {
-    if(conn){
-      await db.rollback();
-    }
     res.send(err)
   }
 
