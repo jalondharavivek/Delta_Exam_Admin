@@ -46,6 +46,11 @@ const edit = async function (req, res) {
 }
 
 const post_edit = async function (req, res) {
+
+  let conn = await db.getConnection();
+
+  await conn.beginTransaction();
+
   try {
 
     let exam = req.body.exam_name;
@@ -57,65 +62,64 @@ const post_edit = async function (req, res) {
     let strcat = ''; //str for store category in one line
 
     if (typeof (category) == "string") {
-        sql3 = `select category_name from category where category_id='${category}'`;
-        
-        let [data3] = await db.execute(sql3);
 
-        let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${data3[0].category_name}',user_id='${req.session.user_id}' where exam_id=${exam_id};`;
-        let [data1] = await db.execute(sql1);
+      sql3 = `select category_name from category where category_id='${category}'`;
 
-        let sql4 = `select count(exam_category_id) as numrows  from exam_category where exam_id = '${exam_id}' `;
-        let [data4] = await db.execute(sql4);
-        let oldlen = data4[0].numrows;
-        let newlen = 1;
+      let [data3] = await db.execute(sql3);
 
-        let sql5 = `select exam_category_id from exam_category where exam_id = ${exam_id}`;
-        let [data5] = await db.execute(sql5);
+      let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${data3[0].category_name}',user_id='${req.session.user_id}' where exam_id=${exam_id};`;
+      let [data1] = await db.execute(sql1);
 
-        if (oldlen > newlen) {
-          for (i = 0; i < newlen; i++) {
-            let sql6 = `update exam_category set category_id =${category} where exam_category_id = ${data5[i].exam_category_id}`;
-            let [data6] = await db.execute(sql6);
-          }
-          for (i = newlen; i < oldlen; i++) {
-            let sql7 = `delete from exam_category where exam_category_id = '${data5[i].exam_category_id}';`;
-            let data7 = await db.execute(sql7);
-          }
-        } else if (oldlen == newlen) {
-          for (i = 0; i < newlen; i++) {
-            let sql6 = `update exam_category set category_id=${category} where exam_category_id = ${data5[i].exam_category_id};`;
-            let data6 = await db.execute(sql6);
-          }
-    
-        } 
-       
-    
-    }else{
+      let sql4 = `select count(exam_category_id) as numrows  from exam_category where exam_id = '${exam_id}' `;
+      let [data4] = await db.execute(sql4);
+      let oldlen = data4[0].numrows;
+      let newlen = 1;
+
+      let sql5 = `select exam_category_id from exam_category where exam_id = ${exam_id}`;
+      let [data5] = await db.execute(sql5);
+
+      if (oldlen > newlen) {
+        for (i = 0; i < newlen; i++) {
+          let sql6 = `update exam_category set category_id =${category} where exam_category_id = ${data5[i].exam_category_id}`;
+          let [data6] = await db.execute(sql6);
+        }
+        for (i = newlen; i < oldlen; i++) {
+          let sql7 = `delete from exam_category where exam_category_id = '${data5[i].exam_category_id}';`;
+          let data7 = await db.execute(sql7);
+        }
+      } else if (oldlen == newlen) {
+        for (i = 0; i < newlen; i++) {
+          let sql6 = `update exam_category set category_id=${category} where exam_category_id = ${data5[i].exam_category_id};`;
+          let data6 = await db.execute(sql6);
+        }
+
+      }
+    } else {
       for (i = 0; i < category.length; i++) {
 
         sql3 = `select category_name from category where category_id='${category[i]}'`;
-  
+
         let [data3] = await db.execute(sql3);
         strcat += data3[0].category_name;
         strcat += ', ';
       }
-  
+
       let categories = strcat.substring(0, strcat.length - 2);
-  
+
       let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${categories}',user_id='${req.session.user_id}' where exam_id=${exam_id};`;
       let [data1] = await db.execute(sql1);
-  
-      
-  
+
+
+
       let sql4 = `select count(exam_category_id) as numrows  from exam_category where exam_id = '${exam_id}' `;
       let [data4] = await db.execute(sql4);
       let oldlen = data4[0].numrows;
       let newlen = category.length;
-  
-  
+
+
       let sql5 = `select exam_category_id from exam_category where exam_id = ${exam_id}`;
       let [data5] = await db.execute(sql5);
-  
+
       if (oldlen > newlen) {
         for (i = 0; i < newlen; i++) {
           let sql6 = `update exam_category set category_id =${category[i]} where exam_category_id = ${data5[i].exam_category_id}`;
@@ -140,13 +144,17 @@ const post_edit = async function (req, res) {
           let data7 = await db.execute(sql7);
         }
       }
-  
-    }
-  
 
-    
+    }
+
+    await conn.commit();
+
     res.redirect("/examlist");
   } catch (err) {
+    if(conn){
+     await conn.rollback();  
+    }
+    
     res.send(err);
   }
 }
@@ -222,6 +230,10 @@ const exam = async function (req, res) {
 
 const post_exam = async (req, res) => {
 
+  let conn = await db.getConnection();
+
+  await conn.beginTransaction();
+
   try {
 
     let exam = req.body.exam_name;
@@ -230,7 +242,7 @@ const post_exam = async (req, res) => {
 
     let start_date = req.body.start_date;
     let category = req.body.category;
-    
+
     let str = "";
     let num = "0123456789";
     let lan = num.length;
@@ -240,7 +252,7 @@ const post_exam = async (req, res) => {
       str += num.charAt(Math.floor(Math.random() * 6));
 
     }
-    if(typeof(category) == "string"){
+    if (typeof (category) == "string") {
       sql3 = `select category_name from category where category_id='${category}'`;
       let [data3] = await db.execute(sql3);
 
@@ -248,48 +260,51 @@ const post_exam = async (req, res) => {
       sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '${req.session.user_id}', '0', '${start_date}',  NOW(),'${data3[0].category_name}');`;
 
       let [data1] = await db.execute(sql1);
-  
-  
+
+
       let appid = data1.insertId;
 
       let sql2 = `insert into exam_category (exam_id,category_id) values ('${appid}',${category});`;
 
       let [data2] = await db.execute(sql2);
-    }else{
+    } else {
 
       let strcat = ''; //str for store category in one line
-  
+
       for (i = 0; i < category.length; i++) {
         sql3 = `select category_name from category where category_id='${category[i]}'`;
         let [data3] = await db.execute(sql3);
-  
+
         strcat += data3[0].category_name;
-  
+
         strcat += ', ';
       }
-  
+
       let categories = strcat.substring(0, strcat.length - 2);
 
-      
+
       sql1 = `INSERT INTO exam (exam_name, total_questions, exam_time, exam_access_code, user_id, exam_status, exam_date,  created_date, category_name) VALUES ( '${exam}', '${question}', '${time}', '${str}', '${req.session.user_id}', '0', '${start_date}',  NOW(),'${categories}');`;
-  
+
       let [data1] = await db.execute(sql1);
-  
-  
+
+
       let appid = data1.insertId;
-  
-  
+
+
       for (i = 0; i < category.length; i++) {
-  
+
         let sql2 = `insert into exam_category (exam_id,category_id) values ('${appid}',${category[i]});`;
-  
+
         let [data2] = await db.execute(sql2);
-  
+
       }
     }
-
+    await db.commit();
     res.redirect("/examlist");
   } catch (err) {
+    if(conn){
+      await db.rollback();
+    }
     res.send(err)
   }
 
@@ -300,35 +315,35 @@ const examstatus = async (req, res) => {
     let status = req.query.status;
     let id = req.query.id;
     let date = req.query.date
-    let current_date = moment().format('DD/MM/YYYY'); 
+    let current_date = moment().format('DD/MM/YYYY');
     let datearr = date.split('/');
     let current_datearr = current_date.split('/');
-   
-    
-    if(parseInt(datearr[2]) <= parseInt(current_datearr[2]) ){
-       if(parseInt(datearr[1]) <= parseInt(current_datearr[1]) ){
-          if(parseInt(datearr[0]) < parseInt(current_datearr[0])){
 
-           
-              sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
-              let [data1] = await db.execute(sql1);
-              res.send(data1)
-           
 
-          }else{
-            if (status == '1') {
+    if (parseInt(datearr[2]) <= parseInt(current_datearr[2])) {
+      if (parseInt(datearr[1]) <= parseInt(current_datearr[1])) {
+        if (parseInt(datearr[0]) < parseInt(current_datearr[0])) {
 
-              sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
-              let [data1] = await db.execute(sql1);
-              res.send(data1)
-            }
-            else {
-              sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
-              let [data1] = await db.execute(sql1);
-              res.send(data1)
-            }
+
+          sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+          let [data1] = await db.execute(sql1);
+          res.send(data1)
+
+
+        } else {
+          if (status == '1') {
+
+            sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+            let [data1] = await db.execute(sql1);
+            res.send(data1)
           }
-       }else{
+          else {
+            sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+            let [data1] = await db.execute(sql1);
+            res.send(data1)
+          }
+        }
+      } else {
         if (status == '1') {
 
           sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
@@ -340,20 +355,21 @@ const examstatus = async (req, res) => {
           let [data1] = await db.execute(sql1);
           res.send(data1)
         }
-       }
-    }else{
+      }
+    } else {
       if (status == '1') {
 
-      sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
-      let [data1] = await db.execute(sql1);
-      res.send(data1)
+        sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+        let [data1] = await db.execute(sql1);
+        res.send(data1)
+      }
+      else {
+        sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+        let [data1] = await db.execute(sql1);
+        res.send(data1)
+      }
     }
-    else {
-      sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
-      let [data1] = await db.execute(sql1);
-      res.send(data1)
-    }
-  } } catch (err) {
+  } catch (err) {
     res.send(err)
   }
 
@@ -390,13 +406,13 @@ const examsearch = async (req, res) => {
       let exam_name = req.query.exam_name;
 
       let sql4 = `select * from exam where exam_name like '%${exam_name}%' limit ${offset},${limit};`;
-      
+
       let [data1] = await db.execute(sql4);
 
       let sql5 = `select * from exam where exam_name like '%${exam_name}%';`
       let [data5] = await db.execute(sql5);
 
-      res.json({ data1, curpage  ,limit ,count1 , data5});
+      res.json({ data1, curpage, limit, count1, data5 });
 
     }
   } catch (err) {

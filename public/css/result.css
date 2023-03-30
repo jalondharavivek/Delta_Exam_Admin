@@ -55,3 +55,24 @@ tbody tr:nth-child(odd)
 
     
 }
+#page{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    /* display: inline-block; */
+    width: 300px;
+    /* border: 1px solid black; */
+    
+    justify-content: space-between;
+}
+#page p{
+        cursor: pointer;
+        margin-top: 20px;
+        color: rgb(44, 112, 112);
+        background-color: beige;
+        padding: 10px;
+        border-radius: 8px;
+    
+}
+
+

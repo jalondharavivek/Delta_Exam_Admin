@@ -39,19 +39,19 @@
     </table>
 
     <div id="page">
-        <p onclick="page(`1`,`<%=count%>`,`<%=id%>`)">prev</p>
+        <p onclick="page(`1`,`<%=count%>`,`<%=id%>`)" class="p">prev</p>
         <%for(i=1 ;i<=count ;i++){%>
             <%if(i==1){%>
-            <p onclick="page(`<%=i%>`,`<%=count%>`,`<%=id%>`)">
+            <p onclick="page(`<%=i%>`,`<%=count%>`,`<%=id%>`)" class="p">
                 <b><%=i%></b>
             </p>
             <%}else{%>
-                <p onclick="page(`<%=i%>`,`<%=count%>`,`<%=id%>`)">
+                <p onclick="page(`<%=i%>`,`<%=count%>`,`<%=id%>`)" class="p">
                     <%=i%>
                 </p>
             <%}%>
         <% } %>
-        <p onclick="page(`<%=count%>`,`<%=count%>`,`<%=id%>`)">next</p>
+        <p onclick="page(`<%=count%>`,`<%=count%>`,`<%=id%>`)" class="p">next</p>
     </div>
     <input type="button" value="Go Back" onclick="history.back()" class="back">
 
