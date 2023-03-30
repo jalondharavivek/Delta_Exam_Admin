@@ -29,7 +29,7 @@ const question = async(req,res)=>{
   let [quecatexecute] = await db.execute(quecat);
   let sql1que = `select count(*) as total from questions where question_status = '1'  `;
   let [resultque] = await db.query(sql1que);
-  res.render("question", { data: questiontab,data1 : quecatexecute ,page : page, total: resultque[0].total, limit: limit })
+  res.render("../src/views/question", { data: questiontab,data1 : quecatexecute ,page : page, total: resultque[0].total, limit: limit })
   }catch(err){
     err
   }
@@ -66,7 +66,7 @@ const addquestion = async(req,res)=>{
     let catque = `select * from category where category_status = 1`
   let [catfque] = await db.execute(catque);
  
-  res.render("addquestion", { data: catfque });
+  res.render("../src/views/addquestion", { data: catfque });
 }catch(err){
   err
 }
@@ -114,7 +114,7 @@ const viewdetail = async(req,res)=>{
   let [viewques] = await db.query(viewq);
 
  
-  res.render("viewquestion", { data : viewques , data1:category});
+  res.render("../src/views/viewquestion", { data : viewques , data1:category});
   }catch(err){
     err
   }
@@ -129,7 +129,7 @@ const editquestionget = async(req,res)=>{
     let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${id}' and question_status='1' `)
     let catque = `select * from category where category_status = 1`
     let [catfque1] = await db.execute(catque);
-    res.render("editquestion", { data: editques , data1: catfque1 , data2:category})
+    res.render("../src/views/editquestion", { data: editques , data1: catfque1 , data2:category})
     }catch(err){
       err
     }

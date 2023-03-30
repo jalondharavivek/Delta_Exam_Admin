@@ -1,7 +1,7 @@
 const express = require('express');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
-var db = require('./connection/mysql');
+var db = require('./src/connection/mysql');
 const sessions = require('express-session');
 var cookie = require('cookie-parser');
 var utils = require('util');
@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const router = require('./routes/route')
+const router = require('./src/routes/route')
 app.use("/",router)
 
 app.use(express.static('public'));

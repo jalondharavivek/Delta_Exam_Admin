@@ -204,7 +204,7 @@ const examlist = async (req, res) => {
     sql1 = `select * from exam limit ${offset},${limit};`;
     let [data1] = await db.execute(sql1);
 
-    res.render("examlist", { data1, count, curpage });
+    res.render("../src/views/examlist", { data1, count, curpage });
   } catch (err) {
     res.send(err);
   }
@@ -213,7 +213,7 @@ const examlist = async (req, res) => {
 
 const exam = async function (req, res) {
   try {
-    res.render("exam");
+    res.render("../src/views/exam");
 
   } catch (err) {
     res.send(err)

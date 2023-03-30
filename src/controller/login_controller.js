@@ -32,17 +32,15 @@ app.use(express.static(path.join(__dirname, '/public')))
 
 
 const admin_login = (req, res) => {
-    res.render("login.ejs")
+    res.render("../src/views/login.ejs")
   }; 
   
 const login = async(req, res) => {
     var email = req.body.email;
     var password = req.body.password;
-    let sql=`select user_id from user_login where email='${email}'; `
-  let [query] = await db.execute(sql);
-  let user_id = query[0].user_id;
-    var selectEmail = `SELECT email, password FROM student where email = '${email}';`
-    var emailResult = await db.query(selectEmail);
+    let sql=`select user_id from user_login where email='${email}'`
+    let [query] = await db.execute(sql);
+    let user_id = query[0].user_id;
     var selectUser = `SELECT email, password , user_login_status , role from user_login where email = '${email}'`;
     var [userData] = await db.query(selectUser);
     if (userData.length == 0) {
@@ -61,7 +59,7 @@ const login = async(req, res) => {
 }
 const forget = async(req, res) => {
    req.session.destroy();
-    res.render("validEmail")
+    res.render("../src/views/validEmail")
 }
 
 const dashboard = async(req,res) =>{
@@ -81,7 +79,7 @@ const dashboard = async(req,res) =>{
     let sql4 = `SELECT COUNT(category_id) as c FROM category`;
     let [query4] = await db.execute(sql4);
     
-    res.render('dashboard.ejs', {count1 :  query1 , count2 : query2, count3 : query3, count4 : query4});
+    res.render('../src/views/dashboard.ejs', {count1 :  query1 , count2 : query2, count3 : query3, count4 : query4});
   }
   catch (err) {
     console.log(err);
@@ -98,7 +96,7 @@ const setpassword = async(req,res) => {
 }
 
 const post_setpassword = async(req,res) => {
-    res.render("setPassword");
+    res.render("../src/views/setPassword");
 }
 const logout=async(req,res)=>{
   req.session.destroy();

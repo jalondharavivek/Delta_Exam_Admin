@@ -15,7 +15,7 @@ const category = async (req, res) => {
         let [query] = await db.query(sql);
         let sql1 = "select count(*) as total from category";
         let [result1] = await db.query(sql1);
-        res.render('category',{ data : query, page : page, total: result1[0].total, limit: limit });
+        res.render('../src/views/category',{ data : query, page : page, total: result1[0].total, limit: limit });
     }
     catch(err){
         console.log(err);

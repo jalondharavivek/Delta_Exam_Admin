@@ -21,7 +21,7 @@ const user = async (req, res) => {
 
     let [result1] = await db.execute(sql1);
 
-    res.render('user', { student, page: page, total: result1[0].total, limit: limit });
+    res.render('../src/views/user', { student, page: page, total: result1[0].total, limit: limit });
   }
   catch (err) {
     console.log(err);
@@ -163,7 +163,7 @@ const editid = async (req, res) => {
     let sql1 = `select * from state`;
     let [state] = await db.execute(sql1);
 
-    res.render("edit.ejs", { student2, state });
+    res.render("../src/views/edit.ejs", { student2, state });
 
   }
   catch (err) {
