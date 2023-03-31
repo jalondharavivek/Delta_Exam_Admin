@@ -244,10 +244,10 @@ display: inline-block;
     display: flex;
     flex-direction: row;
     /* display: inline-block; */
-    width: 256px;
+   
     /* border: 1px solid black; */
     
-    justify-content: space-between;
+    
 }
 #page p{
         cursor: pointer;
@@ -257,4 +257,7 @@ display: inline-block;
         padding: 10px;
         border-radius: 8px;
     
+}
+.p{
+    margin: 0px 10px;
 }
