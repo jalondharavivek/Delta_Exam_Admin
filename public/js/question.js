@@ -132,7 +132,6 @@ async function searchque(quesearch) {
     }
     else {
       {
-
         for (let i = 0; i < datas.search.length; i++) {
           quetabsearch += `<tr>
         <td class="width-td">
