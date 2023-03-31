@@ -38,7 +38,7 @@ const admin_login = (req, res) => {
 const login = async(req, res) => {
     var email = req.body.email;
     var password = req.body.password;
-    var selectUser = `SELECT email, password , user_login_status , role from user_login where email = '${email}'`;
+    var selectUser = `SELECT email,password,user_login_status,user_id,role from user_login where email = '${email}'`;
     var [userData] = await db.query(selectUser);
     if (userData.length == 0) {
       res.send("email and password is not match");
