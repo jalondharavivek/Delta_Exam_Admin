@@ -244,14 +244,14 @@ display: inline-block;
     display: flex;
     flex-direction: row;
     /* display: inline-block; */
-    width: 300px;
+    width: 256px;
     /* border: 1px solid black; */
     
     justify-content: space-between;
 }
 #page p{
         cursor: pointer;
-        margin-top: 20px;
+        margin-top: 10px;
         color: rgb(44, 112, 112);
         background-color: beige;
         padding: 10px;
