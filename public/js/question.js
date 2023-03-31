@@ -86,10 +86,11 @@ async function retriveque() {
     <a href="/question/editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
     <a href=""   onclick="retquestion(${data.data[i].question_id})"><i class="fas fa-trash-restore"></i></a>
     </td>
-</tr>`
+</tr>
+`
       }
-
-
+      quetabretrive += `<br>`
+      quetabretrive +=   `<a class="button" href="/question" >Back</a>`
 
     }
     tabqueret.innerHTML = quetabretrive;
@@ -132,7 +133,6 @@ async function searchque(quesearch) {
     }
     else {
       {
-
         for (let i = 0; i < datas.search.length; i++) {
           quetabsearch += `<tr>
         <td class="width-td">
@@ -155,7 +155,7 @@ async function searchque(quesearch) {
         <td class="button-width">
 
         <a href="/question/editquestion?question_id=${datas.search[i].question_id}" ><i class="fas fa-edit"></i></a>
-        <a href=""   onclick="deletque(${datas.search[i].question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a href="" onclick="deletquestion(${datas.search[i].question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
     </tr>`
         }
@@ -219,8 +219,8 @@ async function page(pages, name = '') {
       <td class="button-width">
 
       <a href="/question/editquestion?question_id=${q.question_id}" ><i class="fas fa-edit"></i></a>
-      <a href=""   onclick="deletque(${q.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
-      </td>
+      <a id="deletquesid" onclick="deletquestion(${q.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
+     
   </tr>`;
     })
     let pagi = '';

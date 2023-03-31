@@ -37,6 +37,20 @@ function updateSelectBox() {
  }
 }
 
+function enabledisableinputbox() {
+  const comboboxcategory = document.getElementById("category");
+  const allrInputbox = document.querySelectorAll(".all-inputbox");
+  
+  if (comboboxcategory.value) {
+    allrInputbox.forEach(input => {
+          input.disabled = false;
+      });
+  } else {
+    allrInputbox.forEach(input => {
+          input.disabled = true;
+      });
+  }
+}
 
 
 
