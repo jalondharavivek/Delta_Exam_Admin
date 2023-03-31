@@ -86,10 +86,11 @@ async function retriveque() {
     <a href="/question/editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
     <a href=""   onclick="retquestion(${data.data[i].question_id})"><i class="fas fa-trash-restore"></i></a>
     </td>
-</tr>`
+</tr>
+`
       }
-
-
+      quetabretrive += `<br>`
+      quetabretrive +=   `<a class="button" href="/question" >Back</a>`
 
     }
     tabqueret.innerHTML = quetabretrive;
