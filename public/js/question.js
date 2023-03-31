@@ -59,7 +59,7 @@ async function retriveque() {
 
     if (Object.keys(data.data).length == 0) {
       quetabretrive += `<tr><td colspan=5>No record found</td></tr>`
-
+      quetabretrive +=   `<a class="button" href="/question" >Back</a>`
     }
     else {
 
