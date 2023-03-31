@@ -6,7 +6,7 @@ let tbody = document.getElementById('tbody');
 async function page(num, count1) {
  
     fetch(`/result/page?num=${num}`).then(res => res.json()).then(data => {
- 
+        console.log(data)
         tbody.innerHTML = "";
         for (i = 0; i < data.data.length; i++) {
             tbody.innerHTML += `<tr>
@@ -22,29 +22,29 @@ async function page(num, count1) {
         page1.innerHTML = "";
 
         if (num == 1) {
-            page1.innerHTML += `<p onclick="page(1,${count1})">prev</p>`
+            page1.innerHTML += `<p onclick="page(1,${count1})" class="p">prev</p>`
 
         } else {
-            page1.innerHTML += `<p onclick="page(${num}-1,${count1})">prev</p>`
+            page1.innerHTML += `<p onclick="page(${num}-1,${count1})" class="p">prev</p>`
 
         }
 
         for (i = 1; i <= count1; i++) {
             if (i == num) {
-                page1.innerHTML += `<p onclick="page(${i},${count1})"><b>${i}</b></p>`
+                page1.innerHTML += `<p onclick="page(${i},${count1})" class="p"><b>${i}</b></p>`
             } else {
-                page1.innerHTML += `<p onclick="page(${i},${count1})">${i}</p>`
+                page1.innerHTML += `<p onclick="page(${i},${count1})" class="p">${i}</p>`
             }
         }
 
 
         if (num == count1) {
 
-            page1.innerHTML += `<p onclick="page(${count1},${count1})">next</p>`
+            page1.innerHTML += `<p onclick="page(${count1},${count1})" class="p">next</p>`
 
         } else if (num < count1) {
 
-            page1.innerHTML += `<p onclick="page(${num}+1,${count1})">next</p>`;
+            page1.innerHTML += `<p onclick="page(${num}+1,${count1})" class="p">next</p>`;
         }
 
 

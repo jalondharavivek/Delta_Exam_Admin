@@ -250,5 +250,11 @@ display: inline-block;
     justify-content: space-between;
 }
 #page p{
-    cursor: pointer;
+        cursor: pointer;
+        margin-top: 20px;
+        color: rgb(44, 112, 112);
+        background-color: beige;
+        padding: 10px;
+        border-radius: 8px;
+    
 }

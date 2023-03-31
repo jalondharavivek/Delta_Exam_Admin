@@ -17,29 +17,29 @@ async function page(num, count1,user) {
         page1.innerHTML = "";
 
         if (num == 1) {
-            page1.innerHTML += `<p onclick="page(1,${count1},${user})">prev</p>`
+            page1.innerHTML += `<p onclick="page(1,${count1},${user})" class="p">prev</p>`
 
         } else {
-            page1.innerHTML += `<p onclick="page(${num}-1,${count1},${user})">prev</p>`
+            page1.innerHTML += `<p onclick="page(${num}-1,${count1},${user})" class="p">prev</p>`
 
         }
 
         for (i = 1; i <= count1; i++) {
             if (i == num) {
-                page1.innerHTML += `<p onclick="page(${i},${count1},${user})"><b>${i}</b></p>`
+                page1.innerHTML += `<p onclick="page(${i},${count1},${user})" class="p"><b>${i}</b></p>`
             } else {
-                page1.innerHTML += `<p onclick="page(${i},${count1},${user})">${i}</p>`
+                page1.innerHTML += `<p onclick="page(${i},${count1},${user})" class="p">${i}</p>`
             }
         }
 
 
         if (num == count1) {
 
-            page1.innerHTML += `<p onclick="page(${count1},${count1},${user})">next</p>`
+            page1.innerHTML += `<p onclick="page(${count1},${count1},${user})" class="p">next</p>`
 
         } else if (num < count1) {
 
-            page1.innerHTML += `<p onclick="page(${num}+1,${count1},${user})">next</p>`;
+            page1.innerHTML += `<p onclick="page(${num}+1,${count1},${user})" class="p">next</p>`;
         }
 
 

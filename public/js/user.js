@@ -65,6 +65,7 @@ async function page(pages, name = '') {
 
 </tr>`;
     let page = pages.id;
+ 
     const results = await fetch(`userpage`, {
         method: "POST",
         headers: {

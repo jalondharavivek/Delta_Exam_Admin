@@ -1,7 +1,7 @@
 var db = require('../connection/mysql');
 require('../connection/module');
 
-let limit = 2;
+let limit = 1;
 const studentlist = async (req, res) => {
   try {
     var data = [];
@@ -32,7 +32,7 @@ const studentlist = async (req, res) => {
 
     let count = Math.ceil(query2.length / limit);
 
-    res.render('result', { data: query1, count, limit, curpage });
+    res.render('../src/views/result', { data: query1, count, limit, curpage });
   } catch (err) {
     res.send(err);
   }
@@ -118,7 +118,7 @@ const companylist = async (req, res) => {
 
 
 
-    res.render("companylist.ejs", { data: query, count, limit, curpage, id });
+    res.render("../src/views/companylist.ejs", { data: query, count, limit, curpage, id });
   } catch (err) {
     res.send(err);
   }
@@ -202,7 +202,7 @@ const getexamdetaile = async (req, res) => {
 
     let count = Math.ceil(query2.length / limit);
 
-    res.render('getexamdetaile', { data: query, count, limit, curpage, id });
+    res.render('../src/views/getexamdetaile', { data: query, count, limit, curpage, id });
   } catch (err) {
     res.send(err);
   }
@@ -279,7 +279,7 @@ const viewquestionget = async (req, res) => {
     let counter = Math.ceil(query2.length / limit);
 
 
-    res.render('viewquestionresult', { data: query, counter, limit, curpage, id });
+    res.render('../src/views/viewquestionresult', { data: query, counter, limit, curpage, id });
   } catch (err) {
     res.send(err);
   }
