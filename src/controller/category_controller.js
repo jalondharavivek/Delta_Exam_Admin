@@ -57,7 +57,6 @@ const categorystatus = async (req, res) =>{
         let status = req.body.status
         let page=parseInt(req.query.page)||1;
         let limit=parseInt(req.query.limit)||10;
-        let startindex=(page-1)*limit;
         let sql1 = `select * from category `;
         if (req.query.page > 1)
             sql1 += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
