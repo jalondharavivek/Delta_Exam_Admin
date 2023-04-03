@@ -28,6 +28,7 @@ cat_status();
 
 async function check(id, status) 
 {
+    let c_id = id;
     let sts;
     if (status == 1) {
         sts = "disable";
@@ -43,7 +44,7 @@ async function check(id, status)
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id, status })
+                body: JSON.stringify({ c_id , status })
             });
             let data = await result.json();
             let table = document.getElementById("myTable");

@@ -53,7 +53,7 @@ const categorypage = async (req, res) => {
 const categorystatus = async (req, res) =>{
     try{
 
-        let id = req.body.id;
+        let id = req.body.c_id;
         let status = req.body.status
         let page=parseInt(req.query.page)||1;
         let limit=parseInt(req.query.limit)||10;

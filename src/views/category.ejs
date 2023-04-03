@@ -43,7 +43,7 @@
                         <td><%= id++ %></td>
                         <td><%= c.category_name %></td>
                         <td><%= (new Date(c.created_date).toLocaleDateString()) %></td>
-                        <td><a class="btnn" id="status" onclick="check(`<%= c.category_id %>`,`<%= c.category_status %>`);"><%= c.category_status %></a></td>
+                        <td><a class="btnn" id="status" onclick="check('<%= c.category_id %>','<%= c.category_status %>');"><%= c.category_status %></a></td>
                         <td><a class="edit-btn fas fa-edit" onclick="editCategory(`<%= c.category_id %>`)"> EDIT</a></td>
                     </tr>
                 <% }); %>
