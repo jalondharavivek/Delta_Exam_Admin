@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam</title>
+    <link rel="stylesheet" href="/css/exam.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <link  rel="icon"  type="image/webp"  href="../public/assets/image/browser head.webp">
+</head>
+
+<body>
+    <%- include('header'); -%>
+        <div class="main-container">
+            <%- include('nav'); -%>
+                <div class="main">
+
+                    <div id="change">
+
+
+                        <div id="heading">
+                            <div class="heading1">
+                                <label for="">Exam List</label>
+
+                            </div>
+                            <div class="heading2">
+                                <input type="text" name="search" id="search" placeholder="serch" oninput="examSearch(`1`)"
+                                    oninput="togglecolorchnage()">
+                                
+                                <p onclick="addexam()" style="cursor: pointer;"><i class="fa-solid fa-circle-plus" id="i"></i></p>
+
+                            </div>
+                        </div>
+                        <div class="exam_listing">
+                            <table>
+                                <tbody id="tbody">
+                                    <tr>
+                                        <th>Sr .No</th>
+                                        <th>exam_name</th>
+                                        <th>category</th>
+                                        <th>total_questions</th>
+                                        <th>time_limit</th>
+                                        <th>start date</th>
+                                        <th>exam statuss</th>
+                                        <th>edit</th>
+
+
+                                    </tr>
+                                    <% for(let i=0;i<data1.length;i++){ %>
+                                        <input type="text" value="<%=data1[i].exam_id%>" hidden>
+                                        <tr>
+                                            <td>
+                                                <div class="td">
+                                                    <%=(i+1)%>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td">
+                                                    <%=data1[i].exam_name%>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td">
+                                                    <%=data1[i].category_name%>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td">
+                                                    <%=data1[i].total_questions%>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td">
+                                                    <%=data1[i].exam_time%>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td">
+                                                    <%=(new Date(data1[i].exam_date).toLocaleDateString())%>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div id="toggle<%=data1[i].exam_id%>" style="cursor: pointer;">
+                                                    <p class="btn" id="<%=data1[i].exam_id%>"
+                                                        onclick="toggle(`<%=data1[i].exam_status%>`,`<%=data1[i].exam_id%>`,`<%=(new Date(data1[i].exam_date).toLocaleDateString())%>`)"><%=data1[i].exam_status%></p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="edit" style="cursor: pointer;">
+                                                    <!-- <a href="/edit?exam_id=<%=data1[i].exam_id%>">edit</a> -->
+                                                    <p onclick="examedit(`<%=data1[i].exam_id%>`)"
+                                                        style="cursor: pointer;">edit</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <% }%>
+                                </tbody>
+                            </table>
+                            <div id="page">
+
+                                
+                                <p onclick="page(`1`,`<%=count%>`)" class="p">prev</p>
+                                <% for(let i=1;i<=count ;i++){ %>
+                                    <%if(i==1){%>
+                                        <p onclick="page(`<%=i%>`,`<%=count%>`)" class="p">
+                                            <b>
+                                                <%=i%>
+                                            </b>
+                                        </p>
+                                        <% }else{ %>
+                                            <p onclick="page(`<%=i%>`,`<%=count%>`)" class="p">
+                                                <%=i%>
+                                            </p>
+                                            <%}%>
+                                                <%}%>
+                                                    <p onclick="page(`<%=count%>`,`<%=count%>`)" class="p">next</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+        </div>
+
+        </div>
+
+
+</body>
+
+<script src="/js/examlist.js"></script>
+<script src="/js/dashboard.js"></script>
+
+</html>

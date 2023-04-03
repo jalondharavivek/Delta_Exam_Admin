@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+</head>
+<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+<link rel="stylesheet" href="/css/addquestion.css">
+<link  rel="icon"  type="image/webp"  href="../public/assets/image/browser head.webp">
+<body>
+
+    <!-- for header part -->
+    <%- include('header'); -%>
+
+
+        <div class="main-container">
+            <!--nav bar add-->
+
+            <%- include('nav'); -%>
+                <div class="main">
+
+                    <div class="content-main">
+
+
+                        <div class="form-container">
+                            <h2>Add Question</h2>
+                            <form class="add-question-form" method="post" enctype="multipart/form-data" action="/addquestion">
+                                <div class="form-container"> 
+                          
+
+                                        <input type="hidden">
+                                        <label for="category">cateories:</label>
+
+                                        <select id="category" name="category" onchange="enabledisableinputbox()" required>
+                                            <option value="">select Categories </option>
+                                            <%for(i=0 ; i< data.length ; i++){%>
+                                                <option value="<%=data[i].category_id%>">
+                                                    <%= data[i].category_name%>
+                                                </option>
+                                                <%}%>
+                                        </select>
+                                        <label for="question">Question:</label>
+                                        <textarea class="all-inputbox" id="question" name="question_text" rows="3" disabled required ></textarea>
+                                        
+                                        <label for="Image">Image</label>
+                                        <input class="all-inputbox" type="file" id="image" name="image" disabled >
+
+                                        <label for="option_a">Option A:</label>
+                                        <input class="all-inputbox" type="text" id="option_a" name="option_a" disabled required>
+                                
+                                        <label for="option_b">Option B:</label>
+                                        <input type="text" class="all-inputbox" id="option_b" name="option_b" disabled  required>
+                                
+                                        <label for="option_c">Option C:</label>
+                                        <input type="text" class="all-inputbox" id="option_c" name="option_c" disabled required>
+                                
+                                        <label for="option_d">Option D:</label>
+                                        <input type="text" class="all-inputbox" id="option_d" name="option_d" disabled required>
+                                
+                                        <label for="correct_option">Correct Option:</label>
+                                        <select id="correct_option" class="all-inputbox" name="answer" disabled >
+                                            <option value="">Select Correct Option</option>
+                                         </select>
+                                         <label for="description">Description</label>
+                                         <input class="all-inputbox" type="text" id="description" name="description" disabled >
+                                    </div>
+
+
+
+                                        <input class="sub-add" type='submit' value ='submit' name='submit'  >        
+                                        <a href="/question" class="button"> Cancle </a> 
+                                         
+                                   
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+</body>
+<script src="/js/addquestion.js"></script>
+
+</html>

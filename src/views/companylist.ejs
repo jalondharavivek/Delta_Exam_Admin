@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="stylesheet" href="/css/result.css">
+    <link  rel="icon"  type="image/webp"  href="../public/assets/image/browser head.webp">
+
+</head>
+<body>
+    <%- include('header'); -%>
+    <div class="main-container">
+        <%- include('nav'); -%>
+            <div class="main">
+                <h1>exam name</h1>
+    <table class="table table-hover">
+       
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>exam name</th>
+                <th> status</th>
+            </tr>
+        </thead>
+       <tbody id="tbody">
+        <%for(var i=0;i<data.length;i++){%>
+            <tr>
+            <td><%=i+1%></td>
+            <td><%=data[i].exam_name%></td>
+            <td><a href="/getexamdetaile?id=<%= data[i].exam_id %>" id="<%= data[i].exam_id %>">View</a></td>
+            </tr>
+        <%}%>
+       </tbody>
+      
+    </table>
+
+    <div id="page">
+        <p onclick="page(`1`,`<%=count%>`,`<%=id%>`)" class="p">prev</p>
+        <%for(i=1 ;i<=count ;i++){%>
+            <%if(i==1){%>
+            <p onclick="page(`<%=i%>`,`<%=count%>`,`<%=id%>`)" class="p">
+                <b><%=i%></b>
+            </p>
+            <%}else{%>
+                <p onclick="page(`<%=i%>`,`<%=count%>`,`<%=id%>`)" class="p">
+                    <%=i%>
+                </p>
+            <%}%>
+        <% } %>
+        <p onclick="page(`<%=count%>`,`<%=count%>`,`<%=id%>`)" class="p">next</p>
+    </div>
+    <input type="button" value="Go Back" onclick="history.back()" class="back">
+
+</div>
+</div>
+</body>
+ <script src="/js/companylist.js"></script>
+ <script src="/js/dashboard.js"></script>
+</html>0

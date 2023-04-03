@@ -8,17 +8,20 @@
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(138, 52, 52, 0.1);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
 }
 
 h2 {
     margin-bottom: 20px;
 }
-
+/* 
 .add-question-form {
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
-}
+} */
 
 label {
     display: block;
@@ -46,10 +49,20 @@ button[type="submit"] {
 }
 .button {
     padding: 10px;
-    background-color: #cfcccc;
+    background-color: #bebaba;
     color: #000000;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     width: 80px;
+}
+.sub-add{
+    padding: 11px; 
+    border: none;
+    width: 80px;
+    margin: 5px;
+    color: #000000;
+    background-color: #bebaba;
+    border-radius: 4px;
+    cursor: pointer;
 }
