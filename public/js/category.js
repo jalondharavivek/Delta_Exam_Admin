@@ -44,7 +44,7 @@ async function check(id, status)
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ c_id , status })
+                body: JSON.stringify({ id , status })
             });
             let data = await result.json();
             let table = document.getElementById("myTable");
@@ -312,3 +312,4 @@ async function page(pages,name = '')
         console.log(err);
     }
 }
+
