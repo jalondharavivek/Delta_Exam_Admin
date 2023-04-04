@@ -66,7 +66,12 @@
                                             </td>
                                             <td>
                                                 <div class="td">
-                                                    <%=data1[i].category_name%>
+                                                    <%for (j = 0; j < data3.length; j++) {%>
+                                                        <%if (data1[i].exam_id == data3[j].exam_id) {%>
+                                                          <%=data3[j].category_name%>
+                                                       <% }%>
+                                                   <% }%>
+                                                   
                                                 </div>
                                             </td>
                                             <td>

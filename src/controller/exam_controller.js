@@ -1,3 +1,4 @@
+const con = require('../connection/mysql');
 var db = require('../connection/mysql');
 require('../connection/module');
 // Importing moment module
@@ -202,7 +203,14 @@ const examlist = async (req, res) => {
     sql1 = `select * from exam limit ${offset},${limit};`;
     let [data1] = await db.execute(sql1);
 
-    res.render("../src/views/examlist", { data1, count, curpage });
+
+    let sql3 = `select a.exam_name,b.category_name,a.exam_id from exam a, category b , exam_category c where a.exam_id = c.exam_id and b.category_id = c.category_id;`;
+    let [data3] = await db.execute(sql3);
+    console.log(data3)
+    
+
+
+    res.render("../src/views/examlist", { data1, count, curpage, data3 });
   } catch (err) {
     res.send(err);
   }
