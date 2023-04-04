@@ -47,3 +47,6 @@ select , option {
 td{
     padding: 20px;
 }
+p{
+    color: red;
+}

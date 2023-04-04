@@ -28,7 +28,7 @@
 
 
   </table>
-  <form action="/update" method="post" class="editform">
+  <form action="/update" method="post" class="editform" onsubmit="return validation()">
     <div class="inputtag">
       <input type="hidden" name="student_id" id="student_id" readonly value="<%=student2[0].student_id%>" >
     </div>
@@ -36,6 +36,7 @@
   <div class="inputtag">
     <td><label for="name">Name:</label></td>
     <td><input type="text" id="name" name="name" value=" <%=student2[0].name%>"></td><br><br>
+    <p id=" nameeror"></p>
   </div>
 </tr>
   
@@ -43,6 +44,7 @@
   <div class="inputtag">
     <td><label for="email">Email:</label></td>
     <td><input type="email" id="email" name="email" value=" <%=student2[0].email%>"></td><br><br>
+    <p id="emaileror"></p>
   </div>
 </tr>
    
@@ -51,6 +53,7 @@
     <div class="inputtag">
       <td><label for="contact">Contact:</label></td>
       <td><input type="text" id="contact" name="contact" value=" <%=student2[0].contact%>"></td><br><br>
+      <p id="contacteror"></p>
     </div>
    </tr>
 
@@ -129,6 +132,4 @@
 <script src="/js/user.js"></script>
 <script src="/js/dashboard.js"></script>
 <script src="/js/edit.js"></script>
-
-
 </html>
