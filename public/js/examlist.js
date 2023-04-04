@@ -300,11 +300,11 @@ function validateform() {
 
     }
     if (parseInt(question) < 10 || parseInt(question) > 50) {
-        alert('enter 5 to 50 between')
+        alert('enter 10 to 50 between in question')
         return false;
     }
     if (parseInt(time) < 10 || parseInt(time) > 180) {
-        alert('enter 5 to 50 between');
+        alert('enter 10 to 50 between in time');
         return false;
     }
     if (question.includes(".")) {

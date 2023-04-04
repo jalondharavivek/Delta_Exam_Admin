@@ -1,7 +1,7 @@
 var db = require('../connection/mysql');
 require('../connection/module');
 
-let limit = 10;
+let limit = 1;
 const studentlist = async (req, res) => {
   try {
     var data = [];
