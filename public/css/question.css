@@ -103,6 +103,7 @@ margin-right: 10px;
 }
 .answercolor{
     color: rgb(45, 124, 49);
+  
 }
 .add-link
 {
@@ -137,18 +138,21 @@ margin-right: 10px;
   text-align: center;
  
 }
+.question-width{
+    width:40%;
+    }
+
+/* .width-td{
+    width: 30%;
+
+} */
 
 /* td{
     width: 200px;
     overflow-wrap: break-word;
 } */
-/* .question-width{
-width:20%;
-}
-.width-td{
-    width: 10%;
+/* 
 
-}
 .answercolor{
     width: 10%;
 }
@@ -214,7 +218,7 @@ ul
 
 .pageactive
 {
-    background-color: rgb(131, 131, 131) !important;
+    background-color: rgb(145, 143, 143) !important;
 }
 .retrive-que{
 margin-right: 645px;

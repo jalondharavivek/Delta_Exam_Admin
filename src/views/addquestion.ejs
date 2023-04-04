@@ -36,7 +36,7 @@
                                         <input type="hidden">
                                         <label for="category">cateories:</label>
 
-                                        <select id="category" name="category">
+                                        <select id="category" name="category" onchange="enabledisableinputbox()" required>
                                             <option value="">select Categories </option>
                                             <%for(i=0 ; i< data.length ; i++){%>
                                                 <option value="<%=data[i].category_id%>">
@@ -45,31 +45,34 @@
                                                 <%}%>
                                         </select>
                                         <label for="question">Question:</label>
-                                        <textarea id="question" name="question_text" rows="3" ></textarea>
+                                        <textarea class="all-inputbox" id="question" name="question_text" rows="3" disabled required ></textarea>
                                         
                                         <label for="Image">Image</label>
-                                        <input type="file" id="image" name="image" >
+                                        <input class="all-inputbox" type="file" id="image" name="image" disabled >
 
                                         <label for="option_a">Option A:</label>
-                                        <input type="text" id="option_a" name="option_a" >
+                                        <input class="all-inputbox" type="text" id="option_a" name="option_a" disabled required>
                                 
                                         <label for="option_b">Option B:</label>
-                                        <input type="text" id="option_b" name="option_b" >
+                                        <input type="text" class="all-inputbox" id="option_b" name="option_b" disabled  required>
                                 
                                         <label for="option_c">Option C:</label>
-                                        <input type="text" id="option_c" name="option_c" >
+                                        <input type="text" class="all-inputbox" id="option_c" name="option_c" disabled required>
                                 
                                         <label for="option_d">Option D:</label>
-                                        <input type="text" id="option_d" name="option_d" >
+                                        <input type="text" class="all-inputbox" id="option_d" name="option_d" disabled required>
                                 
                                         <label for="correct_option">Correct Option:</label>
-                                        <select id="correct_option" name="answer" >
+                                        <select id="correct_option" class="all-inputbox" name="answer" disabled >
                                             <option value="">Select Correct Option</option>
                                          </select>
                                          <label for="description">Description</label>
-                                         <input type="text" id="description" name="description" >
+                                         <input class="all-inputbox" type="text" id="description" name="description" disabled >
                                     </div>
-                                        <input type='submit' value ='submit' name='submit'>        
+
+
+
+                                        <input class="sub-add" type='submit' value ='submit' name='submit'  >        
                                         <a href="/question" class="button"> Cancle </a> 
                                          
                                    
