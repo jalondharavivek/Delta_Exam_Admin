@@ -116,8 +116,7 @@ const companylist = async (req, res) => {
 
     let count = Math.ceil(query2.length / limit);
 
-
-
+    
     res.render("../src/views/companylist.ejs", { data: query, count, limit, curpage, id });
   } catch (err) {
     res.send(err);
@@ -191,7 +190,7 @@ const getexamdetaile = async (req, res) => {
     if (isNaN(offset)) {
       offset = 0;
     }
-
+    let userid=req.query.userid;
     var id = req.query.id;
     let sql = `select distinct a.category_id,category_name from exam_category a,category b where a.category_id=b.category_id and exam_id=${id} limit ${offset},${limit}`;
     let [query] = await db.query(sql);
@@ -202,7 +201,7 @@ const getexamdetaile = async (req, res) => {
 
     let count = Math.ceil(query2.length / limit);
 
-    res.render('../src/views/getexamdetaile', { data: query, count, limit, curpage, id });
+    res.render('../src/views/getexamdetaile', { data: query, count, limit, curpage, id ,userid});
   } catch (err) {
     res.send(err);
   }
@@ -228,7 +227,7 @@ const getexamdetailepage = async (req, res) => {
     if (isNaN(offset)) {
       offset = 0;
     }
-
+    let userid=req.query.userid;
     var id = req.query.id;
     let sql = `select distinct a.category_id,category_name from exam_category a,category b where a.category_id=b.category_id and exam_id=${id} limit ${offset},${limit}`;
     let [query] = await db.query(sql);
@@ -242,7 +241,7 @@ const getexamdetailepage = async (req, res) => {
 
 
 
-    res.json({ data: query, count, limit, curpage, id });
+    res.json({ data: query, count, limit, curpage, id ,userid});
   } catch (err) {
     res.send(err);
   }
