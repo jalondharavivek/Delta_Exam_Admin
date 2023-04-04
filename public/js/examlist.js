@@ -327,6 +327,7 @@ function examSearch(curpage) {
     let exam_search = document.getElementById('exam_search');
 
     fetch(`/exam/search?exam_name=${search}&&num=${curpage}`).then(res => res.json()).then(data => {
+        console.log(data)
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>
@@ -354,9 +355,14 @@ function examSearch(curpage) {
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="td">
-                                            ${data.data1[i].category_name}
-                                        </div>
+                                        <div class="td">`
+                                           for(j=0;j<data.data3.length;j++){
+
+                                                if(data.data1[i].exam_id == data.data3[j].exam_id){
+                                                    str+= `${data.data3[j].category_name},`;
+                                                }
+                                           }
+                               str+= `</div>
                                     </td>
                                     <td>
                                         <div class="td">
@@ -525,9 +531,14 @@ async function page(num, count) {
                             </div>
                         </td>
                         <td>
-                            <div class="td">
-                            ${data.data1[i].category_name}
-                            </div>
+                        <div class="td">`
+                        for(j=0;j<data.data3.length;j++){
+
+                             if(data.data1[i].exam_id == data.data3[j].exam_id){
+                                 str+= `${data.data3[j].category_name},`;
+                             }
+                        }
+            str+= `</div>
                         </td>
                         <td>
                             <div class="td">

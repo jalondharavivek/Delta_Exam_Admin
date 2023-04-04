@@ -401,8 +401,14 @@ const examsearch = async (req, res) => {
 
       let sql5 = `select * from exam where exam_name like '%${exam_name}%';`
       let [data5] = await db.execute(sql5);
+      console.log(data5 , "sql5");
 
-      res.json({ data1, curpage, limit, count1, data5 });
+      let sql3 = `select a.exam_name,b.category_name,a.exam_id from exam a, category b , exam_category c where a.exam_id = c.exam_id and b.category_id = c.category_id;`;
+      let [data3] = await db.execute(sql3);
+      
+      console.log(data3)
+
+      res.json({ data1, curpage, limit, count1, data5,data3 });
 
     }
   } catch (err) {
@@ -430,7 +436,12 @@ const examlistpage = async (req, res) => {
     sql1 = `select * from exam limit ${offset},${limit};`;
     let [data1] = await db.execute(sql1);
 
-    res.json({ count, data1, curpage });
+
+    let sql3 = `select a.exam_name,b.category_name,a.exam_id from exam a, category b , exam_category c where a.exam_id = c.exam_id and b.category_id = c.category_id;`;
+    let [data3] = await db.execute(sql3);
+    console.log(data3)
+
+    res.json({ count, data1, curpage ,data3});
 
   } catch (err) {
     res.send(err);
