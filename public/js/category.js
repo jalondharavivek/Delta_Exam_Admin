@@ -28,6 +28,7 @@ cat_status();
 
 async function check(id, status) 
 {
+    let c_id = id;
     let sts;
     if (status == 1) {
         sts = "disable";
@@ -43,7 +44,7 @@ async function check(id, status)
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id, status })
+                body: JSON.stringify({ id , status })
             });
             let data = await result.json();
             let table = document.getElementById("myTable");
@@ -54,8 +55,9 @@ async function check(id, status)
                             <th>Status</th>
                             <th>Action</th>
                         </tr>`;
+            let id=1
             data.forEach(d => {
-                html += `<tr><td>${ d.category_id }</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
+                html += `<tr><td>${id++}</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
             })
             table.innerHTML = html;
         }
@@ -149,10 +151,11 @@ async function search(name)
                         <th>Status</th>
                         <th>Action</th>
                     </tr>`;
+        let id=1;
         if(Object.keys(data.search).length != 0)
         {
             data.search.forEach(d => {
-                html += `<tr><td>${ d.category_id }</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
+                html += `<tr><td>${id++}</td><td>${ d.category_name }</td><td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td></tr>`
             })
 
             pages += `<li class="page-item"><a class="page-link" id="0" onclick="page(this,'${name}')"><<</a></li>`;
@@ -232,9 +235,10 @@ async function page(pages,name = '')
             },
             body: JSON.stringify({ page, name })
         });
+        let id = 1;
         var data = await results.json();
         data.pages.forEach(c => {
-            html += `<tr><td>${ c.category_id }</td><td>${ c.category_name }</td><td>${ (new Date(c.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ c.category_id },${ c.category_status });">${ c.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ c.category_id })"> EDIT</a></td></tr>`;
+            html += `<tr><td>${id++}</td><td>${ c.category_name }</td><td>${ (new Date(c.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ c.category_id },${ c.category_status });">${ c.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ c.category_id })"> EDIT</a></td></tr>`;
         })
         let pagi ='' ;
         if(name == '')
@@ -308,3 +312,4 @@ async function page(pages,name = '')
         console.log(err);
     }
 }
+

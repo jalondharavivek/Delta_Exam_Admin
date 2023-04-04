@@ -36,7 +36,7 @@
                                         <input type="hidden">
                                         <label for="category">cateories:</label>
 
-                                        <select id="category" name="category" onchange="enabledisableinputbox()">
+                                        <select id="category" name="category" onchange="enabledisableinputbox()" required>
                                             <option value="">select Categories </option>
                                             <%for(i=0 ; i< data.length ; i++){%>
                                                 <option value="<%=data[i].category_id%>">
