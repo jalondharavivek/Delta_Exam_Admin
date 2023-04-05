@@ -103,7 +103,7 @@ margin-right: 10px;
 }
 .answercolor{
     color: rgb(45, 124, 49);
-  
+  width: 25%;
 }
 .add-link
 {
@@ -141,7 +141,9 @@ margin-right: 10px;
 .question-width{
     width:40%;
     }
-
+.width-tdc{
+    width: 20%;
+}
 /* .width-td{
     width: 30%;
 

@@ -1,24 +1,3 @@
-// async function editquestion(id)
-// {  try 
-//     {
-//         const  question = await fetch(`/editquestion?id=${id}`);
-//     }
-//     catch (err) 
-//     {
-//         console.log("error");
-//     }    
-// }
-//edit question
-// async function editque(editquesid){
-//   let queresult = await fetch(`/editquestion?question_id=${editquesid}`);
-// }
-
-
-//view detail
-// async function viewdetail(viewid){
-//   console.log(viewid,":::::::::::jhgjkggjk  view id")
-//   const viewfetch = await fetch(`/viewdetail?viewid=${viewid}`)
-// }
 
 
 
@@ -45,21 +24,20 @@ async function retriveque() {
 
     let retrivequeresult = await fetch(`/retriveque`)
     let data = await retrivequeresult.json();
-
+console.log(data,":::::::que data")
     let tabqueret = document.getElementById("quetable")
     let quetabretrive = `  <thead> <tr>
                          <th>Id</th>
                          <th>Category</th>
-                        <th>Question</th>
-                        <th>Answer</th>
-                         <th>view</th>
+                         <th>Question</th>
+                         <th>Answer</th>
                          <th>Action</th>
                          </tr> 
                     </thead>`;
 
     if (Object.keys(data.data).length == 0) {
       quetabretrive += `<tr><td colspan=5>No record found</td></tr>`
-      quetabretrive +=   `<a class="button" href="/question" >Back</a>`
+      quetabretrive +=   `<br><a class="button" href="/question" >Back</a>`
     }
     else {
 
@@ -68,7 +46,8 @@ async function retriveque() {
     <td class="width-td">
         ${data.data[i].question_id}
     </td>
-    <td  class="width-td">  0</td>
+    <td class="width-tdc">
+    ${data.data[i].category_name}</td>
     <td class="question-width" >
         ${data.data[i].question_text}
     </td>
@@ -76,13 +55,9 @@ async function retriveque() {
     <td class="answercolor">
         ${data.data[i].answer}
     </td>
-    <td>
-    
-    <a href="viewdetail?question_id=${data.data[i].question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
-    
-    </td>
+ 
     <td class="button-width">
-
+    <a href="viewdetail?question_id=${data.data[i].question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
     <a href="/question/editquestion?question_id=${data.data[i].question_id}" ><i class="fas fa-edit"></i></a>
     <a href=""   onclick="retquestion(${data.data[i].question_id})"><i class="fas fa-trash-restore"></i></a>
     </td>
@@ -122,8 +97,7 @@ async function searchque(quesearch) {
                              <th>Category</th>
                             <th>Question</th>
                             <th>Answer</th>
-                             <th>view</th>
-                             <th>Action</th>
+                           <th>Action</th>
                              </tr> 
                         </thead>`;
 
@@ -138,7 +112,7 @@ async function searchque(quesearch) {
         <td class="width-td">
             ${id++}
         </td>
-        <td  class="width-td">
+        <td  class="width-tdc">
         ${datas.search[i].category_name} </td>
         <td class="question-width" >
             ${datas.search[i].question_text}
@@ -147,13 +121,9 @@ async function searchque(quesearch) {
         <td class="answercolor">
             ${datas.search[i].answer}
         </td>
-        <td>
         
-        <a href="viewdetail?question_id=${datas.search[i].question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
-        
-        </td>
         <td class="button-width">
-
+        <a href="viewdetail?question_id=${datas.search[i].question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
         <a href="/question/editquestion?question_id=${datas.search[i].question_id}" ><i class="fas fa-edit"></i></a>
         <a href="" onclick="deletquestion(${datas.search[i].question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
@@ -184,7 +154,7 @@ async function page(pages, name = '') {
         <th>Category</th>
        <th>Question</th>
        <th>Answer</th>
-        <th>view</th>
+     
         <th>Action</th>
         </tr> 
    </thead>`;
@@ -202,7 +172,7 @@ async function page(pages, name = '') {
       <td class="width-td">
           ${id++}
       </td>
-      <td  class="width-td">
+      <td  class="width-tdc">
       ${q.category_name} </td>
       <td class="question-width" >
           ${q.question_text}
@@ -211,13 +181,9 @@ async function page(pages, name = '') {
       <td class="answercolor">
           ${q.answer}
       </td>
-      <td>
-      
-      <a href="viewdetail?question_id=${q.question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
-      
-      </td>
+     
       <td class="button-width">
-
+      <a href="viewdetail?question_id=${q.question_id}" ><i class="fa fa-eye" aria-hidden="true"></i></a>
       <a href="/question/editquestion?question_id=${q.question_id}" ><i class="fas fa-edit"></i></a>
       <a id="deletquesid" onclick="deletquestion(${q.question_id})"><i class="fa fa-trash" aria-hidden="true"></i></a>
      
@@ -269,16 +235,6 @@ async function page(pages, name = '') {
 
 
 
-//<td>${ (new Date(d.created_date).toLocaleDateString()) }</td><td><a class="btnn" id="status" onclick="check(${ d.category_id },${ d.category_status });">${ d.category_status }</a></td><td><a class="edit-btn fas fa-edit" onclick="editCategory(${ d.category_id })"> EDIT</a></td>
-// {/* <td class="width-td">
-// ${data.search[0].option_a}
-// </td>
-// <td  class="width-td">
-// ${data.search[0].option_b}
-// </td>
-// <td class="width-td">
-// ${data.search[0].option_c}
-// </td>
-// <td class="width-td">
-// ${data.search[0].option_d}
-// </td> */}
+
+
+
