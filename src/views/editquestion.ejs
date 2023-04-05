@@ -30,7 +30,7 @@
 
                         <div class="form-container">
                             <h2>Edit Question</h2>
-                            <form class="add-question-form" method="post" enctype="multipart/form-data" action="/editquestion">
+                            <form class="add-question-form" onsubmit="return editquevalidate()" oninput="return editquevalidate()"  method="post" enctype="multipart/form-data" action="/editquestion">
                                 <div class="form-container">
                                     <input type="hidden" name="question_id" value="<%= data[0].question_id %>">
                                  
@@ -47,30 +47,43 @@
                                             </select>
                                             <label for="question">Question:</label>
                                             <textarea id="question_text" name="question_text"  rows="3" ><%= data[0].question_text %></textarea>
-                                                
+                                            <span class="validationcolo" id="question_textid"></span>
+
                                             <label for="Image">Image</label>
                                             <input type="file" id="image" name="image" > 
+                                            <img src= "/public/assets/uploads/<%= data[0].question_image %>" width="40%" />
                                             <label for="option_a">Option A:</label>
                                             <input type="text" id="option_a" value="<%= data[0].option_a %>" name="option_a" >
-
+                                            <span class="validationcolor" id="option_a_id"></span>
+                                            
                                             <label for="option_b">Option B:</label>
                                             <input type="text" id="option_b" value="<%= data[0].option_b %>" name="option_b" >
+                                            <span class="validationcolor" id="option_b_id"></span>
 
                                             <label for="option_c">Option C:</label>
                                             <input type="text" id="option_c" value="<%= data[0].option_c %>" name="option_c" >
+                                            <span class="validationcolor" id="option_c_id"></span>
 
                                             <label for="option_d">Option D:</label>
                                             <input type="text" id="option_d" value="<%= data[0].option_d %>" name="option_d" >
+                                            <span class="validationcolor" id="option_d_id"></span>
+                                            
+                                            <span class="validationcolor" id="sameoption"></span>
 
-                                            <label for="correct_option">Correct Option:</label>
+                                            <label for="correct_option" class="all-inputbox" >Correct Option:</label>
                                             <select id="correct_option" name="answer" required>
-                                                <option value="<%= data[0].answer %>" selected><%= data[0].answer %></option>
+                                                <option value="<%= data[0].answer %>" selected disabled><%= data[0].answer %></option>
+                                                <option value="<%= data[0].option_a %>" ><%= data[0].option_a %></option>
+                                                <option value="<%= data[0].option_b %>" ><%= data[0].option_b %></option>
+                                                <option value="<%= data[0].option_c %>" ><%= data[0].option_c %></option>
+                                                <option value="<%= data[0].option_d %>" ><%= data[0].option_d %></option>
                                             </select>
+                                              
                                             <label for="Description">Description</label>
                                             <input type="text" id="Description" value="<%= data[0].description %>" name="description" >
                                 </div>
                                 <input class="sub-add"  type='submit' value='Update' name='submit'>
-                                <a href="/question" class="button"> Cancle </a>
+                                <a href="/question" class="button"> Back </a>
 
                             </form>
                         </div>

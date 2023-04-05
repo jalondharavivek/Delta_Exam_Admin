@@ -38,14 +38,13 @@ const admin_login = (req, res) => {
 const login = async(req, res) => {
     var email = req.body.email;
     var password = req.body.password;
-    let sql=`select user_id from user_login where email='${email}'`
-    let [query] = await db.execute(sql);
-    let user_id = query[0].user_id;
-    var selectUser = `SELECT email, password , user_login_status , role from user_login where email = '${email}'`;
+    var selectUser = `SELECT email,password,user_login_status,user_id,role from user_login where email = '${email}'`;
     var [userData] = await db.query(selectUser);
+    
     if (userData.length == 0) {
-        res.send("email and password is not match");
+      res.send("email and password is not match");
     } else {
+        let user_id = userData[0].user_id;
         var comparePassword = userData[0].password;
         var compare = await bcrypt.compare(password, comparePassword);
         if (!compare || userData[0].role == '0') {
@@ -53,6 +52,7 @@ const login = async(req, res) => {
         }else {
             req.session.user = email;
             req.session.user_id = user_id;
+            
             res.redirect('dashboard');
         }
     }

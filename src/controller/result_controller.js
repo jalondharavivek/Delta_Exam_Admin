@@ -116,8 +116,7 @@ const companylist = async (req, res) => {
 
     let count = Math.ceil(query2.length / limit);
 
-
-
+    
     res.render("../src/views/companylist.ejs", { data: query, count, limit, curpage, id });
   } catch (err) {
     res.send(err);
@@ -191,7 +190,7 @@ const getexamdetaile = async (req, res) => {
     if (isNaN(offset)) {
       offset = 0;
     }
-
+    let userid=req.query.userid;
     var id = req.query.id;
     let sql = `select distinct a.category_id,category_name from exam_category a,category b where a.category_id=b.category_id and exam_id=${id} limit ${offset},${limit}`;
     let [query] = await db.query(sql);
@@ -202,7 +201,7 @@ const getexamdetaile = async (req, res) => {
 
     let count = Math.ceil(query2.length / limit);
 
-    res.render('../src/views/getexamdetaile', { data: query, count, limit, curpage, id });
+    res.render('../src/views/getexamdetaile', { data: query, count, limit, curpage, id ,userid});
   } catch (err) {
     res.send(err);
   }
@@ -228,7 +227,7 @@ const getexamdetailepage = async (req, res) => {
     if (isNaN(offset)) {
       offset = 0;
     }
-
+    let userid=req.query.userid;
     var id = req.query.id;
     let sql = `select distinct a.category_id,category_name from exam_category a,category b where a.category_id=b.category_id and exam_id=${id} limit ${offset},${limit}`;
     let [query] = await db.query(sql);
@@ -242,7 +241,7 @@ const getexamdetailepage = async (req, res) => {
 
 
 
-    res.json({ data: query, count, limit, curpage, id });
+    res.json({ data: query, count, limit, curpage, id ,userid});
   } catch (err) {
     res.send(err);
   }
@@ -270,10 +269,11 @@ const viewquestionget = async (req, res) => {
     }
 
     var id = req.query.id;
-    let sql = `select distinct question_text,answer,user_answers from questions a, user_answers b where a.question_id=b.question_id and category_id=${id} limit ${offset},${limit}`;
+    var user_id = req.query.userid;
+    let sql = `select b.question_id ,question_text,answer,user_answers from questions a,user_answers b where a.question_id=b.question_id AND a.category_id=${id} AND b.user_id=${user_id} limit ${offset},${limit}`;
     let [query] = await db.query(sql);
 
-    var sql2 = `select distinct question_text,answer,user_answers from questions a, user_answers b where a.question_id=b.question_id and category_id=${id}`;
+    var sql2 = `select b.question_id ,question_text,answer,user_answers from questions a,user_answers b where a.question_id=b.question_id AND a.category_id=${id} AND b.user_id=${user_id}`;
     let [query2] = await db.query(sql2);
 
     let counter = Math.ceil(query2.length / limit);
@@ -308,10 +308,11 @@ const viewquestiongetpage = async (req, res) => {
     }
 
     var id = req.query.id;
-    let sql = `select distinct question_text,answer,user_answers from questions a, user_answers b where a.question_id=b.question_id and category_id=${id} limit ${offset},${limit}`;
+    var user_id = req.query.userid;
+    let sql = `select b.question_id ,question_text,answer,user_answers from questions a,user_answers b where a.question_id=b.question_id AND a.category_id=${id} AND b.user_id=${user_id} limit ${offset},${limit}`;
     let [query] = await db.query(sql);
 
-    var sql2 = `select distinct question_text,answer,user_answers from questions a, user_answers b where a.question_id=b.question_id and category_id=${id}`;
+    var sql2 = `select b.question_id ,question_text,answer,user_answers from questions a,user_answers b where a.question_id=b.question_id AND a.category_id=${id} AND b.user_id=${user_id}`;
     let [query2] = await db.query(sql2);
 
     let counter = Math.ceil(query2.length / limit);

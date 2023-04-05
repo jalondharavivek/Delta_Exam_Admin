@@ -76,14 +76,20 @@ const addquestionpost = async(req,res)=>{
 try{
     var category_id = req.body.category;
     
-    var question_text = req.body.question_text;
-    
-    var option_a = req.body.option_a;
-    var option_b = req.body.option_b;
-    var option_c = req.body.option_c;
-    var option_d = req.body.option_d;
-    var answer = req.body.answer;
-    var description = req.body.description
+    var question_text1 = req.body.question_text;
+    var question_text = question_text1.trim()
+    var option_a1 = req.body.option_a;
+    var option_a = option_a1.trim()
+    var option_b1 = req.body.option_b;
+    var option_b = option_b1.trim();
+    var option_c1 = req.body.option_c;
+    var option_c = option_c1.trim()
+    var option_d1 = req.body.option_d;
+    var option_d = option_d1.trim()
+    var answer1 = req.body.answer;
+ var answer = answer1.trim()
+    var description1 = req.body.description
+    var description = description1.trim()
     const image = req.file? req.file.filename : "";
 
   
@@ -141,14 +147,20 @@ const editquestionpost = async(req,res)=>{
   
     var category_id = req.body.category;
     
-    var question_text = req.body.question_text;
- 
-    var option_a = req.body.option_a;
-    var option_b = req.body.option_b;
-    var option_c = req.body.option_c;
-    var option_d = req.body.option_d;
-    var answer = req.body.answer;
-    var description = req.body.description
+    var question_text1 = req.body.question_text;
+    var question_text = question_text1.trim()
+    var option_a1 = req.body.option_a;
+    var option_a = option_a1.trim()
+    var option_b1 = req.body.option_b;
+    var option_b = option_b1.trim();
+    var option_c1 = req.body.option_c;
+    var option_c = option_c1.trim()
+    var option_d1 = req.body.option_d;
+    var option_d = option_d1.trim()
+    var answer1 = req.body.answer;
+ var answer = answer1.trim()
+    var description1 = req.body.description
+    var description = description1.trim()
     const image = req.file? req.file.filename : "";
     let updateque = `update questions set question_text = '${question_text}' , option_a = '${option_a}' , option_b = '${option_b}' , option_c = '${option_c}', option_d = '${option_d}' , answer = '${answer}' , category_id = '${category_id}', description  = '${description }', question_image = '${image}' where question_id = ${question_id} `
     let [editquepost] = await db.query(updateque);
@@ -214,7 +226,8 @@ const searchget = async(req,res)=>{
 
 const retrivequestions = async(req,res)=>{
   try{
-    let sqlretrivequery = `select * from questions where question_status =  '0' `
+    let sqlretrivequery = `select * from questions join category on questions.category_id = category.category_id where question_status = '0' `
+
     let [sqlretriveexecute] = await db.query(sqlretrivequery)
 
     res.json({data :sqlretriveexecute })

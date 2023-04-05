@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category</title>
+    <title>Result</title>
     <link rel="stylesheet" href="/css/result.css">
     <link  rel="icon"  type="image/webp"  href="../public/assets/image/browser head.webp">
 
@@ -30,7 +30,7 @@
             <tr>
             <td><%=i+1%></td>
             <td><%=data[i].exam_name%></td>
-            <td><a href="/getexamdetaile?id=<%= data[i].exam_id %>" id="<%= data[i].exam_id %>">View</a></td>
+            <td><a href="/getexamdetaile?id=<%= data[i].exam_id %>&userid=<%=id%>" id="<%= data[i].exam_id %>">View</a></td>
             </tr>
         <%}%>
        </tbody>
