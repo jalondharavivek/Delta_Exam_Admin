@@ -40,6 +40,7 @@ const login = async(req, res) => {
     var password = req.body.password;
     var selectUser = `SELECT email,password,user_login_status,user_id,role from user_login where email = '${email}'`;
     var [userData] = await db.query(selectUser);
+    
     if (userData.length == 0) {
       res.send("email and password is not match");
     } else {
@@ -51,6 +52,7 @@ const login = async(req, res) => {
         }else {
             req.session.user = email;
             req.session.user_id = user_id;
+            
             res.redirect('dashboard');
         }
     }

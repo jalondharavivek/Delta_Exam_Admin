@@ -42,6 +42,7 @@
                                         <th>Sr .No</th>
                                         <th>exam_name</th>
                                         <th>category</th>
+                                        <th>access code</th>
                                         <th>total_questions</th>
                                         <th>time_limit</th>
                                         <th>start date</th>
@@ -65,7 +66,17 @@
                                             </td>
                                             <td>
                                                 <div class="td">
-                                                    <%=data1[i].category_name%>
+                                                    <%for (j = 0; j < data3.length; j++) {%>
+                                                        <%if (data1[i].exam_id == data3[j].exam_id) {%>
+                                                          <%=data3[j].category_name%>
+                                                       <% }%>
+                                                   <% }%>
+                                                   
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td">
+                                                    <%=data1[i].exam_access_code%>
                                                 </div>
                                             </td>
                                             <td>

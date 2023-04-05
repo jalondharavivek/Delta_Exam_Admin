@@ -603,3 +603,7 @@ border-radius: 4px;
         cursor: default;
         background-color:#ccf3c0af;
     }
+
+    div.box {
+        width: 240px;
+    }
