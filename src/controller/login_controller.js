@@ -1,7 +1,7 @@
 const express = require('express');
 var bcrypt = require('bcryptjs');
 var db = require('../connection/mysql');
-var cookie = require('cookie-parser');
+
 let bodyParser = require('body-parser')
 var nodemailer = require('nodemailer');
 const path = require('path')
