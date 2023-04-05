@@ -37,7 +37,7 @@
 <tr>
   <div class="inputtag">
     <td><label for="name">Name:</label></td>
-    <td><input type="text" id="name" name="name" value=" <%=student2[0].name%>" required></td><br><br>
+    <td><input type="text" oninput="validateForm()" id="name" name="name" value=" <%=student2[0].name%>" required></td><br><br>
     <p id="pname"></p>
   </div>
 </tr>
@@ -45,7 +45,7 @@
 <tr>
   <div class="inputtag">
     <td><label for="email">Email:</label></td>
-    <td><input type="email" id="email" name="email" value=" <%=student2[0].email%>" required></td><br><br>
+    <td><input type="text" oninput="validateForm()" id="email" name="email" value=" <%=student2[0].email%>" required></td><br><br>
     <p id="pemail"></p>
   </div>
 </tr>
@@ -54,7 +54,7 @@
    <tr>
     <div class="inputtag">
       <td><label for="contact">Contact:</label></td>
-      <td><input type="text" id="contact" name="contact" value=" <%=student2[0].contact%>" required></td><br><br>
+      <td><input type="text" oninput="validateForm()" id="contact" name="contact" value=" <%=student2[0].contact%>" maxlength="10" required></td><br><br>
       <p id="pcontact"></p>
     </div>
    </tr>
@@ -83,7 +83,7 @@
 <tr>
   <div class="inputtag">
     <td><label for="address">Address:</label></td>
-    <td><input type="text" id="address" name="address" value=" <%=student2[0].address%>" required></td><br><br>
+    <td><input type="text" oninput="validateForm()" id="address" name="address" value=" <%=student2[0].address%>" required></td><br><br>
     <p id="paddress"></p>
   </div>
 </tr>

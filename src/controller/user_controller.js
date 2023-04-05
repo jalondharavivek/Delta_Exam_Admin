@@ -226,14 +226,15 @@ const update = async (req, res) => {
   try {
 
     let student_id = req.body.student_id;
-    let name = req.body.name;
-    let email = req.body.email;
-    let contact = req.body.contact;
+    let name = req.body.name.trim();
+    let email = req.body.email.trim();
+    let contact = req.body.contact.trim();
     let gender = req.body.gender;
-    let address = req.body.address;
+    let address = req.body.address.trim();
     let city = req.body.city;
     let state_id = req.body.state;
     let college_id = req.body.col;
+
 
 
 

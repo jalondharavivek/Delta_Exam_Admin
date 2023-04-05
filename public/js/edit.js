@@ -86,8 +86,6 @@ function validateForm() {
     var email = document.getElementById("email").value;
     var contact = document.getElementById("contact").value;
     var address = document.getElementById("address").value;
-    var gender = document.getElementById("gender").value;
-
 
 
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -97,28 +95,38 @@ function validateForm() {
 
 
     if (!nameRegex.test(name)) {
-        document.getElementById("pname").innerHTML = "Name must contain only letters";
+        document.getElementById("pname").innerHTML = "** Name must contain only letters **";
         return false;
     }
-
-    else if (!emailRegex.test(email)) {
-        document.getElementById("pemail").innerHTML = "not valid";
+    else if(nameRegex.test(name)) {
+        document.getElementById("pname").innerHTML = "";
+      
+    }
+     if (!emailRegex.test(email)) {
+        document.getElementById("pemail").innerHTML = "** email not valid **";
         return false;
     }
-
-    else if (!contactRegex.test(contact)) {
-        document.getElementById("pcontact").innerHTML = " Contact must contain only numbers";
-        return false;
+    else if (emailRegex.test(email)) {
+        document.getElementById("pemail").innerHTML = "";
+        
     }
 
-    else if (!addressRegex.test(address)) {
-        document.getElementById("paddress").innerHTML = " not valid";
+     if (!contactRegex.test(contact)) {
+        document.getElementById("pcontact").innerHTML = "** Contact must contain only numbers **";
         return false;
     }
+    else if (contactRegex.test(contact))  {
+        document.getElementById("pcontact").innerHTML = "";
+      
+    }
 
-    else if (gender == "") {
-        document.getElementById("pgender").innerHTML = " please select your gender";
+    if (!addressRegex.test(address)) {
+        document.getElementById("paddress").innerHTML = " ** address not valid **";
         return false;
+    }
+    else if (addressRegex.test(address)) {
+        document.getElementById("paddress").innerHTML = "";
+       
     }
 
 }
