@@ -29,14 +29,14 @@
 
                         <div class="form-container">
                             <h2>Add Question</h2>
-                            <form class="add-question-form" method="post" enctype="multipart/form-data" action="/addquestion">
+                            <form id="quetable" class="add-question-form" onsubmit="return validatequestion()" oninput="return validatequestion()" method="post" enctype="multipart/form-data" action="/addquestion">
                                 <div class="form-container"> 
                           
 
                                         <input type="hidden">
                                         <label for="category">cateories:</label>
 
-                                        <select id="category" name="category" onchange="enabledisableinputbox()" required>
+                                        <select id="category" name="category" onchange="enabledisableinputbox()">
                                             <option value="">select Categories </option>
                                             <%for(i=0 ; i< data.length ; i++){%>
                                                 <option value="<%=data[i].category_id%>">
@@ -44,36 +44,45 @@
                                                 </option>
                                                 <%}%>
                                         </select>
+                                        <span class="validationcolor" id="cat_textid"></span>
                                         <label for="question">Question:</label>
-                                        <textarea class="all-inputbox" id="question" name="question_text" rows="3" disabled required ></textarea>
-                                        
+                                        <textarea class="all-inputbox" id="question_text" name="question_text" rows="3" disabled  ></textarea>
+                                        <span class="validationcolo" id="question_textid"></span>
                                         <label for="Image">Image</label>
                                         <input class="all-inputbox" type="file" id="image" name="image" disabled >
 
                                         <label for="option_a">Option A:</label>
-                                        <input class="all-inputbox" type="text" id="option_a" name="option_a" disabled required>
-                                
+                                        <input class="all-inputbox" type="text" id="option_a" name="option_a" disabled >
+
+                                        <span class="validationcolor" id="option_a_id"></span>
+
                                         <label for="option_b">Option B:</label>
-                                        <input type="text" class="all-inputbox" id="option_b" name="option_b" disabled  required>
-                                
+                                        <input type="text" class="all-inputbox" id="option_b" name="option_b" disabled >
+                                        <span class="validationcolor" id="option_b_id"></span>
+
                                         <label for="option_c">Option C:</label>
-                                        <input type="text" class="all-inputbox" id="option_c" name="option_c" disabled required>
-                                
+                                        <input type="text" class="all-inputbox" id="option_c" name="option_c" disabled >
+                                        <span class="validationcolor" id="option_c_id"></span>
+
                                         <label for="option_d">Option D:</label>
-                                        <input type="text" class="all-inputbox" id="option_d" name="option_d" disabled required>
-                                
+                                        <input type="text" class="all-inputbox" id="option_d" name="option_d" disabled >
+                                        <span class="validationcolor" id="option_d_id"></span>
+
+                                        <span class="validationcolor" id="sameoption"></span>
+
                                         <label for="correct_option">Correct Option:</label>
                                         <select id="correct_option" class="all-inputbox" name="answer" disabled >
                                             <option value="">Select Correct Option</option>
                                          </select>
                                          <label for="description">Description</label>
                                          <input class="all-inputbox" type="text" id="description" name="description" disabled >
-                                    </div>
+                                       
+                                        </div>
 
 
 
-                                        <input class="sub-add" type='submit' value ='submit' name='submit'  >        
-                                        <a href="/question" class="button"> Cancle </a> 
+                                        <input class="sub-add"  type='submit' value ='submit' name='submit'  >        
+                                        <a href="/question" class="button"> Back </a> 
                                          
                                    
                             </form>
@@ -82,6 +91,6 @@
                 </div>
         </div>
 </body>
+<!-- <script src="/js/addquestion.js"></script> -->
 <script src="/js/addquestion.js"></script>
-
 </html>

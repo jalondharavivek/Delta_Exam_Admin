@@ -66,3 +66,9 @@ button[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
 }
+.validationcolo{
+    color: red;
+}
+.validationcolor{
+    color: red;
+}

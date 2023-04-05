@@ -282,3 +282,5 @@ async function page(pages, name = '') {
 // <td class="width-td">
 // ${data.search[0].option_d}
 // </td> */}
+
+
