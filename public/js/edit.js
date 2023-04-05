@@ -83,12 +83,11 @@ function kartikcity() {
 
 function validateForm() {
     var name = document.getElementById("name").value;
-    var email = document.getElementById("email").value;
+
     var contact = document.getElementById("contact").value;
     var address = document.getElementById("address").value;
 
 
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     var nameRegex = /^[a-zA-Z\s]+$/;
     var contactRegex = /^[0-9]+$/;
     var addressRegex = /^[a-zA-Z0-9\s,'-]*$/;
@@ -102,14 +101,7 @@ function validateForm() {
         document.getElementById("pname").innerHTML = "";
       
     }
-     if (!emailRegex.test(email)) {
-        document.getElementById("pemail").innerHTML = "** email not valid **";
-        return false;
-    }
-    else if (emailRegex.test(email)) {
-        document.getElementById("pemail").innerHTML = "";
-        
-    }
+  
 
      if (!contactRegex.test(contact)) {
         document.getElementById("pcontact").innerHTML = "** Contact must contain only numbers **";
@@ -131,3 +123,4 @@ function validateForm() {
 
 }
 
+ 

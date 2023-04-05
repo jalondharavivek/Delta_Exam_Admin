@@ -7,15 +7,23 @@ function check_status() {
             if (e.innerHTML == '0') {
 
                 e.innerHTML = 'DISABLE';
-                e.style.color = 'red';
-                e.style.cursor = 'pointer';                                        
+                e.style.color = 'white';
+                e.style.cursor = 'pointer';        
+                e.style.backgroundColor = "red";
+                e.style.display = "inline-block";
+                e.style.padding = "5px 5px";
+                e.style.borderRadius = "4px";                                
             }
             else if (e.innerHTML == '1') {
 
 
                 e.innerHTML = 'ENABLE';
-                e.style.color = 'blue';
+                e.style.color = 'white';
                 e.style.cursor = 'pointer';
+                e.style.backgroundColor = "blue";
+                e.style.display = "inline-block";
+                e.style.padding = "5px 5px";
+                e.style.borderRadius = "4px";
             }
         })
     }
@@ -29,18 +37,20 @@ function toggle(status, id) {
 
     var togglediv = document.getElementById('toggle' + id);
     var toggle_id = document.getElementById(id);
-    confirm(`Are you sure ?`)
-
+    var  a = confirm(`Are you sure ?`)
+if(a)
+{
     fetch(`/student_status?status=${status}&id=${id}`).then(res => res.json()).then(data => {
 
-        if (data.info = 'rows matched: 1 changed: 1 Warnings: 0') {
-            if (status == '1') {
-                togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}')" style="color: red;cursor:pointer" ;>DISABLE</p>`;
-            } else if (status = '0') {
-                togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('1','${id}')" style="color: blue;cursor:pointer">ENABLE</p>`;
-            }
+    if (data.info = 'rows matched: 1 changed: 1 Warnings: 0') {
+        if (status == '1') {
+            togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}')" style="color: white;cursor:pointer ;background-Color:blue;padding:5px 5px;border-Radius :4px; " ;>DISABLE</p>`;
+        } else if (status = '0') {
+            togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('1','${id}')" style="color: white;cursor:pointer ;background-Color:blue;padding:5px 5px;border-Radius :4px;">ENABLE</p>`;
         }
-    }).catch(err => console.log(err))
+    }
+}).catch(err => console.log(err))    
+}
 }
 
 

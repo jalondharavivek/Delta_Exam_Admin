@@ -227,7 +227,6 @@ const update = async (req, res) => {
 
     let student_id = req.body.student_id;
     let name = req.body.name.trim();
-    let email = req.body.email.trim();
     let contact = req.body.contact.trim();
     let gender = req.body.gender;
     let address = req.body.address.trim();
@@ -238,7 +237,7 @@ const update = async (req, res) => {
 
 
 
-    let sql4 = `update student set name='${name}',email='${email}',contact='${contact}',gender='${gender}',
+    let sql4 = `update student set name='${name}',contact='${contact}',gender='${gender}',
      address='${address}',city='${city}', state_id = '${state_id}' ,college_id='${college_id}' where student_id=${student_id};`
 
     let [student3] = await db.execute(sql4);
@@ -293,5 +292,5 @@ const search = async (req, res) => {
 
 
 
-module.exports = { user, userpage, student_status, college, allcollege, editid, allcity, city, getcity, update, search}
+module.exports = { user, userpage, student_status, college, allcollege, editid, allcity, city, getcity, update, search }
 
