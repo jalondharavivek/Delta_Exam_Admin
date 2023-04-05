@@ -30,19 +30,19 @@ function validPass(password) {
         document.getElementById("password_lable").innerHTML = ""
     } else {
         if (password.length < 3) {
-            errors.push("Your password must be at least 3 characters");
+            errors.push("Password must be at least 3 characters.");
         }
         if (password.search(/[a-z]/) < 0) {
-            errors.push("Your password must contain at least one lower case letter.");
+            errors.push("Password must contain at least one lower case letter.");
         }
         if (password.search(/[0-9]/) < 0) {
-            errors.push("Your password must contain at least one digit.");
+            errors.push("Password must contain at least one digit.");
         }
         if (password.search(/[!@#\$%\^&\*_]/) < 0) {
-            errors.push("Your password must contain at least special char from -[ ! @ # $ % ^ & * _ ]");
+            errors.push("Password must contain at least special char.");
         }
         if (password.length > 10) {
-            errors.push("Your password must be at max 10 characters");
+            errors.push("Password must be at max 10 characters.");
         }
     }
 
