@@ -16,11 +16,11 @@ const upload = multer({ storage });
 const question = async(req,res)=>{
   try{
     let que = `select * from questions where question_status = '1'`
-    let quecat = `select category_name,a.category_id from category a,questions b where a.category_id=b.category_id  and question_status='1'`
+    let quecat = `select * from questions join  category on category.category_id = questions.category_id where question_status='1'`
     let page = req.query.page || 1;
     let limit = req.query.limit || 10;
-    let startindex=(page-1)*limit;
-   let endindex=page*limit-startindex;
+   
+   
     if (req.query.page > 1)
      que += ` LIMIT ${((page - 1) * limit)}, ${limit}`;
     else
@@ -39,7 +39,7 @@ const question = async(req,res)=>{
 const questionpage = async(req,res)=>{
   try{
   let que = `select * from questions where question_status = '1'`
-  let quecat = `select category_name,a.category_id from category a,questions b where a.category_id=b.category_id  and question_status='1'`
+  let quecat = `select * from questions join  category on category.category_id = questions.category_id where question_status='1'`
   let page=parseInt(req.body.page)||1;
   let limit=parseInt(req.body.limit)||10;
   let startindex=(page-1)*limit;

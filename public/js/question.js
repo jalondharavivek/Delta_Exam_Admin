@@ -191,6 +191,7 @@ async function page(pages, name = '') {
     })
     let pagi = '';
     if (name == '') {
+     
       pagi += `<li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>`;
       if (parseInt(data.page) <= 5) {
         for (let i = 1; i <= parseInt(data.page); i++) {
@@ -203,7 +204,7 @@ async function page(pages, name = '') {
         for (let i = (parseInt(data.page) - 5); i <= parseInt(data.page); i++) {
           pagi += `<li class="page-item"><a class="page-link `;
           if (parseInt(data.page) == i) { pagi += `pageactive"` } else { pagi += `disabled"` }
-          pagi += ` id='${i}' onclick='page(this)'>${i}</a></li>`
+          pagi += ` id='${i}' onclick='page(this)'> ${i}</a></li>`
         }
       }
       if (Math.ceil(parseInt(data.total) / parseInt(data.limit)) - 5 >= parseInt(data.page)) {
