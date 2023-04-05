@@ -169,6 +169,7 @@ const editquestionpost = async(req,res)=>{
     }
   
     res.redirect("/question")
+    res.end()
   }catch(err){
     err
   }
@@ -207,7 +208,7 @@ const searchget = async(req,res)=>{
     let sqlquet = `select count(*) as total from questions where question_text like '%${name1}%'  and question_status = '1'`;
     let [resultque] = await db.query(sqlquet);
     let pagesq = `select * from questions where question_status = '1' AND question_status = '1' limit ${startindex},${endindex}`;   
-    let sqlque1 = `select a.question_text,a.question_id,a.answer,a.category_id,b.category_name from questions as a join category as b on a.category_id = b.category_id where b.category_name like '%${name1}%' or a.question_text like '%${name1}%'  AND a.question_status = '1' limit ${startindex},${endindex} ; `
+    let sqlque1 = `select a.question_text,a.question_id,a.answer,a.category_id,b.category_name from questions as a join category as b on a.category_id = b.category_id where b.category_name like '%${name1}%' or a.question_text like '%${name1}%' or a.answer like '%${name1}%' AND a.question_status = '1' limit ${startindex},${endindex} ; `
 
     let [pagesques] = await db.query(pagesq);
     let [sqlque2] = await db.execute(sqlque1)
