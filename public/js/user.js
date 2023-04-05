@@ -40,7 +40,7 @@ function toggle(status, id) {
                 togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('1','${id}')" style="color: blue;cursor:pointer">ENABLE</p>`;
             }
         }
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err))
 }
 
 

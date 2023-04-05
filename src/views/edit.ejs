@@ -28,23 +28,25 @@
 
 
   </table>
-  <form action="/update" method="post" class="editform" onsubmit="return validation()">
+  <form action="/update" method="post" class="editform" name="Form" onsubmit="return validateForm()" >
+
+
     <div class="inputtag">
       <input type="hidden" name="student_id" id="student_id" readonly value="<%=student2[0].student_id%>" >
     </div>
 <tr>
   <div class="inputtag">
     <td><label for="name">Name:</label></td>
-    <td><input type="text" id="name" name="name" value=" <%=student2[0].name%>"></td><br><br>
-    <p id=" nameeror"></p>
+    <td><input type="text" id="name" name="name" value=" <%=student2[0].name%>" required></td><br><br>
+    <p id="pname"></p>
   </div>
 </tr>
   
 <tr>
   <div class="inputtag">
     <td><label for="email">Email:</label></td>
-    <td><input type="email" id="email" name="email" value=" <%=student2[0].email%>"></td><br><br>
-    <p id="emaileror"></p>
+    <td><input type="email" id="email" name="email" value=" <%=student2[0].email%>" required></td><br><br>
+    <p id="pemail"></p>
   </div>
 </tr>
    
@@ -52,8 +54,8 @@
    <tr>
     <div class="inputtag">
       <td><label for="contact">Contact:</label></td>
-      <td><input type="text" id="contact" name="contact" value=" <%=student2[0].contact%>"></td><br><br>
-      <p id="contacteror"></p>
+      <td><input type="text" id="contact" name="contact" value=" <%=student2[0].contact%>" required></td><br><br>
+      <p id="pcontact"></p>
     </div>
    </tr>
 
@@ -74,13 +76,15 @@
           <input type="radio" id="female" name="gender" value="female" checked />
           <label for="female">Female</label>
           <%}%><br>
+          <p id="pgender"></p>
   </div>
 </tr>
    
 <tr>
   <div class="inputtag">
     <td><label for="address">Address:</label></td>
-    <td><input type="text" id="address" name="address" value=" <%=student2[0].address%>"></td><br><br>
+    <td><input type="text" id="address" name="address" value=" <%=student2[0].address%>" required></td><br><br>
+    <p id="paddress"></p>
   </div>
 </tr>
  
