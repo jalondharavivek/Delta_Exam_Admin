@@ -1,6 +1,7 @@
 .inputtag{
    width: 100%;
-   margin: 20px; 
+   margin: 20px;
+   height: 50px; 
 }
 
 .cancelbutton{
@@ -44,6 +45,9 @@ select , option {
 .lastinputtag{
   padding-left: 120px;
 }
-td{
-    padding: 20px;
+
+p{
+    color: red;
+    font-weight: bold;
+  text-align:center;
 }
