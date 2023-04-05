@@ -10,15 +10,27 @@ function togglecolorchnage() {
         if (e.innerHTML == '0') {
 
             e.innerHTML = 'DISABLE';
-            e.style.color = 'red';
+            e.style.color = 'white';
             e.style.cursor = 'pointer';
+            e.style.backgroundColor = "red";
+            e.style.display = "inline-block";
+            e.style.padding = "5px 5px";
+            e.style.borderRadius = "4px";
+
+
+
         }
         else if (e.innerHTML == '1') {
 
 
             e.innerHTML = 'ENABLE';
-            e.style.color = 'blue';
+            e.style.color = 'white';
             e.style.cursor = 'pointer';
+            e.style.backgroundColor = "blue";
+            e.style.display = "inline-block";
+            e.style.padding = "5px 5px";
+            e.style.borderRadius = "4px";
+
         }
     })
 }
@@ -39,17 +51,19 @@ function toggle(status, id, date) {
 
     if (parseInt(datearr[2]) < parseInt(current_datearr[2])) {
        
-        togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: red;cursor:pointer">DISABLE</p>`;
+        togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: white; cursor: pointer; background-color: red; display: inline-block; padding: 5px; border-radius: 4px;">DISABLE</p>`;
     } else if (parseInt(datearr[2]) == parseInt(current_datearr[2])) {
         
         if (parseInt(datearr[1]) < parseInt(current_datearr[1])) {
            
-            togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: red;cursor:pointer">DISABLE</p>`;
+            togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: white; cursor: pointer; background-color: red; display: inline-block; padding: 5px; border-radius: 4px;">DISABLE</p>`;
+
         } else if (parseInt(datearr[1]) == parseInt(current_datearr[1])) {
           
             if (parseInt(datearr[0]) < parseInt(current_datearr[0])) {
                
-                togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: red;cursor:pointer">DISABLE</p>`;
+                togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: white; cursor: pointer; background-color: red; display: inline-block; padding: 5px; border-radius: 4px;">DISABLE</p>`;
+
             } else if (parseInt(datearr[0]) == parseInt(current_datearr[0])) {
                
                 toogleftech();
@@ -72,9 +86,10 @@ function toggle(status, id, date) {
         fetch(`/exam/status?status=${status}&id=${id}&date=${date}`).then(res => res.json()).then(data => {
             if (data.info = 'rows matched: 1 changed: 1 Warnings: 0') {
                 if (status == '1') {
-                    togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: red;cursor:pointer">DISABLE</p>`;
+                    togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: white; cursor: pointer; background-color: red; display: inline-block; padding: 5px; border-radius: 4px;">DISABLE</p>`;
+
                 } else if (status = '0') {
-                    togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('1','${id}','${date}'  )" style="color: blue;cursor:pointer">ENABLE</p>`;
+                    togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('1','${id}','${date}'  )" style="color: white; cursor: pointer; background-color: blue; display: inline-block; padding: 5px; border-radius: 4px;">ENABLE</p>`;
                 }
             }
         }).catch(err => console.log(err));
@@ -146,8 +161,8 @@ async function examedit(id) {
                 <div class="save_div">
     
                     <input type="submit" id="save_btn" value="UPDATE" style="cursor:pointer">
-                    <a href='/examlist'>cancel</a>
-    
+                   <a href='/examlist' class="cancel">cancel</a>
+                   
     
                 </div>
             </form>
@@ -256,7 +271,7 @@ async function addexam() {
                 <div class="save_div">
                     <p id="0"></p>
                     <input type="submit" id="save_btn" value="SAVE" style="cursor: pointer;">
-                    <a href='/examlist'>cancel</a>
+                    <a href='/examlist' class="cancel">cancel</a>
                    
                 </div>
             </form>
