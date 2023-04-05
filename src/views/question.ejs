@@ -61,10 +61,9 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Category</th>
-                                        <th>Question</th>
+                                        <th class="width-tdc">Category</th>
+                                        <th class="question-width">Question</th>
                                         <th>Answer</th>
-                                        <th>view </th>
                                         <th>Action</th>
 
                                     </tr>
@@ -77,7 +76,7 @@
                                                 <td class="width-td">
                                                     <%= id++ %>
                                                 </td>
-                                                <td class="width-td">
+                                                <td class="width-tdc">
                                                     <%= data1[i].category_name%>
                                                 </td>
                                                 <td class="question-width">
@@ -87,13 +86,12 @@
                                                 <td class="answercolor">
                                                     <%=data[i].answer%>
                                                 </td>
-                                                <td>
-                                                    <a href="viewdetail?question_id=<%= data[i].question_id %>"><i
-                                                            style="color: rgb(20, 20, 20);" class="fa fa-eye"
-                                                            aria-hidden="true"></i>
-                                                    </a>
-                                                </td>
+                                               
                                                 <td class="button-width">
+                                                    <a href="viewdetail?question_id=<%= data[i].question_id %>"><i
+                                                        style="color: rgb(20, 20, 20);" class="fa fa-eye"
+                                                        aria-hidden="true"></i>
+                                                </a>
                                                     <a
                                                         href="/question/editquestion?question_id=<%= data[i].question_id %>"><i
                                                             class="fas fa-edit"></i></a>
