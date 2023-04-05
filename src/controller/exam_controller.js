@@ -1,3 +1,4 @@
+const con = require('../connection/mysql');
 var db = require('../connection/mysql');
 require('../connection/module');
 // Importing moment module
@@ -202,7 +203,12 @@ const examlist = async (req, res) => {
     sql1 = `select * from exam limit ${offset},${limit};`;
     let [data1] = await db.execute(sql1);
 
-    res.render("../src/views/examlist", { data1, count, curpage });
+
+    let sql3 = `select a.exam_name,b.category_name,a.exam_id from exam a, category b , exam_category c where a.exam_id = c.exam_id and b.category_id = c.category_id;`;
+    let [data3] = await db.execute(sql3);
+
+
+    res.render("../src/views/examlist", { data1, count, curpage, data3 });
   } catch (err) {
     res.send(err);
   }
@@ -301,44 +307,42 @@ const examstatus = async (req, res) => {
     let datearr = date.split('/');
     let current_datearr = current_date.split('/');
 
+   
 
-    if (parseInt(datearr[2]) <= parseInt(current_datearr[2])) {
-      if (parseInt(datearr[1]) <= parseInt(current_datearr[1])) {
+    if (parseInt(datearr[2]) < parseInt(current_datearr[2])) {
+
+      sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+      let [data1] = await db.execute(sql1);
+      res.send(data1)
+
+    } else if (parseInt(datearr[2]) == parseInt(current_datearr[2])) {
+
+      if (parseInt(datearr[1]) < parseInt(current_datearr[1])) {
+
+        sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+        let [data1] = await db.execute(sql1);
+        res.send(data1)
+
+      } else if (parseInt(datearr[1]) == parseInt(current_datearr[1])) {
+
         if (parseInt(datearr[0]) < parseInt(current_datearr[0])) {
-
-
           sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
           let [data1] = await db.execute(sql1);
           res.send(data1)
 
-
+        } else if (parseInt(datearr[0]) == parseInt(current_datearr[0])) {
+          await tooglefetch();
         } else {
-          if (status == '1') {
-
-            sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
-            let [data1] = await db.execute(sql1);
-            res.send(data1)
-          }
-          else {
-            sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
-            let [data1] = await db.execute(sql1);
-            res.send(data1)
-          }
+          await tooglefetch();
         }
       } else {
-        if (status == '1') {
-
-          sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
-          let [data1] = await db.execute(sql1);
-          res.send(data1)
-        }
-        else {
-          sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
-          let [data1] = await db.execute(sql1);
-          res.send(data1)
-        }
+        await tooglefetch();
       }
     } else {
+      await tooglefetch();
+    }
+
+    async function tooglefetch() {
       if (status == '1') {
 
         sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
@@ -351,6 +355,10 @@ const examstatus = async (req, res) => {
         res.send(data1)
       }
     }
+
+
+
+   
   } catch (err) {
     res.send(err)
   }
@@ -394,7 +402,13 @@ const examsearch = async (req, res) => {
       let sql5 = `select * from exam where exam_name like '%${exam_name}%';`
       let [data5] = await db.execute(sql5);
 
-      res.json({ data1, curpage, limit, count1, data5 });
+
+      let sql3 = `select a.exam_name,b.category_name,a.exam_id from exam a, category b , exam_category c where a.exam_id = c.exam_id and b.category_id = c.category_id;`;
+      let [data3] = await db.execute(sql3);
+
+
+
+      res.json({ data1, curpage, limit, count1, data5, data3 });
 
     }
   } catch (err) {
@@ -422,7 +436,12 @@ const examlistpage = async (req, res) => {
     sql1 = `select * from exam limit ${offset},${limit};`;
     let [data1] = await db.execute(sql1);
 
-    res.json({ count, data1, curpage });
+
+    let sql3 = `select a.exam_name,b.category_name,a.exam_id from exam a, category b , exam_category c where a.exam_id = c.exam_id and b.category_id = c.category_id;`;
+    let [data3] = await db.execute(sql3);
+
+
+    res.json({ count, data1, curpage, data3 });
 
   } catch (err) {
     res.send(err);
