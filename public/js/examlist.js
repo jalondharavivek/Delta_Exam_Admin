@@ -4,7 +4,7 @@ function togglecolorchnage() {
 
     let btn = document.querySelectorAll('.btn');
     btn.forEach(e => {
-       
+
 
 
         if (e.innerHTML == '0') {
@@ -24,6 +24,8 @@ function togglecolorchnage() {
 }
 
 function toggle(status, id, date) {
+
+   
     let togglediv = document.getElementById(`toggle${id}`);
     let toggle_id = document.getElementById(`${id}`);
 
@@ -33,23 +35,40 @@ function toggle(status, id, date) {
     let datearr = date1.split("/");
     let current_datearr = today.split("/");
 
-    if (parseInt(datearr[2]) <= parseInt(current_datearr[2])) {
-        if (parseInt(datearr[1]) <= parseInt(current_datearr[1])) {
+  
+
+    if (parseInt(datearr[2]) < parseInt(current_datearr[2])) {
+       
+        togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: red;cursor:pointer">DISABLE</p>`;
+    } else if (parseInt(datearr[2]) == parseInt(current_datearr[2])) {
+        
+        if (parseInt(datearr[1]) < parseInt(current_datearr[1])) {
+           
+            togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: red;cursor:pointer">DISABLE</p>`;
+        } else if (parseInt(datearr[1]) == parseInt(current_datearr[1])) {
+          
             if (parseInt(datearr[0]) < parseInt(current_datearr[0])) {
-                togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: red;cursor:pointer">DISABLE</p>`;
                
-            }else {
+                togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: red;cursor:pointer">DISABLE</p>`;
+            } else if (parseInt(datearr[0]) == parseInt(current_datearr[0])) {
+               
+                toogleftech();
+            } else {
+               
                 toogleftech();
             }
-        }else {
+        } else {
+            
+
             toogleftech();
         }
-
     } else {
+        
+
         toogleftech();
     }
 
-    function toogleftech(){
+    function toogleftech() {
         fetch(`/exam/status?status=${status}&id=${id}&date=${date}`).then(res => res.json()).then(data => {
             if (data.info = 'rows matched: 1 changed: 1 Warnings: 0') {
                 if (status == '1') {
@@ -84,7 +103,7 @@ async function examedit(id) {
                     <div class="input_taker">
     
                         <label for="exam_name" class="labelofInput"> exam name: </label>
-                        <input type="text" name="exam_name" value="${data[0].exam_name}"
+                        <input type="text" name="exam_name" id="exam_name" value="${data[0].exam_name}"
                             placeholder="enter exam name" class="input_tag"  required >
     
                     </div>
@@ -101,14 +120,14 @@ async function examedit(id) {
     
                     <div class="input_taker">
                         <label for="question" class="labelofInput">no of questions: </label>
-                        <input type="text" name="question" id="" placeholder="enter no of questions"
+                        <input type="text" name="question" id="question" placeholder="enter no of questions"
                             value="${data[0].total_questions}" class="input_tag" required>
     
                     </div>
                     <div class="input_taker">
                         <label for="time" class="labelofInput"> time limit: </label>
     
-                        <input type="text" name="time" id="" placeholder="enter time limit"
+                        <input type="text" name="time" id="time" placeholder="enter time limit"
                             value="${data[0].exam_time}" class="input_tag" required>
                         <label for="" class="extra_label">(adding time limit in minutes)</label>
     
@@ -117,7 +136,7 @@ async function examedit(id) {
     
                     <div class="input_taker">
                         <label for="start_date" class="labelofInput"> start date: </label>
-                        <input type="date" name="start_date" id="" placeholder="enter start date"
+                        <input type="date" name="start_date" id="start_date" placeholder="enter start date"
                             value="${data[0].exam_date}" class="input_tag" required>
     
                     </div>
@@ -167,7 +186,7 @@ async function callback() {
 
     categortFetch();
     async function categortFetch() {
-      
+
         fetch('/categories').then(res => res.json()).then(data => {
 
             let checker;
@@ -176,13 +195,13 @@ async function callback() {
                 for (j = 0; j < arat.length; j++) {
 
                     if (data.arr[i] == arat[j]) {
-                      
+
                         category_select.innerHTML += `<option value="${data.arr2[i]}" selected>${data.arr[i]}</option>`;
                         checker = i;
                     }
                 }
                 if (checker != i) {
-                    
+
                     category_select.innerHTML += `<option value="${data.arr2[i]}">${data.arr[i]}</option>`;
 
                 }
@@ -193,8 +212,6 @@ async function callback() {
     }
 
 }
-
-
 
 //add exam code run on plus icon
 async function addexam() {
@@ -276,7 +293,7 @@ async function addexam() {
 
 }
 function validateform() {
-
+    console.log("function is called");
     let exam_name = document.getElementById('exam_name').value;
     let question = document.getElementById('question').value;
     let start_date = document.getElementById('start_date').value
@@ -295,7 +312,7 @@ function validateform() {
         }
     }
     if (isNaN(question) || isNaN(time)) {
-        alert("only numbers is allowed");
+        alert("only numbers is allowed in question and time");
         return false;
 
     }
@@ -327,7 +344,7 @@ function examSearch(curpage) {
     let exam_search = document.getElementById('exam_search');
 
     fetch(`/exam/search?exam_name=${search}&&num=${curpage}`).then(res => res.json()).then(data => {
-        console.log(data)
+        
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>
@@ -356,13 +373,13 @@ function examSearch(curpage) {
                                     </td>
                                     <td>
                                         <div class="td">`
-                                           for(j=0;j<data.data3.length;j++){
+                for (j = 0; j < data.data3.length; j++) {
 
-                                                if(data.data1[i].exam_id == data.data3[j].exam_id){
-                                                    str+= `${data.data3[j].category_name},`;
-                                                }
-                                           }
-                               str+= `</div>
+                    if (data.data1[i].exam_id == data.data3[j].exam_id) {
+                        str += `${data.data3[j].category_name},`;
+                    }
+                }
+                str += `</div>
                                     </td>
                                     <td>
                                         <div class="td">
@@ -532,13 +549,13 @@ async function page(num, count) {
                         </td>
                         <td>
                         <div class="td">`
-                        for(j=0;j<data.data3.length;j++){
+        for (j = 0; j < data.data3.length; j++) {
 
-                             if(data.data1[i].exam_id == data.data3[j].exam_id){
-                                 str+= `${data.data3[j].category_name},`;
-                             }
-                        }
-            str+= `</div>
+            if (data.data1[i].exam_id == data.data3[j].exam_id) {
+                str += `${data.data3[j].category_name},`;
+            }
+        }
+        str += `</div>
                         </td>
                         <td>
                             <div class="td">
@@ -609,7 +626,7 @@ async function page(num, count) {
     if (num == count) {
 
         pageid.innerHTML += `<p onclick="page(eval(${count}) ,${count})" class="p">next</p>`;
-        
+
 
     } else if (num < count) {
 
@@ -620,3 +637,4 @@ async function page(num, count) {
 
 
 }
+
