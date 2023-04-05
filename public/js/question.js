@@ -5,7 +5,7 @@
 async function deletquestion(delet) {
   try {
     
-    var confrimdlt =  confirm('are you sure for delet this question?')
+    var confrimdlt =  confirm('are you sure ?')
     console.log(confrimdlt,"::::var")
     if(confrimdlt){
       const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
