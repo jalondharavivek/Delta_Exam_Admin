@@ -8,7 +8,7 @@
     <title>Question</title>
     <link rel="stylesheet" href="/css/dashboard.css">
 
-    <link rel="stylesheet" type="text/css" href="/css/question.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/question.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
@@ -64,7 +64,6 @@
                                         <th>Category</th>
                                         <th>Question</th>
                                         <th>Answer</th>
-                                       
                                         <th>Action</th>
 
                                     </tr>
@@ -115,25 +114,46 @@
                                 <ul class="pagination" id="pagination">
                                     <li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a>
                                     </li>
-             <% if(parseInt(page) <=5) { %>
-                 <% for(let i=1;i<=parseInt(page);i++){ %>
-                     <li class="page-item"><a  class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>" onclick="page(this)" id="<%= i %>"><%= i %> </a></li>
-                        <% } } else { %>
-                         <% for(let i=(parseInt(page)-5);i<=parseInt(page);i++){ %>
-                             <li class="page-item"><a class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>"  onclick="page(this)" id="<%= i %>"><%= i %> </a></li>
-                                <% } %>
-                                  <% } %>
-                                  <% if(Math.ceil(parseInt(total)/parseInt(limit))-5  <= parseInt(page)){ %>
-                                     <% for(let i=parseInt(page)+1;i <= parseInt(page)+ 5;i++){ %>
-                                        <li class="page-item"><a class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>" onclick="page(this)" id="<%= i %>"> <%= i %>
-                                         </a></li>
-                                             <% } %>
-                                             <% } else { %>
-                                                 <% for(let  i=parseInt(page)+1;i <= Math.ceil(parseInt(total)/parseInt(limit));i++){%>
-                                                     <li class="page-item"><a class="page-link <% if(parseInt(page)==i){%>pageactive <% } %>"onclick="page(this)" id="<%= i %>">  <%= i %>  </a></li>
-                                                         <% } %>
+                                    <% if(parseInt(page) <=5) { %>
+                                        <% for(let i=1;i<=parseInt(page);i++){ %>
+                                            <li class="page-item"><a
+                                                    class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>"
+                                                    onclick="page(this)" id="<%= i %>">
+                                                    <%= i %>
+                                                </a></li>
+                                            <% } } else { %>
+                                                <% for(let i=(parseInt(page)-5);i<=parseInt(page);i++){ %>
+                                                    <li class="page-item"><a
+                                                            class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>"
+                                                            onclick="page(this)" id="<%= i %>">
+                                                            <%= i %>
+                                                        </a></li>
+                                                    <% } %>
+                                                        <% } %>
+                                                            <% if(Math.ceil(parseInt(total)/parseInt(limit))-5
+                                                                >=parseInt(page)){ %>
+                                                                <% for(let i=parseInt(page)+1;i<=parseInt(page)+ 5;i++){
+                                                                    %>
+                                                                    <li class="page-item"><a
+                                                                            class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>"
+                                                                            onclick="page(this)" id="<%= i %>">
+                                                                            <%= i %>
+                                                                        </a></li>
+                                                                    <% } %>
+                                                                        <% } else { %>
+                                                                            <% for(let
+                                                                                i=parseInt(page)+1;i<=Math.ceil(parseInt(total)/parseInt(limit));i++){
+                                                                                %>
+                                                                                <li class="page-item"><a
+                                                                                        class="page-link <% if(parseInt(page)==i){ %>pageactive <% } %>"
+                                                                                        onclick="page(this)"
+                                                                                        id="<%= i %>">
+                                                                                        <%= i %>
+                                                                                    </a></li>
+                                                                                <% } %>
                                                                                     <% } %>
-                                 <li class="page-item"><a class="page-link" onclick="page(this)"id="<%= Math.ceil(total/limit) %>">Last</a>
+                                 <li class="page-item"><a class="page-link" onclick="page(this)"
+                                                                                                id="<%= Math.ceil(total/limit) %>">Last</a>
                                   </li>
                                 </ul>
                             </nav>
