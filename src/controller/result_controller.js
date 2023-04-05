@@ -267,8 +267,9 @@ const viewquestionget = async (req, res) => {
     if (isNaN(offset)) {
       offset = 0;
     }
-
+    var userid=req.query.userid;
     var id = req.query.id;
+    
     let sql = `select distinct question_text,answer,user_answers from questions a, user_answers b where a.question_id=b.question_id and category_id=${id} limit ${offset},${limit}`;
     let [query] = await db.query(sql);
 
