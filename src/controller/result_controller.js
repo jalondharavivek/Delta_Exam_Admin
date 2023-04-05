@@ -267,7 +267,7 @@ const viewquestionget = async (req, res) => {
     if (isNaN(offset)) {
       offset = 0;
     }
-
+    var userid=req.query.userid;
     var id = req.query.id;
     var user_id = req.query.userid;
     let sql = `select b.question_id ,question_text,answer,user_answers from questions a,user_answers b where a.question_id=b.question_id AND a.category_id=${id} AND b.user_id=${user_id} limit ${offset},${limit}`;
