@@ -15,7 +15,7 @@ function confim_password() {
     if (password1 != confirm1) {
         document.getElementById("confirm_lable").innerHTML = 'Pelese Enter Same Password In both input filde';
         document.getElementById("confirm_lable").style.color = 'red';
-        document.getElementById("submitAll").style.display = 'none';
+        document.getElementById("submitAll").style.display = 'block';
 
     } else if (password1 == confirm1) {
         document.getElementById("confirm_lable").innerHTML = '';
@@ -50,7 +50,7 @@ function validPass(password) {
 
         document.getElementById("password_lable").innerHTML = errors.join("\n");
         document.getElementById("password_lable").style.color = "red";
-        document.getElementById("submitAll").style.display = "none";
+        document.getElementById("submitAll").style.display = "block";
     } else {
         document.getElementById("password_lable").innerHTML = ""
         document.getElementById("submitAll").style.display = "block";
