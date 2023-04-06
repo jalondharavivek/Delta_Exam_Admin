@@ -41,6 +41,7 @@ route.get('/setPassword',login.setpassword);
 route.post('/setPassword',login.post_setpassword);
 route.post('/fetch_api',login.fetch_api);
 route.get('/updatePassword',login.updatePassword);
+route.post('/emailValid',login.emailValid);
 route.post('/updatePassword',login.post_updatePassword);
 route.get('/logout',login.logout);
 
