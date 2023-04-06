@@ -308,7 +308,6 @@ async function addexam() {
 
 }
 function validateform() {
-    console.log("function is called");
     let exam_name = document.getElementById('exam_name').value;
     let question = document.getElementById('question').value;
     let start_date = document.getElementById('start_date').value

@@ -76,9 +76,8 @@ const logout=async(req,res)=>{
 }
 const fetch_api = async(req,res) => {
     var email = req.body.email;
-  let testAccount = nodemailer.createTestAccount();
+  // let testAccount = nodemailer.createTestAccount();
   var otp = generateOTP();
-  console.log("otp", otp);
 //   const transporter = nodemailer.createTransport({
 //       service: 'gmail',
 //       host: 'smtp.gmail.com',
