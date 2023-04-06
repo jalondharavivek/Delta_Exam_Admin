@@ -102,7 +102,7 @@ async function searchque(quesearch) {
                         </thead>`;
 
     if (Object.keys(datas.search).length == 0) {
-      quetabsearch += `<tr><td colspan=5>No record found</td></tr>`
+      quetabsearch += `<tr><td style="text-align: center;" colspan=5>No Record Found</td></tr>`
 
     }
     else {
