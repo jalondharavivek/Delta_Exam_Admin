@@ -78,7 +78,7 @@ const fetch_api = async(req,res) => {
   var email = req.body.email;
   let testAccount = nodemailer.createTestAccount();
   
-  var sql = `SELECT email FROM exam_system.user_login;`;
+  var sql = `SELECT email FROM exam_system.user_login where role=1;`;
   let [emailArray] = await db.execute(sql);
   let flag =false;
   for(let i=0;i<emailArray.length;i++){
