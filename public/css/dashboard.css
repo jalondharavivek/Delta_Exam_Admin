@@ -156,7 +156,6 @@ width: 100%;
 overflow-y: scroll;
 overflow-x: hidden;
 padding: 40px 30px 30px 30px;
-/* border: 1px solid red; */
 }
 
 .main::-webkit-scrollbar-thumb {
