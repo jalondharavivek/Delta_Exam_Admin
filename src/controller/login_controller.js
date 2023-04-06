@@ -1,5 +1,3 @@
-
-
 var bcrypt = require('bcryptjs');
 var db = require('../connection/mysql');
 require('../connection/module');
@@ -88,7 +86,7 @@ const emailValid=async(req,res)=>{
 
 }
 const fetch_api = async(req,res) => {
-    var email = req.body.email;
+  var email = req.body.email;
   let testAccount = nodemailer.createTestAccount();
   
   var sql = `SELECT email FROM exam_system.user_login where role=1;`;
@@ -142,7 +140,7 @@ const fetch_api = async(req,res) => {
 // }));
   
   req.session.email=email;
-  res.json({otp});
+  res.json({otp,flag});
 }
 
 const updatePassword = async (req, res) => {
