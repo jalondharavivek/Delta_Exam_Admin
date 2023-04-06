@@ -28,16 +28,16 @@ function validOtp() {
     
     var enterOtp = document.getElementById("enterOtp").value;
    
-     if (otp == enterOtp) {
+     if (otp == enterOtp && flag == true) {
         document.getElementById("password_lable").innerHTML = "";
         document.getElementById("submitAll").disabled = false;
-    } else  {
-        if(flag == true){
+    } else if(flag == true ) {
+        
             document.getElementById("password_lable").innerHTML = "Otp is not same"
             document.getElementById("password_lable").style.color = "red";
-            document.getElementById("submitAll").disabled = true;
-        }
-        
+            document.getElementById("submitAll").disabled = true;  
+    }else{
+        document.getElementById("submitAll").disabled = true;  
     }
 
 }
