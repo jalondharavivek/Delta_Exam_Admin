@@ -51,7 +51,7 @@ route.get('/viewdetail',auth,question.viewdetail)
 route.get('/question/editquestion',auth,question.editquestionget)
 route.post('/editquestion',auth,question.upload.single('image'),question.editquestionpost)
 route.post('/deletquestion',auth,question.deletquestion)
-route.get('/searchque',auth,question.searchget)
+route.get('/searchque',auth,question.searchget) 
 route.get('/retriveque',auth,question.retrivequestions)
 route.post('/retrivequestion',auth,question.retrivequestionpost)
 route.post('/question/questionpage',auth,question.questionpage)
@@ -77,6 +77,7 @@ route.get('/student/city',auth,user.city);
 route.get('/city',auth,user.getcity);
 route.post('/update',auth,user.update);
 route.get('/user/search',auth,user.search);
+
 
 
 module.exports = route;

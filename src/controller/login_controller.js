@@ -1,25 +1,7 @@
-const express = require('express');
 var bcrypt = require('bcryptjs');
 var db = require('../connection/mysql');
-
-let bodyParser = require('body-parser')
+require('../connection/module');
 var nodemailer = require('nodemailer');
-const path = require('path')
-const app = express();
-
-
-app.use(express.static('public'));
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/public/assets/image'));
-app.use(express.static(__dirname + ''));
-app.set('view engine', 'ejs');
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, '/public')))
-
 
 const admin_login = (req, res) => {
     res.render("../src/views/login.ejs")
@@ -93,10 +75,19 @@ const logout=async(req,res)=>{
   res.redirect('/');
 }
 const fetch_api = async(req,res) => {
-    var email = req.body.email;
+  var email = req.body.email;
   let testAccount = nodemailer.createTestAccount();
-  var otp = generateOTP();
-  console.log("otp", otp);
+  
+  var sql = `SELECT email FROM exam_system.user_login;`;
+  let [emailArray] = await db.execute(sql);
+  let flag =false;
+  for(let i=0;i<emailArray.length;i++){
+    if(emailArray[i].email==email){
+      flag=true;
+      break;
+    }
+  }
+    var otp = generateOTP();
 //   const transporter = nodemailer.createTransport({
 //       service: 'gmail',
 //       host: 'smtp.gmail.com',
@@ -109,7 +100,7 @@ const fetch_api = async(req,res) => {
 //           accessToken: 'ya29.a0AVvZVsrBfRsp1sK8vyLlLCu_XRKaJBc0kk99E2JeUtrQhhEQOYtPNukeg9gwCq-RUTVR01UM24RgTOGYN8DmNPSNdX-b-mG4Ys4RCIIBmPsg9Wk6BudImI4NN-a79XHbZ1J4vl4KLP01JeQnJUwgSQsGkZ2iQlEaCgYKAToSARMSFQGbdwaIVujzQJMyKZbe0PbdSr0VYQ0166',
 //       }
 //   });
-60
+
 //   let info = transporter.sendMail({
 //       from: 'hello <darshil.parmar.23.esparkbiz@gmail.com>', // sender address
 //       to: email, // list of receivers
@@ -138,9 +129,8 @@ const fetch_api = async(req,res) => {
 // }));
   
   req.session.email=email;
-  res.json({otp});
+  res.json({otp,flag});
 }
-
 
 const updatePassword = async (req, res) => {
   req.session.destroy();
