@@ -142,6 +142,7 @@ const editquestionget = async(req,res)=>{
   }
 
 const editquestionpost = async(req,res)=>{
+  
   try{
     var question_id = req.body.question_id;
   
@@ -164,14 +165,15 @@ const editquestionpost = async(req,res)=>{
     const image = req.file? req.file.filename : "";
     let updateque = `update questions set question_text = '${question_text}' , option_a = '${option_a}' , option_b = '${option_b}' , option_c = '${option_c}', option_d = '${option_d}' , answer = '${answer}' , category_id = '${category_id}', description  = '${description }', question_image = '${image}' where question_id = ${question_id} `
     let [editquepost] = await db.query(updateque);
-    if (editquepost.length) {
+    // if (editquepost.length) {
      
-    }
+    // }
   
     res.redirect("/question")
+   
     res.end()
   }catch(err){
-    err
+    console.log(err)
   }
   }
 

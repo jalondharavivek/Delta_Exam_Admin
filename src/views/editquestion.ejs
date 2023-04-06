@@ -74,11 +74,12 @@
 
                                             <label for="correct_option" class="all-inputbox" >Correct Option:</label>
                                             <select id="correct_option" name="answer" required>
-                                                <option value="<%= data[0].answer %>" selected disabled><%= data[0].answer %></option>
-                                                <option value="<%= data[0].option_a %>" ><%= data[0].option_a %></option>
-                                                <option value="<%= data[0].option_b %>" ><%= data[0].option_b %></option>
-                                                <option value="<%= data[0].option_c %>" ><%= data[0].option_c %></option>
-                                                <option value="<%= data[0].option_d %>" ><%= data[0].option_d %></option>
+
+               
+                                                <option value="<%= data[0].option_a %>" <% if(data[0].answer == data[0].option_a){%>selected<%}%> ><%= data[0].option_a %></option>
+                                                <option value="<%= data[0].option_b %>" <% if(data[0].answer == data[0].option_b){%>selected<%}%> ><%= data[0].option_b %></option>
+                                                <option value="<%= data[0].option_c %>" <% if(data[0].answer == data[0].option_c){%>selected<%}%> ><%= data[0].option_c %></option>
+                                                <option value="<%= data[0].option_d %>" <% if(data[0].answer == data[0].option_d){%>selected<%}%> ><%= data[0].option_d %></option>
                                             </select>
                                               
                                             <label for="Description">Description</label>

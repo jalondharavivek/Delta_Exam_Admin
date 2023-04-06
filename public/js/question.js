@@ -6,7 +6,6 @@ async function deletquestion(delet) {
   try {
     
     var confrimdlt =  confirm('are you sure ?')
-    console.log(confrimdlt,"::::var")
     if(confrimdlt){
       const deletquesti = await fetch(`/deletquestion?question_id=${delet}`, { method: "POST" });
       location.reload()
@@ -24,7 +23,6 @@ async function retriveque() {
 
     let retrivequeresult = await fetch(`/retriveque`)
     let data = await retrivequeresult.json();
-console.log(data,":::::::que data")
     let tabqueret = document.getElementById("quetable")
     let quetabretrive = `  <thead> <tr>
                          <th>Id</th>
@@ -102,7 +100,7 @@ async function searchque(quesearch) {
                         </thead>`;
 
     if (Object.keys(datas.search).length == 0) {
-      quetabsearch += `<tr><td colspan=5>No record found</td></tr>`
+      quetabsearch += `<tr><td style="text-align: center;" colspan=5>No Record Found</td></tr>`
 
     }
     else {
