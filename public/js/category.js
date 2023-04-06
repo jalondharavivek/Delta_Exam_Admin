@@ -6,15 +6,24 @@ function cat_status()
         let sts = document.querySelectorAll('#status');
         sts.forEach(e => {
             if (e.innerHTML == '0') {
+
                 e.innerHTML = 'DISABLE';
-                e.style.color = 'White';
-                e.style.backgroundColor = 'rgb(0,90,190)';
+                e.style.color = 'white';
+                e.style.cursor = 'pointer';        
+                e.style.backgroundColor = "red";
+                e.style.display = "inline-block";
+                e.style.padding = "6px 6px";
+                e.style.borderRadius = "4px";
             }
             else  if(e.innerHTML == '1')
             {
                 e.innerHTML = 'ENABLE';
-                e.style.color = 'White';
-                e.style.backgroundColor = 'rgb(0,140,0)';
+                e.style.color = 'white';
+                e.style.cursor = 'pointer';
+                e.style.backgroundColor = "blue";
+                e.style.display = "inline-block";
+                e.style.padding = "6px 6px";
+                e.style.borderRadius = "4px";
             }
         })
     }

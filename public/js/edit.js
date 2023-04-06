@@ -107,6 +107,10 @@ function validateForm() {
         document.getElementById("pcontact").innerHTML = "** Contact must contain only numbers **";
         return false;
     }
+    else if(contact.length>10 || contact.length < 10){
+        document.getElementById("pcontact").innerHTML = "** not valid **";
+        return false;
+    }
     else if (contactRegex.test(contact))  {
         document.getElementById("pcontact").innerHTML = "";
       

@@ -44,7 +44,7 @@ if(a)
 
     if (data.info = 'rows matched: 1 changed: 1 Warnings: 0') {
         if (status == '1') {
-            togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}')" style="color: white;cursor:pointer ;background-Color:blue;padding:5px 5px;border-Radius :4px; " ;>DISABLE</p>`;
+            togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}')" style="color: white;cursor:pointer ;background-Color:red;padding:5px 5px;border-Radius :4px; " ;>DISABLE</p>`;
         } else if (status = '0') {
             togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('1','${id}')" style="color: white;cursor:pointer ;background-Color:blue;padding:5px 5px;border-Radius :4px;">ENABLE</p>`;
         }
