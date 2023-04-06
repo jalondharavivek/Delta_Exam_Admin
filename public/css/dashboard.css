@@ -173,11 +173,11 @@ header {
 
 .main::-webkit-scrollbar-thumb {
     background-image:
-        linear-gradient(to bottom, rgb(0, 0, 85), rgb(0, 0, 50));
+        linear-gradient(to bottom, rgb(52, 76, 34),rgb(52, 76, 34));
 }
 
 .main::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
 }
 
 .main::-webkit-scrollbar-track {
