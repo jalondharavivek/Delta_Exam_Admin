@@ -4,10 +4,10 @@ var bcrypt = require('bcryptjs');
 var db = require('./src/connection/mysql');
 const sessions = require('express-session');
 var cookie = require('cookie-parser');
-var utils = require('util');
-const { decode } = require('punycode');
+// var utils = require('util');
+// const { decode } = require('punycode');
 let bodyParser = require('body-parser')
-const flash = require('connect-flash');
+// const flash = require('connect-flash');
 var nodemailer = require('nodemailer');
 const path = require('path')
 const app = express();
@@ -22,7 +22,7 @@ app.use(sessions({
   }));
 const ejs = require('ejs');
 const { signedCookie } = require('cookie-parser');
-const { Console } = require('console');
+// const { Console } = require('console');
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public/assets/image'));
 app.use(express.static(__dirname + ''));
@@ -30,7 +30,7 @@ const PORT = process.env.PORT;
 app.set('view engine', 'ejs');
 
 app.use(cookie());
-app.use(flash());
+// app.use(flash());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
