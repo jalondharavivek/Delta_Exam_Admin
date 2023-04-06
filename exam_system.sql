@@ -28,7 +28,7 @@ CREATE TABLE `category` (
   `category_status` varchar(255) DEFAULT NULL,
   `created_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'vbv','1','2023-03-23 13:56:10'),(2,'rt','1','2023-03-24 05:30:23'),(3,'df','1','2023-03-24 09:59:57'),(4,'sfsf','1','2023-03-24 12:22:01'),(5,'bdfbhsdfgjwr','0','2023-03-27 09:03:14');
+INSERT INTO `category` VALUES (1,'vbvjkhgjk','1','2023-03-23 13:56:10'),(2,'rt','1','2023-03-24 05:30:23'),(3,'df','1','2023-03-24 09:59:57'),(4,'sfsf','1','2023-03-24 12:22:01'),(5,'bdfbhsdfgjwr','0','2023-03-27 09:03:14'),(6,'fgd','0','2023-03-28 04:20:30'),(7,'fgh','0','2023-03-28 04:20:33'),(8,'fgh','0','2023-03-28 04:20:35'),(9,'gf','0','2023-03-28 04:20:39'),(10,'gh','0','2023-03-28 04:20:41'),(11,'gfh','0','2023-03-28 04:20:44'),(12,'z','1','2023-03-28 12:26:34'),(13,'fgh','0','2023-04-05 09:30:14'),(14,'fgh','0','2023-04-05 09:30:17'),(15,'gfh','0','2023-04-05 09:30:19'),(16,'gfh','0','2023-04-05 09:30:21'),(17,'gfh','0','2023-04-05 09:30:23'),(18,'gfh','0','2023-04-05 09:30:26'),(19,'gh','0','2023-04-05 09:30:29'),(20,'fgh','0','2023-04-05 09:30:31'),(21,'fgh','0','2023-04-05 09:30:33'),(22,'fgh','0','2023-04-05 09:30:36'),(23,'fgh','0','2023-04-05 09:30:38'),(24,'fgh','0','2023-04-05 09:30:40'),(25,'fgh','0','2023-04-05 09:30:42'),(26,'fgh','0','2023-04-05 09:30:45'),(27,'fgh','0','2023-04-05 09:30:47'),(28,'gth','0','2023-04-05 09:30:50'),(29,'hgt','0','2023-04-05 09:30:52'),(30,'ghfghfgh','0','2023-04-05 09:30:56'),(31,'gfhfgh','0','2023-04-05 09:30:58'),(32,'hfghdfgh','0','2023-04-05 09:31:01'),(33,'hdfhdfgh','0','2023-04-05 09:31:04'),(34,'fghdfghdfghfg','0','2023-04-05 09:31:07'),(35,'gfhdfghdfgh','0','2023-04-05 09:31:09'),(36,'ghdfghdfgh','0','2023-04-05 09:31:12'),(37,'gfhdfghfghfgh','0','2023-04-05 09:31:15'),(38,'fghfdghdfghdfg','0','2023-04-05 09:31:18'),(39,'fghdfghdfg','0','2023-04-05 09:31:21'),(40,'fghdfghfghdfgh','0','2023-04-05 09:31:24'),(41,'fghdfghdfghdfg','0','2023-04-05 09:31:28'),(42,'fghdfghdfg','0','2023-04-05 09:31:30'),(43,'gfhfgh','0','2023-04-05 09:31:34'),(44,'hfdghfgdh','0','2023-04-05 09:31:36'),(45,'ghdfghdfg','0','2023-04-05 09:31:39'),(46,'ghdfghdfg','0','2023-04-05 09:31:41'),(47,'fghfghfg','0','2023-04-05 09:31:43'),(48,'gfhdfghf','0','2023-04-05 09:31:48'),(49,'ghdfghdfg','0','2023-04-05 09:31:54'),(50,'fghdfghdfg','0','2023-04-05 09:31:58'),(51,'dfghdfghfg','0','2023-04-05 09:32:01'),(52,'ghdfghdfghdfgh','0','2023-04-05 09:32:05'),(53,'dfghdfghdfg','0','2023-04-05 09:32:08'),(54,'rt','0','2023-04-05 09:32:21'),(55,'r','0','2023-04-05 09:32:23'),(56,'e','0','2023-04-05 09:32:26'),(57,'fg','0','2023-04-05 09:32:29'),(58,'sfg','0','2023-04-05 09:32:32'),(59,'sdg','0','2023-04-05 09:32:34'),(60,'dfgsd','0','2023-04-05 09:32:36'),(61,'dgs','0','2023-04-05 09:32:39'),(62,'gdfsdgsdg','0','2023-04-05 09:32:42'),(63,'dgsdgsdg','0','2023-04-05 09:32:45'),(64,'sdgsdgsdg','0','2023-04-05 09:32:48'),(65,'dfgh','0','2023-04-05 09:32:51'),(66,'gfh','0','2023-04-05 09:32:53'),(67,'fgh','0','2023-04-05 09:32:56'),(68,'fgh','0','2023-04-05 09:33:00'),(69,'fgh','0','2023-04-05 09:33:03'),(70,'fgh','0','2023-04-05 09:33:06'),(71,'fgh','0','2023-04-05 09:33:08'),(72,'fgh','0','2023-04-05 09:33:12'),(73,'fgh','0','2023-04-05 09:33:14'),(74,'fgh','0','2023-04-05 09:33:18'),(75,'fg','0','2023-04-06 03:41:26'),(76,'gh','0','2023-04-06 03:41:29'),(77,'iko','0','2023-04-06 03:41:34'),(78,'gh','0','2023-04-06 03:41:36'),(79,'g','0','2023-04-06 03:41:40'),(80,'geg','0','2023-04-06 03:41:56'),(81,'j','0','2023-04-06 03:42:02'),(82,'jh','0','2023-04-06 03:42:05'),(83,'gh','0','2023-04-06 03:42:08'),(84,'fghdfh','0','2023-04-06 03:42:13'),(85,'dfhdfh','0','2023-04-06 03:42:15'),(86,'dfhdfh','0','2023-04-06 03:42:17'),(87,'fhdfh','0','2023-04-06 03:42:20'),(88,'hdfhdfhdf','0','2023-04-06 03:42:22'),(89,'fh','0','2023-04-06 03:42:39'),(90,'fh','0','2023-04-06 03:42:42'),(91,'dfsh','0','2023-04-06 03:42:44'),(92,'fh','0','2023-04-06 03:42:46'),(93,'fh','0','2023-04-06 03:42:48'),(94,'fh','0','2023-04-06 03:42:50'),(95,'fhsd','0','2023-04-06 03:42:52'),(96,'fhsdfh','0','2023-04-06 03:42:54'),(97,'hsdfhsdfh','0','2023-04-06 03:42:56'),(98,'dfhsdfhs','0','2023-04-06 03:42:58'),(99,'fhsdf','0','2023-04-06 03:43:00'),(100,'dfh','0','2023-04-06 03:43:03'),(101,'fh','0','2023-04-06 03:43:05'),(102,'df','0','2023-04-06 03:43:07'),(103,'f','0','2023-04-06 03:43:09'),(104,'hdfhdfh','0','2023-04-06 03:43:11'),(105,'hsdfhsdfh','0','2023-04-06 03:43:14'),(106,'fhsdfhsdfh','0','2023-04-06 03:43:17'),(107,'dfhsdfh','0','2023-04-06 03:43:19'),(108,'hdfhsdfh','0','2023-04-06 03:43:22'),(109,'h','0','2023-04-06 03:43:24'),(110,'dfsdf','0','2023-04-06 03:43:27'),(111,'asfasfa','0','2023-04-06 03:43:29'),(112,'fasfasf','0','2023-04-06 03:43:32'),(113,'sfasfasfas','0','2023-04-06 03:43:35'),(114,'sfasfas','0','2023-04-06 03:43:37'),(115,'sfasfasf','0','2023-04-06 03:43:40');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +113,7 @@ CREATE TABLE `exam` (
   PRIMARY KEY (`exam_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_login` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +122,7 @@ CREATE TABLE `exam` (
 
 LOCK TABLES `exam` WRITE;
 /*!40000 ALTER TABLE `exam` DISABLE KEYS */;
-INSERT INTO `exam` VALUES (1,'ZX',10,'10','502201',1,'0','2023-03-22','df','2023-03-25 05:04:09');
+INSERT INTO `exam` VALUES (1,'ZX',10,'10','502201',1,'1','2023-03-22','df','2023-03-25 05:04:09'),(2,'w',10,'10','025514',1,'0','2023-03-23','rt','2023-03-31 08:29:36');
 /*!40000 ALTER TABLE `exam` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +144,7 @@ CREATE TABLE `exam_category` (
   KEY `category_id` (`category_id`),
   CONSTRAINT `exam_category_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`exam_id`),
   CONSTRAINT `exam_category_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,7 +153,7 @@ CREATE TABLE `exam_category` (
 
 LOCK TABLES `exam_category` WRITE;
 /*!40000 ALTER TABLE `exam_category` DISABLE KEYS */;
-INSERT INTO `exam_category` VALUES (1,1,3,NULL,NULL);
+INSERT INTO `exam_category` VALUES (1,1,3,NULL,NULL),(2,2,2,NULL,NULL);
 /*!40000 ALTER TABLE `exam_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +179,7 @@ CREATE TABLE `questions` (
   PRIMARY KEY (`question_id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +188,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (17,'th','gfh','rt','rt','tr','gfh',NULL,'1',2,NULL),(18,'sdf','f','dsf','dfs','df','dfs',NULL,'1',3,NULL),(19,'t','t','t','t','t','t',NULL,'1',1,NULL),(20,'gf','g','gf','fg','fg','g',NULL,'0',1,NULL),(21,'reg','r','r','r','r','r',NULL,'0',1,NULL),(22,'qq','qq','qq','qq','qq','qq',NULL,'0',1,NULL),(23,'f','fd','fd','f','dffddf','fd',NULL,'0',2,NULL),(24,'erg','erg','reg','reg','rgw','reg',NULL,'0',1,NULL),(25,'ef','rg','g','gr','r','rg',NULL,'1',2,NULL),(26,'y','y','y','yt','y','y',NULL,'0',1,NULL),(27,'sdf','df','sdf','sdf','sd','df',NULL,'0',1,NULL),(28,'erg','rge','reg','erf','er','rge',NULL,'0',3,NULL),(29,'reg','rg','rg','rg','rg','rg',NULL,'0',3,NULL),(30,'re','rg','erg','erg','erg','rg',NULL,'0',1,NULL),(31,'erg','erg','erg','erg','erg','erg',NULL,'0',1,NULL),(32,'dv','sd','s','s','s','sd',NULL,'0',3,NULL),(33,'DFBDFB','BBF','DFB','DFB','BDFBDFF','BBF',NULL,'0',1,NULL),(34,'n,g','gmh','fgm','fgmj','gf','fgmj',NULL,'0',1,NULL),(35,'f','sdf','dsf','sdf','sdf','sdf',NULL,'1',1,NULL),(36,'ef','ef','ewf','efw','wef','ef','wef','1',2,NULL),(37,'th','df','dfg','fg','dfg','df','dfg','1',1,'undefined'),(38,'rt','rty','ert','rty','ert','rty','ert','1',1,'undefined'),(39,'g','sdfgg','sdg','g','sdg','sdfgg','sdg','1',1,'undefined'),(40,'dsf','sdf','dsf','sdf','dsf','sdf','sdf','1',1,'null'),(41,'ryj','gdfj','jg','gjf','gfj','gdfj','j','1',1,'null'),(42,'sdg','sd','g','sdg','g','sd','sd','1',1,'null'),(43,'dfh','sdfg','dfg','df','dfg','sdfg','dfg','1',2,'null'),(44,'dfh','h','dfh','fdh','fh','h','fh','1',1,'null'),(45,'df','sdfa','sdf','sdf','asdf','sdfa','sdf','1',2,'null'),(46,'sdfg','fb','bfd','dfb','dfb','fb','fdb','1',3,'null'),(47,'rth','thr','thr','th','rth','thr','thr','1',1,'undefined'),(48,'fg','fgh','ghf','ghf','gfh','fgh','gh','1',1,'undefined'),(49,'asdf','asdf','sdf','sdf','asdf','asdf','dsf','1',2,'[object Object]'),(50,'er','wer','er','er','wer','wer','erw','1',2,'[object Object]'),(51,'t','uik','k','k','k','uik','k','1',1,'[object Object]'),(52,'ERG','RG','RGE','ERG','ERG','RG','ERG','1',1,'[object Object]'),(53,'sdfg','sdf','sdf','sdf','sdf','sdf','sdf','1',1,'[object Object]'),(54,'r','r','r','r','r','r','r','1',2,'[object Object]'),(55,'y','yj','jy','yj','yj','yj','yj','1',2,'[object Object]'),(56,'rtv','rte','re','ert','ert','rte','ert','1',2,'Screenshot from 2023-03-16 18-07-06.png'),(57,'fgfd','df','dfb','dfb','dfb','df','dfb','1',1,'Screenshot from 2023-03-17 17-34-12.png'),(58,'yt','t','rg','ergw','th','t','','1',1,'Screenshot from 2023-03-16 09-14-12.png'),(59,'rgergergerg','ergerge','ergergerg','ergergerg','ergergergerg','ergerge','ergergergerg','1',2,'null'),(60,'jhrt','hr','th','rth','rth','hr','thr','1',1,'null');
+INSERT INTO `questions` VALUES (25,'ef','rg','g','gr','r','g','','1',1,''),(28,'erg','rge','reg','erf','er','rge',NULL,'1',3,NULL),(31,'erg','erg','erg','erg','erg','erg',NULL,'1',1,NULL),(157,'h','th','thrth','rthhrth','hrthth','th','','1',1,''),(167,'fgbfrhb  eifgwerugtbergerbgerbnh  rgefergoijeroiger goigsdoigopweg woigwengwe fgweopfgnweg wgopw gwelkgweopg weglowe gwelogweog w fbnbnhnrtdn gtnfrn','bfgnerthv n rt aertnhgn g rtnrgnfg gnrgnv gtnrgt fgnfgnfgndfgnfgnfgnfgnfgnfgnfgnfgnfgnfgnfgnfgn','gnfgnfgnfgn','fgnfgnfgnfgfgn','fgnfgnfgn','bfgnerthv n rt aertnhgn g rtnrgnfg gnrgnv gtnrgt fgnfgnfgndfgnfgnfgnfgnfgnfgnfgnfgnfgnfgnfgnfgn','','1',2,''),(168,'ghfgh','fgh','fghf','fghh','fghgh','fgh','','0',2,''),(169,'ghfgh','fghfghhgh','fgh','fghfghfgh','ghfghfg','fghfghhgh','gh','1',2,''),(170,'ghfghdfghf','dfghdfgh','fghdfgh','fdghdfghfg','hdfghdfgh','dfghdfgh','fgh','1',4,''),(171,'g','fh','fhf','fs','sg','fh','','1',1,''),(172,'hfh','fhf','fh','fhh','ddhdh','fh','','1',1,''),(173,'fh cbnlksdf bd gherfhwefrkhhrthertkhfr bdfoijderopghd fodfighjdfgb dfboidfbjdfopbjdfpbdfjbodfbdfbdfbdfbdfbdfbdfb v xccccccccccccccccccccc xxxxxxxxxxxxv xxxxxxxxxxxxxxxxxxxxxxxxxx','ytiytirytnurytuirytyu6','hdfh','dfhd','dfhfdhdf','ytiytirytnurytuirytyu6','','1',1,''),(174,'therth','h','th','e','ge','h','','1',3,''),(175,'fhf','s','ssgj','asd','qw','qw','','1',1,''),(176,'Find the output of the following program.','erf','ffe','w','wf','erf','','1',2,'Screenshot from 2023-04-06 09-04-19.png');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -340,7 +340,7 @@ CREATE TABLE `user_login` (
 
 LOCK TABLES `user_login` WRITE;
 /*!40000 ALTER TABLE `user_login` DISABLE KEYS */;
-INSERT INTO `user_login` VALUES (1,'vivek@gmail.com','$2a$10$08cN.ONjh9sON9HBiUtgPeTtsyIvh3S2r9C6SwRMWZdRQp5BVq2Aa','1','1','2023-03-24 03:55:44'),(2,'vivek.jalondhara.23@gmail.com','$2a$10$YiaRY3NTMqHv1OuN2raLIuQwInYmrDmCoXBBF3GmXE1VkkvGVsXWG','1','1','2023-03-27 09:38:39'),(3,'admin@gmail.com','$2a$10$LpQpXt7j07KR9k7.xewH5uZjC1LOes2yuOPh39pM05dvnZoRvjFRa','1','1','2023-03-27 09:41:18'),(4,'manoj.bajiya.2023@gmail.com','$2a$10$DFelC5jCBWHnJBnOFM7O/umYokmvgJ2hT2ZPlp2MH4Fy8hVMc1nQ2','1','1','2023-03-27 09:42:02'),(5,'kartik.modi.023@gmail.com','$2a$10$GS/thVqyXw7BHn77IyFMlOpL58ISkOViyVmDKE.JI.GuKDYTFRDrm','1','1','2023-03-27 09:45:30'),(6,'milan.chudasma.23@gmail.com ','','1','1','2023-03-27 09:47:05'),(7,'sejalyadavespark2023@gmail.com','$2a$10$sk7i6iFJH0BN8cX7.S6HYee.99oo3.og/S2puxgvnUWAJmA.ZYfqS','1','1','2023-03-27 09:48:17'),(8,'darshil.parmar.23.esparkbiz@gmail.com','$2a$10$yzcFciZN2.B9gxjHfh7hsuPRi8tU868IcfuqOiKzdFx.XZYPbltR6','1','1','2023-03-27 09:50:48'),(9,'teamdelta@gmail.com','$2a$10$QLPDD2GY0S3WVfTs1aII9eEdqn6pAFeCI8GLG8ulfdGAe8Wmilu8O','1','1','2023-03-27 09:52:06');
+INSERT INTO `user_login` VALUES (1,'vivek@gmail.com','$2a$10$2BgXb/yBl9kDfufNS0jWpeYUZ.Mq.w1yxnrTlEhoN/u.XqrmV/pa.','1','1','2023-03-24 03:55:44'),(2,'vivek.jalondhara.23@gmail.com','$2a$10$YiaRY3NTMqHv1OuN2raLIuQwInYmrDmCoXBBF3GmXE1VkkvGVsXWG','1','1','2023-03-27 09:38:39'),(3,'admin@gmail.com','$2a$10$LpQpXt7j07KR9k7.xewH5uZjC1LOes2yuOPh39pM05dvnZoRvjFRa','1','1','2023-03-27 09:41:18'),(4,'manoj.bajiya.2023@gmail.com','$2a$10$DFelC5jCBWHnJBnOFM7O/umYokmvgJ2hT2ZPlp2MH4Fy8hVMc1nQ2','1','1','2023-03-27 09:42:02'),(5,'kartik.modi.023@gmail.com','$2a$10$GS/thVqyXw7BHn77IyFMlOpL58ISkOViyVmDKE.JI.GuKDYTFRDrm','1','1','2023-03-27 09:45:30'),(6,'milan.chudasma.23@gmail.com ','','1','1','2023-03-27 09:47:05'),(7,'sejalyadavespark2023@gmail.com','$2a$10$sk7i6iFJH0BN8cX7.S6HYee.99oo3.og/S2puxgvnUWAJmA.ZYfqS','1','1','2023-03-27 09:48:17'),(8,'darshil.parmar.23.esparkbiz@gmail.com','$2a$10$yzcFciZN2.B9gxjHfh7hsuPRi8tU868IcfuqOiKzdFx.XZYPbltR6','1','1','2023-03-27 09:50:48'),(9,'teamdelta@gmail.com','$2a$10$QLPDD2GY0S3WVfTs1aII9eEdqn6pAFeCI8GLG8ulfdGAe8Wmilu8O','1','1','2023-03-27 09:52:06');
 /*!40000 ALTER TABLE `user_login` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -353,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-27 18:05:32
+-- Dump completed on 2023-04-06 10:06:25
