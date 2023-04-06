@@ -75,9 +75,19 @@ const logout=async(req,res)=>{
   res.redirect('/');
 }
 const fetch_api = async(req,res) => {
-    var email = req.body.email;
-  // let testAccount = nodemailer.createTestAccount();
-  var otp = generateOTP();
+  var email = req.body.email;
+  let testAccount = nodemailer.createTestAccount();
+  
+  var sql = `SELECT email FROM exam_system.user_login;`;
+  let [emailArray] = await db.execute(sql);
+  let flag =false;
+  for(let i=0;i<emailArray.length;i++){
+    if(emailArray[i].email==email){
+      flag=true;
+      break;
+    }
+  }
+    var otp = generateOTP();
 //   const transporter = nodemailer.createTransport({
 //       service: 'gmail',
 //       host: 'smtp.gmail.com',
@@ -119,7 +129,7 @@ const fetch_api = async(req,res) => {
 // }));
   
   req.session.email=email;
-  res.json({otp});
+  res.json({otp,flag});
 }
 
 const updatePassword = async (req, res) => {

@@ -1,4 +1,5 @@
 var otp;
+var flag;
 async function clickFetch() {
     var email = document.getElementById("email").value;
     var otp_get = document.getElementById("otp");
@@ -13,21 +14,30 @@ async function clickFetch() {
         }).then(res => res.json())
         .then(data => {
             otp = data.otp;
-           otp_get.innerHTML = otp; 
+            flag=data.flag;
+            if(flag == false ){
+                otp_get.innerHTML = "Email is Not valid"; 
+                document.getElementById('otp').style.color="red";
+            }else{
+                otp_get.innerHTML = otp; 
+
+            }
         })
 }
-
 function validOtp() {
-
+    
     var enterOtp = document.getElementById("enterOtp").value;
-
-    if (otp == enterOtp) {
+   
+     if (otp == enterOtp) {
         document.getElementById("password_lable").innerHTML = "";
         document.getElementById("submitAll").disabled = false;
-    } else {
-        document.getElementById("password_lable").innerHTML = "Otp is not same"
-        document.getElementById("password_lable").style.color = "red";
-        document.getElementById("submitAll").disabled = true;
+    } else  {
+        if(flag == true){
+            document.getElementById("password_lable").innerHTML = "Otp is not same"
+            document.getElementById("password_lable").style.color = "red";
+            document.getElementById("submitAll").disabled = true;
+        }
+        
     }
 
 }
