@@ -17,9 +17,9 @@
     <%- include('header'); -%>
         <div class="main-container">
             <%- include('nav'); -%>
-                <div class="main">
+                <div class="main"  >
                    
-                    <div class="form">
+                    <div class="form" style="overflow-x:auto;" >
                         <div class="searchbar">
                             <input type="text" name="search" id="search" placeholder="Search" onkeyup="search(this.value)">
                             <div class="searchbtn">
@@ -28,7 +28,7 @@
                         </div>
                         
                         <form action="/edit" method="post">
-                            <table id="mytable" align="center">
+                            <table id="mytable" align="center" >
                                 <tbody id="tbody">
 
                                     <tr>
