@@ -242,12 +242,7 @@ display: inline-block;
 #page{
     cursor: pointer;
     display: flex;
-    flex-direction: row;
-    /* display: inline-block; */
-   
-    /* border: 1px solid black; */
-    
-    
+    flex-direction: row;   
 }
 #page p{
         cursor: pointer;
@@ -259,5 +254,17 @@ display: inline-block;
     
 }
 .p{
-    margin: 0px 10px;
+    display: inline-block;
+    cursor: pointer;
+    color: rgb(44, 112, 112);
+    background-color: beige;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px;
+}
+.cancel{
+    padding: 10px;
+    background-color: #328d8d;
+    border-radius: 10px;
+    color: #a3a9b7;
 }

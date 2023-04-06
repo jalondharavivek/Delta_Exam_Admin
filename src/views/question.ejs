@@ -8,7 +8,7 @@
     <title>Question</title>
     <link rel="stylesheet" href="/css/dashboard.css">
 
-    <link rel="stylesheet" type="text/css" href="/css/question.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/question.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
@@ -61,10 +61,9 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Category</th>
-                                        <th>Question</th>
+                                        <th >Category</th>
+                                        <th >Question</th>
                                         <th>Answer</th>
-                                        <th>view </th>
                                         <th>Action</th>
 
                                     </tr>
@@ -74,10 +73,10 @@
                                     <% let id=1 %>
                                         <% for(var i=0 ; i < data.length ; i++) { %>
                                             <tr>
-                                                <td class="width-td">
+                                                <td  class="width-td">
                                                     <%= id++ %>
                                                 </td>
-                                                <td class="width-td">
+                                                <td class="width-tdc">
                                                     <%= data1[i].category_name%>
                                                 </td>
                                                 <td class="question-width">
@@ -87,13 +86,12 @@
                                                 <td class="answercolor">
                                                     <%=data[i].answer%>
                                                 </td>
-                                                <td>
-                                                    <a href="viewdetail?question_id=<%= data[i].question_id %>"><i
-                                                            style="color: rgb(20, 20, 20);" class="fa fa-eye"
-                                                            aria-hidden="true"></i>
-                                                    </a>
-                                                </td>
+                                               
                                                 <td class="button-width">
+                                                    <a href="viewdetail?question_id=<%= data[i].question_id %>"><i
+                                                        style="color: rgb(20, 20, 20);" class="fa fa-eye"
+                                                        aria-hidden="true"></i>
+                                                </a>
                                                     <a
                                                         href="/question/editquestion?question_id=<%= data[i].question_id %>"><i
                                                             class="fas fa-edit"></i></a>

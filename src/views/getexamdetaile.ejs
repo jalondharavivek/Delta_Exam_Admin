@@ -29,7 +29,7 @@
         <%for(var i=0;i<data.length;i++){%>
             <tr>
             <td><%=data[i].category_name%></td>
-            <td><a href="viewquestionresult?id=<%=data[i].category_id%>" id="<%=data[i].category_name%>">View</a></td>
+            <td><a href="viewquestionresult?id=<%=data[i].category_id%>&userid=<%=userid%>" id="<%=data[i].category_name%>">View</a></td>
             </tr>
         <%}%>
         

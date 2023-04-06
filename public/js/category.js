@@ -7,14 +7,14 @@ function cat_status()
         sts.forEach(e => {
             if (e.innerHTML == '0') {
                 e.innerHTML = 'DISABLE';
-                e.style.color = 'rgb(0,90,190)';
-                // e.style.backgroundColor = 'rgb(0,90,190)';
+                e.style.color = 'White';
+                e.style.backgroundColor = 'rgb(0,90,190)';
             }
             else  if(e.innerHTML == '1')
             {
                 e.innerHTML = 'ENABLE';
-                e.style.color = 'rgb(0,140,0)';
-                // e.style.backgroundColor = 'rgb(0,140,0)';
+                e.style.color = 'White';
+                e.style.backgroundColor = 'rgb(0,140,0)';
             }
         })
     }

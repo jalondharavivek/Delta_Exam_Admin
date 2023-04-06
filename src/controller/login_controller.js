@@ -1,35 +1,7 @@
-const express = require('express');
-var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var db = require('../connection/mysql');
-const sessions = require('express-session');
-var cookie = require('cookie-parser');
-var utils = require('util');
-let bodyParser = require('body-parser')
-const flash = require('connect-flash');
+require('../connection/module');
 var nodemailer = require('nodemailer');
-const path = require('path')
-const app = express();
-app.use(express.static('public'));
-const ejs = require('ejs');
-const { signedCookie } = require('cookie-parser');
-const { Console } = require('console');
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/public/assets/image'));
-app.use(express.static(__dirname + ''));
-app.set('view engine', 'ejs');
-
-app.use(cookie());
-app.use(flash());
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
-app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, '/public')))
-
 
 const admin_login = (req, res) => {
     res.render("../src/views/login.ejs")
@@ -40,6 +12,7 @@ const login = async(req, res) => {
     var password = req.body.password;
     var selectUser = `SELECT email,password,user_login_status,user_id,role from user_login where email = '${email}'`;
     var [userData] = await db.query(selectUser);
+    
     if (userData.length == 0) {
       res.send("email and password is not match");
     } else {
@@ -51,6 +24,7 @@ const login = async(req, res) => {
         }else {
             req.session.user = email;
             req.session.user_id = user_id;
+            
             res.redirect('dashboard');
         }
     }
@@ -101,10 +75,19 @@ const logout=async(req,res)=>{
   res.redirect('/');
 }
 const fetch_api = async(req,res) => {
-    var email = req.body.email;
+  var email = req.body.email;
   let testAccount = nodemailer.createTestAccount();
-  var otp = generateOTP();
-  console.log("otp", otp);
+  
+  var sql = `SELECT email FROM exam_system.user_login;`;
+  let [emailArray] = await db.execute(sql);
+  let flag =false;
+  for(let i=0;i<emailArray.length;i++){
+    if(emailArray[i].email==email){
+      flag=true;
+      break;
+    }
+  }
+    var otp = generateOTP();
 //   const transporter = nodemailer.createTransport({
 //       service: 'gmail',
 //       host: 'smtp.gmail.com',
@@ -146,7 +129,7 @@ const fetch_api = async(req,res) => {
 // }));
   
   req.session.email=email;
-  res.json({otp});
+  res.json({otp,flag});
 }
 
 const updatePassword = async (req, res) => {

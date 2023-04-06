@@ -42,6 +42,7 @@
                                         <th>Sr .No</th>
                                         <th>exam_name</th>
                                         <th>category</th>
+                                        <th>access code</th>
                                         <th>total_questions</th>
                                         <th>time_limit</th>
                                         <th>start date</th>
@@ -65,7 +66,17 @@
                                             </td>
                                             <td>
                                                 <div class="td">
-                                                    <%=data1[i].category_name%>
+                                                    <%for (j = 0; j < data3.length; j++) {%>
+                                                        <%if (data1[i].exam_id == data3[j].exam_id) {%>
+                                                          <%=data3[j].category_name%>,
+                                                       <% }%>
+                                                   <% }%>
+                                                   
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="td">
+                                                    <%=data1[i].exam_access_code%>
                                                 </div>
                                             </td>
                                             <td>
@@ -86,12 +97,12 @@
                                             <td>
                                                 <div id="toggle<%=data1[i].exam_id%>" style="cursor: pointer;">
                                                     <p class="btn" id="<%=data1[i].exam_id%>"
-                                                        onclick="toggle(`<%=data1[i].exam_status%>`,`<%=data1[i].exam_id%>`,`<%=(new Date(data1[i].exam_date).toLocaleDateString())%>`)"><%=data1[i].exam_status%></p>
+                                                        onclick="toggle(`<%=data1[i].exam_status%>`,`<%=data1[i].exam_id%>`,`<%=(new Date(data1[i].exam_date).toLocaleDateString())%>`)" class="status"><%=data1[i].exam_status%></p>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="edit" style="cursor: pointer;">
-                                                    <!-- <a href="/edit?exam_id=<%=data1[i].exam_id%>">edit</a> -->
+                                                   
                                                     <p onclick="examedit(`<%=data1[i].exam_id%>`)"
                                                         style="cursor: pointer;">edit</p>
                                                 </div>
@@ -124,7 +135,7 @@
 
                     </div>
 
-                </div>
+                </div><input type="button" value="">
         </div>
 
         </div>

@@ -30,7 +30,7 @@
             <tr>
             <td><%=i+1%></td>
             <td><%=data[i].exam_name%></td>
-            <td><a href="/getexamdetaile?id=<%= data[i].exam_id %>" id="<%= data[i].exam_id %>">View</a></td>
+            <td><a href="/getexamdetaile?id=<%= data[i].exam_id %>&userid=<%=id%>" id="<%= data[i].exam_id %>">View</a></td>
             </tr>
         <%}%>
        </tbody>

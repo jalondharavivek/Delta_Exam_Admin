@@ -6,7 +6,6 @@ let tbody = document.getElementById('tbody');
 async function page(num, count1) {
  
     fetch(`/result/page?num=${num}`).then(res => res.json()).then(data => {
-        console.log(data)
         tbody.innerHTML = "";
         for (i = 0; i < data.data.length; i++) {
             tbody.innerHTML += `<tr>
