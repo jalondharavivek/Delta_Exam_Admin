@@ -114,9 +114,9 @@ try{
 const viewdetail = async(req,res)=>{
   try{
     let viewid = req.query.question_id
-  let viewq = `select a.question_text,a.question_id,a.option_a,a.option_b,a.option_c,a.option_d,a.description,a.question_image,a.answer,a.category_id,b.category_name from questions as a join category as b on a.category_id = b.category_id where a.question_id = ${viewid} AND a.question_status = '1' `
+  let viewq = `select a.question_text,a.question_id,a.option_a,a.option_b,a.option_c,a.option_d,a.description,a.question_image,a.answer,a.category_id,b.category_name from questions as a join category as b on a.category_id = b.category_id where a.question_id = ${viewid}  `
   let viewsql = `select * from questions where question_id = ${viewid}`
-  let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${viewid}' and question_status='1' `)
+  let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${viewid}'  `)
   let [viewques] = await db.query(viewq);
 
  
@@ -132,7 +132,7 @@ const editquestionget = async(req,res)=>{
    
     let editquesql = `select * from  questions  where question_id = ${id}`;
     let [editques] = await db.query(editquesql);
-    let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${id}' and question_status='1' `)
+    let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${id}'  `)
     let catque = `select * from category where category_status = 1`
     let [catfque1] = await db.execute(catque);
     res.render("../src/views/editquestion", { data: editques , data1: catfque1 , data2:category})
