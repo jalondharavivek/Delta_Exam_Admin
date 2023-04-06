@@ -14,7 +14,7 @@ async function valid_email(email1) {
         .then(data => {
             flag = data.flag; 
             if(flag==false){
-                document.getElementById("password_lable").innerHTML = "Entered email is not registered yet"
+               
                 document.getElementById("password_lable").style.color = "red";
                 document.getElementById("submitAll").disabled = true;
             }
