@@ -67,15 +67,11 @@
                                             <td>
                                                 <%=student[i].address%>
                                             </td>
-
                                             <td>
-
                                                 <div id="toggle<%=student[i].student_id%>">
                                                     <p class="btnn" id="status" id="<%=student[i].student_id%>" 
                                                         onclick="toggle('<%=student[i].student_status%>','<%=student[i].student_id%>')"><%=student[i].student_status%></p>
                                                 </div>
-
-
                                             </td>
                                             
                                             <td>
@@ -89,7 +85,6 @@
                                             </td>
                                             
                                                 <td><%= (new Date(student[i].created_date).toLocaleDateString()) %></td>
-
                                            
                                             <td>
                                                 <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=<%=student[i].student_id%>">

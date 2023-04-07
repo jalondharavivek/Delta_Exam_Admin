@@ -37,7 +37,6 @@ function togglecolorchnage() {
 
 function toggle(status, id, date) {
 
-   
     let togglediv = document.getElementById(`toggle${id}`);
     let toggle_id = document.getElementById(`${id}`);
 
@@ -47,37 +46,40 @@ function toggle(status, id, date) {
     let datearr = date1.split("/");
     let current_datearr = today.split("/");
 
-  
-
     if (parseInt(datearr[2]) < parseInt(current_datearr[2])) {
-       
+        toogleftech();
+
         togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: white; cursor: pointer; background-color: red; display: inline-block; padding: 5px; border-radius: 4px;">DISABLE</p>`;
     } else if (parseInt(datearr[2]) == parseInt(current_datearr[2])) {
-        
+
         if (parseInt(datearr[1]) < parseInt(current_datearr[1])) {
-           
+            toogleftech();
+
             togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: white; cursor: pointer; background-color: red; display: inline-block; padding: 5px; border-radius: 4px;">DISABLE</p>`;
 
         } else if (parseInt(datearr[1]) == parseInt(current_datearr[1])) {
-          
+
             if (parseInt(datearr[0]) < parseInt(current_datearr[0])) {
-               
+                toogleftech();
+
+
                 togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('0','${id}','${date}')" style="color: white; cursor: pointer; background-color: red; display: inline-block; padding: 5px; border-radius: 4px;">DISABLE</p>`;
 
             } else if (parseInt(datearr[0]) == parseInt(current_datearr[0])) {
-               
                 toogleftech();
+
+                togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('1','${id}','${date}'  )" style="color: white; cursor: pointer; background-color: blue; display: inline-block; padding: 5px; border-radius: 4px;">ENABLE</p>`;
+
             } else {
-               
                 toogleftech();
             }
         } else {
-            
+
 
             toogleftech();
         }
     } else {
-        
+
 
         toogleftech();
     }
@@ -308,6 +310,7 @@ async function addexam() {
 
 }
 function validateform() {
+   
     let exam_name = document.getElementById('exam_name').value;
     let question = document.getElementById('question').value;
     let start_date = document.getElementById('start_date').value
@@ -358,7 +361,7 @@ function examSearch(curpage) {
     let exam_search = document.getElementById('exam_search');
 
     fetch(`/exam/search?exam_name=${search}&&num=${curpage}`).then(res => res.json()).then(data => {
-        
+
         tbody.innerHTML = "";
         let str = "";
         str += ` <tr>

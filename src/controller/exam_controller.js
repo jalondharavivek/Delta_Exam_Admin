@@ -1,3 +1,4 @@
+const { consolidate } = require('views');
 const con = require('../connection/mysql');
 var db = require('../connection/mysql');
 require('../connection/module');
@@ -64,7 +65,7 @@ const post_edit = async function (req, res) {
 
       let [data3] = await db.execute(sql3);
 
-      let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${data3[0].category_name}',user_id='${req.session.user_id}' where exam_id=${exam_id};`;
+      let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',user_id='${req.session.user_id}' where exam_id=${exam_id};`;
       let [data1] = await db.execute(sql1);
 
       let sql4 = `select count(exam_category_id) as numrows  from exam_category where exam_id = '${exam_id}' `;
@@ -103,7 +104,7 @@ const post_edit = async function (req, res) {
 
       let categories = strcat.substring(0, strcat.length - 2);
 
-      let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',category_name='${categories}',user_id='${req.session.user_id}' where exam_id=${exam_id};`;
+      let sql1 = `update exam set exam_name='${exam}',total_questions='${question}',exam_time='${time}',exam_date='${start_date}',user_id='${req.session.user_id}' where exam_id=${exam_id};`;
       let [data1] = await db.execute(sql1);
 
 
@@ -208,6 +209,8 @@ const examlist = async (req, res) => {
     let [data3] = await db.execute(sql3);
 
 
+
+
     res.render("../src/views/examlist", { data1, count, curpage, data3 });
   } catch (err) {
     res.send(err);
@@ -302,36 +305,61 @@ const examstatus = async (req, res) => {
   try {
     let status = req.query.status;
     let id = req.query.id;
+
     let date = req.query.date
     let current_date = moment().format('DD/MM/YYYY');
     let datearr = date.split('/');
     let current_datearr = current_date.split('/');
 
-   
 
     if (parseInt(datearr[2]) < parseInt(current_datearr[2])) {
 
-      sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
-      let [data1] = await db.execute(sql1);
-      res.send(data1)
-
-    } else if (parseInt(datearr[2]) == parseInt(current_datearr[2])) {
-
-      if (parseInt(datearr[1]) < parseInt(current_datearr[1])) {
+      if (status == '1') {
 
         sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
         let [data1] = await db.execute(sql1);
+
         res.send(data1)
+      }
+
+
+    } else if (parseInt(datearr[2]) == parseInt(current_datearr[2])) {
+
+
+      if (parseInt(datearr[1]) < parseInt(current_datearr[1])) {
+
+        if (status == '1') {
+
+          sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+          let [data1] = await db.execute(sql1);
+
+          res.send(data1)
+        }
+
 
       } else if (parseInt(datearr[1]) == parseInt(current_datearr[1])) {
 
+
         if (parseInt(datearr[0]) < parseInt(current_datearr[0])) {
-          sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
-          let [data1] = await db.execute(sql1);
-          res.send(data1)
+
+          if (status == '1') {
+
+            sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
+            let [data1] = await db.execute(sql1);
+
+            res.send(data1)
+          }
 
         } else if (parseInt(datearr[0]) == parseInt(current_datearr[0])) {
-          await tooglefetch();
+
+          if (status == '0') {
+
+            sql1 = `update exam set exam_status = 1 where exam_id='${id}' `
+            let [data1] = await db.execute(sql1);
+
+            res.send(data1)
+          }
+
         } else {
           await tooglefetch();
         }
@@ -343,6 +371,7 @@ const examstatus = async (req, res) => {
     }
 
     async function tooglefetch() {
+
       if (status == '1') {
 
         sql1 = `update exam set exam_status = 0 where exam_id='${id}' `
@@ -355,10 +384,6 @@ const examstatus = async (req, res) => {
         res.send(data1)
       }
     }
-
-
-
-   
   } catch (err) {
     res.send(err)
   }
@@ -384,7 +409,6 @@ const examsearch = async (req, res) => {
 
       let offset = (page - 1) * limit;
 
-
       if (isNaN(offset)) {
         offset = 0;
       }
@@ -405,8 +429,6 @@ const examsearch = async (req, res) => {
 
       let sql3 = `select a.exam_name,b.category_name,a.exam_id from exam a, category b , exam_category c where a.exam_id = c.exam_id and b.category_id = c.category_id;`;
       let [data3] = await db.execute(sql3);
-
-
 
       res.json({ data1, curpage, limit, count1, data5, data3 });
 
@@ -431,7 +453,7 @@ const examlistpage = async (req, res) => {
     sql2 = `select count(*) as numrows from exam ;`;
     let [data2] = await db.execute(sql2);
 
-    count = Math.ceil(data2[0].numrows / limit);
+    let count = Math.ceil(data2[0].numrows / limit);
 
     sql1 = `select * from exam limit ${offset},${limit};`;
     let [data1] = await db.execute(sql1);
@@ -439,6 +461,7 @@ const examlistpage = async (req, res) => {
 
     let sql3 = `select a.exam_name,b.category_name,a.exam_id from exam a, category b , exam_category c where a.exam_id = c.exam_id and b.category_id = c.category_id;`;
     let [data3] = await db.execute(sql3);
+
 
 
     res.json({ count, data1, curpage, data3 });

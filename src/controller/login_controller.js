@@ -1,7 +1,31 @@
+const express = require('express');
 var bcrypt = require('bcryptjs');
 var db = require('../connection/mysql');
-require('../connection/module');
+const path = require('path');
+const sessions = require('express-session');
+const app = express();
+app.set("view engine", "ejs");
+var bodyParser=require('body-parser');
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+
+app.use('/uploads', express.static('uploads'));
+
+app.use(express.static('public'));
+
+app.use(express.static(path.join(__dirname, '/public/')));
+
 var nodemailer = require('nodemailer');
+
+require("dotenv").config( '../../.env' );
+app.use(sessions({
+      secret: process.env.SECRET_KEY,
+      saveUninitialized: true,
+      resave: false,
+      cookie: {
+          maxAge: 1000 * 60 * 60 * 24, 
+      },
+  }));
 
 const admin_login = (req, res) => {
     res.render("../src/views/login.ejs")
@@ -58,10 +82,6 @@ const dashboard = async(req,res) =>{
   }
 }
 
-
-
-
-
 const setpassword = async(req,res) => {
 
     res.redirect('/login');
@@ -74,11 +94,26 @@ const logout=async(req,res)=>{
   req.session.destroy();
   res.redirect('/');
 }
+const emailValid=async(req,res)=>{
+  var email=req.body.email1;
+  var sql = `SELECT email FROM exam_system.user_login where role=1;`;
+  let [emailArray] = await db.execute(sql);
+  let flag =false;
+  for(let i=0;i<emailArray.length;i++){
+    if(emailArray[i].email==email){
+      flag=true;
+      break;
+    }
+  }
+ 
+  res.json({flag});
+
+}
 const fetch_api = async(req,res) => {
   var email = req.body.email;
   let testAccount = nodemailer.createTestAccount();
   
-  var sql = `SELECT email FROM exam_system.user_login;`;
+  var sql = `SELECT email FROM exam_system.user_login where role=1;`;
   let [emailArray] = await db.execute(sql);
   let flag =false;
   for(let i=0;i<emailArray.length;i++){
@@ -146,7 +181,7 @@ var email = req.session.email;
   var updateResult = await db.query(updateQuery)
   res.redirect("/");
 }
-module.exports = {admin_login,login,forget,dashboard,setpassword,post_setpassword,fetch_api,updatePassword,post_updatePassword,logout};
+module.exports = {admin_login,login,forget,dashboard,setpassword,post_setpassword,fetch_api,updatePassword,post_updatePassword,logout,emailValid};
 
 function generateOTP() {
 
