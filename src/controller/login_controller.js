@@ -1,7 +1,31 @@
+const express = require('express');
 var bcrypt = require('bcryptjs');
 var db = require('../connection/mysql');
-require('../connection/module');
+const path = require('path');
+const sessions = require('express-session');
+const app = express();
+app.set("view engine", "ejs");
+var bodyParser=require('body-parser');
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+
+app.use('/uploads', express.static('uploads'));
+
+app.use(express.static('public'));
+
+app.use(express.static(path.join(__dirname, '/public/')));
+
 var nodemailer = require('nodemailer');
+
+require("dotenv").config( '../../.env' );
+app.use(sessions({
+      secret: process.env.SECRET_KEY,
+      saveUninitialized: true,
+      resave: false,
+      cookie: {
+          maxAge: 1000 * 60 * 60 * 24, 
+      },
+  }));
 
 const admin_login = (req, res) => {
     res.render("../src/views/login.ejs")
