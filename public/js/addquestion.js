@@ -7,7 +7,6 @@ const option_b = document.getElementById("option_b");
 const option_c = document.getElementById("option_c");
 const option_d = document.getElementById("option_d");
 const selectbox = document.getElementById("correct_option");
-console.log(option_a,":;;optiona")
 
 option_a.addEventListener("input", updateSelectBox);
 option_b.addEventListener("input", updateSelectBox);
@@ -40,7 +39,6 @@ function updateSelectBox() {
 function enabledisableinputbox() {
   const comboboxcategory = document.getElementById("category");
   const allrInputbox = document.querySelectorAll(".all-inputbox");
-  console.log("rgerderyerye")
   if (comboboxcategory.value) {
     allrInputbox.forEach(input => {
           input.disabled = false;
@@ -57,14 +55,11 @@ function enabledisableinputbox() {
 
 function validatequestion(){
   try{
-    console.log("SDswdfsdrgtwer")
     var cateoption = document.getElementById("category").value
   var questiont1 = document.getElementById("question_text").value;
   var questiont = questiont1.trim()
-  console.log(questiont,"::::: :que")
   var optiona1 = document.getElementById("option_a").value;
  var  optiona = optiona1.trim()
-  console.log(questiont)
   var optionb1 = document.getElementById("option_b").value;
    var optionb = optionb1.trim()
   var optionc1 = document.getElementById("option_c").value;

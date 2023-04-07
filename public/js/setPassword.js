@@ -1,7 +1,6 @@
 function validateForm() {
     var password = document.getElementById("password").value;
     var confirm = document.getElementById('confirm').value;
-    console.log(password, confirm);
 
     if (password != confirm) {
         alert("Passwords do not match")

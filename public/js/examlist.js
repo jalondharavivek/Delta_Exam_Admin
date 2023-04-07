@@ -71,7 +71,6 @@ function toggle(status, id, date) {
                 togglediv.innerHTML = `<p class="btn" id="${id}" onclick="toggle('1','${id}','${date}'  )" style="color: white; cursor: pointer; background-color: blue; display: inline-block; padding: 5px; border-radius: 4px;">ENABLE</p>`;
 
             } else {
-                console.log()
                 toogleftech();
             }
         } else {
