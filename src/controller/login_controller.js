@@ -4,23 +4,23 @@ var bcrypt = require('bcryptjs');
 var db = require('../connection/mysql');
 const sessions = require('express-session');
 var cookie = require('cookie-parser');
-var utils = require('util');
+// var utils = require('util');
 let bodyParser = require('body-parser')
-const flash = require('connect-flash');
+// const flash = require('connect-flash');
 var nodemailer = require('nodemailer');
 const path = require('path')
 const app = express();
 app.use(express.static('public'));
 const ejs = require('ejs');
 const { signedCookie } = require('cookie-parser');
-const { Console } = require('console');
+// const { Console } = require('console');
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public/assets/image'));
 app.use(express.static(__dirname + ''));
 app.set('view engine', 'ejs');
 
 app.use(cookie());
-app.use(flash());
+// app.use(flash());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
@@ -119,7 +119,7 @@ const fetch_api = async(req,res) => {
 //           accessToken: 'ya29.a0AVvZVsrBfRsp1sK8vyLlLCu_XRKaJBc0kk99E2JeUtrQhhEQOYtPNukeg9gwCq-RUTVR01UM24RgTOGYN8DmNPSNdX-b-mG4Ys4RCIIBmPsg9Wk6BudImI4NN-a79XHbZ1J4vl4KLP01JeQnJUwgSQsGkZ2iQlEaCgYKAToSARMSFQGbdwaIVujzQJMyKZbe0PbdSr0VYQ0166',
 //       }
 //   });
-60
+
 //   let info = transporter.sendMail({
 //       from: 'hello <darshil.parmar.23.esparkbiz@gmail.com>', // sender address
 //       to: email, // list of receivers
