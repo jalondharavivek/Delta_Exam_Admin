@@ -34,7 +34,7 @@
                                       </div>
                                       <div class="div">
 
-                                        <input type="email" id="email" name="email" class="form-control form-control-lg" oninput="valid_email(this.value)" placeholder="Enter Your Email" required />
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg" onchange="valid_email(this.value);" placeholder="Enter Your Email" required />
                                         <p id="email_valid"></p>
                                     </div>
                                 </div>
@@ -49,10 +49,9 @@
                                         <input type="text" id="enterOtp" onchange="validOtp()" name="password" class="form-control form-control-lg" placeholder="Enter Otp" required />
                                         <p id="password_lable"></p>
                                         <p id="otp"></p>
+                                       
                                     </div>
                                 </div>
-
-
                                     
                                         <input type="button" class="btn" onclick='clickFetch()' id="sendBtn" class="btn btn-warning btn-lg ms-2" value="Get Otp">
                                         <input type="submit" class="btn" id="submitAll" class="btn btn-warning btn-lg ms-2" value="Next">

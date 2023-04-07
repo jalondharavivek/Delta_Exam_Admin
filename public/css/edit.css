@@ -21,7 +21,7 @@ input[type=submit]{
 }
 .form{
     margin: 40px;
-    padding-right: 790px;
+    padding-right: 40rem;
     border-color: bisque;
     border-width: 4px;
     background-color: white;
@@ -43,7 +43,7 @@ select , option {
     width: 70%;
 }
 .lastinputtag{
-  padding-left: 120px;
+    padding: 10px 120px;
 }
 
 p{
