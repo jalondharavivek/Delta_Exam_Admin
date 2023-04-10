@@ -141,12 +141,11 @@ async function viewquestionresult(category, id,exam)
     }
 }
 
-async function searchstudent(results,id)
+async function searchstudent(results)
 {
     try
     {
         let search_value = results;
-        let user_id = id;
         const result = await fetch(`/search`, {
             method: "POST",
             headers: {
@@ -163,14 +162,21 @@ async function searchstudent(results,id)
                         <th>Student Name</th>
                         <th>Action</th>
                     </tr>`
-        let no = 0;
-        data.query.forEach(e => {
-            design += `<tr>
-                            <td>${no++}</td>
-                            <td>${e.name}</td>
-                            <td><a onclick="companylist(this.id)" id="${e.user_id}">View</a></td>
-                        </tr>`
-        })
+        let no = 1;
+        if(data.query.length !=0)
+        {
+            data.query.forEach(e => {
+                design += `<tr>
+                                <td>${no++}</td>
+                                <td>${e.name}</td>
+                                <td><a onclick="companylist(this.id)" id="${e.user_id}">View</a></td>
+                            </tr>`
+            })
+        }
+        else
+        {
+            design += '<tr><td colspan=3>No record found</td></tr>';
+        }
         table.innerHTML = design;
     }
     catch(err)
@@ -178,92 +184,3 @@ async function searchstudent(results,id)
         console.log(err);
     }
 }
-
-async function search_exam(results,id)
-{
-    try
-    {
-        let user_id = id;
-        let search_value = results;
-        const result = await fetch(`/search_exam`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ search_value, user_id}),
-        });
-        var data = await result.json();
-        let table = document.getElementById("MyTable");
-        table.innerHTML = '';
-        let design = '';
-        design += `<tr>
-                        <th>No</th>
-                        <th>Exam Name</th>
-                        <th>Action</th>
-                    </tr>`
-        let no = 0;
-        data.query.forEach(e => {
-            design += `<tr>
-                            <td>${no++}</td>
-                            <td>${e.name}</td>
-                            <td><a onclick="companylist(this.id)" id="${e.user_id}">View</a></td>
-                        </tr>`
-        })
-        table.innerHTML = design;
-    }
-    catch(err)
-    {
-        console.log(err);
-    }
-}
-
-
-// async function page(num, count1) {
- 
-//     fetch(`/result/page?num=${num}`).then(res => res.json()).then(data => {
-//         tbody.innerHTML = "";
-//         for (i = 0; i < data.data.length; i++) {
-//             tbody.innerHTML += `<tr>
-//             <td>
-//                 ${i + 1}
-//             </td>
-//             <td>
-//                 ${data.data[i].name}
-//             </td>
-//             <td><a href="/companylist?id=${data.data[i].user_id}" id="${data.data[i].user_id}">View</a></td>
-//         </tr>`
-//         }
-//         page1.innerHTML = "";
-
-//         if (num == 1) {
-//             page1.innerHTML += `<p onclick="page(1,${count1})" class="p">prev</p>`
-
-//         } else {
-//             page1.innerHTML += `<p onclick="page(${num}-1,${count1})" class="p">prev</p>`
-
-//         }
-
-//         for (i = 1; i <= count1; i++) {
-//             if (i == num) {
-//                 page1.innerHTML += `<p onclick="page(${i},${count1})" class="p"><b>${i}</b></p>`
-//             } else {
-//                 page1.innerHTML += `<p onclick="page(${i},${count1})" class="p">${i}</p>`
-//             }
-//         }
-
-
-//         if (num == count1) {
-
-//             page1.innerHTML += `<p onclick="page(${count1},${count1})" class="p">next</p>`
-
-//         } else if (num < count1) {
-
-//             page1.innerHTML += `<p onclick="page(${num}+1,${count1})" class="p">next</p>`;
-//         }
-
-
-
-//     }).catch(err => console.log(err));
-
-// }
-

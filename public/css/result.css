@@ -103,3 +103,8 @@ tbody tr:nth-child(odd)
 {
     display: flex;
 }
+
+a
+{
+    cursor: pointer;
+}
