@@ -59,13 +59,10 @@ route.post('/question/questionpage',auth,question.questionpage)
 
 
 route.get('/result',auth,result.studentlist);
-route.get('/result/page',auth,result.studentlistpage);
 route.get('/companylist',auth,result.companylist);
-route.get('/companylist/page',auth,result.companylistpage);
-route.get('/getexamdetaile',auth,result.getexamdetaile);
-route.get('/getexamdetaile/page',auth,result.getexamdetailepage);
-route.get('/viewquestionresult',auth,result.viewquestionget);
-route.get('/viewquestionresult/page',auth,result.viewquestiongetpage);
+route.get('/getexamdetail',auth,result.getexamdetail);
+route.post('/viewquestionresult',auth,result.viewquestionget);
+route.post('/search',auth,result.search);
 
 route.get('/user',auth,user.user);
 route.post('/userpage',auth,user.userpage);

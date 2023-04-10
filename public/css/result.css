@@ -47,8 +47,11 @@ tbody tr:nth-child(odd)
     justify-content: space-evenly;
     margin: 0px;
 }
-.back{
+.link
+{
     margin-top: 40px;
+}
+.back{
     outline: none;
     border: none;
     padding: 10px 20px;
@@ -76,4 +79,27 @@ tbody tr:nth-child(odd)
 
 }
 
+.ans
+{
+    display: flex;
+    justify-content: space-between;
+    font-size: x-large;
+}
 
+.search
+{
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: space-between;
+}
+
+#search
+{
+    text-align: center;
+    border-radius: 40px;
+}
+
+.div-search
+{
+    display: flex;
+}
