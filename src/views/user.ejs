@@ -100,7 +100,7 @@
                     <div class="page">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination" id="pagination"> 
-                            <li class="page-item"><a class="page-link" id="0" onclick='page(this)'>First</a></li>
+                            <li class="page-item"><a class="page-link " id="0" onclick='page(this)'>First</a></li>
                             <% if(parseInt(page) <=5) { %>
                                 <% for(let i=1;i<=parseInt(page);i++) { %>
                                     <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
