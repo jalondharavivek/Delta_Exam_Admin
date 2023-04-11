@@ -43,9 +43,9 @@ const viewquestionget = async (req, res) => {
 
   try {
    
-    var id = req.body.category_id;
+    var id = req.body.exam_id;
     var user_id = req.body.user_id;
-    let sql = `select b.question_id ,question_text,answer,user_answers from questions a,user_answers b where a.question_id=b.question_id AND a.category_id=${id} AND b.user_id=${user_id}`;
+    let sql = `select b.question_id ,question_text,answer,user_answers from questions a,user_answers b where a.question_id=b.question_id AND b.exam_id=${id} AND b.user_id=${user_id}`;
     let [query] = await db.query(sql);
     res.json({ query});
   } catch (err) {
