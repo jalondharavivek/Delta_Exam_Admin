@@ -6,7 +6,6 @@ async function companylist(list)
 {
     try
     {
-        console.log(list);
         let results = document.getElementById("result");
         results.innerHTML = "Exams";
         let id = list;
@@ -24,7 +23,7 @@ async function companylist(list)
             tbl += `<tr>
                         <td>${sid++}</td>
                         <td>${e.exam_name}</td>
-                        <td><a onclick="getexamdetail(${e.exam_id},${id})" id="${e.exam_id}">View</a></td>
+                        <td><a onclick="viewquestionresult(${e.exam_id},${id})" id="${e.exam_id}">View</a></td>
                     </tr>`;
         });
         table.innerHTML=tbl;
@@ -42,61 +41,60 @@ async function companylist(list)
     }
 }
 
-async function getexamdetail(exam, id)
-{
-    try
-    { 
-        let results = document.getElementById("result");
-        results.innerHTML = "Category";
-        let user_id = id;
-        let exam_id = exam;
-        let table = document.getElementById('MyTable');
-        let result = await fetch(`/getexamdetail?id=${exam_id}`);
-        let data = await result.json();
-        table.innerHTML='';
-        let sid = 1;
-        let tbl = `<tr>
-                    <th>No</th>
-                    <th>Category</th>
-                    <th>Action</th> 
-                    </tr>`;
-        data.query.forEach(e => {
-            tbl += `<tr>
-                        <td>${sid++}</td>
-                        <td>${e.category_name}</td>
-                        <td><a onclick="viewquestionresult(${e.category_id},${user_id},${exam_id})" id="${e.exam_id}">View</a></td>
-                    </tr>`;
-        });
-        document.getElementById('answer').innerHTML="";
-        document.getElementById('obtained_answer').innerHTML="";
-        table.innerHTML=tbl;
-        let back = document.getElementById("back");
-        back.innerHTML = "Back";
-        back.removeAttribute('href');
-        back.setAttribute('onclick',`companylist(${user_id})`);
-    }
-    catch(err)
-    {
-        console.log(err);
-    }
-}
+// async function getexamdetail(exam, id)
+// {
+//     try
+//     { 
+//         let results = document.getElementById("result");
+//         results.innerHTML = "Category";
+//         let user_id = id;
+//         let exam_id = exam;
+//         let table = document.getElementById('MyTable');
+//         let result = await fetch(`/getexamdetail?id=${exam_id}`);
+//         let data = await result.json();
+//         table.innerHTML='';
+//         let sid = 1;
+//         let tbl = `<tr>
+//                     <th>No</th>
+//                     <th>Category</th>
+//                     <th>Action</th> 
+//                     </tr>`;
+//         data.query.forEach(e => {
+//             tbl += `<tr>
+//                         <td>${sid++}</td>
+//                         <td>${e.category_name}</td>
+//                         <td><a onclick="viewquestionresult(${exam_id},${user_id})" id="${exam_id}">View</a></td>
+//                     </tr>`;
+//         });
+        // document.getElementById('answer').innerHTML="";
+        // document.getElementById('obtained_answer').innerHTML="";
+        // table.innerHTML=tbl;
+        // let back = document.getElementById("back");
+        // back.innerHTML = "Back";
+        // back.removeAttribute('href');
+        // back.setAttribute('onclick',`companylist(${user_id})`);
+//     }
+//     catch(err)
+//     {
+//         console.log(err);
+//     }
+// }
 
-async function viewquestionresult(category, id,exam)
+async function viewquestionresult(exam, id)
 {
     try
     {
         let results = document.getElementById("result");
         results.innerHTML = "Questions";
-        let category_id = category;
-        let user_id = id;
         let exam_id = exam;
+        let user_id = id;
         let table = document.getElementById('MyTable');
         const result = await fetch(`/viewquestionresult`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ category_id, user_id}),
+            body: JSON.stringify({ exam_id, user_id }),
         });
         var data = await result.json();
         table.innerHTML='';
@@ -111,8 +109,8 @@ async function viewquestionresult(category, id,exam)
             tbl += `<tr>
                         <td>${sid++}</td>
                         <td>${e.question_text}</td>
-                        <td>${e.answer}</td>
-                        <td>${e.user_answers}</td>
+                        <td class="answer">${e.answer}</td>
+                        <td class="uans">${e.user_answers}</td>
                     </tr>`;
         });
         table.innerHTML=tbl;
@@ -120,20 +118,34 @@ async function viewquestionresult(category, id,exam)
         data.query.forEach(e =>{
             ans1 = e.answer;
             ans2 = e.user_answers;
-            if(ans1.localeCompare(ans2) !=0 ){
+            var answer = document.getElementsByClassName('answer');
+            var uans = document.getElementsByClassName('uans');
+            for(var i = 0; i < answer.length; i++) {
+                if(answer[i].innerHTML == uans[i].innerHTML)
+                {
+                    uans[i].style.color = "green";
+                    uans[i].style.fontSize = "20px";
+                    uans[i].style.fontWeight = "200px";
+                }
+                else
+                {
+                    uans[i].style.color = "Red";
+                    
+                }
+            }
+            if(ans1 == ans2 ){
                 count++;
             }
         })
         let answer = document.getElementById('answer');
         answer.innerHTML="Total Marks:"+data.query.length;
         let obtained_answer = document.getElementById('obtained_answer');
-        let total = data.query.length-count;
-        obtained_answer.innerHTML="Achived Marks:"+total;
+        obtained_answer.innerHTML="Achived Marks:"+count;
 
         let back = document.getElementById("back");
         back.innerHTML = "Back";
         back.removeAttribute('href');
-        back.setAttribute('onclick',`getexamdetail(${exam_id},${user_id})`);
+        back.setAttribute('onclick',`companylist(${user_id})`);
     }
     catch(err)
     {
