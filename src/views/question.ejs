@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="/css/dashboard.css">
 
     <link rel="stylesheet" type="text/css" href="/public/css/question.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/addquestion.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
@@ -33,24 +34,24 @@
 
 
 
-                    <div class="content-main">
+                    <div class="content-main" id="mainadd" >
                         <!-- <div class="content-heading">Question Table </div> -->
 
                         <div class="button-card">
                             <!-- class="retrive-que" -->
-                            <div><a class="button" onclick="retriveque()">Retrive que</a></div>
+                            <div><a class="buttonque" onclick="retriveque()">Retrive que</a></div>
                             <div class="searchbarclass">
                                 <!-- class="searchbar-que" -->
                                 <div class="quesearchbar">
                                     <div>
-                                        <input class="searchbar-que" placeholder="search" type="text"
+                                        <input class="searchbar-que1" placeholder="search" type="text"
                                             onkeyup="searchque(this.value)" name="search" id="search">
                                     </div>
 
                                 </div>
                                 <!-- class="exam-button-row" -->
                                 <div>
-                                    <a class="button" href="/addquestion">Add Que</a>
+                                    <a class="buttonque" onclick="addquestionajax()">Add Que</a>
                                 </div>
                             </div>
                         </div>
@@ -88,13 +89,11 @@
                                                 </td>
                                                
                                                 <td class="button-width">
-                                                    <a href="viewdetail?question_id=<%= data[i].question_id %>"><i
+                                                    <a onclick="queviewajax(`<%= data[i].question_id %>`)" ><i
                                                         style="color: rgb(20, 20, 20);" class="fa fa-eye"
                                                         aria-hidden="true"></i>
                                                 </a>
-                                                    <a
-                                                        href="/question/editquestion?question_id=<%= data[i].question_id %>"><i
-                                                            class="fas fa-edit"></i></a>
+                                                    <a onclick="editquestionajax(`<%= data[i].question_id %>`)"><i class="fas fa-edit"></i></a>
                                                     <a id="deletquesid"
                                                         onclick="deletquestion(`<%= data[i].question_id %>`)"><i
                                                             class="fa fa-trash" aria-hidden="true"></i></a>

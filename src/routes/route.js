@@ -46,7 +46,7 @@ route.post('/updatePassword',login.post_updatePassword);
 route.get('/logout',login.logout);
 
 route.get('/question',auth,question.question)
-route.get('/addquestion',auth,question.addquestion)
+route.get('/question/addquestion',auth,question.addquestion)
 route.post('/addquestion',auth,question.upload.single('image'),question.addquestionpost)
 route.get('/viewdetail',auth,question.viewdetail)
 route.get('/question/editquestion',auth,question.editquestionget)

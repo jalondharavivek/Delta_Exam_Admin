@@ -57,7 +57,7 @@ tbody tr:hover {
     cursor: pointer;
 
 }
-.searchbar-que{
+.searchbar-que1{
     margin-top: -5px;
 margin-right: 10px;
 }
@@ -111,7 +111,7 @@ margin-right: 10px;
     margin: 0px 0px 10px;
     cursor: pointer;
 }
-.button {
+.buttonque {
     padding: 10px;
     background-color: #5498c5;
     color: #ffffff;
@@ -121,7 +121,7 @@ margin-right: 10px;
     width: 80px;
 }   
 
-.searchbar-que{
+.searchbar-que1{
     height: 40px;
     border-radius:  30px;
     font-size: 15px;
@@ -211,4 +211,35 @@ margin-right: 645px;
     align-items: center;
    
     
+}
+/* view question css */
+p {
+    padding: 7px;
+}
+
+.form-containerview {
+    border: 1px black solid;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.questionno {
+    color: black;
+    font-weight: bold;
+}
+.edit-btn{
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding-top: 10px;
+}
+
+.edit-btn {
+    background-color: #2980b9;
+    color: #fff;
+}
+.quesans{
+    margin-bottom: 15px;
 }
