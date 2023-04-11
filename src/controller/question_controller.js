@@ -66,16 +66,16 @@ const addquestion = async(req,res)=>{
     let catque = `select * from category where category_status = 1`
   let [catfque] = await db.execute(catque);
  
-  res.render("../src/views/addquestion", { data: catfque });
+  res.send({ data: catfque });
 }catch(err){
-  err
+  if(err) throw err;
 }
 }
 
 const addquestionpost = async(req,res)=>{
 try{
-    var category_id = req.body.category;
-    
+  var category_id = req.body.category;
+  
     var question_text1 = req.body.question_text;
     var question_text = question_text1.trim()
     var option_a1 = req.body.option_a;
@@ -87,22 +87,25 @@ try{
     var option_d1 = req.body.option_d;
     var option_d = option_d1.trim()
     var answer1 = req.body.answer;
- var answer = answer1.trim()
+    var answer = answer1.trim()
     var description1 = req.body.description
     var description = description1.trim()
     const image = req.file? req.file.filename : "";
-
-  
+    
+    
     var addquestionquery = `insert into questions(question_text,option_a,option_b,option_c,option_d,answer,category_id,question_status,description,question_image) values('${question_text}','${option_a}','${option_b}','${option_c}','${option_d}','${answer}','${category_id}','1','${description}','${image}')`;
+   
     
   
     let execute = await db.execute(addquestionquery);
+   
     if (execute.length) {
       
     }
+    
   
   
-   
+  
     res.redirect("/question");
 
   }catch(err){
@@ -120,7 +123,7 @@ const viewdetail = async(req,res)=>{
   let [viewques] = await db.query(viewq);
 
  
-  res.render("../src/views/viewquestion", { data : viewques , data1:category});
+  res.send( { data : viewques , data1:category});
   }catch(err){
     err
   }
@@ -135,7 +138,7 @@ const editquestionget = async(req,res)=>{
     let [category] = await db.query(`select category_name,a.category_id from category a,questions b where a.category_id=b.category_id and question_id='${id}'  `)
     let catque = `select * from category where category_status = 1`
     let [catfque1] = await db.execute(catque);
-    res.render("../src/views/editquestion", { data: editques , data1: catfque1 , data2:category})
+    res.send({ data: editques , data1: catfque1 , data2:category})
     }catch(err){
       err
     }
@@ -175,6 +178,7 @@ const editquestionpost = async(req,res)=>{
   }catch(err){
     console.log(err)
   }
+  
   }
 
 
