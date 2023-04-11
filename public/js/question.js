@@ -301,7 +301,7 @@ editquev += ` <div class="form-container">
               <input type="hidden" name="question_id"  value="${dataqedit.data[0].question_id}">
              <label for="quiz">cateories:</label>
              <select id="category" class ="designcss" name="category">
-              <option value="${dataqedit.data2[0].category_name}" disabled >${dataqedit.data2[0].category_name}</option>`
+              <option value="${dataqedit.data2[0].category_name}" selected disabled >${dataqedit.data2[0].category_name}</option>`
               for(i=0 ; i< dataqedit.data1.length ; i++){
                 editquev += ` <option value="${dataqedit.data1[i].category_id}">
                              ${dataqedit.data1[i].category_name}

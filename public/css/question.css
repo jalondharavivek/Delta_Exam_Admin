@@ -100,6 +100,7 @@ margin-right: 10px;
     display: flex;
     justify-content: end;
     gap : 20px;
+    cursor: pointer;
 }
 
 .add-link .add
@@ -169,6 +170,7 @@ ul
     background-color: rgb(111, 108, 116);
     padding: 10px;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .page
