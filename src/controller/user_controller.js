@@ -33,7 +33,8 @@ const userpage = async (req, res) => {
   try {
 
 
-    let sql = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,a.city,b.state_name,c.college_name 
+    let sql = `select a.created_date,a.student_id,a.name,a.email,a.contact,a.gender,a.address,a.student_status,
+    a.city,b.state_name,c.college_name 
     from student a, state b, colleges c where a.state_id=b.state_id and a.college_id=c.college_id `;
 
 

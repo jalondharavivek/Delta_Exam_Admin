@@ -13,138 +13,107 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
 <link rel="icon" type="image/webp" href="../public/assets/image/browser head.webp">
 
-
-
 <body>
-
-
-
   <%- include('header'); -%>
 
+
     <div class="main-container">
+      <!--nav bar add-->
+
       <%- include('nav'); -%>
         <div class="main">
-          <div class="form">
 
-            <form action="/update" method="post" class="editform" name="Form" onsubmit="return validateForm()">
+          <div class="content-main">
 
 
-              <div class="inputtag">
+            <div class="form-container">
+              <h2>update student information</h2>
+
+              <form action="/update" method="post" class="editform" name="Form" onsubmit="return validateForm()">
                 <input type="hidden" name="student_id" id="student_id" readonly value="<%=student2[0].student_id%>">
-              </div>
-              <tr>
-                <div class="inputtag">
-                  <td><label for="name">Name:</label></td>
-                  <td><input type="text" oninput="validateForm()" id="name" name="name" value="<%=student2[0].name%>"
-                      required>
-                    <p id="pname"></p>
-                  </td>
 
-                </div>
-              </tr>
+                <label for="name">Name :</label>
+                <td><input type="text" oninput="validateForm()" id="name" name="name" value="<%=student2[0].name%>"
+                    required>
+                  <p id="pname"></p>
 
 
-
-              <tr>
-                <div class="inputtag">
-                  <td><label for="contact">Contact:</label></td>
-                  <td><input type="text" oninput="validateForm()" id="contact" name="contact"
-                      value="<%=student2[0].contact%>" required>
-                    <p id="pcontact"></p>
-                  </td>
-
-                </div>
-              </tr>
+                  <label for="contact">Contact :</label>
+                  <input type="text" oninput="validateForm()" id="contact" name="contact"
+                    value="<%=student2[0].contact%>" required>
+                  <p id="pcontact"></p>
 
 
-              <tr>
-                <div class="inputtag">
-                  <% if(student2[0].gender=='Male' ){%>
-                    <label for="gender">Gender:</label>
-                    <input type="radio" id="male" name="gender" value="Male" checked />
-                    <label for="male">Male</label>
-                    <input type="radio" id="female" name="gender" value="Female" />
-                    <label for="female">Female</label>
-                    <input type="radio" id="other" name="gender" value="Other" />
-                    <label for="female">Other</label>
-                    <%} else if(student2[0].gender=='Female' ){%>
+                  <div class="gender">
+                    <% if(student2[0].gender=='Male' ){%>
                       <label for="gender">Gender:</label>
-                      <input type="radio" id="male" name="gender" value="Male" />
+                      <input type="radio" id="male" name="gender" value="Male" checked />
                       <label for="male">Male</label>
-                      <input type="radio" id="female" name="gender" value="Female" checked />
+                      <input type="radio" id="female" name="gender" value="Female" />
                       <label for="female">Female</label>
                       <input type="radio" id="other" name="gender" value="Other" />
                       <label for="female">Other</label>
-                      <%} else { %>
+                      <%} else if(student2[0].gender=='Female' ){%>
                         <label for="gender">Gender:</label>
                         <input type="radio" id="male" name="gender" value="Male" />
                         <label for="male">Male</label>
-                        <input type="radio" id="female" name="gender" value="Female" />
+                        <input type="radio" id="female" name="gender" value="Female" checked />
                         <label for="female">Female</label>
-                        <input type="radio" id="other" name="gender" value="Other" checked/>
+                        <input type="radio" id="other" name="gender" value="Other" />
                         <label for="female">Other</label>
-                        <% } %><br>
+                        <%} else { %>
+                          <label for="gender">Gender:</label>
+                          <input type="radio" id="male" name="gender" value="Male" />
+                          <label for="male">Male</label>
+                          <input type="radio" id="female" name="gender" value="Female" />
+                          <label for="female">Female</label>
+                          <input type="radio" id="other" name="gender" value="Other" checked />
+                          <label for="female">Other</label>
+                          <% } %><br>
+                  </div>
 
-                </div>
-              </tr>
 
-              <tr>
-                <div class="inputtag">
-                  <td><label for="address">Address:</label></td>
-                  <td><input type="text" oninput="validateForm()" id="address" name="address"
-                      value="<%=student2[0].address%>" required>
-                    <p id="paddress"></p>
-                  </td>
+                  <label for="address">Address :</label>
+                  <input type="text" oninput="validateForm()" id="address" name="address"
+                    value="<%=student2[0].address%>" required>
+                  <p id="paddress"></p>
 
-                </div>
-              </tr>
+                  <label for="college">college :</label>
+                  <select name="col" id="col">
+                  </select>
+                  <label for="state">state :</label>
+                  <select name="state" id="state">
 
-              <tr>
-                <div class="inputtag">
-                  <td><label for="college">college:</label></td>
-                  <td><select name="col" id="col">
-                    </select></td>
-                </div>
-              </tr>
+                    <%for(i=0 ;i<state.length ;i++){%>
+                      <%if(state[i].state_id==student2[0].state_id){%>
 
-              <div class="inputtag">
-                <label for="state">state :</label>
-                <select name="state" id="state">
-
-                  <%for(i=0 ;i<state.length ;i++){%>
-                    <%if(state[i].state_id==student2[0].state_id){%>
-
-                      <option value="<%=state[i].state_id%>" selected>
-                        <%=state[i].state_name%>
-                      </option>
-                      <%}else{%>
-                        <option value="<%=state[i].state_id%>">
+                        <option value="<%=state[i].state_id%>" selected>
                           <%=state[i].state_name%>
                         </option>
+                        <%}else{%>
+                          <option value="<%=state[i].state_id%>">
+                            <%=state[i].state_name%>
+                          </option>
 
-                        <%}}%>
-                </select>
-              </div>
+                          <%}}%>
+                  </select>
+                  <label for="state">city :</label>
+                  <select name="city" id="city">
+                  </select>
+                  <div class="btns">
+                    <input type="submit" value="Submit" class="submit_btn">
+                    <button class="cancelbutton">
+                      <a href="/user">cancel</a>
+                    </button>
+                  </div>
 
+              </form>
 
-              <div class="inputtag">
-                <label for="state">city :</label>
-                <select name="city" id="city">
-                </select>
-              </div>
-
-              <div class="lastinputtag">
-                <input type="submit" value="Submit">
-                <a class="cancelbutton" href="/user">cancel</a>
-              </div>
-            </form>
-
-
+            </div>
           </div>
         </div>
+
     </div>
-
-
 </body>
 
 <script src="/js/user.js"></script>

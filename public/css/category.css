@@ -201,7 +201,7 @@ ul
 
 .pagination a:hover:not(.pageactive) 
 {
-    background-color: cornflowerblue !important;
+    background-color: #4f4f50 !important;
 }
 
 .category-search input
