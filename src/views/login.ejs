@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Login</title>
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link  rel="icon"  type="image/webp"  href="../public/assets/image/browser head.webp">
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="img">
+			<img src="/assets/image/BG.jpg">
+		</div>
+		<div class="login-content">
+            <form method="post" action="/login" id="frm">
+             
+				<img src="/assets/image/key.png">
+                <h3>Admin Login</h3> 
+				<h2 class="title"></h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email" name="email" required />
+                                        <p id="email_valid"></p>
+
+                                    </div>
+                                </div>
+                                <div class="input-div pass">
+                                   <div class="i"> 
+                                        <i class="fas fa-lock"></i>
+                                   </div>
+
+                                   <div class="div">
+                                        <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" name="password" required />
+                                        <p id="password_lable"></p>
+
+                                    </div>
+                                </div>
+                                                <label class="" for="form3Example8"> <a href="/forget"> Forget Password ? </a></label>
+
+                                        <input type="submit" class="btn" id="submitAll" onclick="return validatePassword(event)" class="btn btn-warning btn-lg ms-2" value="Login">
+                                    </div>
+                                </div>     
+                             
+</body>
+<script src="/js/activation.js"></script>
+<script src="/js/setPassword.js"></script>
+<script src="/js/validEmail.js"></script>
+</html>

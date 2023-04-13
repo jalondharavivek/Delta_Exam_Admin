@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <link  rel="icon"  type="image/webp"  href="../public/assets/image/browser head.webp">
+</head>
+
+
+<body>
+    <%- include('header'); -%>
+        <div class="main-container">
+            <%- include('nav'); -%>
+                <div class="main"  style="overflow-x:auto;" >
+                   
+                    <div class="form"  >
+                        <div class="searchbar">
+                            <input type="text" name="search" id="search" placeholder="Search" onkeyup="search(this.value)">
+                            <div class="searchbtn">
+                                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png" class="icn srchicn" alt="search-button">
+                            </div>
+                        </div>
+                        
+                        <form action="/edit" method="post">
+                            <table id="mytable" align="center" >
+                                <tbody id="tbody">
+
+                                    <tr>
+                                        <th>S_id</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Contact</th>
+                                        <th>Gender</th>
+                                        <th>Address</th>
+                                        <th>Status</th>
+                                        <th>State</th>
+                                        <th>City</th>
+                                        <th>College_id</th>
+                                        <th>Created_date</th>
+                                        <th>Action</th>
+
+                                    </tr>
+
+                                    <%for(let i=0; i<student.length; i++) {%>
+                                        <tr>
+                                            <td>
+                                                <%=(i+1)%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].name%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].email%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].contact%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].gender%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].address%>
+                                            </td>
+                                            <td>
+                                                <div id="toggle<%=student[i].student_id%>">
+                                                    <p class="btnn" id="status" id="<%=student[i].student_id%>" 
+                                                        onclick="toggle('<%=student[i].student_status%>','<%=student[i].student_id%>')"><%=student[i].student_status%></p>
+                                                </div>
+                                            </td>
+                                            
+                                            <td>
+                                                <%=student[i].state_name%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].city%>
+                                            </td>
+                                            <td>
+                                                <%=student[i].college_name%>
+                                            </td>
+                                            
+                                                <td><%= (new Date(student[i].created_date).toLocaleDateString()) %></td>
+                                           
+                                            <td>
+                                                <a id="editbutton" class="edit-btn fas fa-edit" href="/edit/:id=<%=student[i].student_id%>">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <%}%>
+                                </tbody>
+                          
+                        </form><br>
+                    </table>
+                    </div>
+                    <div class="page">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="pagination"> 
+                            <li class="page-item"><a class="page-link " id="0" onclick='page(this)'>First</a></li>
+                            <% if(parseInt(page) <=5) { %>
+                                <% for(let i=1;i<=parseInt(page);i++) { %>
+                                    <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                            <% } } else { %>
+                                <% for(let i=(parseInt(page)-5);i<=parseInt(page);i++){ %>
+                                    <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                <% } %>
+                            <% } %>
+                            <% if(Math.ceil((total)/(limit))-5 >= (page)) { %>
+                                <% for(let i=parseInt(page)+1;i<=parseInt(page)+5;i++){ %>
+                                    <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                <% } %>
+                            <% } else { %>
+                                <% for(let i=parseInt(page)+1;i<=Math.ceil(parseInt(total)/parseInt(limit));i++) { %>
+                                    <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= i %>"><%= i %></a></li>
+                                <% } %>
+                            <% } %>
+                            <li class="page-item"><a class="page-link" onclick="page(this)" id="<%= Math.ceil(total/limit) %>">Last</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                   
+                </div>
+                
+        </div>
+
+        
+</body>
+<script src="/js/dashboard.js"></script>
+<script src="/js/user.js"></script>
+
+
+
+
+
+</html>
