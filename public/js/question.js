@@ -133,6 +133,7 @@ async function searchque(quesearch) {
     let queresult = await fetch(`/searchque?nameque=${quesearch}`);
     let datas = await queresult.json();
     let id=1
+    let page = document.getElementById("pagination");
     let tabque = document.getElementById("quetable")
     let quetabsearch = `  <thead> <tr>
                              <th>Id</th>
@@ -174,10 +175,10 @@ async function searchque(quesearch) {
 
 
       }
+      
     }
     tabque.innerHTML = quetabsearch;
-    let page = document.getElementById('page');
-    page.innerHTML='';
+   
 
   } catch (err) {
     console.log(err)
@@ -441,8 +442,8 @@ addquestiona += `<div class="form-container">
             <textarea class="all-inputbox designcss" id="question_text" name="question_text" rows="3" disabled  ></textarea>
             <span class="validationcolo " id="question_textid"></span>
             <label for="Image">Image</label>
-            <input class="all-inputbox" type="file" id="image" name="image" disabled >
-
+            <input class="all-inputbox" type="file" id="image-add" name="image" disabled >
+            <span class="validationcolor " id="image-span"></span>
             <label for="option_a">Option A:</label>
             <input class="all-inputbox designcss" type="text" id="option_a_add" oninput="answer_input()" name="option_a" disabled >
 
@@ -514,6 +515,9 @@ function validatequestion(){
     var cateoption = document.getElementById("category").value
   var questiont1 = document.getElementById("question_text").value;
   var questiont = questiont1.trim()
+  var inputElement = document.getElementById('image-add');
+ var filePath = inputElement.value;
+ var allowedExtensionsRegx = /(\.jpg|\.jpeg|\.png|\.gif)$/;
   var optiona1 = document.getElementById("option_a_add").value;
  var  optiona = optiona1.trim()
   var optionb1 = document.getElementById("option_b_add").value;
@@ -542,6 +546,17 @@ var optionc = optionc1.trim()
   }else{
     document.getElementById("question_textid").innerHTML = ""
 }
+//file upload validation extensition 
+if(filePath == "" || filePath == null){
+  document.getElementById("image-span").innerHTML = " "
+}
+        else if(!allowedExtensionsRegx.exec(filePath)){
+          document.getElementById("image-span").innerHTML = "*Please upload file having extensions .jpeg/.jpg/.png/.gif only  "
+           return  false;
+          
+        }else{
+          document.getElementById("image-span").innerHTML = " "
+        }  
 //option a validation
 if (optiona == "" || optiona == null){
 document.getElementById("option_a_id").innerHTML = "*Enter Option A "
@@ -581,8 +596,8 @@ if (optiond == "" || optiond == null){
      document.getElementById("sameoption").innerHTML = ""
  }
 
+  
 }
-
 catch(err){
   err
 }
