@@ -205,6 +205,7 @@ const searchget = async(req,res)=>{
     let limit=parseInt(req.query.limit)||10;
     let startindex=(page-1)*limit;
     let endindex=page*limit-startindex;
+    
     let sqlque = `select * from questions where question_status = '1'`
     
     let name1 = req.query.nameque;
@@ -224,8 +225,8 @@ const searchget = async(req,res)=>{
     err
   }
   }
-
-
+// datas  = data done page == page done total done limit done 
+//data: questiontab, pages :pagesearch ,data1 : quecatexecute , page : page, total: resultque[0].total, limit: limit
 
 
 ///retrive question (deleted questiob)
