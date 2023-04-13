@@ -176,7 +176,8 @@ async function searchque(quesearch) {
       }
     }
     tabque.innerHTML = quetabsearch;
-
+    let page = document.getElementById('page');
+    page.innerHTML='';
 
   } catch (err) {
     console.log(err)
