@@ -60,7 +60,6 @@ route.post('/question/questionpage',auth,question.questionpage)
 
 route.get('/result',auth,result.studentlist);
 route.get('/companylist',auth,result.companylist);
-route.get('/getexamdetail',auth,result.getexamdetail);
 route.post('/viewquestionresult',auth,result.viewquestionget);
 route.post('/search',auth,result.search);
 

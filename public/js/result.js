@@ -68,38 +68,34 @@ async function viewquestionresult(exam, id)
                     <th>Answer</th>
                     <th>Student answer</th>
                 </tr>`;
+        let count =0;
         data.query.forEach(e => {
             tbl += `<tr>
                         <td>${sid++}</td>
                         <td>${e.question_text}</td>
                         <td class="answer">${e.answer}</td>
-                        <td class="uans">${e.user_answers}</td>
-                    </tr>`;
+                        `;
+
+                        if(e.answer == e.user_answers)
+                        {
+                            count++;
+                            tbl += `<td class="cans">${e.user_answers}</td>
+                            </tr>`;
+                        }
+                        else if(e.user_answers == '')
+                        {
+                            console.log("manoj");
+                            tbl += `<td class="nans">Unattempted</td>
+                            </tr>`;
+                        }
+                        else if(e.answer != e.user_answers)
+                        {
+                            tbl += `<td class="wans">${e.user_answers}</td>
+                            </tr>`;
+                        }
+                        
         });
         table.innerHTML=tbl;
-        let count =0;
-        data.query.forEach(e =>{
-            ans1 = e.answer;
-            ans2 = e.user_answers;
-            var answer = document.getElementsByClassName('answer');
-            var uans = document.getElementsByClassName('uans');
-            for(var i = 0; i < answer.length; i++) {
-                if(answer[i].innerHTML == uans[i].innerHTML)
-                {
-                    uans[i].style.color = "green";
-                    uans[i].style.fontSize = "20px";
-                    uans[i].style.fontWeight = "200px";
-                }
-                else
-                {
-                    uans[i].style.color = "Red";
-                    
-                }
-            }
-            if(ans1 == ans2 ){
-                count++;
-            }
-        })
         let answer = document.getElementById('answer');
         answer.innerHTML="Total Marks:"+data.query.length;
         let obtained_answer = document.getElementById('obtained_answer');

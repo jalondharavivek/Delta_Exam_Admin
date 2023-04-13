@@ -25,20 +25,6 @@ const companylist = async (req, res) => {
   }
 }
 
-const getexamdetail = async (req, res) => {
-
-  try {
-    var id = req.query.id;
-    let sql = `select distinct a.category_id,category_name from exam_category a,category b where a.category_id=b.category_id and exam_id=${id}`;
-    let [query] = await db.query(sql);
-    res.json({ query });
-  } 
-  catch (err) {
-    res.send(err);
-  }
-
-}
-
 const viewquestionget = async (req, res) => {
 
   try {
@@ -69,4 +55,4 @@ const search = async (req,res) => {
   }
 }
 
-module.exports = { viewquestionget, getexamdetail, studentlist, companylist,search};
+module.exports = { viewquestionget, studentlist, companylist,search};

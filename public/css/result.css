@@ -108,3 +108,13 @@ a
 {
     cursor: pointer;
 }
+
+.cans
+{
+    color: green !important;
+}
+
+.wans
+{
+    color: red !important;
+}
