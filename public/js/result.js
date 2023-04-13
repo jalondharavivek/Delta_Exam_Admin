@@ -27,6 +27,8 @@ async function companylist(list)
                     </tr>`;
         });
         table.innerHTML=tbl;
+        document.getElementById('answer').innerHTML='';
+        document.getElementById('obtained_answer').innerHTML="";
         let back = document.getElementById("back");
         back.classList.add("back");
         back.innerHTML = "Back";
