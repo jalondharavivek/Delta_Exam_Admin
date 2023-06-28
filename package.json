@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -33,6 +35,8 @@
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.21",
     "path": "^0.12.7",
-    "views": "^1.0.2"
-  }
+    "views": "^1.0.2",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
